@@ -9,10 +9,18 @@ endif()
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories("engine/include")
+# Include the Libtech project
+add_subdirectory("engine/lib/libtech")
+include_directories("engine/lib/libtech/include")
 
-file(GLOB ENGINE_SOURCES "engine/src/*.cpp")
-file(GLOB ENGINE_HEADERS "engine/include/*.h")
+#include SDL
+add_subdirectory("engine/lib/SDL")
+include_directories("engine/lib/SDL/include")
+
+file(GLOB_RECURSE ENGINE_SOURCES "engine/src/*.cpp")
+file(GLOB_RECURSE ENGINE_HEADERS "engine/include/*.h")
+
+include_directories("engine/include")
 
 IF(WIN32)
     add_definitions("-D_WINDOWS")
@@ -22,16 +30,27 @@ IF(WIN32)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 ENDIF(WIN32)
 
+# Setup the Static and Shared library builds
 add_library(MICROENGINE STATIC ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 
-target_compile_definitions(MICROENGINE PRIVATE LIBTECH_EXPORTS)
-target_compile_definitions(MICROENGINED PRIVATE LIBTECH_EXPORTS)
+# Link to LIBTECH
+target_link_libraries(MICROENGINE LIBTECH)
+target_link_libraries(MICROENGINED LIBTECH)
+
+# Link to SDL
+target_link_libraries(MICROENGINE SDL2)
+target_link_libraries(MICROENGINED SDL2)
+
+# Add DEFINES to tell the engine to export functions and api
+target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)
+target_compile_definitions(MICROENGINED PRIVATE MICROENGINE_EXPORTS)
 
 # Setup the tester project
 file(GLOB TESTER_SOURCES "projects/tester/*.cpp")
 file(GLOB TESTER_HEADERS "projects/tester/*.h")
 
+# Create the EngineTester project and link it.
 add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
 target_link_libraries(EngineTester MICROENGINE)
 

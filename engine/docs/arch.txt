@@ -1,0 +1,20 @@
+Core classes overview
+
+GameEngine
+
+The GameEngine is a running game instance. The GameEngine instance provides
+the services needed to interface with the rest of the world. 
+
+Game-wise the GameEngine handles GameModule instances. Each GameModule is a 
+container for game elements, sprites and stuff. The GameModule must be 
+implemented by the game, the default GameModule class provides just the basic
+draw calls for the graphical elements in the a container.
+
+GameModule
+
+The GameModule class is just a receiver of Draw() and Update() calls from the
+engine. It must be implemented by the game developer. This allows it to draw
+game elements in whatever way it wants. A GameModule may have a List of Sprites
+and pass the Draw on each child element or it can avoid having a container and
+call the draw on member Sprite instances manually. This gives the GameModule
+full control on how the Draw/Update is propagated.

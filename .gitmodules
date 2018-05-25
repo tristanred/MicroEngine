@@ -1,0 +1,12 @@
+[submodule "engine/lib/libtech"]
+	path = engine/lib/libtech
+	url = https://github.com/tristanred/libtech.git
+[submodule "engine/lib/SDL"]
+	path = engine/lib/SDL
+	url = https://github.com/SDL-mirror/SDL.git
+[submodule "engine/lib/SDL_image"]
+	path = engine/lib/SDL_image
+	url = https://github.com/SDL-mirror/SDL_image.git
+[submodule "engine/lib/SDL_ttf"]
+	path = engine/lib/SDL_ttf
+	url = https://github.com/SDL-mirror/SDL_ttf.git

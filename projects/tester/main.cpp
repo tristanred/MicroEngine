@@ -6,6 +6,13 @@
 
 int main(int argc, char** argv)
 {
+    GameEngine* eng = new GameEngine();
+    eng->Start();
+
+    eng->Play();
+
+    return 0;
+
     write_characters("one.txt", "abcde", 5);
     write_characters("two.txt", "qwert", 5);
 
@@ -23,13 +30,13 @@ int main(int argc, char** argv)
     uint8_t* dat3 = c.ReadFileContents("two.txt", &l3);
     dat3[l3] = '\0';
 
-    printf("Data 1 Size = %d\n", l1);
+    printf("Data 1 Size = %zd\n", l1);
     printf("Data 1 = %s\n", dat1);
 
-    printf("Data 2 Size = %d\n", l2);
+    printf("Data 2 Size = %zd\n", l2);
     printf("Data 2 = %s\n", dat2);
 
-    printf("Data 3 Size = %d\n", l3);
+    printf("Data 3 Size = %zd\n", l3);
     printf("Data 3 = %s\n", dat3);
 
 

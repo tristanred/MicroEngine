@@ -2,18 +2,30 @@
 
 class GameModule;
 class ASprite;
+class ARenderer;
+
 
 #include <list>
 
 #include "core.h"
 
+#include "renderer.h"
+
 class ENGINE_CLASS GameEngine
 {
 public:
+    std::list<GameModule*>* Modules;
+
+    ARenderer* Renderer;
+
     GameEngine();
     ~GameEngine();
 
-    std::list<GameModule*>* Modules;
+    void Start();
+
+    void Play();
+    void PlayOne();
+    void PlayOneUnlocked();
 
     // TModule has to inherit from GameModule
     template <typename TModule>

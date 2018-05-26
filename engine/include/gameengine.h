@@ -32,12 +32,18 @@ public:
     TModule* CreateModule();
 
     ASprite* CreateSprite();
+
+private:
+    void Update();
+    void Draw();
+
+
 };
 
 template<typename TModule>
 TModule* GameEngine::CreateModule()
 {
-    TModule* newModule = new TModule();
+    TModule* newModule = new TModule(this);
     this->Modules->push_back(newModule);
 
     return newModule;

@@ -46,7 +46,7 @@ void SDLRenderer::Initialize()
         return;
     }
 
-    SDL_Window* mainWindow = SDL_CreateWindow("Window Title !", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+    this->mainWindow = SDL_CreateWindow("Window Title !", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 
     if (mainWindow == NULL)
     {
@@ -56,7 +56,7 @@ void SDLRenderer::Initialize()
         return;
     }
 
-    SDL_Renderer* gameRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
+    this->gameRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
 
     if (gameRenderer == NULL)
     {
@@ -99,4 +99,28 @@ void SDLRenderer::Initialize()
     //}
 
     SDL_ShowWindow(mainWindow);
+}
+
+void SDLRenderer::Draw(ARenderable* sprite)
+{
+    SDLSprite* sdlSprite = (SDLSprite*)sprite;
+
+    SDL_Rect dest;
+    dest.w = (int)sdlSprite->GetSize().Width;
+    dest.h = (int)sdlSprite->GetSize().Height;
+    dest.x = (int)sdlSprite->GetPosition().X;
+    dest.y = (int)sdlSprite->GetPosition().Y;
+
+    SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
+
+    SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+
+    SDL_RenderPresent(gameRenderer);
+}
+
+SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
+{
+    SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
+
+    return result;
 }

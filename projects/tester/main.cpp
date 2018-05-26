@@ -3,12 +3,19 @@
 #include <libtech/fsutils.h>
 
 #include <gameengine.h>
+#include <gamemodule.h>
+#include <sprite.h>
 
 int main(int argc, char** argv)
 {
     GameEngine* eng = new GameEngine();
     eng->Start();
 
+    GameModule* mod = eng->CreateModule<GameModule>();
+
+    ASprite* x = mod->CreateSprite();
+
+    
     eng->Play();
 
     return 0;

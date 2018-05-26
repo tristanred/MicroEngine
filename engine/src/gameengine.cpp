@@ -1,11 +1,13 @@
 #include "gameengine.h"
 
 #include "renderer.h"
+#include "gamemodule.h"
 
 #include <SDL2/SDL.h>
 
 GameEngine::GameEngine()
 {
+    this->Modules = new std::list<GameModule *>();
 }
 
 GameEngine::~GameEngine()
@@ -41,6 +43,8 @@ void GameEngine::Play()
 	            break;
 	        }
 	    }
+
+        this->Draw();
     }
 }
 
@@ -91,4 +95,24 @@ void GameEngine::PlayOneUnlocked()
 ASprite* GameEngine::CreateSprite()
 {
     return nullptr;
+}
+
+void GameEngine::Update()
+{
+
+}
+
+void GameEngine::Draw()
+{
+    auto begin = this->Modules->begin();
+    auto end = this->Modules->end();
+
+    while (begin != end)
+    {
+        GameModule* mod = *begin;
+
+        mod->Draw(Renderer);
+
+        begin++;
+    }
 }

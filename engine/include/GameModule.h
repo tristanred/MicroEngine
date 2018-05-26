@@ -9,13 +9,12 @@ class ARenderer;
 
 #include "core.h"
 
-class GameEngine;
 
 class ENGINE_CLASS GameModule
 {
 public:
-    GameModule(GameEngine* engine);
-    ~GameModule();
+    explicit GameModule(GameEngine* engine);
+    virtual ~GameModule();
 
     std::list<ARenderable*>* Objects;
 

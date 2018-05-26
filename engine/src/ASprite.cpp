@@ -1,4 +1,6 @@
-#include "sprite.h"
+#include "ASprite.h"
+
+#include "Geometry.h"
 
 ASprite::ASprite()
 {
@@ -11,36 +13,6 @@ ASprite::ASprite()
 
 ASprite::~ASprite()
 {
-}
-
-SDLSprite::SDLSprite() : ASprite()
-{
-
-}
-
-SDLSprite::~SDLSprite()
-{
-
-}
-
-void* SDLSprite::GetTexture()
-{
-    return tex;
-}
-
-void SDLSprite::SetTexture(SDLTexture* tex)
-{
-    this->tex = tex;
-}
-
-ARenderable::ARenderable()
-{
-
-}
-
-ARenderable::~ARenderable()
-{
-
 }
 
 FPosition ARenderable::GetPosition()

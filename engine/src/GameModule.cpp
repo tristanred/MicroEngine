@@ -1,10 +1,12 @@
-#include "gamemodule.h"
+#include "GameModule.h"
 
-#include "renderer.h"
-
-#include "sprite.h"
-#include "gameengine.h"
 #include <SDL2/SDL.h>
+
+#include "ARenderer.h"
+#include "ASprite.h"
+#include "SDL/SDLTexture.h"
+#include "SDL/SDLSprite.h"
+#include "GameEngine.h"
 
 
 GameModule::GameModule(GameEngine* engine)

@@ -4,8 +4,8 @@ class GameEngine;
 class AModule;
 class ASprite;
 
-#include "gameengine.h"
-#include "gamemodule.h"
+#include "GameEngine.h"
+#include "GameModule.h"
 
 #include <SDL2/SDL.h>
 

@@ -1,7 +1,8 @@
-#include "gameengine.h"
+#include "GameEngine.h"
 
-#include "renderer.h"
-#include "gamemodule.h"
+#include "ARenderer.h"
+#include "SDL/SDLRenderer.h"
+#include "GameModule.h"
 
 #include <SDL2/SDL.h>
 
@@ -25,24 +26,24 @@ void GameEngine::Play()
 {
     while (true)
     {
-	    SDL_Event myEvent;
-	    while (SDL_PollEvent(&myEvent)) {
-	        switch (myEvent.type)
-	        {
-	        case SDL_QUIT:
-	        {
+        SDL_Event myEvent;
+        while (SDL_PollEvent(&myEvent)) {
+            switch (myEvent.type)
+            {
+            case SDL_QUIT:
+            {
                 return;
-	
-	            break;
-	        }
-	        case SDL_WINDOWEVENT:
-	        {
-	            break;
-	        }
-	        default:
-	            break;
-	        }
-	    }
+
+                break;
+            }
+            case SDL_WINDOWEVENT:
+            {
+                break;
+            }
+            default:
+                break;
+            }
+        }
 
         this->Draw();
     }

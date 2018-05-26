@@ -1,10 +1,11 @@
+#include <stdio.h>
 
 #include <libtech/filecache.h>
 #include <libtech/fsutils.h>
 
-#include <gameengine.h>
-#include <gamemodule.h>
-#include <sprite.h>
+#include <GameEngine.h>
+#include <GameModule.h>
+#include <ASprite.h>
 
 int main(int argc, char** argv)
 {

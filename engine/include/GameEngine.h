@@ -3,13 +3,12 @@
 class GameModule;
 class ASprite;
 class ARenderer;
-
+class ATexture;
 
 #include <list>
 
 #include "core.h"
-
-#include "renderer.h"
+#include "ARenderer.h"
 
 class ENGINE_CLASS GameEngine
 {

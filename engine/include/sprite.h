@@ -12,7 +12,8 @@ public:
 };
 
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
+
 class ENGINE_CLASS SDLSprite : public ASprite
 {
 public:

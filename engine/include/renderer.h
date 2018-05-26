@@ -6,19 +6,19 @@ class ENGINE_CLASS ARenderer
 {
 public:
     ARenderer();
-    ~ARenderer();
+    virtual ~ARenderer();
 
     virtual void Initialize();
 };
 
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class ENGINE_CLASS SDLRenderer : public ARenderer
 {
 public:
     SDLRenderer();
-    ~SDLRenderer();
+    ~SDLRenderer() override;
 
     void Initialize() override;
 };

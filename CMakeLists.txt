@@ -85,7 +85,7 @@ IF(UNIX)
             # path suffixes to search inside ENV{SDLDIR}
             include/SDL2 include
         PATHS ${SDL2_TTF_PATH}
-        
+    )
     find_library(
         SDL2_LIB
         NAMES SDL2
@@ -101,7 +101,6 @@ IF(UNIX)
         NAMES SDL2_ttf
         #HINTS "../libs/linux/SDL_ttf/lib/x86"
     )
-)
 ENDIF(UNIX)
 
 #

@@ -3,6 +3,7 @@
 #include "core.h"
 
 class ARenderable;
+class ATexture;
 
 class ENGINE_CLASS ARenderer
 {
@@ -13,4 +14,5 @@ public:
     virtual void Initialize();
 
     virtual void Draw(ARenderable* sprite) = 0;
+    virtual ATexture* CreateTexture() = 0;
 };

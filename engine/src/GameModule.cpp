@@ -30,6 +30,11 @@ ASprite* GameModule::CreateSprite()
     return x;
 }
 
+ATexture *GameModule::CreateTexture()
+{
+    return nullptr;
+}
+
 void GameModule::Update()
 {
 }
@@ -47,3 +52,14 @@ void GameModule::Draw(ARenderer* renderer)
         begin++;
     }
 }
+
+ARenderer* GameModule::GetRenderer()
+{
+    return this->Engine->Renderer;
+}
+
+GameEngine* GameModule::GetEngine()
+{
+    return this->Engine;
+}
+

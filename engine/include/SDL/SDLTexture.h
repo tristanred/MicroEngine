@@ -5,6 +5,7 @@ class SDLRenderer;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_surface.h>
+#include <cstdint>
 
 #include "core.h"
 #include "ATexture.h"
@@ -14,6 +15,11 @@ class ENGINE_CLASS SDLTexture : public ATexture
 public:
     explicit SDLTexture(ARenderer* renderer);
     ~SDLTexture() override;
+
+    void SetSize(FSize size) override;
+    void SetColor(uint32_t color) override;
+
+    void RefreshSDLTexture();
 
     ARenderer* Renderer;
 

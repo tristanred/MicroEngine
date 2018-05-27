@@ -3,6 +3,7 @@
 class GameEngine;
 class ARenderable;
 class ASprite;
+class ATexture;
 class ARenderer;
 
 #include <list>
@@ -18,10 +19,18 @@ public:
 
     std::list<ARenderable*>* Objects;
 
-    GameEngine* Engine;
+    // Get game services
+    ARenderer* GetRenderer();
+    GameEngine* GetEngine();
 
+    // Create renderer-specific objects.
     ASprite* CreateSprite();
+    ATexture* CreateTexture();
     
     virtual void Update();
     virtual void Draw(ARenderer* renderer);
+
+private:
+    GameEngine* Engine;
+
 };

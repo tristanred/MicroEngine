@@ -15,7 +15,7 @@ SDLSprite::~SDLSprite()
 
 ATexture* SDLSprite::GetTexture()
 {
-    return (ATexture*)tex;
+    return dynamic_cast<ATexture*>(this->tex);
 }
 
 void SDLSprite::SetTexture(ATexture *texture)

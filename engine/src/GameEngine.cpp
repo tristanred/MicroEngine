@@ -117,3 +117,14 @@ void GameEngine::Draw()
         begin++;
     }
 }
+
+ATexture* GameEngine::GetDefaultTexture()
+{
+    auto test = new SDLTexture(this->Renderer);
+
+    test->SetSize(FSize(100, 100));
+    test->SetColor(0x88888888);
+
+
+    return test;
+}

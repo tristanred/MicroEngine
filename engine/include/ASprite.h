@@ -8,7 +8,6 @@ class ENGINE_CLASS ASprite : public ARenderable
 public:
     ASprite();
     ~ASprite() override;
-
 };
 
 

@@ -6,6 +6,7 @@ class ARenderer;
 class ATexture;
 
 #include <list>
+#include <SDL/SDLTexture.h>
 
 #include "core.h"
 #include "ARenderer.h"
@@ -32,6 +33,8 @@ public:
 
     ASprite* CreateSprite();
 
+    ATexture *GetDefaultTexture();
+
 private:
     void Update();
     void Draw();
@@ -47,3 +50,4 @@ TModule* GameEngine::CreateModule()
 
     return newModule;
 }
+

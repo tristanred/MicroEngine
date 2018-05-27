@@ -98,6 +98,8 @@ void SDLRenderer::Draw(ARenderable* sprite)
 
     SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
 
+    tex->RefreshSDLTexture(); // Refresh the texture if needed.
+
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
 
     SDL_RenderPresent(gameRenderer);
@@ -106,6 +108,13 @@ void SDLRenderer::Draw(ARenderable* sprite)
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
+
+    return result;
+}
+
+ATexture *SDLRenderer::CreateTexture()
+{
+    SDLTexture* result = new SDLTexture(this);
 
     return result;
 }

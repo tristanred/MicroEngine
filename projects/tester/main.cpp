@@ -16,13 +16,21 @@ int main(int argc, char** argv)
 
     ASprite* x = mod->CreateSprite();
 
+    ATexture* tex = eng->GetDefaultTexture();
+    x->SetTexture(tex);
     
     eng->Play();
 
     return 0;
 
-    write_characters("one.txt", "abcde", 5);
-    write_characters("two.txt", "qwert", 5);
+    char* data1 = new char[6];
+    char* data2 = new char[6];
+
+    strcpy(data1, "abcde");
+    strcpy(data2, "qwert");
+
+    write_characters("one.txt", data1, 5);
+    write_characters("two.txt", data2, 5);
 
     FileCache c;
 

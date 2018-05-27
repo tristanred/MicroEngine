@@ -20,5 +20,7 @@ public:
 
     void Draw(ARenderable* sprite) override;
 
+    ATexture* CreateTexture() override;
+
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 };

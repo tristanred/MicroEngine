@@ -45,6 +45,12 @@ void GameEngine::Play()
             }
         }
 
+        SDLRenderer* sdlRenderer = (SDLRenderer*)Renderer;
+        SDL_SetRenderDrawColor(sdlRenderer->gameRenderer, 100, 149, 237, 255);
+
+        /* Clear the entire screen to our selected color. */
+        SDL_RenderClear(sdlRenderer->gameRenderer);
+
         this->Draw();
     }
 }
@@ -123,7 +129,7 @@ ATexture* GameEngine::GetDefaultTexture()
     auto test = new SDLTexture(this->Renderer);
 
     test->SetSize(FSize(100, 100));
-    test->SetColor(0x88888888);
+    test->SetColor(0xFFFF0000);
 
 
     return test;

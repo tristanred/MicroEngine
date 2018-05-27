@@ -1,6 +1,8 @@
 #pragma once
 
-struct FPosition
+#include "core.h"
+
+struct ENGINE_CLASS FPosition
 {
     float X;
     float Y;
@@ -18,7 +20,7 @@ struct FPosition
     }
 };
 
-struct FSize
+struct ENGINE_CLASS FSize
 {
     float Width;
     float Height;

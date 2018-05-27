@@ -4,6 +4,8 @@
 
 ASprite::ASprite()
 {
+    LogTrace("ASprite::ASprite");
+
     this->position.X = 0;
     this->position.Y = 0;
 
@@ -13,6 +15,7 @@ ASprite::ASprite()
 
 ASprite::~ASprite()
 {
+    LogTrace("ASprite::~ASprite");
 }
 
 FPosition ARenderable::GetPosition()

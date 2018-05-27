@@ -6,6 +6,8 @@
 
 SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 {
+    LogTrace("SDLTexture::SDLTexture");
+
     this->Renderer = renderer;
     this->SdlRenderer = (SDLRenderer*)renderer;
 
@@ -15,11 +17,15 @@ SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 
 SDLTexture::~SDLTexture()
 {
+    LogTrace("SDLTexture::~SDLTexture");
+
     SDL_DestroyTexture(tex);
 }
 
 void SDLTexture::SetColor(uint32_t color)
 {
+    LogTrace("SDLTexture::SetColor");
+
     if(this->surf != NULL)
     {
         SDL_FillRect(this->surf, NULL, color);
@@ -30,6 +36,8 @@ void SDLTexture::SetColor(uint32_t color)
 
 void SDLTexture::SetSize(FSize size)
 {
+    LogTrace("SDLTexture::SetSize");
+
     ATexture::SetSize(size);
 
     SDL_FreeSurface(this->surf);
@@ -67,6 +75,8 @@ void SDLTexture::RefreshSDLTexture()
 
             SDL_Texture* updated = this->SdlRenderer->BuildTexture(this->surf);
             this->tex = updated;
+
+            isDirty = false;
         }
     }
 }

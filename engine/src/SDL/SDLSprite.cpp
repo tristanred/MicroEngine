@@ -5,12 +5,12 @@
 
 SDLSprite::SDLSprite() : ASprite()
 {
-
+    LogTrace("SDLSprite::SDLSprite");
 }
 
 SDLSprite::~SDLSprite()
 {
-
+    LogTrace("SDLSprite::~SDLSprite");
 }
 
 ATexture* SDLSprite::GetTexture()
@@ -20,5 +20,7 @@ ATexture* SDLSprite::GetTexture()
 
 void SDLSprite::SetTexture(ATexture *texture)
 {
+    LogTrace("SDLSprite::SetTexture");
+
     this->tex = static_cast<SDLTexture*>(texture);
 }

@@ -4,6 +4,7 @@ class GameModule;
 class ASprite;
 class ARenderer;
 class ATexture;
+class FileLogger;
 
 #include <list>
 #include <SDL/SDLTexture.h>
@@ -16,7 +17,9 @@ class ENGINE_CLASS GameEngine
 public:
     std::list<GameModule*>* Modules;
 
+    // Game Services
     ARenderer* Renderer;
+    FileLogger* GameLog;
 
     GameEngine();
     ~GameEngine();
@@ -37,7 +40,7 @@ public:
 
 private:
     void Update();
-    void Draw();
+    void DrawModules();
 
 
 };

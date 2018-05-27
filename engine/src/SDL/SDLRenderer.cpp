@@ -7,21 +7,26 @@
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
 
-SDLRenderer::SDLRenderer()
+SDLRenderer::SDLRenderer() : ARenderer()
 {
+    LogTrace("SDLRenderer::SDLRenderer");
+
     this->gameRenderer = NULL;
     this->mainWindow = NULL;
 }
 
 SDLRenderer::~SDLRenderer()
 {
-
+    LogTrace("SDLRenderer::~SDLRenderer");
 }
 
 void SDLRenderer::Initialize()
 {
+    LogTrace("SDLRenderer::Initialize");
+
     int res = 0;
     const char* errorString;
+    char logMessage[1024];
 
     res = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
@@ -29,6 +34,9 @@ void SDLRenderer::Initialize()
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to init SDL with error %s\n", errorString);
+
+        sprintf(logMessage, "Error in SDL_Init : %s", errorString);
+        LogError(logMessage);
 
         return;
     }
@@ -40,6 +48,9 @@ void SDLRenderer::Initialize()
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the window SDL with error %s\n", errorString);
 
+        sprintf(logMessage, "Error in SDL_CreateWindow : %s", errorString);
+        LogError(logMessage);
+
         return;
     }
 
@@ -49,6 +60,9 @@ void SDLRenderer::Initialize()
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the Accelerated Renderer with error %s\n", errorString);
+
+        sprintf(logMessage, "Error in SDL_CreateRenderer : %s", errorString);
+        LogError(logMessage);
 
         return;
     }
@@ -61,6 +75,9 @@ void SDLRenderer::Initialize()
         errorString = IMG_GetError();
         fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
 
+        sprintf(logMessage, "Error in IMG_Init : %s", errorString);
+        LogError(logMessage);
+
         return;
     }
 
@@ -70,6 +87,9 @@ void SDLRenderer::Initialize()
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to scale by %f,%f with error %s\n", 1.0, 1.0, errorString);
+
+        sprintf(logMessage, "Error in SDL_RenderSetScale : %s", errorString);
+        LogError(logMessage);
 
         return;
     }
@@ -81,6 +101,9 @@ void SDLRenderer::Initialize()
     {
         errorString = TTF_GetError();
         fprintf(stderr, "Unable to init SDL_TTF with error %s\n", errorString);
+
+        sprintf(logMessage, "Error in TTF_Init : %s", errorString);
+        LogError(logMessage);
 
         return;
     }
@@ -103,12 +126,12 @@ void SDLRenderer::Draw(ARenderable* sprite)
     tex->RefreshSDLTexture(); // Refresh the texture if needed.
 
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
-
-    SDL_RenderPresent(gameRenderer);
 }
 
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
+    LogTrace("SDLRenderer::BuildTexture");
+
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;
@@ -116,7 +139,26 @@ SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 
 ATexture *SDLRenderer::CreateTexture()
 {
+    LogTrace("SDLRenderer::CreateTexture");
+
     SDLTexture* result = new SDLTexture(this);
 
     return result;
 }
+
+void SDLRenderer::BeginDraw()
+{
+    ARenderer::BeginDraw();
+
+    SDL_SetRenderDrawColor(gameRenderer, 100, 149, 237, 255);
+
+    SDL_RenderClear(gameRenderer);
+}
+
+void SDLRenderer::EndDraw()
+{
+    ARenderer::EndDraw();
+
+    SDL_RenderPresent(gameRenderer);
+}
+

@@ -11,16 +11,21 @@
 
 GameModule::GameModule(GameEngine* engine)
 {
+    LogTrace("GameModule::GameModule");
+
     this->Engine = engine;
     Objects = new std::list<ARenderable*>();
 }
 
 GameModule::~GameModule()
 {
+    LogTrace("GameModule::~GameModule");
 }
 
 ASprite* GameModule::CreateSprite()
 {
+    LogTrace("GameModule::CreateSprite");
+
     auto x = new SDLSprite();
 
     SDLTexture* newT = new SDLTexture(this->Engine->Renderer);
@@ -30,8 +35,10 @@ ASprite* GameModule::CreateSprite()
     return x;
 }
 
-ATexture *GameModule::CreateTexture()
+ATexture* GameModule::CreateTexture()
 {
+    LogTrace("GameModule::CreateTexture");
+
     return nullptr;
 }
 

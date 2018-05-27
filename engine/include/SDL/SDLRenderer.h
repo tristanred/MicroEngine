@@ -18,6 +18,9 @@ public:
 
     void Initialize() override;
 
+    void BeginDraw() override;
+    void EndDraw() override;
+
     void Draw(ARenderable* sprite) override;
 
     ATexture* CreateTexture() override;

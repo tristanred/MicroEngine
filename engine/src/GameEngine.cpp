@@ -3,20 +3,32 @@
 #include "ARenderer.h"
 #include "SDL/SDLRenderer.h"
 #include "GameModule.h"
+#include "libtech/filelogger.h"
 
 #include <SDL.h>
 
 GameEngine::GameEngine()
 {
     this->Modules = new std::list<GameModule *>();
+
+    GameLog = new FileLogger();
+    GameLog->Open("gamelog.txt");
+    GameLog->LogMessage("Game Log Initialized");
+    RegisterLogger(GameLog);
+    LogTrace("GameEngine::GameEngine");
 }
 
 GameEngine::~GameEngine()
 {
+    LogTrace("GameEngine::~GameEngine");
+
+    GameLog->Close();
 }
 
 void GameEngine::Start()
 {
+    LogTrace("GameEngine::Start");
+
     Renderer = new SDLRenderer();
 
     Renderer->Initialize();
@@ -24,6 +36,8 @@ void GameEngine::Start()
 
 void GameEngine::Play()
 {
+    LogTrace("GameEngine::Play");
+
     while (true)
     {
         SDL_Event myEvent;
@@ -45,13 +59,11 @@ void GameEngine::Play()
             }
         }
 
-        SDLRenderer* sdlRenderer = (SDLRenderer*)Renderer;
-        SDL_SetRenderDrawColor(sdlRenderer->gameRenderer, 100, 149, 237, 255);
+        Renderer->BeginDraw();
 
-        /* Clear the entire screen to our selected color. */
-        SDL_RenderClear(sdlRenderer->gameRenderer);
+        this->DrawModules();
 
-        this->Draw();
+        Renderer->EndDraw();
     }
 }
 
@@ -101,6 +113,8 @@ void GameEngine::PlayOneUnlocked()
 
 ASprite* GameEngine::CreateSprite()
 {
+    LogTrace("GameEngine::CreateSprite");
+
     return nullptr;
 }
 
@@ -109,7 +123,7 @@ void GameEngine::Update()
 
 }
 
-void GameEngine::Draw()
+void GameEngine::DrawModules()
 {
     auto begin = this->Modules->begin();
     auto end = this->Modules->end();

@@ -15,4 +15,7 @@ public:
 
     virtual void Draw(ARenderable* sprite) = 0;
     virtual ATexture* CreateTexture() = 0;
+
+    virtual void BeginDraw();
+    virtual void EndDraw();
 };

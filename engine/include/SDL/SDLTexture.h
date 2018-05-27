@@ -3,8 +3,8 @@
 class ARenderer;
 class SDLRenderer;
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_surface.h>
+#include <SDL.h>
+#include <SDL_surface.h>
 #include <cstdint>
 
 #include "core.h"

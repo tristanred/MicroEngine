@@ -2,7 +2,7 @@
 
 class SDLTexture;
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "core.h"
 #include "ASprite.h"

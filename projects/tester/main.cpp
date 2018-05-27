@@ -1,6 +1,7 @@
 #include "core.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include <libtech/filecache.h>
 #include <libtech/fsutils.h>

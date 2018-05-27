@@ -4,7 +4,7 @@
 #include "SDL/SDLRenderer.h"
 #include "GameModule.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 GameEngine::GameEngine()
 {

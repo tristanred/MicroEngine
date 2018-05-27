@@ -2,6 +2,8 @@
 
 #include "SDL/SDLRenderer.h"
 
+#include <cmath>
+
 SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 {
     this->Renderer = renderer;

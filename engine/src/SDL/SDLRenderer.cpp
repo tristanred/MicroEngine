@@ -1,6 +1,8 @@
 #include "SDL/SDLRenderer.h"
 
 #include <cstdio>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
@@ -52,15 +54,15 @@ void SDLRenderer::Initialize()
     }
 
     // TODO SDL_Image
-    //res = IMG_Init(IMG_INIT_PNG);
+    res = IMG_Init(IMG_INIT_PNG);
 
-    //if (res == 0)
-    //{
-    //    errorString = IMG_GetError();
-    //    fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
+    if (res == 0)
+    {
+        errorString = IMG_GetError();
+        fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
 
-    //    return;
-    //}
+        return;
+    }
 
     res = SDL_RenderSetScale(gameRenderer, 1, 1);
 
@@ -73,15 +75,15 @@ void SDLRenderer::Initialize()
     }
 
     // TODO INIT TTF
-    //res = TTF_Init();
+    res = TTF_Init();
 
-    //if (res != 0)
-    //{
-    //    errorString = TTF_GetError();
-    //    fprintf(stderr, "Unable to init SDL_TTF with error %s\n", errorString);
+    if (res != 0)
+    {
+        errorString = TTF_GetError();
+        fprintf(stderr, "Unable to init SDL_TTF with error %s\n", errorString);
 
-    //    return;
-    //}
+        return;
+    }
 
     SDL_ShowWindow(mainWindow);
 }

@@ -7,7 +7,7 @@ class ASprite;
 #include "GameEngine.h"
 #include "GameModule.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 struct MyData
 {

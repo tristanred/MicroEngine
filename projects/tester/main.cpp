@@ -1,3 +1,5 @@
+#include "core.h"
+
 #include <stdio.h>
 
 #include <libtech/filecache.h>

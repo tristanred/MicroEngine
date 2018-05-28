@@ -13,6 +13,17 @@ SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 
     this->surf = NULL;
     this->tex = NULL;
+
+    TextureSize = FSize(0, 0);
+}
+
+SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTexture(renderer)
+{
+    this->surf = fromSurface;
+    this->tex = this->SdlRenderer->BuildTexture(fromSurface);
+
+    this->textureSize = FSize(fromSurface->w, fromSurface->h);
+    isDirty = false;
 }
 
 SDLTexture::~SDLTexture()
@@ -59,6 +70,8 @@ void SDLTexture::SetSize(FSize size)
 #endif
     this->surf = SDL_CreateRGBSurface(0, (int)floor(size.Width), (int)floor(size.Width), 32, rmask, gmask, bmask, amask);
 
+    this->TextureSize = size;
+
     this->isDirty = true;
 }
 
@@ -80,3 +93,4 @@ void SDLTexture::RefreshSDLTexture()
         }
     }
 }
+

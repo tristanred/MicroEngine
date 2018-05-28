@@ -9,6 +9,7 @@
 #include <GameEngine.h>
 #include <GameModule.h>
 #include <ASprite.h>
+#include <TextureRepository.h>
 
 int main(int argc, char** argv)
 {
@@ -19,7 +20,7 @@ int main(int argc, char** argv)
 
     ASprite* x = mod->CreateSprite();
 
-    ATexture* tex = eng->GetDefaultTexture();
+    ATexture* tex = eng->TextureRepo->LoadFromFile("../test_asset.png");
     x->SetTexture(tex);
     
     eng->Play();

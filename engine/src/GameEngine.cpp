@@ -4,6 +4,7 @@
 #include "SDL/SDLRenderer.h"
 #include "GameModule.h"
 #include "libtech/filelogger.h"
+#include "TextureRepository.h"
 
 #include <SDL.h>
 
@@ -32,6 +33,8 @@ void GameEngine::Start()
     Renderer = new SDLRenderer();
 
     Renderer->Initialize();
+
+    TextureRepo = new TextureRepository(Renderer);
 }
 
 void GameEngine::Play()

@@ -9,11 +9,13 @@ class SDLRenderer;
 
 #include "core.h"
 #include "ATexture.h"
+#include "Geometry.h"
 
 class ENGINE_CLASS SDLTexture : public ATexture
 {
 public:
     explicit SDLTexture(ARenderer* renderer);
+    SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface);
     ~SDLTexture() override;
 
     void SetSize(FSize size) override;
@@ -29,4 +31,7 @@ public:
     // Texture is a handle to the GPU texture data
     SDL_Texture* tex;
     SDLRenderer* SdlRenderer;
+
+private:
+    FSize TextureSize;
 };

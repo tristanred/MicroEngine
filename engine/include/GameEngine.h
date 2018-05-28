@@ -5,6 +5,7 @@ class ASprite;
 class ARenderer;
 class ATexture;
 class FileLogger;
+class TextureRepository;
 
 #include <list>
 #include <SDL/SDLTexture.h>
@@ -19,6 +20,7 @@ public:
 
     // Game Services
     ARenderer* Renderer;
+    TextureRepository* TextureRepo;
     FileLogger* GameLog;
 
     GameEngine();
@@ -36,7 +38,7 @@ public:
 
     ASprite* CreateSprite();
 
-    ATexture *GetDefaultTexture();
+    ATexture* GetDefaultTexture();
 
 private:
     void Update();

@@ -26,10 +26,8 @@ ASprite* GameModule::CreateSprite()
 {
     LogTrace("GameModule::CreateSprite");
 
-    auto x = new SDLSprite();
+    ASprite* x = this->Engine->CreateSprite();
 
-    SDLTexture* newT = new SDLTexture(this->Engine->Renderer);
-    x->SetTexture(newT);
     this->Objects->push_back(x);
 
     return x;

@@ -5,6 +5,7 @@
 #include "GameModule.h"
 #include "libtech/filelogger.h"
 #include "TextureRepository.h"
+#include "SDL/SDLSprite.h"
 
 #include <SDL.h>
 
@@ -118,7 +119,9 @@ ASprite* GameEngine::CreateSprite()
 {
     LogTrace("GameEngine::CreateSprite");
 
-    return nullptr;
+    SDLSprite* sprt = new SDLSprite();
+
+    return sprt;
 }
 
 void GameEngine::Update()

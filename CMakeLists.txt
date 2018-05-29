@@ -241,3 +241,10 @@ IF(WIN32)
         $<TARGET_FILE_DIR:MICROENGINE>)
     
 ENDIF(WIN32)
+
+add_custom_command(
+        TARGET MICROENGINE POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/engine/assets"
+        $<TARGET_FILE_DIR:MICROENGINE>/assets/engine
+)

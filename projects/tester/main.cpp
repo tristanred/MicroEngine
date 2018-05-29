@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 
     ASprite* x = mod->CreateSprite();
 
-    ATexture* tex = eng->TextureRepo->LoadFromFile("../test_asset.png");
+    ATexture* tex = eng->TextureRepo->LoadFromFile("assets/engine/test_asset.png");
     x->SetTexture(tex);
     
     eng->Play();

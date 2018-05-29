@@ -1,11 +1,10 @@
 #include "GameEngine.h"
 
 #include "ARenderer.h"
-#include "SDL/SDLRenderer.h"
 #include "GameModule.h"
 #include "libtech/filelogger.h"
 #include "TextureRepository.h"
-#include "SDL/SDLSprite.h"
+#include "AbstractFactory.h"
 
 #include <SDL.h>
 
@@ -31,7 +30,7 @@ void GameEngine::Start()
 {
     LogTrace("GameEngine::Start");
 
-    Renderer = new SDLRenderer();
+    Renderer = AbstractFactory::CreateRenderer();
 
     Renderer->Initialize();
 
@@ -119,7 +118,7 @@ ASprite* GameEngine::CreateSprite()
 {
     LogTrace("GameEngine::CreateSprite");
 
-    SDLSprite* sprt = new SDLSprite();
+    ASprite* sprt = AbstractFactory::CreateSprite();
 
     return sprt;
 }
@@ -146,11 +145,10 @@ void GameEngine::DrawModules()
 
 ATexture* GameEngine::GetDefaultTexture()
 {
-    auto test = new SDLTexture(this->Renderer);
+    auto test = AbstractFactory::CreateTexture(this->Renderer);
 
     test->SetSize(FSize(100, 100));
     test->SetColor(0xFFFF0000);
-
 
     return test;
 }

@@ -1,11 +1,7 @@
 #include "GameModule.h"
 
-#include <SDL.h>
-
 #include "ARenderer.h"
 #include "ASprite.h"
-#include "SDL/SDLTexture.h"
-#include "SDL/SDLSprite.h"
 #include "GameEngine.h"
 
 

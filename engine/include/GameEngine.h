@@ -8,7 +8,6 @@ class FileLogger;
 class TextureRepository;
 
 #include <list>
-#include <SDL/SDLTexture.h>
 
 #include "core.h"
 #include "ARenderer.h"

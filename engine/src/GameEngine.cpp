@@ -5,7 +5,10 @@
 #include "libtech/filelogger.h"
 #include "TextureRepository.h"
 #include "AbstractFactory.h"
+#include "Geometry.h"
+#include "ATexture.h"
 
+// Temp include of SDL for event handling
 #include <SDL.h>
 
 GameEngine::GameEngine()
@@ -34,7 +37,7 @@ void GameEngine::Start()
 
     Renderer->Initialize();
 
-    TextureRepo = new TextureRepository(Renderer);
+    TextureRepo = AbstractFactory::CreateTextureRepository(this->Renderer);
 }
 
 void GameEngine::Play()
@@ -145,7 +148,7 @@ void GameEngine::DrawModules()
 
 ATexture* GameEngine::GetDefaultTexture()
 {
-    auto test = AbstractFactory::CreateTexture(this->Renderer);
+    ATexture* test = AbstractFactory::CreateTexture(this->Renderer);
 
     test->SetSize(FSize(100, 100));
     test->SetColor(0xFFFF0000);

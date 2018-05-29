@@ -5,6 +5,7 @@
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
 #include "SDL/SDLRenderer.h"
+#include "SDL/SDLTextureRepository.h"
 
 #endif
 
@@ -96,4 +97,30 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
     }
 
     return nullptr;
+}
+
+TextureRepository *AbstractFactory::CreateTextureRepository(ARenderer *renderer)
+{
+    switch(ActivatedRenderer)
+    {
+#if SUPPORT_SDL == 1
+        case RENDERER_SDL:
+        {
+            return new SDLTextureRepository(renderer);
+        }
+#endif
+#if SUPPORT_DIRECTX
+        case RENDERER_DIRECTX:
+        {
+            return new DXTexture(renderer);
+        }
+#endif
+        default:
+        {
+            return NULL;
+        }
+    }
+
+    return nullptr;
+
 }

@@ -13,12 +13,12 @@ class ENGINE_CLASS TextureRepository
 {
 public:
     explicit TextureRepository(ARenderer* renderer);
-    ~TextureRepository();
+    virtual ~TextureRepository();
 
-    ATexture* LoadFromFile(const char* filepath);
-    ATexture* GetBySolidColor(uint32_t color);
+    virtual ATexture* LoadFromFile(const char* filepath);
+    virtual ATexture* GetBySolidColor(uint32_t color);
 
-private:
+protected:
     ARenderer* Renderer;
     FileCache* Cache;
 };

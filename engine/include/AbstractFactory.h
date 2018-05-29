@@ -6,6 +6,7 @@ class ARenderable;
 class ARenderer;
 class ASprite;
 class ATexture;
+class TextureRepository;
 
 enum ImplementedRenderers
 {
@@ -24,6 +25,6 @@ public:
     static ARenderer* CreateRenderer();
     static ASprite* CreateSprite();
     static ATexture* CreateTexture(ARenderer* renderer);
-
+    static TextureRepository* CreateTextureRepository(ARenderer* renderer);
 
 };

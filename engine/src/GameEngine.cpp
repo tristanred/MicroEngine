@@ -8,6 +8,8 @@
 #include "Geometry.h"
 #include "ATexture.h"
 
+#include "libtech/mytime.h"
+
 // Temp include of SDL for event handling
 #include <SDL.h>
 
@@ -20,6 +22,10 @@ GameEngine::GameEngine()
     GameLog->LogMessage("Game Log Initialized");
     RegisterLogger(GameLog);
     LogTrace("GameEngine::GameEngine");
+
+    currentFrameTime = 0;
+    previousFrameTime = 0;
+    wantedFPS = 60;
 }
 
 GameEngine::~GameEngine()
@@ -50,26 +56,32 @@ void GameEngine::Play()
         while (SDL_PollEvent(&myEvent)) {
             switch (myEvent.type)
             {
-            case SDL_QUIT:
-            {
-                return;
+                case SDL_QUIT:
+                {
+                    return;
 
-                break;
-            }
-            case SDL_WINDOWEVENT:
-            {
-                break;
-            }
-            default:
-                break;
+                    break;
+                }
+                case SDL_WINDOWEVENT:
+                {
+                    break;
+                }
+                default:
+                    break;
             }
         }
 
-        Renderer->BeginDraw();
+        currentFrameTime = get_a_ticks();
+        if(TimeForNextFrame())
+        {
+            previousFrameTime = currentFrameTime;
 
-        this->DrawModules();
+            Renderer->BeginDraw();
 
-        Renderer->EndDraw();
+            this->DrawModules();
+
+            Renderer->EndDraw();
+        }
     }
 }
 
@@ -128,7 +140,17 @@ ASprite* GameEngine::CreateSprite()
 
 void GameEngine::Update()
 {
+    auto begin = this->Modules->begin();
+    auto end = this->Modules->end();
 
+    while (begin != end)
+    {
+        GameModule* mod = *begin;
+
+        mod->Update();
+
+        begin++;
+    }
 }
 
 void GameEngine::DrawModules()
@@ -154,4 +176,9 @@ ATexture* GameEngine::GetDefaultTexture()
     test->SetColor(0xFFFF0000);
 
     return test;
+}
+
+bool GameEngine::TimeForNextFrame()
+{
+    return currentFrameTime - previousFrameTime > 1000 / wantedFPS;
 }

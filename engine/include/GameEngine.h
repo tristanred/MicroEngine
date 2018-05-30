@@ -8,6 +8,8 @@ class FileLogger;
 class TextureRepository;
 
 #include <list>
+#include <cstdint>
+using namespace std;
 
 #include "core.h"
 #include "ARenderer.h"
@@ -21,6 +23,10 @@ public:
     ARenderer* Renderer;
     TextureRepository* TextureRepo;
     FileLogger* GameLog;
+
+    int wantedFPS;
+    long int previousFrameTime;
+    long int currentFrameTime;
 
     GameEngine();
     ~GameEngine();
@@ -44,6 +50,7 @@ private:
     void DrawModules();
 
 
+    bool TimeForNextFrame();
 };
 
 template<typename TModule>

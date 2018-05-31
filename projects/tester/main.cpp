@@ -10,6 +10,7 @@
 #include <GameModule.h>
 #include <ASprite.h>
 #include <TextureRepository.h>
+#include <ConfigFile.h>
 
 int main(int argc, char** argv)
 {

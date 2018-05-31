@@ -22,7 +22,7 @@ SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTextu
     this->surf = fromSurface;
     this->tex = this->SdlRenderer->BuildTexture(fromSurface);
 
-    this->textureSize = FSize(fromSurface->w, fromSurface->h);
+    this->textureSize = FSize((float)fromSurface->w, (float)fromSurface->h);
     isDirty = false;
 }
 

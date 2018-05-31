@@ -30,6 +30,7 @@ ARenderer *AbstractFactory::CreateRenderer()
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
         {
+            LogTrace("AbstractFactory creating SDL Renderer");
             return new SDLRenderer();
         }
 #endif
@@ -56,6 +57,7 @@ ASprite *AbstractFactory::CreateSprite()
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
         {
+            LogTrace("AbstractFactory creating SDL Sprite.");
             return new SDLSprite();
         }
 #endif
@@ -81,6 +83,7 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
         {
+            LogTrace("AbstractFactory creating texture");
             return new SDLTexture(renderer);
         }
 #endif
@@ -106,6 +109,8 @@ TextureRepository *AbstractFactory::CreateTextureRepository(ARenderer *renderer)
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
         {
+            LogTrace("AbstractFactory creating texture repository");
+
             return new SDLTextureRepository(renderer);
         }
 #endif

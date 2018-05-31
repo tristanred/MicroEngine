@@ -6,6 +6,7 @@
 
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
+#include "ConfigFile.h"
 
 SDLRenderer::SDLRenderer() : ARenderer()
 {
@@ -24,13 +25,50 @@ void SDLRenderer::Initialize()
 {
     LogTrace("SDLRenderer::Initialize");
 
+    RendererParameters defaults;
+    defaults.window_title = "Window titlez !";
+    defaults.window_width = 800;
+    defaults.window_height = 600;
+    defaults.renderScaleX = 1;
+    defaults.renderScaleY = 1;
+
+    this->Initialize(&defaults);
+}
+
+void SDLRenderer::Initialize(ConfigFile* config)
+{
+    LogTrace("SDLRenderer::Initialize with ConfigFile");
+
+    RendererParameters defaults;
+
+    defaults.window_title = config->GetConfigValueSafe("default_window_name", "Window Titlez !").c_str();
+
+    std::string wWidth= config->GetConfigValueSafe("default_engine_width", "800");
+    defaults.window_width = atoi(wWidth.c_str());
+
+    std::string wHeight = config->GetConfigValueSafe("default_engine_height", "600");
+    defaults.window_height = atoi(wHeight.c_str());
+
+    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "1");
+    defaults.renderScaleX = stof(scaleX.c_str());
+
+    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "1");
+    defaults.renderScaleY = stof(scaleY.c_str());
+
+    this->Initialize(&defaults);
+}
+
+void SDLRenderer::Initialize(RendererParameters* params)
+{
+    LogTrace("SDLRenderer::Initialize with RendererParameters");
+
     int res = 0;
     const char* errorString;
     char logMessage[1024];
 
     res = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-    if (res != 0)
+    if(res != 0)
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to init SDL with error %s\n", errorString);
@@ -41,9 +79,9 @@ void SDLRenderer::Initialize()
         return;
     }
 
-    this->mainWindow = SDL_CreateWindow("Window Title !", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+    this->mainWindow = SDL_CreateWindow(params->window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, params->window_width, params->window_height, 0);
 
-    if (mainWindow == NULL)
+    if(mainWindow == NULL)
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the window SDL with error %s\n", errorString);
@@ -56,7 +94,7 @@ void SDLRenderer::Initialize()
 
     this->gameRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
 
-    if (gameRenderer == NULL)
+    if(gameRenderer == NULL)
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the Accelerated Renderer with error %s\n", errorString);
@@ -70,7 +108,7 @@ void SDLRenderer::Initialize()
     // TODO SDL_Image
     res = IMG_Init(IMG_INIT_PNG);
 
-    if (res == 0)
+    if(res == 0)
     {
         errorString = IMG_GetError();
         fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
@@ -81,9 +119,9 @@ void SDLRenderer::Initialize()
         return;
     }
 
-    res = SDL_RenderSetScale(gameRenderer, 1, 1);
+    res = SDL_RenderSetScale(gameRenderer, params->renderScaleX, params->renderScaleY);
 
-    if (res != 0)
+    if(res != 0)
     {
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to scale by %f,%f with error %s\n", 1.0, 1.0, errorString);
@@ -97,7 +135,7 @@ void SDLRenderer::Initialize()
     // TODO INIT TTF
     res = TTF_Init();
 
-    if (res != 0)
+    if(res != 0)
     {
         errorString = TTF_GetError();
         fprintf(stderr, "Unable to init SDL_TTF with error %s\n", errorString);

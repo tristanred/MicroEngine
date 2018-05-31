@@ -17,6 +17,8 @@ public:
     ~SDLRenderer() override;
 
     void Initialize() override;
+    void Initialize(ConfigFile* config) override;
+    void Initialize(RendererParameters* params) override;
 
     void BeginDraw() override;
     void EndDraw() override;
@@ -26,4 +28,6 @@ public:
     ATexture* CreateTexture() override;
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);
+
+
 };

@@ -7,6 +7,7 @@
 #include "AbstractFactory.h"
 #include "Geometry.h"
 #include "ATexture.h"
+#include "ConfigFile.h"
 
 #include "libtech/mytime.h"
 
@@ -41,7 +42,8 @@ void GameEngine::Start()
 
     Renderer = AbstractFactory::CreateRenderer();
 
-    Renderer->Initialize();
+    ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
+    Renderer->Initialize(&defaults);
 
     TextureRepo = AbstractFactory::CreateTextureRepository(this->Renderer);
 }

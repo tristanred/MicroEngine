@@ -14,6 +14,8 @@ TextureRepository::TextureRepository(ARenderer *renderer)
 
 TextureRepository::~TextureRepository()
 {
+    LogTrace("TextureRepository::~TextureRepository");
+
     delete(this->Cache);
 }
 

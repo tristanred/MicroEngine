@@ -9,11 +9,12 @@
 
 SDLTextureRepository::SDLTextureRepository(ARenderer *renderer) : TextureRepository(renderer)
 {
+    LogTrace("SDLTextureRepository::SDLTextureRepository");
 }
 
 SDLTextureRepository::~SDLTextureRepository() = default;
 
-ATexture *SDLTextureRepository::LoadFromFile(const char *filepath)
+ATexture* SDLTextureRepository::LoadFromFile(const char *filepath)
 {
     size_t fileLength = 0;
     uint8_t* data = this->Cache->ReadFileContents(filepath, &fileLength);
@@ -27,8 +28,7 @@ ATexture *SDLTextureRepository::LoadFromFile(const char *filepath)
     return newTexture;
 }
 
-ATexture *SDLTextureRepository::GetBySolidColor(uint32_t color)
+ATexture* SDLTextureRepository::GetBySolidColor(uint32_t color)
 {
     return TextureRepository::GetBySolidColor(color);
 }
-

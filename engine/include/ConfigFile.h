@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include <string>
+#include "pugixml.hpp"
 
 class ENGINE_CLASS ConfigFile
 {
@@ -15,4 +16,7 @@ public:
 
 private:
     const char* LoadedFile;
+    pugi::xml_document* doc;
+
+    bool isValid;
 };

@@ -68,6 +68,22 @@ void GameEngine::Play()
                 {
                     break;
                 }
+                case SDL_MOUSEBUTTONDOWN:
+                {
+                    break;
+                }
+                case SDL_MOUSEBUTTONUP:
+                {
+                    break;
+                }
+                case SDL_KEYDOWN:
+                {
+                    break;
+                }
+                case SDL_KEYUP:
+                {
+                    break;
+                }
                 default:
                     break;
             }

@@ -15,11 +15,12 @@ public:
     SDLKeyboard();
     ~SDLKeyboard();
 
-    virtual bool IsKeyPressed(Key key);
+    bool IsKeyPressed(Key key) override;
 
-    virtual bool IsKeyClicked(Key key);
+    bool IsKeyClicked(Key key) override;
 
-    virtual void UpdateKeyboardState();
+    void UpdateKeyboardState() override;
+    void UpdateKeyboardPastState() override;
 
 private:
     int keysCount;

@@ -32,3 +32,8 @@ void SDLKeyboard::UpdateKeyboardState()
 
     currentScancodes = SDL_GetKeyboardState(&keysCount);
 }
+
+void SDLKeyboard::UpdateKeyboardPastState()
+{
+    // Nothing to do
+}

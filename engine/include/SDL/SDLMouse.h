@@ -12,22 +12,15 @@ public:
     SDLMouse();
     ~SDLMouse();
 
-    virtual bool IsClicked();
-    virtual bool IsClicked(MouseButtons button);
+    void UpdateMouseState() override;
 
-    virtual vec2 GetMousePosition();
+    bool IsClicked() override;
+    bool IsClicked(MouseButtons button) override;
 
-    void HandleEvent(SDL_Event* anEvent);
+    vec2 GetMousePosition() override;
 
 private:
     float MouseCoordX = 0;
     float MouseCoordY = 0;
-
-    //bool leftButtonClicked = false;
-    //bool rightButtonClicked = false;
-    //bool middleButtonClicked = false;
-    //bool fourthButtonClicked = false;
-    //bool fifthButtonClicked = false;
-
 };
 

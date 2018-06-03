@@ -13,6 +13,9 @@
 
 // Temp include of SDL for event handling
 #include <SDL.h>
+#include "SDL/SDLMouse.h"
+#include "SDL/SDLKeyboard.h"
+
 
 GameEngine::GameEngine()
 {
@@ -23,6 +26,9 @@ GameEngine::GameEngine()
     GameLog->LogMessage("Game Log Initialized");
     RegisterLogger(GameLog);
     LogTrace("GameEngine::GameEngine");
+
+    mouse = new SDLMouse();
+    keyboard = new SDLKeyboard();
 
     currentFrameTime = 0;
     previousFrameTime = 0;
@@ -54,6 +60,9 @@ void GameEngine::Play()
 
     while (true)
     {
+        keyboard->UpdateKeyboardState();
+        mouse->UpdateMouseState();
+
         SDL_Event myEvent;
         while (SDL_PollEvent(&myEvent)) {
             switch (myEvent.type)
@@ -68,26 +77,22 @@ void GameEngine::Play()
                 {
                     break;
                 }
-                case SDL_MOUSEBUTTONDOWN:
-                {
-                    break;
-                }
-                case SDL_MOUSEBUTTONUP:
-                {
-                    break;
-                }
-                case SDL_KEYDOWN:
-                {
-                    break;
-                }
-                case SDL_KEYUP:
-                {
-                    break;
-                }
                 default:
                     break;
             }
         }
+
+        if (mouse->LeftButtonClicked())
+        {
+            printf("LEFT CLICKED\n");
+        }
+        
+        if (mouse->RightButtonPressed())
+        {
+            printf("Right Pressed\n");
+        }
+
+
 
         currentFrameTime = get_a_ticks();
         if(TimeForNextFrame())
@@ -100,6 +105,8 @@ void GameEngine::Play()
 
             Renderer->EndDraw();
         }
+
+        mouse->UpdatePastMouseState();
     }
 }
 

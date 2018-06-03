@@ -7,8 +7,8 @@ class ATexture;
 class FileLogger;
 class TextureRepository;
 
-class SDLMouse;
-class SDLKeyboard;
+class AMouse;
+class AKeyboard;
 
 #include <list>
 #include <cstdint>
@@ -32,8 +32,8 @@ public:
     long int currentFrameTime;
 
     // Input devices
-    SDLMouse* mouse;
-    SDLKeyboard* keyboard;
+    AMouse* mouse;
+    AKeyboard* keyboard;
 
     GameEngine();
     ~GameEngine();

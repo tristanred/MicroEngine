@@ -8,6 +8,9 @@ class ASprite;
 class ATexture;
 class TextureRepository;
 
+class AMouse;
+class AKeyboard;
+
 enum ImplementedRenderers
 {
     RENDERER_SDL,
@@ -26,5 +29,7 @@ public:
     static ASprite* CreateSprite();
     static ATexture* CreateTexture(ARenderer* renderer);
     static TextureRepository* CreateTextureRepository(ARenderer* renderer);
+    static AMouse* CreateMouse();
+    static AKeyboard* CreateKeyboard();
 
 };

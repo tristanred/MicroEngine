@@ -8,27 +8,23 @@
 #include "libtech/Geometry.h"
 #include "ATexture.h"
 #include "ConfigFile.h"
+#include "Input/AMouse.h"
+#include "Input/AKeyboard.h"
 
 #include "libtech/mytime.h"
 
 // Temp include of SDL for event handling
 #include <SDL.h>
-#include "SDL/SDLMouse.h"
-#include "SDL/SDLKeyboard.h"
-
 
 GameEngine::GameEngine()
 {
-    this->Modules = new std::list<GameModule *>();
+    this->Modules = new std::list<GameModule*>();
 
     GameLog = new FileLogger();
     GameLog->Open("gamelog.txt");
     GameLog->LogMessage("Game Log Initialized");
     RegisterLogger(GameLog);
     LogTrace("GameEngine::GameEngine");
-
-    mouse = new SDLMouse();
-    keyboard = new SDLKeyboard();
 
     currentFrameTime = 0;
     previousFrameTime = 0;
@@ -52,6 +48,9 @@ void GameEngine::Start()
     Renderer->Initialize(&defaults);
 
     TextureRepo = AbstractFactory::CreateTextureRepository(this->Renderer);
+
+    mouse = AbstractFactory::CreateMouse();
+    keyboard = AbstractFactory::CreateKeyboard();
 }
 
 void GameEngine::Play()
@@ -91,8 +90,6 @@ void GameEngine::Play()
         {
             printf("Right Pressed\n");
         }
-
-
 
         currentFrameTime = get_a_ticks();
         if(TimeForNextFrame())

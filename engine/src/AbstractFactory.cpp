@@ -6,6 +6,8 @@
 #include "SDL/SDLTexture.h"
 #include "SDL/SDLRenderer.h"
 #include "SDL/SDLTextureRepository.h"
+#include "SDL/SDLKeyboard.h"
+#include "SDL/SDLMouse.h"
 
 #endif
 
@@ -128,4 +130,57 @@ TextureRepository *AbstractFactory::CreateTextureRepository(ARenderer *renderer)
 
     return nullptr;
 
+}
+
+AMouse* AbstractFactory::CreateMouse()
+{
+    switch (ActivatedRenderer)
+    {
+#if SUPPORT_SDL == 1
+    case RENDERER_SDL:
+    {
+        LogTrace("AbstractFactory creating Mouse");
+        return new SDLMouse();
+    }
+#endif
+#if SUPPORT_DIRECTX
+    case RENDERER_DIRECTX:
+    {
+        return new DXMouse();
+    }
+#endif
+    default:
+    {
+        return NULL;
+    }
+    }
+
+    return nullptr;
+
+}
+
+AKeyboard* AbstractFactory::CreateKeyboard()
+{
+    switch (ActivatedRenderer)
+    {
+#if SUPPORT_SDL == 1
+    case RENDERER_SDL:
+    {
+        LogTrace("AbstractFactory creating keyboard");
+        return new SDLKeyboard();
+    }
+#endif
+#if SUPPORT_DIRECTX
+    case RENDERER_DIRECTX:
+    {
+        return new DXKeyboard(renderer);
+    }
+#endif
+    default:
+    {
+        return NULL;
+    }
+    }
+
+    return nullptr;
 }

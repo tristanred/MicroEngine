@@ -1,6 +1,6 @@
 #include "ASprite.h"
 
-#include "Geometry.h"
+#include "libtech/Geometry.h"
 
 ASprite::ASprite()
 {

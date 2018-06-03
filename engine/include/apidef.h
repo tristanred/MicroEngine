@@ -14,8 +14,8 @@
 #else // defined(MICROENGINE_EXPORTS)
 
 #define ENGINE_API extern "C"
-#define ENGINE_CLASS
-
+#define ENGINE_CLASS __declspec(dllexport)
+ 
 #endif // defined(MICROENGINE_EXPORTS)
 
 #else // _WIN32

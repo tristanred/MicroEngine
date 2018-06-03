@@ -134,7 +134,7 @@ add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 
 # Link dependencies
 target_link_libraries(MICROENGINE LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
-target_link_libraries(MICROENGINED LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
+target_link_libraries(MICROENGINED LIBTECHD ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
 
 # Add DEFINES to tell the engine to export functions and api
 target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)

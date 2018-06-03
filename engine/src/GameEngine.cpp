@@ -5,7 +5,7 @@
 #include "libtech/filelogger.h"
 #include "TextureRepository.h"
 #include "AbstractFactory.h"
-#include "Geometry.h"
+#include "libtech/Geometry.h"
 #include "ATexture.h"
 #include "ConfigFile.h"
 

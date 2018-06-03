@@ -5,7 +5,7 @@ class ARenderer;
 #include <cstdint>
 
 #include "core.h"
-#include "Geometry.h"
+#include "libtech/Geometry.h"
 
 class ENGINE_CLASS ATexture
 {

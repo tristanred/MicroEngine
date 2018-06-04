@@ -26,7 +26,11 @@ void SDLRenderer::Initialize()
     LogTrace("SDLRenderer::Initialize");
 
     RendererParameters defaults;
-    defaults.window_title = "Window titlez !";
+
+    const char* defaultWindowTitle ="Window titlez !";
+    defaults.window_title = new char[strlen(defaultWindowTitle)];
+    strcpy(defaults.window_title, defaultWindowTitle);
+
     defaults.window_width = 800;
     defaults.window_height = 600;
     defaults.renderScaleX = 1;
@@ -41,7 +45,9 @@ void SDLRenderer::Initialize(ConfigFile* config)
 
     RendererParameters defaults;
 
-    defaults.window_title = config->GetConfigValueSafe("default_window_name", "Window Titlez !").c_str();
+    const char* windowTitle = config->GetConfigValueSafe("default_window_name", "Window Titlez !").c_str();
+    defaults.window_title = new char[strlen(windowTitle)];
+    strcpy(defaults.window_title, windowTitle);
 
     std::string wWidth= config->GetConfigValueSafe("default_engine_width", "800");
     defaults.window_width = atoi(wWidth.c_str());
@@ -49,10 +55,10 @@ void SDLRenderer::Initialize(ConfigFile* config)
     std::string wHeight = config->GetConfigValueSafe("default_engine_height", "600");
     defaults.window_height = atoi(wHeight.c_str());
 
-    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "1");
+    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "2");
     defaults.renderScaleX = stof(scaleX.c_str());
 
-    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "1");
+    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "3");
     defaults.renderScaleY = stof(scaleY.c_str());
 
     this->Initialize(&defaults);

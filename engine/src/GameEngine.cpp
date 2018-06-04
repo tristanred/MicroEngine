@@ -38,9 +38,9 @@ GameEngine::~GameEngine()
     GameLog->Close();
 }
 
-void GameEngine::Start()
+void GameEngine::Initialize()
 {
-    LogTrace("GameEngine::Start");
+    LogTrace("GameEngine::Initialize");
 
     Renderer = AbstractFactory::CreateRenderer();
 
@@ -89,6 +89,11 @@ void GameEngine::Play()
         if (mouse->RightButtonPressed())
         {
             printf("Right Pressed\n");
+        }
+
+        if(keyboard->IsKeyClicked(Key::_Escape))
+        {
+            return;
         }
 
         currentFrameTime = get_a_ticks();
@@ -203,4 +208,11 @@ ATexture* GameEngine::GetDefaultTexture()
 bool GameEngine::TimeForNextFrame()
 {
     return currentFrameTime - previousFrameTime > 1000 / wantedFPS;
+}
+
+void GameEngine::Shutdown()
+{
+    LogTrace("GameEngine::Shutdown");
+
+    SDL_Quit();
 }

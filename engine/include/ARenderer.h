@@ -8,7 +8,7 @@ class ConfigFile;
 
 struct RendererParameters
 {
-    const char* window_title;
+    char *window_title;
     int window_width;
     int window_height;
 

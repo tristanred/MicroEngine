@@ -38,7 +38,8 @@ public:
     GameEngine();
     ~GameEngine();
 
-    void Start();
+    void Initialize();
+    void Shutdown();
 
     void Play();
     void PlayOne();

@@ -140,14 +140,19 @@ target_link_libraries(MICROENGINED LIBTECHD ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2
 target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)
 target_compile_definitions(MICROENGINED PRIVATE MICROENGINE_EXPORTS)
 
-# Setup the tester project
+# Setup the EngineTester project
 file(GLOB TESTER_SOURCES "projects/tester/*.cpp")
 file(GLOB TESTER_HEADERS "projects/tester/*.h")
 
-## EngineTester sources
 add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
 target_link_libraries(EngineTester MICROENGINE)
 
+# Setup the RPG-Game project
+file(GLOB RPGGAME_SOURCES "projects/rpg-game/*.cpp")
+file(GLOB RPGGAME_HEADERS "projects/rpg-game/*.h")
+
+add_executable(RPG-Game ${RPGGAME_HEADERS} ${RPGGAME_SOURCES})
+target_link_libraries(RPG-Game MICROENGINE)
 
 #
 # Adjust project properties

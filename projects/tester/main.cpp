@@ -15,7 +15,7 @@
 int main(int argc, char** argv)
 {
     GameEngine* eng = new GameEngine();
-    eng->Start();
+    eng->Initialize();
 
     GameModule* mod = eng->CreateModule<GameModule>();
 

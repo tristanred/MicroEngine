@@ -1,8 +1,6 @@
 #pragma once
 
-class GameModule;
 class ASprite;
-class ARenderer;
 class ATexture;
 class FileLogger;
 class TextureRepository;
@@ -16,6 +14,7 @@ using namespace std;
 
 #include "core.h"
 #include "ARenderer.h"
+#include "GameModule.h"
 
 class ENGINE_CLASS GameEngine
 {
@@ -46,7 +45,7 @@ public:
     void PlayOneUnlocked();
 
     // TModule has to inherit from GameModule
-    template <typename TModule>
+    template <typename TModule = GameModule>
     TModule* CreateModule();
 
     ASprite* CreateSprite();

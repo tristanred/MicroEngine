@@ -99,8 +99,13 @@ void GameEngine::Play()
         currentFrameTime = get_a_ticks();
         if(TimeForNextFrame())
         {
+            // Setup Frame data
             previousFrameTime = currentFrameTime;
 
+            // Update engine and game modules
+            this->Update();
+
+            // Draw stuff
             Renderer->BeginDraw();
 
             this->DrawModules();

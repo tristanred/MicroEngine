@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include <GameEngine.h>
+#include "OverworldGameModule.h"
 
 int main(int argc, char** argv)
 {
@@ -8,6 +9,8 @@ int main(int argc, char** argv)
 
     GameEngine engine;
     engine.Initialize();
+
+    auto mod = engine.CreateModule<OverworldGameModule>();
 
     engine.Play();
 

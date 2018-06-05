@@ -24,16 +24,14 @@ ASprite* GameModule::CreateSprite()
 
     ASprite* x = this->Engine->CreateSprite();
 
-    this->Objects->push_back(x);
+    this->AttachSprite(x);
 
     return x;
 }
 
-ATexture* GameModule::CreateTexture()
+void GameModule::AttachSprite(ASprite* sprite)
 {
-    LogTrace("GameModule::CreateTexture");
-
-    return nullptr;
+    this->Objects->push_back(sprite);
 }
 
 void GameModule::Update()

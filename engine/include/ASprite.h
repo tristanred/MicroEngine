@@ -6,7 +6,7 @@
 class ENGINE_CLASS ASprite : public ARenderable
 {
 public:
-    ASprite();
+    ASprite(ARenderer* renderer);
     ~ASprite() override;
 };
 

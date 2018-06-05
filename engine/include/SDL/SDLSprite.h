@@ -10,7 +10,7 @@ class SDLTexture;
 class ENGINE_CLASS SDLSprite : public ASprite
 {
 public:
-    SDLSprite();
+    SDLSprite(ARenderer* renderer);
     ~SDLSprite() override;
 
     ATexture* GetTexture() override;

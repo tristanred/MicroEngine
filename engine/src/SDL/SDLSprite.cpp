@@ -3,8 +3,9 @@
 #include "ATexture.h"
 #include "SDL/SDLTexture.h"
 
-SDLSprite::SDLSprite() : ASprite()
+SDLSprite::SDLSprite(ARenderer* renderer) : ASprite(renderer)
 {
+    tex = NULL;
     LogTrace("SDLSprite::SDLSprite");
 }
 

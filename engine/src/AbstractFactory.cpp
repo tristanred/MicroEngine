@@ -52,7 +52,7 @@ ARenderer *AbstractFactory::CreateRenderer()
 
 }
 
-ASprite *AbstractFactory::CreateSprite()
+ASprite *AbstractFactory::CreateSprite(ARenderer* renderer)
 {
     switch(ActivatedRenderer)
     {
@@ -60,7 +60,7 @@ ASprite *AbstractFactory::CreateSprite()
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating SDL Sprite.");
-            return new SDLSprite();
+            return new SDLSprite(renderer);
         }
 #endif
 #if SUPPORT_DIRECTX

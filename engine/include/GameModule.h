@@ -25,7 +25,8 @@ public:
 
     // Create renderer-specific objects.
     ASprite* CreateSprite();
-    ATexture* CreateTexture();
+
+    virtual void AttachSprite(ASprite* sprite);
     
     virtual void Update();
     virtual void Draw(ARenderer* renderer);

@@ -2,7 +2,7 @@
 
 #include "libtech/Geometry.h"
 
-ASprite::ASprite()
+ASprite::ASprite(ARenderer* renderer) : ARenderable(renderer)
 {
     LogTrace("ASprite::ASprite");
 

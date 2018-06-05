@@ -165,7 +165,7 @@ ASprite* GameEngine::CreateSprite()
 {
     LogTrace("GameEngine::CreateSprite");
 
-    ASprite* sprt = AbstractFactory::CreateSprite();
+    ASprite* sprt = AbstractFactory::CreateSprite(Renderer);
 
     return sprt;
 }

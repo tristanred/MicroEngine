@@ -1,5 +1,6 @@
 #pragma once
 
+class ARenderer;
 class ATexture;
 
 #include "core.h"
@@ -8,7 +9,7 @@ class ATexture;
 class ENGINE_CLASS ARenderable
 {
 public:
-    ARenderable();
+    ARenderable(ARenderer* renderer);
     virtual ~ARenderable();
 
     virtual FPosition GetPosition();
@@ -21,6 +22,8 @@ public:
     virtual void SetTexture(ATexture* texture) = 0;
 
 protected:
+    ARenderer* Renderer;
+
     FPosition position;
     FSize size;
 

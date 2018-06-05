@@ -14,26 +14,28 @@
 #include <TextureRepository.h>
 #include <ConfigFile.h>
 
+#include "GameTestModule.h"
+
 int main(int argc, char** argv)
 {
     GameEngine* eng = new GameEngine();
     eng->Initialize();
 
-    GameModule* mod = eng->CreateModule<GameModule>();
+    GameModule* mod = eng->CreateModule<GameTestModule>();
 
-    ASprite* x = mod->CreateSprite();
+    //ASprite* x = mod->CreateSprite();
 
-    AFont* txtFont = mod->CreateFont();
-    txtFont->LoadFontFile("assets/engine/arial.ttf");
-    
-    AText* txt = mod->CreateText();
-    txt->SetFont(txtFont);
-    txt->SetText("Hello texts");
-    txt->SetPosition(FPosition(150.0, 50.0));
-    txt->SetColor(0xFF000000);
+    //AFont* txtFont = mod->CreateFont();
+    //txtFont->LoadFontFile("assets/engine/arial.ttf");
+    //
+    //AText* txt = mod->CreateText();
+    //txt->SetFont(txtFont);
+    //txt->SetText("Hello texts");
+    //txt->SetPosition(FPosition(150.0, 50.0));
+    //txt->SetColor(0xFF000000);
 
-    ATexture* tex = eng->TextureRepo->LoadFromFile("assets/engine/test_asset.png");
-    x->SetTexture(tex);
+    //ATexture* tex = eng->TextureRepo->LoadFromFile("assets/engine/test_asset.png");
+    //x->SetTexture(tex);
     
     eng->Play();
 

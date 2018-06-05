@@ -55,10 +55,10 @@ void SDLRenderer::Initialize(ConfigFile* config)
     std::string wHeight = config->GetConfigValueSafe("default_engine_height", "600");
     defaults.window_height = atoi(wHeight.c_str());
 
-    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "2");
+    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "1");
     defaults.renderScaleX = stof(scaleX.c_str());
 
-    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "3");
+    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "1");
     defaults.renderScaleY = stof(scaleY.c_str());
 
     this->Initialize(&defaults);
@@ -184,6 +184,15 @@ SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;
+}
+
+FSize SDLRenderer::GetWindowSize()
+{
+    int x = 0; 
+    int y = 0;
+    SDL_GetWindowSize(mainWindow, &x, &y);
+
+    return FSize((float)x, (float)y);
 }
 
 ATexture *SDLRenderer::CreateTexture()

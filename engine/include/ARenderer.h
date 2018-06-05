@@ -2,6 +2,8 @@
 
 #include "core.h"
 
+#include "libtech/Geometry.h"
+
 class ARenderable;
 class ATexture;
 class ConfigFile;
@@ -28,6 +30,8 @@ public:
 
     virtual void Draw(ARenderable* sprite) = 0;
     virtual ATexture* CreateTexture() = 0;
+
+    virtual FSize GetWindowSize() = 0;
 
     virtual void BeginDraw();
     virtual void EndDraw();

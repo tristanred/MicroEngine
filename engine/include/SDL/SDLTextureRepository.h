@@ -10,6 +10,6 @@ public:
     ~SDLTextureRepository() override;
 
     ATexture* LoadFromFile(const char* filepath) override;
-    ATexture* GetBySolidColor(uint32_t color) override;
+    ATexture* GetSolidColorTexture(FSize textureSize, uint32_t color) override;
 
 };

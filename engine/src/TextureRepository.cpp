@@ -23,8 +23,3 @@ ATexture* TextureRepository::LoadFromFile(const char* filepath)
 {
     return NULL;
 }
-
-ATexture* TextureRepository::GetBySolidColor(uint32_t color)
-{
-    return NULL;
-}

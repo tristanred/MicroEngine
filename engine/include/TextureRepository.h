@@ -8,6 +8,7 @@ class FileCache;
 using namespace std;
 
 #include "core.h"
+#include "libtech/Geometry.h"
 
 class ENGINE_CLASS TextureRepository
 {
@@ -16,7 +17,7 @@ public:
     virtual ~TextureRepository();
 
     virtual ATexture* LoadFromFile(const char* filepath);
-    virtual ATexture* GetBySolidColor(uint32_t color);
+    virtual ATexture* GetSolidColorTexture(FSize textureSize, uint32_t color) = 0;
 
 protected:
     ARenderer* Renderer;

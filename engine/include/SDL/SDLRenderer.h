@@ -31,5 +31,5 @@ public:
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 
-
+    FSize GetWindowSize() override;
 };

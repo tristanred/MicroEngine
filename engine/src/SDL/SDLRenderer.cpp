@@ -21,35 +21,31 @@ SDLRenderer::~SDLRenderer()
     LogTrace("SDLRenderer::~SDLRenderer");
 }
 
-void SDLRenderer::Initialize()
+bool SDLRenderer::Initialize()
 {
     LogTrace("SDLRenderer::Initialize");
 
     RendererParameters defaults;
-
-    const char* defaultWindowTitle ="Window titlez !";
-    defaults.window_title = new char[strlen(defaultWindowTitle)];
-    strcpy(defaults.window_title, defaultWindowTitle);
+    strcpy(defaults.window_title, "Window titlez !");
 
     defaults.window_width = 800;
     defaults.window_height = 600;
     defaults.renderScaleX = 1;
     defaults.renderScaleY = 1;
 
-    this->Initialize(&defaults);
+    return this->Initialize(&defaults);
 }
 
-void SDLRenderer::Initialize(ConfigFile* config)
+bool SDLRenderer::Initialize(ConfigFile* config)
 {
     LogTrace("SDLRenderer::Initialize with ConfigFile");
 
     RendererParameters defaults;
 
-    const char* windowTitle = config->GetConfigValueSafe("default_window_name", "Window Titlez !").c_str();
-    defaults.window_title = new char[strlen(windowTitle)];
-    strcpy(defaults.window_title, windowTitle);
+    std::string configValueSafe = config->GetConfigValueSafe("default_window_name", "Window Titlez !");
+    strcpy(defaults.window_title, configValueSafe.c_str());
 
-    std::string wWidth= config->GetConfigValueSafe("default_engine_width", "800");
+    std::string wWidth = config->GetConfigValueSafe("default_engine_width", "800");
     defaults.window_width = atoi(wWidth.c_str());
 
     std::string wHeight = config->GetConfigValueSafe("default_engine_height", "600");
@@ -61,10 +57,10 @@ void SDLRenderer::Initialize(ConfigFile* config)
     std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "1");
     defaults.renderScaleY = stof(scaleY.c_str());
 
-    this->Initialize(&defaults);
+    return this->Initialize(&defaults);
 }
 
-void SDLRenderer::Initialize(RendererParameters* params)
+bool SDLRenderer::Initialize(RendererParameters* params)
 {
     LogTrace("SDLRenderer::Initialize with RendererParameters");
 
@@ -89,7 +85,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in SDL_Init : %s", errorString);
 
-        return;
+        return false;
     }
 
     this->mainWindow = SDL_CreateWindow(params->window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, params->window_width, params->window_height, 0);
@@ -101,7 +97,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in SDL_CreateWindow : %s", errorString);
 
-        return;
+        return false;
     }
 
     this->gameRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -113,7 +109,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in SDL_CreateRenderer : %s", errorString);
 
-        return;
+        return false;
     }
 
     // TODO SDL_Image
@@ -126,7 +122,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in IMG_Init : %s", errorString);
 
-        return;
+        return false;
     }
 
     res = SDL_RenderSetScale(gameRenderer, params->renderScaleX, params->renderScaleY);
@@ -138,7 +134,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in SDL_RenderSetScale : %s", errorString);
 
-        return;
+        return false;
     }
 
     // TODO INIT TTF
@@ -151,10 +147,12 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
         LogError("Error in TTF_Init : %s", errorString);
 
-        return;
+        return false;
     }
 
     SDL_ShowWindow(mainWindow);
+
+    return true;
 }
 
 void SDLRenderer::Shutdown()

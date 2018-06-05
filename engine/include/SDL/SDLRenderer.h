@@ -16,9 +16,9 @@ public:
     SDLRenderer();
     ~SDLRenderer() override;
 
-    void Initialize() override;
-    void Initialize(ConfigFile* config) override;
-    void Initialize(RendererParameters* params) override;
+    bool Initialize() override;
+    bool Initialize(ConfigFile* config) override;
+    bool Initialize(RendererParameters* params) override;
 
     void Shutdown() override;
 

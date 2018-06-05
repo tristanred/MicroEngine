@@ -31,9 +31,12 @@ public:
     long int previousFrameTime;
     long int currentFrameTime;
 
+    // Engine State
+    bool InitializationComplete;
+
     // Input devices
-    AMouse* mouse;
-    AKeyboard* keyboard;
+    AMouse* Mouse;
+    AKeyboard* Keyboard;
 
     // Platform manager
     APlatform* Platform;
@@ -48,12 +51,15 @@ public:
     void PlayOne();
     void PlayOneUnlocked();
 
+    int GetDeltaTime();
+
     // TModule has to inherit from GameModule
     template <typename TModule = GameModule>
     TModule* CreateModule();
 
     ASprite* CreateSprite();
-
+    AText * CreateText();
+    AFont* CreateFont();
     ATexture* GetDefaultTexture();
 
 private:
@@ -62,9 +68,6 @@ private:
 
 
     bool TimeForNextFrame();
-public:
-    AText * CreateText();
-    AFont* CreateFont();
 };
 
 template<typename TModule>

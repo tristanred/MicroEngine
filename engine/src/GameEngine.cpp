@@ -11,6 +11,11 @@
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
 
+#include "ASprite.h"
+#include "AText.h"
+#include "AFont.h"
+#include "ATexture.h"
+
 #include "libtech/mytime.h"
 
 // Temp include of SDL for event handling
@@ -168,6 +173,20 @@ ASprite* GameEngine::CreateSprite()
     ASprite* sprt = AbstractFactory::CreateSprite(Renderer);
 
     return sprt;
+}
+
+AText* GameEngine::CreateText()
+{
+    AText* text = AbstractFactory::CreateText(this->Renderer);
+
+    return text;
+}
+
+AFont* GameEngine::CreateFont()
+{
+    AFont* font = AbstractFactory::CreateFont(this->Renderer);
+
+    return font;
 }
 
 void GameEngine::Update()

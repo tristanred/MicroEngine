@@ -1,5 +1,7 @@
 #pragma once
 
+class SDLRenderer;
+
 #include "core.h"
 #include "ARenderable.h"
 #include "AText.h"
@@ -12,6 +14,7 @@
 
 class ENGINE_CLASS SDLText : public AText
 {
+public:
     SDLText(ARenderer* renderer);
     ~SDLText();
 
@@ -30,12 +33,13 @@ class ENGINE_CLASS SDLText : public AText
     uint32_t GetColor() override;
     void SetColor(uint32_t color) override;
 
-    ATexture* GetTexture() override;
-    void SetTexture(ATexture* texture) override;
-
     void RefreshTexture();
 
 private:
+    bool dirtyFlag;
+    void IsDirty();
+
+    SDLRenderer* sdlRenderer;
     std::string currentText;
 
     SDLFont* sdlFont;

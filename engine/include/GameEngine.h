@@ -58,6 +58,9 @@ private:
 
 
     bool TimeForNextFrame();
+public:
+    AText * CreateText();
+    AFont* CreateFont();
 };
 
 template<typename TModule>

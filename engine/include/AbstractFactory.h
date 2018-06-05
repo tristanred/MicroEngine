@@ -5,6 +5,8 @@
 class ARenderable;
 class ARenderer;
 class ASprite;
+class AText;
+class AFont;
 class ATexture;
 class TextureRepository;
 
@@ -27,9 +29,11 @@ public:
 
     static ARenderer* CreateRenderer();
     static ASprite* CreateSprite(ARenderer* renderer);
+    static AText* CreateText(ARenderer* renderer);
     static ATexture* CreateTexture(ARenderer* renderer);
     static TextureRepository* CreateTextureRepository(ARenderer* renderer);
     static AMouse* CreateMouse();
     static AKeyboard* CreateKeyboard();
 
+    static AFont* CreateFont(ARenderer* Renderer);
 };

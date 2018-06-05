@@ -18,13 +18,14 @@ public:
     virtual FSize GetSize();
     virtual void SetSize(FSize size);
 
-    virtual ATexture* GetTexture() = 0;
-    virtual void SetTexture(ATexture* texture) = 0;
+    virtual ATexture* GetTexture();
+    virtual void SetTexture(ATexture* texture);
 
 protected:
     ARenderer* Renderer;
 
+    ATexture* texture;
+
     FPosition position;
     FSize size;
-
 };

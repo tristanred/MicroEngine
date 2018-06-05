@@ -75,6 +75,13 @@ void SDLTexture::SetSize(FSize size)
     this->isDirty = true;
 }
 
+//************************************
+// Method:    RefreshSDLTexture
+// FullName:  SDLTexture::RefreshSDLTexture
+// Access:    public 
+// Returns:   void
+// Qualifier: Recreates the SDL_Texture if the SDL_Surface was changed.
+//************************************
 void SDLTexture::RefreshSDLTexture()
 {
     if(isDirty)

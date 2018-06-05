@@ -2,6 +2,8 @@
 
 #include "ARenderer.h"
 #include "ASprite.h"
+#include "AText.h"
+#include "AFont.h"
 #include "GameEngine.h"
 
 
@@ -24,14 +26,34 @@ ASprite* GameModule::CreateSprite()
 
     ASprite* x = this->Engine->CreateSprite();
 
-    this->AttachSprite(x);
+    this->AttachRenderable(x);
 
     return x;
 }
 
-void GameModule::AttachSprite(ASprite* sprite)
+AText* GameModule::CreateText()
 {
-    this->Objects->push_back(sprite);
+    LogTrace("GameModule::CreateText");
+
+    AText* x = this->Engine->CreateText();
+
+    this->AttachRenderable(x);
+
+    return x;
+}
+
+AFont* GameModule::CreateFont()
+{
+    LogTrace("GameModule::CreateFont");
+
+    AFont* x = this->Engine->CreateFont();
+
+    return x;
+}
+
+void GameModule::AttachRenderable(ARenderable* object)
+{
+    this->Objects->push_back(object);
 }
 
 void GameModule::Update()

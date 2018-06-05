@@ -21,6 +21,7 @@ public:
     void SetSize(FSize size) override;
     void SetColor(uint32_t color) override;
 
+    
     void RefreshSDLTexture();
 
     ARenderer* Renderer;

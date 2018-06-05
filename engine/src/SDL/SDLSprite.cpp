@@ -13,15 +13,3 @@ SDLSprite::~SDLSprite()
 {
     LogTrace("SDLSprite::~SDLSprite");
 }
-
-ATexture* SDLSprite::GetTexture()
-{
-    return dynamic_cast<ATexture*>(this->tex);
-}
-
-void SDLSprite::SetTexture(ATexture *texture)
-{
-    LogTrace("SDLSprite::SetTexture");
-
-    this->tex = static_cast<SDLTexture*>(texture);
-}

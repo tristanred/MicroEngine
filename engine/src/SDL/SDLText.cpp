@@ -1,7 +1,11 @@
 #include "SDL/SDLText.h"
 
+#include "SDL/SDLRenderer.h"
+#include "SDL/SDLTexture.h"
+
 SDLText::SDLText(ARenderer* renderer) : AText(renderer)
 {
+    sdlRenderer = (SDLRenderer*)renderer;
     TextFont = NULL;
     sdlFont = NULL;
     currentText = "";
@@ -22,7 +26,12 @@ std::string SDLText::GetText()
 
 void SDLText::SetText(std::string text)
 {
-    currentText = text;
+    if (this->currentText != text)
+    {
+        currentText = text;
+
+        RefreshTexture();
+    }
 }
 
 AFont* SDLText::GetFont()
@@ -48,7 +57,12 @@ int SDLText::GetCharacterSize()
 
 void SDLText::SetCharacterSize(int size)
 {
-    textSize = size;
+    if (textSize != size)
+    {
+        textSize = size;
+
+        RefreshTexture();
+    }
 }
 
 TextStyle SDLText::GetStyle()
@@ -58,7 +72,12 @@ TextStyle SDLText::GetStyle()
 
 void SDLText::SetStyle(TextStyle style /*= TEXT_STYLE_REGULAR*/)
 {
-    style = style;
+    if (this->style != style)
+    {
+        style = style;
+
+        RefreshTexture();
+    }
 }
 
 uint32_t SDLText::GetColor()
@@ -68,16 +87,12 @@ uint32_t SDLText::GetColor()
 
 void SDLText::SetColor(uint32_t color)
 {
-    foregroundColor = color;
-}
+    if (this->foregroundColor != color)
+    {
+        foregroundColor = color;
 
-ATexture* SDLText::GetTexture()
-{
-    return NULL;
-}
-
-void SDLText::SetTexture(ATexture* texture)
-{
+        RefreshTexture();
+    }
 }
 
 void SDLText::RefreshTexture()
@@ -100,8 +115,9 @@ void SDLText::RefreshTexture()
         return;
     }
 
-    this->SetSize(FSize(renderedSurface->w, renderedSurface->h));
+    this->SetSize(FSize((float)renderedSurface->w, (float)renderedSurface->h));
 
+    SDLTexture* newTex = new SDLTexture(this->sdlRenderer, renderedSurface);
     
-
+    this->SetTexture(newTex);
 }

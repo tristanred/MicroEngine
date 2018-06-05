@@ -3,6 +3,8 @@
 class GameEngine;
 class ARenderable;
 class ASprite;
+class AText;
+class AFont;
 class ATexture;
 class ARenderer;
 
@@ -25,8 +27,10 @@ public:
 
     // Create renderer-specific objects.
     ASprite* CreateSprite();
+    AText* CreateText();
+    AFont* CreateFont();
 
-    virtual void AttachSprite(ASprite* sprite);
+    virtual void AttachRenderable(ARenderable* object);
     
     virtual void Update();
     virtual void Draw(ARenderer* renderer);

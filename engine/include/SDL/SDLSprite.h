@@ -12,9 +12,6 @@ class ENGINE_CLASS SDLSprite : public ASprite
 public:
     SDLSprite(ARenderer* renderer);
     ~SDLSprite() override;
-
-    ATexture* GetTexture() override;
-    void SetTexture(ATexture* texture) override;
 private:
     SDLTexture* tex;
 };

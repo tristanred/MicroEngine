@@ -1,7 +1,5 @@
 #include "ARenderer.h"
 
-
-
 ARenderer::ARenderer()
 {
     LogTrace("ARenderer::ARenderer");

@@ -2,16 +2,14 @@
 
 ConfigFile::ConfigFile(const char *filepath)
 {
-    char msg[1024];
-    sprintf(msg, "ConfigFile reading %s", filepath);
-    LogTrace(msg);
+    LogTrace("ConfigFile reading %s", filepath);
 
     doc = new pugi::xml_document();
     pugi::xml_parse_result result = doc->load_file(filepath);
 
     if(result)
     {
-        sprintf(msg, "Config File %s opened successfully.", filepath);
+        LogTrace("Config File %s opened successfully.", filepath);
 
         LoadedFile = filepath;
         isValid = true;
@@ -42,7 +40,7 @@ ConfigFile::ConfigFile(const char *filepath)
     }
     else
     {
-        sprintf(msg, "Failed to open file %s.", filepath);
+        LogTrace("Failed to open file %s.", filepath);
 
         LoadedFile = NULL;
         isValid = false;
@@ -53,9 +51,7 @@ ConfigFile::ConfigFile(const char *filepath)
 
 ConfigFile::~ConfigFile()
 {
-    char msg[1024];
-    sprintf(msg, "Deleting config file %s", this->LoadedFile);
-    LogTrace(msg);
+    LogTrace("Deleting config file %s", this->LoadedFile);
 
     delete(doc);
     

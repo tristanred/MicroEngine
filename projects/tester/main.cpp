@@ -23,20 +23,6 @@ int main(int argc, char** argv)
 
     GameModule* mod = eng->CreateModule<GameTestModule>();
 
-    //ASprite* x = mod->CreateSprite();
-
-    //AFont* txtFont = mod->CreateFont();
-    //txtFont->LoadFontFile("assets/engine/arial.ttf");
-    //
-    //AText* txt = mod->CreateText();
-    //txt->SetFont(txtFont);
-    //txt->SetText("Hello texts");
-    //txt->SetPosition(FPosition(150.0, 50.0));
-    //txt->SetColor(0xFF000000);
-
-    //ATexture* tex = eng->TextureRepo->LoadFromFile("assets/engine/test_asset.png");
-    //x->SetTexture(tex);
-    
     eng->Play();
 
     return 0;

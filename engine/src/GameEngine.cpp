@@ -135,6 +135,8 @@ ASprite* GameEngine::CreateSprite()
 
 AText* GameEngine::CreateText()
 {
+    LogTrace("GameEngine::CreateText");
+
     AText* text = AbstractFactory::CreateText(this->Renderer);
 
     return text;
@@ -142,6 +144,8 @@ AText* GameEngine::CreateText()
 
 AFont* GameEngine::CreateFont()
 {
+    LogTrace("GameEngine::CreateFont");
+
     AFont* font = AbstractFactory::CreateFont(this->Renderer);
 
     return font;

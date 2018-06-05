@@ -68,10 +68,18 @@ void SDLRenderer::Initialize(RendererParameters* params)
 {
     LogTrace("SDLRenderer::Initialize with RendererParameters");
 
+    LogTrace("Renderer Parameters : ");
+    LogTrace("    Window Title = %s", params->window_title);
+    LogTrace("    Window Width = %d", params->window_width);
+    LogTrace("    Window Height = %d", params->window_height);
+    LogTrace("    Window RenderScaleX = %f", params->renderScaleX);
+    LogTrace("    Window RenderScaleY = %f", params->renderScaleY);
+
     int res = 0;
     const char* errorString;
     char logMessage[1024];
 
+    LogTrace("Initializing SDL with subsystem Video and Audio.");
     res = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
     if(res != 0)
@@ -79,8 +87,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to init SDL with error %s\n", errorString);
 
-        sprintf(logMessage, "Error in SDL_Init : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in SDL_Init : %s", errorString);
 
         return;
     }
@@ -92,8 +99,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the window SDL with error %s\n", errorString);
 
-        sprintf(logMessage, "Error in SDL_CreateWindow : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in SDL_CreateWindow : %s", errorString);
 
         return;
     }
@@ -105,8 +111,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to create the Accelerated Renderer with error %s\n", errorString);
 
-        sprintf(logMessage, "Error in SDL_CreateRenderer : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in SDL_CreateRenderer : %s", errorString);
 
         return;
     }
@@ -119,8 +124,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = IMG_GetError();
         fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
 
-        sprintf(logMessage, "Error in IMG_Init : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in IMG_Init : %s", errorString);
 
         return;
     }
@@ -132,8 +136,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = SDL_GetError();
         fprintf(stderr, "Unable to scale by %f,%f with error %s\n", 1.0, 1.0, errorString);
 
-        sprintf(logMessage, "Error in SDL_RenderSetScale : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in SDL_RenderSetScale : %s", errorString);
 
         return;
     }
@@ -146,8 +149,7 @@ void SDLRenderer::Initialize(RendererParameters* params)
         errorString = TTF_GetError();
         fprintf(stderr, "Unable to init SDL_TTF with error %s\n", errorString);
 
-        sprintf(logMessage, "Error in TTF_Init : %s", errorString);
-        LogError(logMessage);
+        LogError("Error in TTF_Init : %s", errorString);
 
         return;
     }
@@ -157,6 +159,8 @@ void SDLRenderer::Initialize(RendererParameters* params)
 
 void SDLRenderer::Shutdown()
 {
+    LogTrace("SDLRenderer::Shutdown");
+
     SDL_Quit();
 }
 
@@ -195,7 +199,7 @@ FSize SDLRenderer::GetWindowSize()
     return FSize((float)x, (float)y);
 }
 
-ATexture *SDLRenderer::CreateTexture()
+ATexture* SDLRenderer::CreateTexture()
 {
     LogTrace("SDLRenderer::CreateTexture");
 

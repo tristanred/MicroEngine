@@ -53,6 +53,8 @@ AFont* GameModule::CreateFont()
 
 void GameModule::AttachRenderable(ARenderable* object)
 {
+    LogTrace("GameModule::AttachRenderable");
+
     this->Objects->push_back(object);
 }
 

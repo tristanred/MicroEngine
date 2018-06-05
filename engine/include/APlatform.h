@@ -8,7 +8,7 @@ class ENGINE_CLASS APlatform
 {
 public:
     APlatform(ARenderer* renderer);
-    ~APlatform();
+    virtual ~APlatform();
     
     // Platform State
     bool RequestExit;

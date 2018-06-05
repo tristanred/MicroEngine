@@ -15,7 +15,6 @@ endif()
 # Use C++ 11
 set(CMAKE_CXX_STANDARD 11)
 
-
 #
 # Setup Dependencies
 #
@@ -256,3 +255,4 @@ add_custom_command(
         "${PROJECT_SOURCE_DIR}/engine/assets"
         $<TARGET_FILE_DIR:MICROENGINE>/assets/engine
 )
+

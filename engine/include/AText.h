@@ -19,7 +19,7 @@ class ENGINE_CLASS AText : public ARenderable
 {
 public:
     AText(ARenderer* renderer);
-    ~AText();
+    virtual ~AText();
 
     AFont* TextFont;
     

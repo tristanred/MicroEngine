@@ -155,6 +155,11 @@ void SDLRenderer::Initialize(RendererParameters* params)
     SDL_ShowWindow(mainWindow);
 }
 
+void SDLRenderer::Shutdown()
+{
+    SDL_Quit();
+}
+
 void SDLRenderer::Draw(ARenderable* sprite)
 {
     SDLSprite* sdlSprite = (SDLSprite*)sprite;

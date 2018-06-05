@@ -5,6 +5,7 @@ class ATexture;
 class FileLogger;
 class TextureRepository;
 
+class APlatform;
 class AMouse;
 class AKeyboard;
 
@@ -33,6 +34,9 @@ public:
     // Input devices
     AMouse* mouse;
     AKeyboard* keyboard;
+
+    // Platform manager
+    APlatform* Platform;
 
     GameEngine();
     ~GameEngine();

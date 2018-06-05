@@ -7,6 +7,7 @@
 #include "SDL/SDLTexture.h"
 #include "SDL/SDLRenderer.h"
 #include "SDL/SDLTextureRepository.h"
+#include "SDL/SDLPlatform.h"
 #include "SDL/SDLKeyboard.h"
 #include "SDL/SDLMouse.h"
 
@@ -121,6 +122,32 @@ AFont* AbstractFactory::CreateFont(ARenderer* renderer)
     case RENDERER_DIRECTX:
     {
         return new DXFont();
+    }
+#endif
+    default:
+    {
+        return NULL;
+    }
+    }
+
+    return nullptr;
+}
+
+APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
+{
+    switch (ActivatedRenderer)
+    {
+#if SUPPORT_SDL == 1
+    case RENDERER_SDL:
+    {
+        LogTrace("AbstractFactory creating texture");
+        return new SDLPlatform(renderer);
+    }
+#endif
+#if SUPPORT_DIRECTX
+    case RENDERER_DIRECTX:
+    {
+        return new DXTexture(renderer);
     }
 #endif
     default:

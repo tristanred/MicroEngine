@@ -19,5 +19,3 @@ void ARenderer::BeginDraw()
 void ARenderer::EndDraw()
 {
 }
-
-

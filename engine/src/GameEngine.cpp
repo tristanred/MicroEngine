@@ -1,25 +1,21 @@
 #include "GameEngine.h"
 
-#include "ARenderer.h"
 #include "GameModule.h"
-#include "libtech/filelogger.h"
 #include "TextureRepository.h"
-#include "AbstractFactory.h"
 #include "libtech/Geometry.h"
-#include "ATexture.h"
+#include "libtech/filelogger.h"
 #include "ConfigFile.h"
-#include "Input/AMouse.h"
-#include "Input/AKeyboard.h"
-
+#include "AbstractFactory.h"
+#include "ARenderer.h"
+#include "APlatform.h"
 #include "ASprite.h"
 #include "AText.h"
 #include "AFont.h"
 #include "ATexture.h"
+#include "Input/AMouse.h"
+#include "Input/AKeyboard.h"
 
 #include "libtech/mytime.h"
-
-// Temp include of SDL for event handling
-#include <SDL.h>
 
 GameEngine::GameEngine()
 {
@@ -30,6 +26,12 @@ GameEngine::GameEngine()
     GameLog->LogMessage("Game Log Initialized");
     RegisterLogger(GameLog);
     LogTrace("GameEngine::GameEngine");
+
+    Renderer = NULL;
+    TextureRepo = NULL;
+    mouse = NULL;
+    keyboard = NULL;
+    Platform = NULL;
 
     currentFrameTime = 0;
     previousFrameTime = 0;
@@ -49,6 +51,8 @@ void GameEngine::Initialize()
 
     Renderer = AbstractFactory::CreateRenderer();
 
+    Platform = AbstractFactory::CreatePlatformHandler(Renderer);
+
     ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
     Renderer->Initialize(&defaults);
 
@@ -67,23 +71,11 @@ void GameEngine::Play()
         keyboard->UpdateKeyboardState();
         mouse->UpdateMouseState();
 
-        SDL_Event myEvent;
-        while (SDL_PollEvent(&myEvent)) {
-            switch (myEvent.type)
-            {
-                case SDL_QUIT:
-                {
-                    return;
+        Platform->HandleEvents();
 
-                    break;
-                }
-                case SDL_WINDOWEVENT:
-                {
-                    break;
-                }
-                default:
-                    break;
-            }
+        if (Platform->RequestExit)
+        {
+            return;
         }
 
         if (mouse->LeftButtonClicked())
@@ -124,46 +116,12 @@ void GameEngine::Play()
 
 void GameEngine::PlayOne()
 {
-    SDL_Event myEvent;
-    while (SDL_PollEvent(&myEvent)) {
-        switch (myEvent.type)
-        {
-        case SDL_QUIT:
-        {
-            return;
-
-            break;
-        }
-        case SDL_WINDOWEVENT:
-        {
-            break;
-        }
-        default:
-            break;
-        }
-    }
+    Platform->HandleEvents();
 }
 
 void GameEngine::PlayOneUnlocked()
 {
-    SDL_Event myEvent;
-    while (SDL_PollEvent(&myEvent)) {
-        switch (myEvent.type)
-        {
-        case SDL_QUIT:
-        {
-            return;
-
-            break;
-        }
-        case SDL_WINDOWEVENT:
-        {
-            break;
-        }
-        default:
-            break;
-        }
-    }
+    Platform->HandleEvents();
 }
 
 ASprite* GameEngine::CreateSprite()
@@ -238,5 +196,6 @@ void GameEngine::Shutdown()
 {
     LogTrace("GameEngine::Shutdown");
 
-    SDL_Quit();
+    Renderer->Shutdown();
+    Platform->Shutdown();
 }

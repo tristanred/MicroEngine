@@ -20,6 +20,8 @@ public:
     void Initialize(ConfigFile* config) override;
     void Initialize(RendererParameters* params) override;
 
+    void Shutdown() override;
+
     void BeginDraw() override;
     void EndDraw() override;
 

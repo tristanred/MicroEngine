@@ -8,6 +8,7 @@ class ASprite;
 class AText;
 class AFont;
 class ATexture;
+class APlatform;
 class TextureRepository;
 
 class AMouse;
@@ -34,6 +35,6 @@ public:
     static TextureRepository* CreateTextureRepository(ARenderer* renderer);
     static AMouse* CreateMouse();
     static AKeyboard* CreateKeyboard();
-
     static AFont* CreateFont(ARenderer* Renderer);
+    static APlatform* CreatePlatformHandler(ARenderer* Renderer);
 };

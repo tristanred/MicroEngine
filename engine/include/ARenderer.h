@@ -31,4 +31,5 @@ public:
 
     virtual void BeginDraw();
     virtual void EndDraw();
+    virtual void Shutdown() = 0;
 };

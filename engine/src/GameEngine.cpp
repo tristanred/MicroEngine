@@ -43,6 +43,24 @@ GameEngine::~GameEngine()
 {
     LogTrace("GameEngine::~GameEngine");
 
+    auto modbegin = Modules->begin();
+    auto modend = Modules->end();
+    while (modbegin != modend)
+    {
+        GameModule* mod = *modbegin;
+        delete(mod);
+
+        modbegin++;
+    }
+    Modules->clear();
+    delete(Modules);
+
+    delete(Platform);
+    delete(Mouse);
+    delete(Keyboard);
+    delete(TextureRepo);
+    delete(Renderer);
+
     GameLog->Close();
 }
 

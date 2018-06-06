@@ -3,7 +3,7 @@
 #include "core.h"
 #include "AFont.h"
 
-#include <SDL_TTF.h>
+#include <SDL_ttf.h>
 
 class ENGINE_CLASS SDLFont : public AFont
 {

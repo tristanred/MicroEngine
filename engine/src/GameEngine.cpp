@@ -241,7 +241,7 @@ void GameEngine::PlayOneUnlocked()
     Mouse->UpdatePastMouseState();
 }
 
-int GameEngine::GetDeltaTime()
+long GameEngine::GetDeltaTime()
 {
     return currentFrameTime - previousFrameTime;
 }

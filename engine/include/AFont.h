@@ -8,7 +8,7 @@ class ENGINE_CLASS AFont
 {
 public:
     AFont();
-    ~AFont();
+    virtual ~AFont();
     
     // Load a TTF file
     virtual void LoadFontFile(std::string path) = 0;

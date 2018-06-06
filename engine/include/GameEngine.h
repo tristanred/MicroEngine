@@ -51,7 +51,7 @@ public:
     void PlayOne();
     void PlayOneUnlocked();
 
-    int GetDeltaTime();
+    long GetDeltaTime();
 
     // TModule has to inherit from GameModule
     template <typename TModule = GameModule>

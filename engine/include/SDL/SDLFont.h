@@ -9,7 +9,7 @@ class ENGINE_CLASS SDLFont : public AFont
 {
 public:
     SDLFont();
-    ~SDLFont();
+    ~SDLFont() override;
     
     TTF_Font* fontObject;
     

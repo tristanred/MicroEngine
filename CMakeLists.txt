@@ -120,7 +120,7 @@ ENDIF(WIN32)
 # Create projects
 #
 
-## MicroEngine sources
+## MicroEngine
 file(GLOB_RECURSE ENGINE_SOURCES "engine/src/*.cpp")
 file(GLOB_RECURSE ENGINE_HEADERS "engine/include/*.h")
 
@@ -139,16 +139,16 @@ target_link_libraries(MICROENGINED LIBTECHD ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2
 target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)
 target_compile_definitions(MICROENGINED PRIVATE MICROENGINE_EXPORTS)
 
-# Setup the EngineTester project
-file(GLOB TESTER_SOURCES "projects/tester/*.cpp")
-file(GLOB TESTER_HEADERS "projects/tester/*.h")
+## Engine Tester
+file(GLOB_RECURSE TESTER_SOURCES "projects/tester/*.cpp")
+file(GLOB_RECURSE TESTER_HEADERS "projects/tester/*.h")
 
 add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
 target_link_libraries(EngineTester MICROENGINE)
 
-# Setup the RPG-Game project
-file(GLOB RPGGAME_SOURCES "projects/rpg-game/*.cpp")
-file(GLOB RPGGAME_HEADERS "projects/rpg-game/*.h")
+## RPG-Game
+file(GLOB_RECURSE RPGGAME_SOURCES "projects/rpg-game/*.cpp")
+file(GLOB_RECURSE RPGGAME_HEADERS "projects/rpg-game/*.h")
 
 add_executable(RPG-Game ${RPGGAME_HEADERS} ${RPGGAME_SOURCES})
 target_link_libraries(RPG-Game MICROENGINE)
@@ -250,9 +250,16 @@ IF(WIN32)
 ENDIF(WIN32)
 
 add_custom_command(
-        TARGET MICROENGINE POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${PROJECT_SOURCE_DIR}/engine/assets"
-        $<TARGET_FILE_DIR:MICROENGINE>/assets/engine
+    TARGET MICROENGINE POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${PROJECT_SOURCE_DIR}/engine/assets"
+    $<TARGET_FILE_DIR:MICROENGINE>/assets/engine
+)
+
+add_custom_command(
+    TARGET RPG-Game POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${PROJECT_SOURCE_DIR}/data"
+    $<TARGET_FILE_DIR:RPG-Game>/data
 )
 

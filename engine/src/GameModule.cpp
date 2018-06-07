@@ -51,6 +51,20 @@ AFont* GameModule::CreateFont()
     return x;
 }
 
+ATexture* GameModule::CreateTexture()
+{
+    ATexture* texture = this->Engine->CreateTexture();
+
+    return texture;
+}
+
+ATexture* GameModule::CreateTexture(const char* filePath)
+{
+    ATexture* texture = this->Engine->CreateTexture(filePath);
+
+    return texture;
+}
+
 void GameModule::AttachRenderable(ARenderable* object)
 {
     LogTrace("GameModule::AttachRenderable");

@@ -273,6 +273,24 @@ AFont* GameEngine::CreateFont()
     return font;
 }
 
+ATexture* GameEngine::CreateTexture()
+{
+    LogTrace("GameEngine::CreateTexture");
+
+    ATexture* newTexture = AbstractFactory::CreateTexture(Renderer);
+
+    return newTexture;
+}
+
+ATexture* GameEngine::CreateTexture(const char* filepath)
+{
+    LogTrace("GameEngine::CreateTexture(char*)");
+
+    ATexture* tex = this->TextureRepo->LoadFromFile(filepath);
+
+    return tex;
+}
+
 void GameEngine::Update()
 {
     auto begin = this->Modules->begin();
@@ -308,7 +326,7 @@ ATexture* GameEngine::GetDefaultTexture()
     ATexture* test = AbstractFactory::CreateTexture(this->Renderer);
 
     test->SetSize(FSize(100, 100));
-    test->SetColor(0xFFFF0000);
+    test->FillColor(0xFFFF0000);
 
     return test;
 }

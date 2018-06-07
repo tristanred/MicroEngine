@@ -2,6 +2,7 @@
 
 #include "SDL/SDLRenderer.h"
 
+#include <SDL_image.h>
 #include <cmath>
 
 SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
@@ -33,7 +34,34 @@ SDLTexture::~SDLTexture()
     SDL_DestroyTexture(tex);
 }
 
-void SDLTexture::SetColor(uint32_t color)
+void SDLTexture::SetSolidColor(FSize size, uint32_t color)
+{
+    if (this->surf != NULL)
+    {
+        SDL_free(this->surf);
+    }
+
+    this->textureSize = size;
+    this->surf = SDL_CreateRGBSurface(0, size.Width, size.Height, 32, 0, 0, 0, 0);
+    SDL_FillRect(surf, NULL, color);
+
+    isDirty = true;
+}
+
+void SDLTexture::LoadFromFile(const char* filepath)
+{
+    if (this->surf != NULL)
+    {
+        SDL_free(this->surf);
+    }
+
+    this->surf = IMG_Load(filepath);
+    this->textureSize = FSize((float)this->surf->w, (float)this->surf->h);
+
+    isDirty = true;
+}
+
+void SDLTexture::FillColor(uint32_t color)
 {
     LogTrace("SDLTexture::SetColor");
 

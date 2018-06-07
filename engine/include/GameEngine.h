@@ -60,6 +60,9 @@ public:
     ASprite* CreateSprite();
     AText * CreateText();
     AFont* CreateFont();
+    ATexture * CreateTexture();
+    ATexture * CreateTexture(const char* filepath);
+
     ATexture* GetDefaultTexture();
 
 private:

@@ -30,6 +30,9 @@ public:
     AText* CreateText();
     AFont* CreateFont();
 
+    ATexture* CreateTexture(); // Create empty texture
+    ATexture* CreateTexture(const char* filePath); // Create texture from file
+
     virtual void AttachRenderable(ARenderable* object);
     
     virtual void Update();

@@ -49,28 +49,28 @@ void GameTestModule::Update()
     {
         boxVelocity.x *= -1;
         nextPos.X = windowSize.Width - Box->GetSize().Width;
-        Box->GetTexture()->SetColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
     if (nextPos.X < 0)
     {
         boxVelocity.x *= -1;
         nextPos.X = 0;
-        Box->GetTexture()->SetColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
     if (nextPos.Y + Box->GetSize().Height > windowSize.Height)
     {
         boxVelocity.y *= -1;
         nextPos.Y = windowSize.Height - Box->GetSize().Height;
-        Box->GetTexture()->SetColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
     if (nextPos.Y < 0)
     {
         boxVelocity.y *= -1;
         nextPos.Y = 0;
-        Box->GetTexture()->SetColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
     

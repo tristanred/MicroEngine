@@ -18,8 +18,11 @@ public:
     SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface);
     ~SDLTexture() override;
 
+    void SetSolidColor(FSize size, uint32_t color) override;
+    void LoadFromFile(const char* filepath) override;
+
     void SetSize(FSize size) override;
-    void SetColor(uint32_t color) override;
+    void FillColor(uint32_t color) override;
 
     
     void RefreshSDLTexture();
@@ -32,6 +35,8 @@ public:
     // Texture is a handle to the GPU texture data
     SDL_Texture* tex;
     SDLRenderer* SdlRenderer;
+
+
 
 private:
     FSize TextureSize;

@@ -31,6 +31,13 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     boxVelocity.x = 5;
     boxVelocity.y = 5;
+
+    TimerText = this->CreateText();
+    TimerText->SetFont(ArialFont);
+    TimerText->SetText("0");
+    TimerText->SetColor(0xFF000000);
+
+    timer = new TickTimer(30000);
 }
 
 GameTestModule::~GameTestModule()
@@ -38,8 +45,15 @@ GameTestModule::~GameTestModule()
 
 }
 
-void GameTestModule::Update()
+void GameTestModule::Update(unsigned int deltaTime)
 {
+    GameModule::Update(deltaTime);
+
+    timer->Update(deltaTime);
+    char timermsg[256];
+    sprintf(timermsg, "%f %%", timer->GetCurrentPercentage() * 100);
+    TimerText->SetText(timermsg);
+
     FPosition nextPos = Box->GetPosition();
     nextPos.X += boxVelocity.x;
     nextPos.Y += boxVelocity.y;

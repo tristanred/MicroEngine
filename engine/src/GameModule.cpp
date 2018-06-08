@@ -72,7 +72,7 @@ void GameModule::AttachRenderable(ARenderable* object)
     this->Objects->push_back(object);
 }
 
-void GameModule::Update()
+void GameModule::Update(unsigned int deltaTime)
 {
 }
 

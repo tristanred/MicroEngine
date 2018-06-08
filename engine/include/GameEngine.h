@@ -66,7 +66,7 @@ public:
     ATexture* GetDefaultTexture();
 
 private:
-    void Update();
+    void Update(unsigned int deltaTime);
     void DrawModules();
 
 

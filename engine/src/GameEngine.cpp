@@ -94,6 +94,9 @@ void GameEngine::Initialize()
     {
         InitializationComplete = true;
     }
+
+    currentFrameTime = get_a_ticks();
+    previousFrameTime = get_a_ticks();
 }
 
 void GameEngine::Play()
@@ -130,11 +133,8 @@ void GameEngine::Play()
         currentFrameTime = get_a_ticks();
         if(TimeForNextFrame())
         {
-            // Setup Frame data
-            previousFrameTime = currentFrameTime;
-
             // Update engine and game modules
-            this->Update();
+            this->Update(GetDeltaTime());
 
             // Draw stuff
             Renderer->BeginDraw();
@@ -142,6 +142,8 @@ void GameEngine::Play()
             this->DrawModules();
 
             Renderer->EndDraw();
+
+            previousFrameTime = currentFrameTime;
         }
 
         Keyboard->UpdateKeyboardPastState();
@@ -183,7 +185,7 @@ void GameEngine::PlayOne()
         previousFrameTime = currentFrameTime;
 
         // Update engine and game modules
-        this->Update();
+        this->Update(GetDeltaTime());
 
         // Draw stuff
         Renderer->BeginDraw();
@@ -228,7 +230,7 @@ void GameEngine::PlayOneUnlocked()
     previousFrameTime = currentFrameTime;
 
     // Update engine and game modules
-    this->Update();
+    this->Update(GetDeltaTime());
 
     // Draw stuff
     Renderer->BeginDraw();
@@ -291,7 +293,7 @@ ATexture* GameEngine::CreateTexture(const char* filepath)
     return tex;
 }
 
-void GameEngine::Update()
+void GameEngine::Update(unsigned int deltaTime)
 {
     auto begin = this->Modules->begin();
     auto end = this->Modules->end();
@@ -300,7 +302,7 @@ void GameEngine::Update()
     {
         GameModule* mod = *begin;
 
-        mod->Update();
+        mod->Update(deltaTime);
 
         begin++;
     }

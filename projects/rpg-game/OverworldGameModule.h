@@ -25,7 +25,7 @@ public:
 
     void Setup(std::string configFilePath);
 
-    void Update() override;
+    void Update(unsigned int deltaTime) override;
     void Draw(ARenderer *renderer) override;
 
 private:

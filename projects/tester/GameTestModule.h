@@ -9,6 +9,7 @@
 #include <AText.h>
 #include <ATexture.h>
 #include <AFont.h>
+#include <TickTimer.h>
 
 #include <libtech/vec.h>
 
@@ -27,5 +28,8 @@ public:
 
     vec2 boxVelocity;
 
-    void Update() override;
+    AText* TimerText;
+    TickTimer* timer;
+
+    void Update(unsigned int deltaTime) override;
 };

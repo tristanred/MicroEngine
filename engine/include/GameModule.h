@@ -35,7 +35,7 @@ public:
 
     virtual void AttachRenderable(ARenderable* object);
     
-    virtual void Update();
+    virtual void Update(unsigned int deltaTime);
     virtual void Draw(ARenderer* renderer);
 
 private:

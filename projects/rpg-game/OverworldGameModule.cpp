@@ -20,9 +20,9 @@ void OverworldGameModule::Setup(std::string configFilePath)
 
 }
 
-void OverworldGameModule::Update()
+void OverworldGameModule::Update(unsigned int deltaTime)
 {
-    GameModule::Update();
+    GameModule::Update(deltaTime);
 }
 
 void OverworldGameModule::Draw(ARenderer *renderer)

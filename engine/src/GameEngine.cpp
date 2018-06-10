@@ -15,6 +15,7 @@
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
 
+#include "libtech/sysutils.h"
 #include "libtech/mytime.h"
 
 GameEngine::GameEngine()
@@ -67,6 +68,10 @@ GameEngine::~GameEngine()
 void GameEngine::Initialize()
 {
     LogTrace("GameEngine::Initialize");
+    char* cwd = get_working_directory();
+    char msg[2048];
+    sprintf(msg, "Working Directory is : %s", cwd);
+    LogMessage(msg);
 
     Renderer = AbstractFactory::CreateRenderer();
     ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");

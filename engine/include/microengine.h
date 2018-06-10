@@ -11,3 +11,6 @@
 #include <AText.h>
 #include <AFont.h>
 #include <ATexture.h>
+#include <Input/AKeyboard.h>
+#include <Input/AMouse.h>
+#include <Input/Keys.h>

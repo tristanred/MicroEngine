@@ -161,6 +161,7 @@ IF(WIN32)
 set_target_properties(MICROENGINE PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 set_target_properties(MICROENGINED PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 set_target_properties(EngineTester PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
+set_target_properties(RPG-Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 
 ENDIF(WIN32)
 
@@ -259,7 +260,7 @@ add_custom_command(
 add_custom_command(
     TARGET RPG-Game POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${PROJECT_SOURCE_DIR}/data"
+    "${PROJECT_SOURCE_DIR}/projects/rpg-game/data"
     $<TARGET_FILE_DIR:RPG-Game>/data
 )
 

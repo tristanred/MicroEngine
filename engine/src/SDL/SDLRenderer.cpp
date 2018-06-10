@@ -73,7 +73,6 @@ bool SDLRenderer::Initialize(RendererParameters* params)
 
     int res = 0;
     const char* errorString;
-    char logMessage[1024];
 
     LogTrace("Initializing SDL with subsystem Video and Audio.");
     res = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -165,14 +164,13 @@ void SDLRenderer::Shutdown()
 void SDLRenderer::Draw(ARenderable* sprite)
 {
     SDLSprite* sdlSprite = (SDLSprite*)sprite;
+    SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
 
     SDL_Rect dest;
-    dest.w = (int)sdlSprite->GetSize().Width;
-    dest.h = (int)sdlSprite->GetSize().Height;
+    dest.w = (int)tex->GetSize().Width;
+    dest.h = (int)tex->GetSize().Height;
     dest.x = (int)sdlSprite->GetPosition().X;
     dest.y = (int)sdlSprite->GetPosition().Y;
-
-    SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
 
     tex->RefreshSDLTexture(); // Refresh the texture if needed.
 

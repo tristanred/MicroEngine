@@ -26,6 +26,16 @@ bool SDLKeyboard::IsKeyClicked(Key key)
     return currentScancodes[key] && !previousScancodes[key];
 }
 
+bool SDLKeyboard::IsKeyDown(Key key)
+{
+    return currentScancodes[key];
+}
+
+bool SDLKeyboard::IsKeyUp(Key key)
+{
+    return currentScancodes[key] == false;
+}
+
 void SDLKeyboard::UpdateKeyboardState()
 {
     memcpy(previousScancodes, currentScancodes, keysCount);

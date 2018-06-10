@@ -6,8 +6,6 @@ class AText;
 
 #include <GameModule.h>
 
-// Game Classes
-class GameMap;
 
 #include <vector>
 #include <list>
@@ -20,10 +18,10 @@ public:
     explicit OverworldGameModule(GameEngine* engine);
     ~OverworldGameModule() override;
 
-    GameMap* CurrentMap;
-    std::list<GameMap*> Maps;
+    ASprite* Map;
+    ASprite* PlayerCharacter;
 
-    void Setup(std::string configFilePath);
+    void Setup();
 
     void Update(unsigned int deltaTime) override;
     void Draw(ARenderer *renderer) override;

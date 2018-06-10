@@ -37,7 +37,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     TimerText->SetText("0");
     TimerText->SetColor(0xFF000000);
 
-    timer = new TickTimer(30000);
+    timer = new TickTimer(10000);
 }
 
 GameTestModule::~GameTestModule()

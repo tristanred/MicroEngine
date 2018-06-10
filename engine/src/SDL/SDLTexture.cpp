@@ -42,7 +42,7 @@ void SDLTexture::SetSolidColor(FSize size, uint32_t color)
     }
 
     this->textureSize = size;
-    this->surf = SDL_CreateRGBSurface(0, size.Width, size.Height, 32, 0, 0, 0, 0);
+    this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, 0, 0, 0, 0);
     SDL_FillRect(surf, NULL, color);
 
     isDirty = true;

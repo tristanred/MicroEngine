@@ -30,7 +30,7 @@ ATexture* SDLTextureRepository::LoadFromFile(const char *filepath)
 
 ATexture* SDLTextureRepository::GetSolidColorTexture(FSize textureSize, uint32_t color)
 {
-    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, textureSize.Width, textureSize.Height, 32, 0, 0, 0, 0);
+    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, (int)textureSize.Width, (int)textureSize.Height, 32, 0, 0, 0, 0);
 
     SDL_FillRect(newSurface, NULL, color);
 

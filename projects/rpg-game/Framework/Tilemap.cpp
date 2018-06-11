@@ -17,7 +17,18 @@ Tilemap::Tilemap()
 
 Tilemap::~Tilemap()
 {
-    
+    for (int i = 0; i < this->rowCount; i++)
+    {
+        for (int k = 0; k < this->colCount; k++)
+        {
+            Tile* tile = Tiles[i][k];
+            delete(tile);
+        }
+
+        delete(Tiles[i]);
+    }
+
+    delete(Tiles);
 }
 
 void Tilemap::Setup(int columns, int rows, ARenderer* renderer)

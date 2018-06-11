@@ -9,7 +9,7 @@ class SDLRenderer;
 
 #include "core.h"
 #include "ATexture.h"
-#include "libtech/Geometry.h"
+#include "libtech/geometry.h"
 
 class ENGINE_CLASS SDLTexture : public ATexture
 {

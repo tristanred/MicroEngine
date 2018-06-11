@@ -8,7 +8,7 @@ class FileCache;
 using namespace std;
 
 #include "core.h"
-#include "libtech/Geometry.h"
+#include "libtech/geometry.h"
 
 class ENGINE_CLASS TextureRepository
 {

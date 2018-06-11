@@ -1,6 +1,6 @@
 #include "ASprite.h"
 
-#include "libtech/Geometry.h"
+#include "libtech/geometry.h"
 
 ASprite::ASprite(ARenderer* renderer) : ARenderable(renderer)
 {

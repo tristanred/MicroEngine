@@ -4,7 +4,7 @@ class ARenderer;
 class ATexture;
 
 #include "core.h"
-#include "libtech/Geometry.h"
+#include "libtech/geometry.h"
 
 class ENGINE_CLASS ARenderable
 {

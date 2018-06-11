@@ -2,7 +2,7 @@
 
 #include "GameModule.h"
 #include "TextureRepository.h"
-#include "libtech/Geometry.h"
+#include "libtech/geometry.h"
 #include "libtech/filelogger.h"
 #include "ConfigFile.h"
 #include "AbstractFactory.h"

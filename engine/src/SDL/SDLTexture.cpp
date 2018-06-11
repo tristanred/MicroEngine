@@ -53,9 +53,18 @@ void SDLTexture::LoadFromFile(const char* filepath)
     if (this->surf != NULL)
     {
         SDL_free(this->surf);
+
     }
 
     this->surf = IMG_Load(filepath);
+
+    if (this->surf == NULL)
+    {
+        LogError("Unable to open the file texture");
+
+        return;
+    }
+
     this->textureSize = FSize((float)this->surf->w, (float)this->surf->h);
 
     isDirty = true;

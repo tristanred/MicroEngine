@@ -26,6 +26,7 @@ public:
     void EndDraw() override;
 
     void Draw(ARenderable* sprite) override;
+    void DrawTexture(ATexture* texture, float posX, float posY) override;
 
     ATexture* CreateTexture() override;
 

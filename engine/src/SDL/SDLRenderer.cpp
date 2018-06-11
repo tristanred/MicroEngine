@@ -177,6 +177,21 @@ void SDLRenderer::Draw(ARenderable* sprite)
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
 }
 
+void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
+{
+    SDLTexture* tex = (SDLTexture*)texture;
+
+    SDL_Rect dest;
+    dest.w = (int)tex->GetSize().Width;
+    dest.h = (int)tex->GetSize().Height;
+    dest.x = (int)posX;
+    dest.y = (int)posY;
+
+    tex->RefreshSDLTexture();
+
+    SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+}
+
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
     LogTrace("SDLRenderer::BuildTexture");

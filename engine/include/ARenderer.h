@@ -36,4 +36,5 @@ public:
     virtual void BeginDraw();
     virtual void EndDraw();
     virtual void Shutdown() = 0;
+    virtual void DrawTexture(ATexture*tex, float posX, float posY) = 0;
 };

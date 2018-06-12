@@ -57,7 +57,7 @@ void Tilemap::Setup(int columns, int rows, ARenderer* renderer)
         {
             Tile* newTile = new Tile();
             
-            newTile->id = rng.GetRandom(3);
+            newTile->id = rng.GetRandom(0, 3);
             
             Tiles[i][k] = newTile;
         }

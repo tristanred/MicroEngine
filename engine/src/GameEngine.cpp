@@ -15,6 +15,7 @@
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
 
+#include <libtech/filecache.h>
 #include "libtech/sysutils.h"
 #include "libtech/mytime.h"
 
@@ -29,7 +30,6 @@ GameEngine::GameEngine()
     LogTrace("GameEngine::GameEngine");
 
     Renderer = NULL;
-    TextureRepo = NULL;
     Mouse = NULL;
     Keyboard = NULL;
     Platform = NULL;
@@ -59,7 +59,6 @@ GameEngine::~GameEngine()
     delete(Platform);
     delete(Mouse);
     delete(Keyboard);
-    delete(TextureRepo);
     delete(Renderer);
 
     GameLog->Close();
@@ -73,18 +72,21 @@ void GameEngine::Initialize()
     sprintf(msg, "Working Directory is : %s", cwd);
     LogMessage(msg);
 
+    FilesCache = new FileCache();
+
     Renderer = AbstractFactory::CreateRenderer();
+    Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache
+
     ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
     bool renderInitSuccess = Renderer->Initialize(&defaults);
 
     Platform = AbstractFactory::CreatePlatformHandler(Renderer);
-    TextureRepo = AbstractFactory::CreateTextureRepository(this->Renderer);
     Mouse = AbstractFactory::CreateMouse();
     Keyboard = AbstractFactory::CreateKeyboard();
 
+
     if (Renderer == NULL ||
         Platform == NULL ||
-        TextureRepo == NULL ||
         Mouse == NULL ||
         Keyboard == NULL ||
         renderInitSuccess == false)
@@ -293,7 +295,7 @@ ATexture* GameEngine::CreateTexture(const char* filepath)
 {
     LogTrace("GameEngine::CreateTexture(char*)");
 
-    ATexture* tex = this->TextureRepo->LoadFromFile(filepath);
+    ATexture* tex = this->Renderer->CreateTexture(filepath);
 
     return tex;
 }

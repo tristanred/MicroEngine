@@ -9,7 +9,6 @@ class AText;
 class AFont;
 class ATexture;
 class APlatform;
-class TextureRepository;
 
 class AMouse;
 class AKeyboard;
@@ -32,7 +31,6 @@ public:
     static ASprite* CreateSprite(ARenderer* renderer);
     static AText* CreateText(ARenderer* renderer);
     static ATexture* CreateTexture(ARenderer* renderer);
-    static TextureRepository* CreateTextureRepository(ARenderer* renderer);
     static AMouse* CreateMouse();
     static AKeyboard* CreateKeyboard();
     static AFont* CreateFont(ARenderer* Renderer);

@@ -4,6 +4,7 @@ class ASprite;
 class ATexture;
 class FileLogger;
 class TextureRepository;
+class FileCache;
 
 class APlatform;
 class AMouse;
@@ -24,8 +25,8 @@ public:
 
     // Game Services
     ARenderer* Renderer;
-    TextureRepository* TextureRepo;
     FileLogger* GameLog;
+    FileCache* FilesCache;
 
     int wantedFPS;
     long int previousFrameTime;

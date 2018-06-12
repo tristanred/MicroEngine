@@ -7,6 +7,10 @@ ATexture::ATexture(ARenderer* renderer)
     LogTrace("ATexture::ATexture");
 
     this->BaseRenderer = renderer;
+    loadedTexturePath = NULL;
+
+    textureSize = FSize(0, 0);
+    isDirty = true;
 }
 
 ATexture::~ATexture()
@@ -16,8 +20,19 @@ ATexture::~ATexture()
 
 void ATexture::SetSize(FSize size)
 {
-    isDirty = true;
     this->textureSize = size;
+}
+
+const char* ATexture::GetTexturePath()
+{
+    if (this->loadedTexturePath == NULL)
+    {
+        return "";
+    }
+    else
+    {
+        return this->loadedTexturePath;
+    }
 }
 
 FSize ATexture::GetSize()

@@ -7,6 +7,8 @@
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
 #include "ConfigFile.h"
+#include "TextureRepository.h"
+#include <libtech/filecache.h>
 
 SDLRenderer::SDLRenderer() : ARenderer()
 {
@@ -20,6 +22,7 @@ SDLRenderer::~SDLRenderer()
 {
     LogTrace("SDLRenderer::~SDLRenderer");
 }
+
 
 bool SDLRenderer::Initialize()
 {
@@ -219,10 +222,60 @@ ATexture* SDLRenderer::CreateTexture()
     return result;
 }
 
+ATexture* SDLRenderer::CreateTexture(const char* filepath)
+{
+    LogTrace("SDLRenderer::CreateTexture(filepath)");
+
+    ATexture* foundTexture = TextureRepo->FindTexture(filepath);
+
+    if (foundTexture == NULL)
+    {
+        SDLTexture* result = new SDLTexture(this);
+
+        // Check if the files cache has been enabled and look inside for the cached data.
+        // The data will be loaded from disk automatically if the cache fails.
+        // If no cache, load directly from disk.
+        if (this->Cache != NULL)
+        {
+            size_t fileLength = 0;
+            uint8_t* data = this->Cache->ReadFileContents(filepath, &fileLength);
+
+            SDL_RWops* stream = SDL_RWFromMem(data, (int)fileLength);
+
+            SDL_Surface* surface = IMG_Load_RW(stream, false);
+            
+            // Delete the stream ?
+
+            result->surf = surface;
+        }
+        else
+        {
+            result->surf = IMG_Load(filepath);
+        }
+
+        if (result->surf == NULL)
+        {
+            LogError("Unable to load texture file.");
+
+            delete(result);
+
+            return NULL;
+        }
+        
+        result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
+
+        TextureRepo->CacheTexture(result);
+
+        return result;
+    }
+    else
+    {
+        return foundTexture;
+    }
+}
+
 void SDLRenderer::BeginDraw()
 {
-    ARenderer::BeginDraw();
-
     SDL_SetRenderDrawColor(gameRenderer, 100, 149, 237, 255);
 
     SDL_RenderClear(gameRenderer);
@@ -230,8 +283,6 @@ void SDLRenderer::BeginDraw()
 
 void SDLRenderer::EndDraw()
 {
-    ARenderer::EndDraw();
-
     SDL_RenderPresent(gameRenderer);
 }
 

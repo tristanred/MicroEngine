@@ -1,25 +1,53 @@
 #include "TextureRepository.h"
 
-#include "libtech/filecache.h"
-#include "ARenderer.h"
+#include <string>
+#include <string.h>
+#include "ATexture.h"
 
-TextureRepository::TextureRepository(ARenderer *renderer)
+TextureRepository::TextureRepository()
 {
     LogTrace("TextureRepository::TextureRepository");
 
-    this->Renderer = renderer;
+    TextureList = new std::map<const char*, ATexture*>();
 
-    this->Cache = new FileCache();
 }
 
 TextureRepository::~TextureRepository()
 {
     LogTrace("TextureRepository::~TextureRepository");
 
-    delete(this->Cache);
+    delete(TextureList);
 }
 
-ATexture* TextureRepository::LoadFromFile(const char* filepath)
+ATexture* TextureRepository::FindTexture(const char* filepath)
 {
+    auto begin = TextureList->begin();
+    auto end = TextureList->end();
+    while (begin != end)
+    {
+        auto element = *begin;
+
+        if (strcmp(filepath, element.first) == 0)
+        {
+            return element.second;
+        }
+
+        begin++;
+    }
+
     return NULL;
+}
+
+void TextureRepository::CacheTexture(ATexture* tex)
+{
+    std::pair<const char*, ATexture*> element;
+    element.first = tex->GetTexturePath();
+    element.second = tex;
+
+    this->TextureList->insert(element);
+}
+
+void TextureRepository::EmptyCache()
+{
+    this->TextureList->clear();
 }

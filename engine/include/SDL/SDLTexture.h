@@ -21,8 +21,10 @@ public:
     void SetSolidColor(FSize size, uint32_t color) override;
     void LoadFromFile(const char* filepath) override;
 
-    void SetSize(FSize size) override;
     void FillColor(uint32_t color) override;
+
+    void FreeTextureMemory() override;
+    void ReloadTexture() override;
 
     
     void RefreshSDLTexture();

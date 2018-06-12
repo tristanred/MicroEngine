@@ -29,6 +29,7 @@ public:
     void DrawTexture(ATexture* texture, float posX, float posY) override;
 
     ATexture* CreateTexture() override;
+    ATexture* CreateTexture(const char* filepath) override;
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 

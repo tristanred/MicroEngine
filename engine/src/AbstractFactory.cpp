@@ -6,7 +6,6 @@
 #include "SDL/SDLText.h"
 #include "SDL/SDLTexture.h"
 #include "SDL/SDLRenderer.h"
-#include "SDL/SDLTextureRepository.h"
 #include "SDL/SDLPlatform.h"
 #include "SDL/SDLKeyboard.h"
 #include "SDL/SDLMouse.h"
@@ -195,36 +194,6 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
     }
 
     return nullptr;
-}
-
-TextureRepository *AbstractFactory::CreateTextureRepository(ARenderer *renderer)
-{
-    switch(ActivatedRenderer)
-    {
-#if SUPPORT_SDL == 1
-        case RENDERER_SDL:
-        {
-            LogTrace("AbstractFactory creating texture repository");
-
-            return new SDLTextureRepository(renderer);
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXTexture(renderer);
-        }
-#endif
-        default:
-        {
-            LogError("Factory unable to create a Texture Repo instance. Activated renderer is %d", ActivatedRenderer);
-
-            return NULL;
-        }
-    }
-
-    return nullptr;
-
 }
 
 AMouse* AbstractFactory::CreateMouse()

@@ -1,25 +1,40 @@
 #pragma once
 
 class ATexture;
-class ARenderer;
-class FileCache;
-
-#include <cstdint>
-using namespace std;
 
 #include "core.h"
-#include "libtech/geometry.h"
+#include <map>
 
+/**
+ * This class wraps a set of textures that can be searched by path
+ * to re-use instances of textures. This class does not own the Texture
+ * instances and will not call delete() on them once this class gets 
+ * destroyed.
+ */
 class ENGINE_CLASS TextureRepository
 {
 public:
-    explicit TextureRepository(ARenderer* renderer);
+    TextureRepository();
     virtual ~TextureRepository();
 
-    virtual ATexture* LoadFromFile(const char* filepath);
-    virtual ATexture* GetSolidColorTexture(FSize textureSize, uint32_t color) = 0;
+    /**
+     * Find a texture in the repository to see if a texture was already created
+     * from the same path. Will return NULL if none is found.
+     * \param filepath Path of the file to look for.
+     */
+    ATexture* FindTexture(const char* filepath);
+
+    /**
+     * Add a texture to the cache so FindTexture will return it.
+     * \param texTexture to add
+     */
+    void CacheTexture(ATexture* tex);
+
+    /**
+     * Remove all the cache entries. This does not deallocate the textures.
+     */
+    void EmptyCache();
 
 protected:
-    ARenderer* Renderer;
-    FileCache* Cache;
+    std::map<const char*, ATexture*>* TextureList;
 };

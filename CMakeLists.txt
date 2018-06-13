@@ -163,6 +163,13 @@ set_target_properties(MICROENGINED PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(P
 set_target_properties(EngineTester PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 set_target_properties(RPG-Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 
+ELSEIF(UNIX)
+
+target_compile_options(MICROENGINE PRIVATE -Wall)
+target_compile_options(MICROENGINED PRIVATE -Wall)
+target_compile_options(EngineTester PRIVATE -Wall)
+target_compile_options(RPG-Game PRIVATE -Wall)
+
 ENDIF(WIN32)
 
 #

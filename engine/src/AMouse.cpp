@@ -1,5 +1,17 @@
 #include "Input/AMouse.h"
 
+AMouse::AMouse()
+{
+    Left_Previous_State = BTN_RELEASED;
+    Right_Previous_State = BTN_RELEASED;
+    Middle_Previous_State = BTN_RELEASED;
+
+    Left_Current_State = BTN_RELEASED;
+    Right_Current_State = BTN_RELEASED;
+    Middle_Current_State = BTN_RELEASED;
+}
+
+AMouse::~AMouse() = default;
 
 bool AMouse::LeftButtonUp()
 {
@@ -135,3 +147,4 @@ void AMouse::UpdatePastMouseState()
     Right_Previous_State = Right_Current_State;
     Middle_Previous_State = Middle_Current_State;
 }
+

@@ -19,6 +19,9 @@ enum ButtonState
 
 class AMouse {
 public:
+    AMouse();
+    virtual ~AMouse();
+
     virtual bool IsClicked() = 0;
     virtual bool IsClicked(MouseButtons button) = 0;
 

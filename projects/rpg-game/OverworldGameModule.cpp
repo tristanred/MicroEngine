@@ -3,11 +3,12 @@
 #include "ConfigFile.h"
 #include "microengine.h"
 #include "Framework/Tilemap.h"
+#include "Viewport.h"
 
 OverworldGameModule::OverworldGameModule(GameEngine* engine) : GameModule(engine)
 {
     tiles = new Tilemap();
-    tiles->Setup(10, 10, engine->Renderer);
+    tiles->Setup(20, 20, engine->Renderer);
 
     this->Map = this->CreateSprite();
     ATexture* mapTexture = this->CreateTexture("data/map.png");
@@ -16,6 +17,12 @@ OverworldGameModule::OverworldGameModule(GameEngine* engine) : GameModule(engine
     this->PlayerCharacter = this->CreateSprite();
     ATexture* playerTexture = this->CreateTexture("data/player.png");
     this->PlayerCharacter->SetTexture(playerTexture);
+
+    Viewport* view = this->CreateViewport();
+    view->FollowSprite(this->PlayerCharacter);
+    view->ViewRange = FRectangle(0, 0, 1000, 1000);
+
+    this->GetEngine()->SelectViewport(view);
 }
 
 OverworldGameModule::~OverworldGameModule()
@@ -30,19 +37,19 @@ void OverworldGameModule::Update(unsigned int deltaTime)
     FPosition currentPlayerPos = this->PlayerCharacter->GetPosition();
     if (GetEngine()->Keyboard->IsKeyDown(Key::W))
     {
-        currentPlayerPos.Y -= 3;
+        currentPlayerPos.Y -= MOVE_SPEED;
     }
     if (GetEngine()->Keyboard->IsKeyDown(Key::A))
     {
-        currentPlayerPos.X -= 3;
+        currentPlayerPos.X -= MOVE_SPEED;
     }
     if (GetEngine()->Keyboard->IsKeyDown(Key::S))
     {
-        currentPlayerPos.Y += 3;
+        currentPlayerPos.Y += MOVE_SPEED;
     }
     if (GetEngine()->Keyboard->IsKeyDown(Key::D))
     {
-        currentPlayerPos.X += 3;
+        currentPlayerPos.X += MOVE_SPEED;
     }
     this->PlayerCharacter->SetPosition(currentPlayerPos);
 }

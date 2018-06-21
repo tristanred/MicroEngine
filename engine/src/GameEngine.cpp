@@ -14,14 +14,17 @@
 #include "ATexture.h"
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
+#include "Viewport.h"
 
 #include <libtech/filecache.h>
-#include "libtech/sysutils.h"
-#include "libtech/mytime.h"
+#include <libtech/sysutils.h>
+#include <libtech/mytime.h>
 
 GameEngine::GameEngine()
 {
     this->Modules = new std::list<GameModule*>();
+
+    this->GameViewports = new std::list<Viewport *>();
 
     GameLog = new FileLogger();
     GameLog->Open("gamelog.txt");
@@ -76,6 +79,9 @@ void GameEngine::Initialize()
 
     Renderer = AbstractFactory::CreateRenderer();
     Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache
+
+    this->Renderer->RenderViewport = this->CreateViewport();
+    this->Renderer->RenderViewport->ViewRange = FRectangle(0, 0, Renderer->GetWindowSize().Width, Renderer->GetWindowSize().Height);
 
     ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
     bool renderInitSuccess = Renderer->Initialize(&defaults);
@@ -302,9 +308,21 @@ ATexture* GameEngine::CreateTexture(const char* filepath)
 
 void GameEngine::Update(unsigned int deltaTime)
 {
+    // Update the viewports first
+    auto vpBegin = this->GameViewports->begin();
+    auto vpEnd = this->GameViewports->end();
+    while (vpBegin != vpEnd)
+    {
+        Viewport* mod = *vpBegin;
+
+        mod->Update();
+
+        vpBegin++;
+    }
+
+    // Then update the sprites(renderables)
     auto begin = this->Modules->begin();
     auto end = this->Modules->end();
-
     while (begin != end)
     {
         GameModule* mod = *begin;
@@ -343,6 +361,26 @@ ATexture* GameEngine::GetDefaultTexture()
 bool GameEngine::TimeForNextFrame()
 {
     return GetDeltaTime() > 1000 / wantedFPS;
+}
+
+void GameEngine::SelectViewport(Viewport* view)
+{
+    this->Renderer->RenderViewport = view;
+}
+
+Viewport* GameEngine::CreateViewport()
+{
+    Viewport* newVp = new Viewport();
+    newVp->CurrentView = FRectangle(0, 0, this->Renderer->GetWindowSize().Width, this->Renderer->GetWindowSize().Height);
+
+    if (this->Renderer->RenderViewport == NULL)
+    {
+        this->Renderer->RenderViewport = newVp;
+    }
+
+    this->GameViewports->push_back(newVp);
+    
+    return newVp;
 }
 
 void GameEngine::Shutdown()

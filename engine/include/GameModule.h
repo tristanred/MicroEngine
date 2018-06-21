@@ -7,7 +7,7 @@ class AText;
 class AFont;
 class ATexture;
 class ARenderer;
-
+class Viewport;
 #include <list>
 
 #include "core.h"
@@ -32,6 +32,8 @@ public:
 
     ATexture* CreateTexture(); // Create empty texture
     ATexture* CreateTexture(const char* filePath); // Create texture from file
+
+    virtual Viewport* CreateViewport();
 
     virtual void AttachRenderable(ARenderable* object);
     

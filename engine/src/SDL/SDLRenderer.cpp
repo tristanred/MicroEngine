@@ -8,6 +8,7 @@
 #include "SDL/SDLTexture.h"
 #include "ConfigFile.h"
 #include "TextureRepository.h"
+#include "Viewport.h"
 #include <libtech/filecache.h>
 
 SDLRenderer::SDLRenderer() : ARenderer()
@@ -22,7 +23,6 @@ SDLRenderer::~SDLRenderer()
 {
     LogTrace("SDLRenderer::~SDLRenderer");
 }
-
 
 bool SDLRenderer::Initialize()
 {
@@ -175,6 +175,12 @@ void SDLRenderer::Draw(ARenderable* sprite)
     dest.x = (int)sdlSprite->GetPosition().X;
     dest.y = (int)sdlSprite->GetPosition().Y;
 
+    if (sdlSprite->GetPositionSystem() == VIEWPORT_RELATIVE)
+    {
+        dest.x -= this->RenderViewport->CurrentView.X;
+        dest.y -= this->RenderViewport->CurrentView.Y;
+    }
+
     tex->RefreshSDLTexture(); // Refresh the texture if needed.
 
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
@@ -193,6 +199,20 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
     tex->RefreshSDLTexture();
 
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+}
+
+void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts)
+{
+    float offsetPosX = posX;
+    float offsetPosY = posY;
+
+    if (opts->PosSystem == VIEWPORT_RELATIVE)
+    {
+        offsetPosX -= this->RenderViewport->CurrentView.X;
+        offsetPosY -= this->RenderViewport->CurrentView.Y;
+    }
+
+    this->DrawTexture(texture, offsetPosX, offsetPosY);
 }
 
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)

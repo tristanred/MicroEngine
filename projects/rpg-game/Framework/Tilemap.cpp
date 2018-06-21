@@ -71,6 +71,9 @@ void Tilemap::Update(unsigned int deltaTime)
 
 void Tilemap::Draw(ARenderer* renderer)
 {
+    TextureDrawOptions opts;
+    opts.PosSystem = VIEWPORT_RELATIVE;
+
     for(int i = 0; i < this->rowCount; i++)
     {
         for(int k = 0; k < this->colCount; k++)
@@ -81,7 +84,7 @@ void Tilemap::Draw(ARenderer* renderer)
             
             FSize tsize = tex->GetSize();
             FPosition targetPos(k * tsize.Width, i * tsize.Height);
-            renderer->DrawTexture(tex, targetPos.X, targetPos.Y);
+            renderer->DrawTexture(tex, targetPos.X, targetPos.Y, &opts);
         }
     }
 }

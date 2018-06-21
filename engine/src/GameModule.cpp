@@ -5,7 +5,7 @@
 #include "AText.h"
 #include "AFont.h"
 #include "GameEngine.h"
-
+#include "Viewport.h"
 
 GameModule::GameModule(GameEngine* engine)
 {
@@ -63,6 +63,13 @@ ATexture* GameModule::CreateTexture(const char* filePath)
     ATexture* texture = this->Engine->CreateTexture(filePath);
 
     return texture;
+}
+
+Viewport* GameModule::CreateViewport()
+{
+    Viewport* vp = this->Engine->CreateViewport();
+
+    return vp;
 }
 
 void GameModule::AttachRenderable(ARenderable* object)

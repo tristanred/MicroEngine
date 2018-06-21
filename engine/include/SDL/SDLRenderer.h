@@ -27,6 +27,7 @@ public:
 
     void Draw(ARenderable* sprite) override;
     void DrawTexture(ATexture* texture, float posX, float posY) override;
+    void DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts) override;
 
     ATexture* CreateTexture() override;
     ATexture* CreateTexture(const char* filepath) override;

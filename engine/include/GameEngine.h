@@ -5,10 +5,10 @@ class ATexture;
 class FileLogger;
 class TextureRepository;
 class FileCache;
-
 class APlatform;
 class AMouse;
 class AKeyboard;
+class Viewport;
 
 #include <list>
 #include <cstdint>
@@ -65,6 +65,13 @@ public:
     ATexture * CreateTexture(const char* filepath);
 
     ATexture* GetDefaultTexture();
+
+    // -------------------- Viewport --------------------
+    std::list<Viewport*>* GameViewports;
+
+    void SelectViewport(Viewport* view);
+    Viewport* CreateViewport();
+
 
 private:
     void Update(unsigned int deltaTime);

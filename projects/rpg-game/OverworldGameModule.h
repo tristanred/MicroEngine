@@ -11,6 +11,8 @@ class Tilemap;
 #include <string.h>
 #include <string>
 
+#define MOVE_SPEED 10
+
 class OverworldGameModule : public GameModule
 {
 public:
@@ -23,6 +25,4 @@ public:
 
     void Update(unsigned int deltaTime) override;
     void Draw(ARenderer *renderer) override;
-
-private:
 };

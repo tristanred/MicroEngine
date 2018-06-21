@@ -12,11 +12,17 @@ ARenderable::ARenderable(ARenderer* renderer)
 
     this->size = FSize(0, 0);
     this->position = FPosition(0, 0);
+    this->PositionSystem = VIEWPORT_RELATIVE;
 }
 
 ARenderable::~ARenderable()
 {
     LogTrace("ARenderable::~ARenderable");
+}
+
+FRectangle ARenderable::GetRectangle()
+{
+    return FRectangle(this->position, this->size);
 }
 
 ATexture* ARenderable::GetTexture()
@@ -30,4 +36,14 @@ void ARenderable::SetTexture(ATexture* newTexture)
         delete(this->texture);
 
     this->texture = newTexture;
+}
+
+enum POSITION_SYSTEM ARenderable::GetPositionSystem()
+{
+    return this->PositionSystem;
+}
+
+void ARenderable::SetPositionSystem(enum POSITION_SYSTEM value)
+{
+    this->PositionSystem = value;
 }

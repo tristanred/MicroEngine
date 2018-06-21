@@ -9,7 +9,6 @@ SDLKeyboard::SDLKeyboard()
     previousScancodes = new Uint8[keysCount]{ 0 };
 }
 
-
 SDLKeyboard::~SDLKeyboard()
 {
     delete(currentScancodes);
@@ -40,7 +39,8 @@ void SDLKeyboard::UpdateKeyboardState()
 {
     memcpy(previousScancodes, currentScancodes, keysCount);
 
-    currentScancodes = SDL_GetKeyboardState(&keysCount);
+    const Uint8* sdlCurrentScancodes = SDL_GetKeyboardState(&keysCount);
+    memcpy(currentScancodes, sdlCurrentScancodes, keysCount);
 }
 
 void SDLKeyboard::UpdateKeyboardPastState()

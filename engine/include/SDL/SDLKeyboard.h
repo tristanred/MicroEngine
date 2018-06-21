@@ -26,6 +26,6 @@ public:
 private:
     int keysCount;
     Uint8* previousScancodes;
-    const Uint8* currentScancodes;
+    Uint8* currentScancodes;
 };
 

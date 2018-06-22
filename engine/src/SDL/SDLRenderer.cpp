@@ -177,8 +177,8 @@ void SDLRenderer::Draw(ARenderable* sprite)
 
     if (sdlSprite->GetPositionSystem() == VIEWPORT_RELATIVE)
     {
-        dest.x -= this->RenderViewport->CurrentView.X;
-        dest.y -= this->RenderViewport->CurrentView.Y;
+        dest.x -= (int)this->RenderViewport->CurrentView.X;
+        dest.y -= (int)this->RenderViewport->CurrentView.Y;
     }
 
     tex->RefreshSDLTexture(); // Refresh the texture if needed.

@@ -3,6 +3,7 @@
 #include "core.h"
 
 #include "libtech/geometry.h"
+#include "ARenderable.h"
 
 class ARenderable;
 class ATexture;

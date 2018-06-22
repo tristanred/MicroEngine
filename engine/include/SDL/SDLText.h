@@ -18,7 +18,7 @@ public:
     SDLText(ARenderer* renderer);
     ~SDLText();
 
-    std::string GetText() override;
+    std::string* GetText() override;
     void SetText(std::string text) override;
     
     AFont* GetFont() override;
@@ -40,7 +40,7 @@ private:
     void IsDirty();
 
     SDLRenderer* sdlRenderer;
-    std::string currentText;
+    std::string* currentText;
 
     SDLFont* sdlFont;
 

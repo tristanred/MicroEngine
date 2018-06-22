@@ -8,7 +8,7 @@ SDLText::SDLText(ARenderer* renderer) : AText(renderer)
     sdlRenderer = (SDLRenderer*)renderer;
     TextFont = NULL;
     sdlFont = NULL;
-    currentText = "";
+    currentText = new std::string();
     textSize = 12;
     style = TEXT_STYLE_REGULAR;
 }
@@ -17,18 +17,20 @@ SDLText::~SDLText()
 {
     if (sdlFont != NULL)
         delete(sdlFont);
+
+    delete(currentText);
 }
 
-std::string SDLText::GetText()
+std::string* SDLText::GetText()
 {
     return currentText;
 }
 
 void SDLText::SetText(std::string text)
 {
-    if (this->currentText != text)
+    if (this->currentText->compare(text) != 0)
     {
-        currentText = text;
+        currentText->assign(text);
 
         RefreshTexture();
     }
@@ -105,7 +107,7 @@ void SDLText::RefreshTexture()
     color.r = (this->foregroundColor & 0x00FF0000) >> 16;
     color.g = (this->foregroundColor) & 0x0000FF00 >> 8;
     color.b = (this->foregroundColor) & 0x000000FF;
-    SDL_Surface* renderedSurface = TTF_RenderText_Solid(this->sdlFont->fontObject, currentText.c_str(), color);
+    SDL_Surface* renderedSurface = TTF_RenderText_Solid(this->sdlFont->fontObject, currentText->c_str(), color);
 
     if (renderedSurface == NULL)
     {

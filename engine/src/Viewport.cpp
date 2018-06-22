@@ -17,7 +17,8 @@ void Viewport::Update()
 {
     if (this->Mode == VP_MODE_FOLLOW)
     {
-        this->CurrentView.AlignCenterOn(&this->FollowingSprite->GetRectangle());
+        FRectangle followRect = this->FollowingSprite->GetRectangle();
+        this->CurrentView.AlignCenterOn(&followRect);
 
         if (this->ViewRange != VIEWPORT_NOT_LIMITED_RECT)
         {

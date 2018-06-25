@@ -8,10 +8,10 @@ class AFont;
 class ATexture;
 class ARenderer;
 class Viewport;
+
 #include <list>
 
 #include "core.h"
-
 
 class ENGINE_CLASS GameModule
 {
@@ -36,9 +36,15 @@ public:
     virtual Viewport* CreateViewport();
 
     virtual void AttachRenderable(ARenderable* object);
+
+    virtual void Enabled();
+    virtual void Disabled();
     
     virtual void Update(unsigned int deltaTime);
     virtual void Draw(ARenderer* renderer);
+
+protected:
+    bool moduleEnabled;
 
 private:
     GameEngine* Engine;

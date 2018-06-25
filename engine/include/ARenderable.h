@@ -20,9 +20,11 @@ public:
 
     virtual FPosition GetPosition();
     virtual void SetPosition(FPosition position);
+    virtual void SetPosition(float x, float y);
 
     virtual FSize GetSize();
     virtual void SetSize(FSize size);
+    virtual void SetSize(float w, float h);
 
     virtual FRectangle GetRectangle();
 
@@ -32,6 +34,8 @@ public:
     virtual enum POSITION_SYSTEM GetPositionSystem();
     virtual void SetPositionSystem(enum POSITION_SYSTEM value);
 
+    virtual bool IsVisible();
+
 protected:
     ARenderer* Renderer;
 
@@ -40,4 +44,6 @@ protected:
     enum POSITION_SYSTEM PositionSystem;
     FPosition position;
     FSize size;
+
+    bool isVisible;
 };

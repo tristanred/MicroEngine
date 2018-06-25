@@ -15,6 +15,7 @@
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
 #include "Viewport.h"
+#include "Debugging/DebugLayer.h"
 
 #include <libtech/filecache.h>
 #include <libtech/sysutils.h>
@@ -41,6 +42,8 @@ GameEngine::GameEngine()
     currentFrameTime = 0;
     previousFrameTime = 0;
     wantedFPS = 60;
+
+    this->debugLayer = NULL;
 }
 
 GameEngine::~GameEngine()
@@ -58,6 +61,8 @@ GameEngine::~GameEngine()
     }
     Modules->clear();
     delete(Modules);
+
+    delete(this->debugLayer);
 
     delete(Platform);
     delete(Mouse);
@@ -90,6 +95,7 @@ void GameEngine::Initialize()
     Mouse = AbstractFactory::CreateMouse();
     Keyboard = AbstractFactory::CreateKeyboard();
 
+    this->debugLayer = new DebugLayer(this);
 
     if (Renderer == NULL ||
         Platform == NULL ||
@@ -153,6 +159,8 @@ void GameEngine::Play()
             Renderer->BeginDraw();
 
             this->DrawModules();
+
+            this->debugLayer->Draw(Renderer);
 
             Renderer->EndDraw();
 
@@ -308,6 +316,18 @@ ATexture* GameEngine::CreateTexture(const char* filepath)
 
 void GameEngine::Update(unsigned int deltaTime)
 {
+    if (Keyboard->IsKeyPressed(F1))
+    {
+        if (this->debugLayer->IsOpen())
+        {
+            this->debugLayer->Hide();
+        }
+        else
+        {
+            this->debugLayer->Show();
+        }
+    }
+
     // Update the viewports first
     auto vpBegin = this->GameViewports->begin();
     auto vpEnd = this->GameViewports->end();
@@ -331,6 +351,8 @@ void GameEngine::Update(unsigned int deltaTime)
 
         begin++;
     }
+
+    this->debugLayer->Update(deltaTime);
 }
 
 void GameEngine::DrawModules()
@@ -363,6 +385,19 @@ bool GameEngine::TimeForNextFrame()
     return GetDeltaTime() > 1000 / wantedFPS;
 }
 
+Viewport* GameEngine::GetCurrentViewport()
+{
+    return this->Renderer->RenderViewport;
+}
+
+void GameEngine::ReleaseObject(ARenderable* DebugDarkplate)
+{
+}
+
+void GameEngine::ReleaseObject(ATexture* DebugDarkplate)
+{
+}
+
 void GameEngine::SelectViewport(Viewport* view)
 {
     this->Renderer->RenderViewport = view;
@@ -381,6 +416,16 @@ Viewport* GameEngine::CreateViewport()
     this->GameViewports->push_back(newVp);
     
     return newVp;
+}
+
+void GameEngine::ShowDebugLayer()
+{
+    this->debugLayer->Show();
+}
+
+void GameEngine::HideDebugLayer()
+{
+    this->debugLayer->Hide();
 }
 
 void GameEngine::Shutdown()

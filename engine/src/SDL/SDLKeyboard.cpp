@@ -17,7 +17,7 @@ SDLKeyboard::~SDLKeyboard()
 
 bool SDLKeyboard::IsKeyPressed(Key key)
 {
-    return currentScancodes[key];
+    return currentScancodes[key] == 1 && previousScancodes[key] == 0;
 }
 
 bool SDLKeyboard::IsKeyClicked(Key key)
@@ -40,6 +40,7 @@ void SDLKeyboard::UpdateKeyboardState()
     memcpy(previousScancodes, currentScancodes, keysCount);
 
     const Uint8* sdlCurrentScancodes = SDL_GetKeyboardState(&keysCount);
+
     memcpy(currentScancodes, sdlCurrentScancodes, keysCount);
 }
 

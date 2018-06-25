@@ -38,11 +38,24 @@ void SDLTexture::SetSolidColor(FSize size, uint32_t color)
 {
     if (this->surf != NULL)
     {
-        SDL_free(this->surf);
+        SDL_FreeSurface(this->surf);
     }
 
+    Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+    rmask = 0xff000000;
+    gmask = 0x00ff0000;
+    bmask = 0x0000ff00;
+    amask = 0x000000ff;
+#else
+    rmask = 0x000000ff;
+    gmask = 0x0000ff00;
+    bmask = 0x00ff0000;
+    amask = 0xff000000;
+#endif
+
     this->textureSize = size;
-    this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, 0, 0, 0, 0);
+    this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
     SDL_FillRect(surf, NULL, color);
 
     isDirty = true;
@@ -52,7 +65,7 @@ void SDLTexture::LoadFromFile(const char* filepath)
 {
     if (this->surf != NULL)
     {
-        SDL_free(this->surf);
+        SDL_FreeSurface(this->surf);
     }
 
     this->surf = IMG_Load(filepath);

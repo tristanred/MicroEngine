@@ -9,6 +9,7 @@ class APlatform;
 class AMouse;
 class AKeyboard;
 class Viewport;
+class DebugLayer;
 
 #include <list>
 #include <cstdint>
@@ -42,6 +43,9 @@ public:
     // Platform manager
     APlatform* Platform;
 
+    // Debugging
+    DebugLayer* debugLayer;
+
     GameEngine();
     ~GameEngine();
 
@@ -64,6 +68,9 @@ public:
     ATexture * CreateTexture();
     ATexture * CreateTexture(const char* filepath);
 
+    void ReleaseObject(ATexture* DebugDarkplate);
+    void ReleaseObject(ARenderable* DebugDarkplate);
+
     ATexture* GetDefaultTexture();
 
     // -------------------- Viewport --------------------
@@ -71,12 +78,14 @@ public:
 
     void SelectViewport(Viewport* view);
     Viewport* CreateViewport();
+    Viewport* GetCurrentViewport();
 
+    void ShowDebugLayer();
+    void HideDebugLayer();
 
 private:
     void Update(unsigned int deltaTime);
     void DrawModules();
-
 
     bool TimeForNextFrame();
 };

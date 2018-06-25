@@ -166,6 +166,9 @@ void SDLRenderer::Shutdown()
 
 void SDLRenderer::Draw(ARenderable* sprite)
 {
+    if (sprite->IsVisible() == false)
+        return;
+
     SDLSprite* sdlSprite = (SDLSprite*)sprite;
     SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
 

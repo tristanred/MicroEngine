@@ -124,6 +124,59 @@ void GameEngine::Play()
 
     while (true)
     {
+        currentFrameTime = get_a_ticks();
+        if(TimeForNextFrame())
+        {
+            Platform->HandleEvents();
+
+            Keyboard->UpdateKeyboardState();
+            Mouse->UpdateMouseState();
+
+            if (Platform->RequestExit)
+            {
+                return;
+            }
+
+            if (Mouse->LeftButtonClicked())
+            {
+                printf("LEFT CLICKED\n");
+            }
+
+            if (Mouse->RightButtonPressed())
+            {
+                printf("Right Pressed\n");
+            }
+
+            if (Keyboard->IsKeyClicked(Key::_Escape))
+            {
+                return;
+            }
+
+            // Update engine and game modules
+            this->Update(GetDeltaTime());
+
+            // Draw stuff
+            Renderer->BeginDraw();
+
+            this->DrawModules();
+
+            this->debugLayer->Draw(Renderer);
+
+            Renderer->EndDraw();
+
+            previousFrameTime = currentFrameTime;
+
+            Keyboard->UpdateKeyboardPastState();
+            Mouse->UpdatePastMouseState();
+        }
+    }
+}
+
+void GameEngine::PlayOne()
+{
+    currentFrameTime = get_a_ticks();
+    if (TimeForNextFrame())
+    {
         Platform->HandleEvents();
 
         Keyboard->UpdateKeyboardState();
@@ -138,72 +191,16 @@ void GameEngine::Play()
         {
             printf("LEFT CLICKED\n");
         }
-        
+
         if (Mouse->RightButtonPressed())
         {
             printf("Right Pressed\n");
         }
 
-        if(Keyboard->IsKeyClicked(Key::_Escape))
+        if (Keyboard->IsKeyClicked(Key::_Escape))
         {
             return;
         }
-
-        currentFrameTime = get_a_ticks();
-        if(TimeForNextFrame())
-        {
-            // Update engine and game modules
-            this->Update(GetDeltaTime());
-
-            // Draw stuff
-            Renderer->BeginDraw();
-
-            this->DrawModules();
-
-            this->debugLayer->Draw(Renderer);
-
-            Renderer->EndDraw();
-
-            previousFrameTime = currentFrameTime;
-        }
-
-        Keyboard->UpdateKeyboardPastState();
-        Mouse->UpdatePastMouseState();
-    }
-}
-
-void GameEngine::PlayOne()
-{
-    Platform->HandleEvents();
-
-    Keyboard->UpdateKeyboardState();
-    Mouse->UpdateMouseState();
-
-    if (Platform->RequestExit)
-    {
-        return;
-    }
-
-    if (Mouse->LeftButtonClicked())
-    {
-        printf("LEFT CLICKED\n");
-    }
-
-    if (Mouse->RightButtonPressed())
-    {
-        printf("Right Pressed\n");
-    }
-
-    if (Keyboard->IsKeyClicked(Key::_Escape))
-    {
-        return;
-    }
-
-    currentFrameTime = get_a_ticks();
-    if (TimeForNextFrame())
-    {
-        // Setup Frame data
-        previousFrameTime = currentFrameTime;
 
         // Update engine and game modules
         this->Update(GetDeltaTime());
@@ -213,15 +210,21 @@ void GameEngine::PlayOne()
 
         this->DrawModules();
 
-        Renderer->EndDraw();
-    }
+        this->debugLayer->Draw(Renderer);
 
-    Keyboard->UpdateKeyboardPastState();
-    Mouse->UpdatePastMouseState();
+        Renderer->EndDraw();
+
+        previousFrameTime = currentFrameTime;
+
+        Keyboard->UpdateKeyboardPastState();
+        Mouse->UpdatePastMouseState();
+    }
 }
 
 void GameEngine::PlayOneUnlocked()
 {
+    currentFrameTime = get_a_ticks();
+
     Platform->HandleEvents();
 
     Keyboard->UpdateKeyboardState();
@@ -247,9 +250,6 @@ void GameEngine::PlayOneUnlocked()
         return;
     }
 
-    currentFrameTime = get_a_ticks();
-    previousFrameTime = currentFrameTime;
-
     // Update engine and game modules
     this->Update(GetDeltaTime());
 
@@ -258,7 +258,11 @@ void GameEngine::PlayOneUnlocked()
 
     this->DrawModules();
 
+    this->debugLayer->Draw(Renderer);
+
     Renderer->EndDraw();
+
+    previousFrameTime = currentFrameTime;
 
     Keyboard->UpdateKeyboardPastState();
     Mouse->UpdatePastMouseState();

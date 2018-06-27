@@ -11,6 +11,7 @@ SDLText::SDLText(ARenderer* renderer) : AText(renderer)
     currentText = new std::string();
     textSize = 12;
     style = TEXT_STYLE_REGULAR;
+    foregroundColor = 0xFFFFFFFF;
 }
 
 SDLText::~SDLText()
@@ -76,7 +77,7 @@ void SDLText::SetStyle(TextStyle style /*= TEXT_STYLE_REGULAR*/)
 {
     if (this->style != style)
     {
-        style = style;
+        this->style = style;
 
         RefreshTexture();
     }

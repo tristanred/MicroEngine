@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core.h"
 #include "libtech/vec.h"
 
 enum MouseButtons
@@ -17,7 +18,7 @@ enum ButtonState
     BTN_RELEASED
 };
 
-class AMouse {
+class ENGINE_CLASS AMouse {
 public:
     AMouse();
     virtual ~AMouse();

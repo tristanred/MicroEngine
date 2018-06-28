@@ -1,8 +1,9 @@
 #pragma once
 
+#include "core.h"
 #include "Keys.h"
 
-class AKeyboard
+class ENGINE_CLASS AKeyboard
 {
 public:
     AKeyboard() = default;

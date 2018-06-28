@@ -4,8 +4,6 @@
 
 ATexture::ATexture(ARenderer* renderer)
 {
-    LogTrace("ATexture::ATexture");
-
     this->BaseRenderer = renderer;
     loadedTexturePath = NULL;
 
@@ -15,7 +13,6 @@ ATexture::ATexture(ARenderer* renderer)
 
 ATexture::~ATexture()
 {
-    LogTrace("ATexture::~ATexture");
 }
 
 void ATexture::SetSize(FSize size)

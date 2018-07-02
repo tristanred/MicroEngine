@@ -22,6 +22,9 @@ struct Resource
  * or from the network. Resources must be added to the manager before they can
  * be loaded. Resources are given a name when they are added, this name is used
  * when referencing the asset. 
+ *
+ * The ResourceManager owns the data and it will be freed when the destructor
+ * is called.
  */
 class ENGINE_CLASS ResourceManager
 {
@@ -29,11 +32,27 @@ public:
     ResourceManager();
     virtual ~ResourceManager();
     
+    /**
+     * Load a resource into the manager. This will load the selected file from disk.
+     * The resource will be available when calling GetResource(char*).
+     */
     Resource* AddFile(const char* filePath);
     Resource* AddFile(const char* filePath, const char* resourceName);
+
+    /**
+     * Add a searchable path used when calling GetResource(char*).
+     */
     void AddAssetRoot(const char* rootFolderPath);
+
+    /**
+     * Add a PAK file that will be searched when calling GetResource(char*).
+     */
     void AddPackageFile(const char* packageFile);
     
+    /**
+     * Find a resource from the manager's stored resources. Data needs to be added
+     * individually by AddFile or search roots need to be added.
+     */
     Resource* GetResource(const char* name);
 
 private:

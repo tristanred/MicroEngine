@@ -13,7 +13,57 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+    auto filesBegin = files->begin();
+    auto filesEnd = files->end();
+    while(filesBegin != filesEnd)
+    {
+        const char* filePath = *filesBegin;
 
+        delete(filePath);
+
+        filesBegin++;
+    }
+    files->clear();
+    delete(files);
+
+    auto rootsBegin = resourceRoots->begin();
+    auto rootsEnd = resourceRoots->end();
+    while(rootsBegin != rootsEnd)
+    {
+        const char* rootPath = *rootsBegin;
+        
+        delete(rootPath);
+
+        rootsBegin++;
+    }
+    resourceRoots->clear();
+    delete(resourceRoots);
+
+    auto pakFileBegin = packageFiles->begin();
+    auto pakFileEnd = packageFiles->end();
+    while(pakFileBegin != pakFileEnd)
+    {
+        const char* pakFilePath = *pakFileBegin;
+        
+        delete(pakFilePath);
+
+        pakFileBegin++;
+    }
+    packageFiles->clear();
+    delete(packageFiles);
+
+    auto resourcesBegin = resourceCache->begin();
+    auto resourcesEnd = resourceCache->end();
+    while(resourcesBegin != resourcesEnd);
+    {
+        Resource* res = *resourcesBegin;
+        
+        delete(res);
+
+        resourcesBegin++;
+    }
+    resourceCache->clear();
+    delete(resourceCache);
 }
 
 Resource* ResourceManager::AddFile(const char* filePath)
@@ -23,12 +73,27 @@ Resource* ResourceManager::AddFile(const char* filePath)
 
 Resource* ResourceManager::AddFile(const char* filePath, const char* resourceName)
 {
+    // Check if we already have the resource in our cache.
+    auto resBegin = resourceCache->begin();
+    auto resEnd = resourceCache->end();
+    while(resBegin != resEnd)
+    {
+        Resource* res = *resBegin;
+
+        if(strcmp(res->name, resourceName) == 0)
+        {
+            return res;
+        }
+
+        resBegin++;
+    }
+
     FILE* found = fopen(filePath, "rb");
 
     if (found)
     {
         Resource* newRes = new Resource();
-        newRes->name = new char[strlen(resourceName)];
+        newRes->name = new char[strlen(resourceName)+1];
         strcpy((char*)newRes->name, resourceName);
 
         long fileSize = 0;
@@ -52,12 +117,18 @@ Resource* ResourceManager::AddFile(const char* filePath, const char* resourceNam
 
 void ResourceManager::AddAssetRoot(const char* rootFolderPath)
 {
-    this->resourceRoots->push_back(rootFolderPath);
+    char* rootPathCopy = new char[strlen(rootFolderPath)+1];
+    strcpy(rootPathCopy, rootFolderPath);
+
+    this->resourceRoots->push_back(rootPathCopy);
 }
 
 void ResourceManager::AddPackageFile(const char* packageFile)
 {
-    this->packageFiles->push_back(packageFile);
+    char* pakPathCopy = new char[strlen(packageFile) + 1];
+    strcpy(pakPathCopy, packageFile);
+
+    this->packageFiles->push_back(pakPathCopy);
 }
 
 // Temp function signature
@@ -72,11 +143,11 @@ Resource* ResourceManager::GetResource(const char* name)
 {
     // Finding a resource is a multi-step process
     // First we check in the list of assets we have added
-    auto filesBegin = files->begin();
-    auto filesEnd = files->end();
+    auto filesBegin = resourceCache->begin();
+    auto filesEnd = resourceCache->end();
     while (filesBegin != filesEnd)
     {
-        Resource* res = (Resource*)*filesBegin;
+        Resource* res = *filesBegin;
 
         if (strcmp(res->name, name) == 0)
         {

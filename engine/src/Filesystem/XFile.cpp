@@ -1,5 +1,6 @@
 #include "Filesystem/XFile.h"
 #include "libtech/pathutils.h"
+#include "libtech/sysutils.h"
 
 XFile::XFile()
 {
@@ -51,6 +52,40 @@ void XFile::Open(const char* path)
 
 uint8_t* XFile::Read(size_t* length)
 {
+    if (this->IsValid() == false)
+    {
+        *length = 0;
+        return NULL;
+    }
+
+    uint8_t* data = new uint8_t[this->Size];
+
+#ifdef WIN32
+
+    DWORD readBytes = 0;
+    DWORD bytesToRead = (DWORD)this->Size; // Cutting the upper 32 bits, TODO
+    BOOL res = ReadFile(
+        winFileHandle,
+        data,
+        bytesToRead,
+        &readBytes,
+        NULL
+    );
+
+    if (res && bytesToRead == readBytes)
+    {
+        *length = this->Size;
+        return data;
+    }
+    else
+    {
+        DWORD err = GetLastError();
+
+        print_win32_error(err);
+    }
+
+#endif
+
     return NULL;
 }
 
@@ -72,9 +107,26 @@ void XFile::AssignFileNames()
     FileExt = get_file_extension(loadedPath);
     ParentDirectoryPath = get_parent_directory_path(loadedPath);
 
+
 }
 
 void XFile::SetSize()
 {
-
+    LARGE_INTEGER sizeResult;
+    BOOL res = GetFileSizeEx(winFileHandle, &sizeResult);
+    
+    if (res)
+    {
+        /* The LARGE_INTEGER type changes based on the 32 or 64 bit architecture
+        * being compiled. If on 64 bit we must use the .QuadPart to get the 64 bit
+        * type. On 32bit the value is split in .LowPart and .HighPart. For now to
+        * support all archs let's chop the upper 32 bits of the size and max out
+        * at 4GB files. */
+        this->Size = sizeResult.LowPart;
+    }
+    else
+    {
+        // TODO : Log
+        this->Size = 0;
+    }
 }

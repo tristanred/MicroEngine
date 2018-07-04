@@ -36,13 +36,13 @@ public:
 
     bool IsValid();
     
-    void AssignFileNames();
 private:
     char* loadedPath;
 
     FILE* handle;
 
     void SetSize();
+    void AssignFileNames();
 
 #ifdef WIN32
     HANDLE winFileHandle;

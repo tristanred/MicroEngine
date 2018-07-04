@@ -15,7 +15,7 @@ XDirectory::~XDirectory()
 
 }
 
-std::list<XFile*>* XDirectory::GetFiles(bool recursive /*= false*/)
+std::list<XFile*>* XDirectory::GetFiles(bool recursive)
 {
     return NULL;
 }

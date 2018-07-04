@@ -19,7 +19,7 @@ DebugLayer::DebugLayer(GameEngine* engine)
     DebugDarkplate = engine->CreateTexture();
     DebugDarkplate->SetSolidColor(FSize(engine->Renderer->GetWindowSize().Width, 200), LAYERCOLOR);
 
-    DebugFont = engine->CreateFont();
+    DebugFont = engine->CreateTextFont();
     DebugFont->LoadFontFile("assets/engine/arial.ttf");
 
     MouseWindowPositionLabel = engine->CreateText();

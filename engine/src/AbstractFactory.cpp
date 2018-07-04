@@ -112,7 +112,7 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
     return nullptr;
 }
 
-AFont* AbstractFactory::CreateFont(ARenderer* renderer)
+AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
 {
     switch (ActivatedRenderer)
     {

@@ -291,11 +291,11 @@ AText* GameEngine::CreateText()
     return text;
 }
 
-AFont* GameEngine::CreateFont()
+AFont* GameEngine::CreateTextFont()
 {
-    LogTrace("GameEngine::CreateFont");
+    LogTrace("GameEngine::CreateTextFont");
 
-    AFont* font = AbstractFactory::CreateFont(this->Renderer);
+    AFont* font = AbstractFactory::CreateTextFont(this->Renderer);
 
     return font;
 }

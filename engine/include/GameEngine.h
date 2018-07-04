@@ -64,7 +64,7 @@ public:
 
     ASprite* CreateSprite();
     AText * CreateText();
-    AFont* CreateFont();
+    AFont* CreateTextFont();
     ATexture * CreateTexture();
     ATexture * CreateTexture(const char* filepath);
 

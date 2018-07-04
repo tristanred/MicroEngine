@@ -28,7 +28,7 @@ public:
     // Create renderer-specific objects.
     ASprite* CreateSprite();
     AText* CreateText();
-    AFont* CreateFont();
+    AFont* CreateTextFont();
 
     ATexture* CreateTexture(); // Create empty texture
     ATexture* CreateTexture(const char* filePath); // Create texture from file

@@ -22,7 +22,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     Box->SetTexture(BoxTexture);
 
-    ArialFont = this->CreateFont();
+    ArialFont = this->CreateTextFont();
     ArialFont->LoadFontFile("assets/engine/arial.ttf");
 
     BoxText = this->CreateText();

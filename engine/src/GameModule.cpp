@@ -42,11 +42,11 @@ AText* GameModule::CreateText()
     return x;
 }
 
-AFont* GameModule::CreateFont()
+AFont* GameModule::CreateTextFont()
 {
-    LogTrace("GameModule::CreateFont");
+    LogTrace("GameModule::CreateTextFont");
 
-    AFont* x = this->Engine->CreateFont();
+    AFont* x = this->Engine->CreateTextFont();
 
     return x;
 }

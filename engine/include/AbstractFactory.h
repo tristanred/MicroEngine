@@ -33,6 +33,6 @@ public:
     static ATexture* CreateTexture(ARenderer* renderer);
     static AMouse* CreateMouse();
     static AKeyboard* CreateKeyboard();
-    static AFont* CreateFont(ARenderer* Renderer);
+    static AFont* CreateTextFont(ARenderer* Renderer);
     static APlatform* CreatePlatformHandler(ARenderer* Renderer);
 };

@@ -112,6 +112,7 @@ void XFile::AssignFileNames()
 
 void XFile::SetSize()
 {
+#ifdef WIN32
     LARGE_INTEGER sizeResult;
     BOOL res = GetFileSizeEx(winFileHandle, &sizeResult);
     
@@ -129,4 +130,7 @@ void XFile::SetSize()
         // TODO : Log
         this->Size = 0;
     }
+#endif
+
+    this->Size = 0;
 }

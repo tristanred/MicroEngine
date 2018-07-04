@@ -220,8 +220,6 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct 
 
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
-    LogTrace("SDLRenderer::BuildTexture");
-
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;

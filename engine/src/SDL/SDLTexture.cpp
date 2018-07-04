@@ -7,8 +7,6 @@
 
 SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 {
-    LogTrace("SDLTexture::SDLTexture");
-
     this->Renderer = renderer;
     this->SdlRenderer = (SDLRenderer*)renderer;
 
@@ -29,8 +27,6 @@ SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTextu
 
 SDLTexture::~SDLTexture()
 {
-    LogTrace("SDLTexture::~SDLTexture");
-
     SDL_DestroyTexture(tex);
 }
 

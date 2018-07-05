@@ -10,7 +10,6 @@ XFile::XFile()
     ParentDirectoryPath = NULL;
 
     loadedPath = NULL;
-    handle = NULL;
 
 #ifdef WIN32
     winFileHandle = INVALID_HANDLE_VALUE;
@@ -24,7 +23,25 @@ XFile::XFile(const char* filePath) : XFile()
 
 XFile::~XFile()
 {
+    delete(loadedPath);
+    delete(FilePath);
+    delete(FileName);
+    delete(FileExt);
+    delete(ParentDirectoryPath);
 
+#ifdef WIN32
+    if (winFileHandle != INVALID_HANDLE_VALUE)
+    {
+        BOOL res = CloseHandle(winFileHandle);
+        
+        if (res == 0)
+        {
+            DWORD err = GetLastError();
+
+            print_win32_error(err);
+        }
+    }
+#endif
 }
 
 void XFile::Open(const char* path)
@@ -43,6 +60,8 @@ void XFile::Open(const char* path)
 
         return;
     }
+
+    strcpy(loadedPath, path);
 
     this->SetSize();
     this->AssignFileNames();
@@ -91,23 +110,44 @@ uint8_t* XFile::Read(size_t* length)
 
 size_t XFile::Write(uint8_t* data, size_t length)
 {
+#ifdef WIN32
+    
+    DWORD bytesWritten = 0;
+
+    BOOL res = WriteFile(
+        winFileHandle,
+        data,
+        (DWORD)length,
+        &bytesWritten,
+        NULL
+    );
+
+    if (res == 0)
+    {
+        DWORD err = GetLastError();
+
+        print_win32_error(err);
+
+        return bytesWritten;
+    }
+
+    return bytesWritten;
+
+#endif
     return 0;
 }
 
 bool XFile::IsValid()
 {
-    return FilePath != NULL;
+    return loadedPath != NULL;
 }
 
 void XFile::AssignFileNames()
 {
     FilePath = loadedPath;
-
     FileName = get_file_name(loadedPath);
     FileExt = get_file_extension(loadedPath);
     ParentDirectoryPath = get_parent_directory_path(loadedPath);
-
-
 }
 
 void XFile::SetSize()

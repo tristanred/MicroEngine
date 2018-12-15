@@ -23,9 +23,6 @@ set(CMAKE_CXX_STANDARD 11)
 add_subdirectory("engine/lib/libtech")
 include_directories("engine/lib/libtech/include")
 
-add_subdirectory("engine/lib/pugixml")
-include_directories("engine/lib/pugixml/src")
-
 # Setup Windows dependencies
 IF(WIN32)
     include_directories("engine/lib/SDL/windows/include")
@@ -133,7 +130,7 @@ add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 
 # Link dependencies
 target_link_libraries(MICROENGINE LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
-target_link_libraries(MICROENGINED LIBTECHD ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
+target_link_libraries(MICROENGINED LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
 
 # Add DEFINES to tell the engine to export functions and api
 target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)
@@ -144,7 +141,7 @@ file(GLOB_RECURSE TESTER_SOURCES "projects/tester/*.cpp")
 file(GLOB_RECURSE TESTER_HEADERS "projects/tester/*.h")
 
 add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
-target_link_libraries(EngineTester MICROENGINE)
+target_link_libraries(EngineTester MICROENGINED)
 
 ## RPG-Game
 file(GLOB_RECURSE RPGGAME_SOURCES "projects/rpg-game/*.cpp")

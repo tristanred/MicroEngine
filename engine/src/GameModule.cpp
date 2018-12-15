@@ -1,11 +1,17 @@
 #include "GameModule.h"
 
+#include <algorithm>
+#include <vector>
+#include <iterator>
+#include <libtech/stdutils.h>
+
 #include "ARenderer.h"
 #include "ASprite.h"
 #include "AText.h"
 #include "AFont.h"
 #include "GameEngine.h"
 #include "Viewport.h"
+#include "TickTimer.h"
 
 GameModule::GameModule(GameEngine* engine)
 {
@@ -13,11 +19,21 @@ GameModule::GameModule(GameEngine* engine)
 
     this->Engine = engine;
     Objects = new std::list<ARenderable*>();
+    
+    Timers = new std::list<TickTimer*>();
 }
 
 GameModule::~GameModule()
 {
     LogTrace("GameModule::~GameModule");
+    
+    // We do not clear the elements inside the list because they are 
+    // ARenderables and they are owned by the Engine.
+    this->Objects->clear();
+    delete(this->Objects);
+    
+    DELETE_LIST_ELEMENTS(this->Timers, TickTimer);
+    delete(this->Timers);
 }
 
 ASprite* GameModule::CreateSprite()
@@ -91,6 +107,7 @@ void GameModule::Disabled()
 
 void GameModule::Update(unsigned int deltaTime)
 {
+    this->UpdateTimers(deltaTime);
 }
 
 void GameModule::Draw(ARenderer* renderer)
@@ -117,3 +134,39 @@ GameEngine* GameModule::GetEngine()
     return this->Engine;
 }
 
+TickTimer* GameModule::CreateTimer(uint32_t totalTime)
+{
+    TickTimer* newTimer = new TickTimer(totalTime);
+    
+    this->Timers->push_back(newTimer);
+    
+    return newTimer;
+}
+
+void GameModule::DestroyTimer(TickTimer* timer)
+{
+    auto iter = std::find(Timers->begin(), Timers->end(), timer);
+    
+    if(iter != Timers->end())
+    {
+        TickTimer* result = *iter;
+        
+        std::remove(Timers->begin(), Timers->end(), timer);
+        
+        delete(result);
+    }
+}
+
+void GameModule::UpdateTimers(uint32_t deltaTime)
+{
+    auto begin = this->Timers->begin();
+    auto end = this->Timers->end();
+    while (begin != end)
+    {
+        TickTimer* timer = *begin;
+        
+        timer->Update(deltaTime);
+        
+        begin++;
+    }
+}

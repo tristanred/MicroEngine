@@ -4,7 +4,8 @@ TickTimer::TickTimer(uint32_t totalTime)
 {
     this->currentTime = 0;
     this->totalTime = totalTime;
-    isRunning = true;
+    
+    isRunning = false;
 }
 
 TickTimer::~TickTimer()
@@ -28,7 +29,10 @@ void TickTimer::Reset()
 
 void TickTimer::Update(uint32_t deltaTime)
 {
-    this->currentTime += deltaTime;
+    if(this->isRunning)
+    {
+        this->currentTime += deltaTime;
+    }
 }
 
 bool TickTimer::HasFinished()

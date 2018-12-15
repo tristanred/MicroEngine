@@ -38,8 +38,9 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     TimerText->SetText("0");
     TimerText->SetColor(0xFF000000);
 
-    timer = new TickTimer(10000);
-
+    timer = this->CreateTimer(10000);
+    timer->Start();
+    
     //engine->ShowDebugLayer();
 }
 
@@ -52,7 +53,6 @@ void GameTestModule::Update(unsigned int deltaTime)
 {
     GameModule::Update(deltaTime);
 
-    timer->Update(deltaTime);
     char timermsg[256];
     sprintf(timermsg, "%f %%", timer->GetCurrentPercentage() * 100);
     TimerText->SetText(timermsg);

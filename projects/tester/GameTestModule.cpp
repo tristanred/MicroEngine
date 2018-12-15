@@ -17,7 +17,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     Box = this->CreateSprite();
     Box->SetSize(FSize(75, 75));
 
-    BoxTexture = engine->Renderer->CreateTexture();
+    BoxTexture = this->CreateTexture();
     BoxTexture->SetSolidColor(FSize(75, 75), 0xFFAA0000);
 
     Box->SetTexture(BoxTexture);

@@ -245,13 +245,6 @@ IF(WIN32)
         $<TARGET_FILE_DIR:MICROENGINE>
     )
     
-    # Copy libtech
-    add_custom_command(
-        TARGET MICROENGINE POST_BUILD 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${PROJECT_SOURCE_DIR}/build/engine/lib/libtech/$(Configuration)/LIBTECHD.dll"
-        $<TARGET_FILE_DIR:MICROENGINE>)
-    
 ENDIF(WIN32)
 
 add_custom_command(

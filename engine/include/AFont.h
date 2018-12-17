@@ -1,5 +1,7 @@
 #pragma once
 
+class Asset;
+
 #include "core.h"
 #include <string.h>
 #include <string>
@@ -12,4 +14,6 @@ public:
     
     // Load a TTF file
     virtual void LoadFontFile(std::string path) = 0;
+    
+    virtual void LoadFontFile(Asset* asset) = 0;
 };

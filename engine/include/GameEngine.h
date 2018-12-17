@@ -10,6 +10,7 @@ class AMouse;
 class AKeyboard;
 class Viewport;
 class DebugLayer;
+class ResourceManager;
 
 #include <list>
 #include <cstdint>
@@ -28,6 +29,7 @@ public:
     ARenderer* Renderer;
     FileLogger* GameLog;
     FileCache* FilesCache;
+    ResourceManager* ResManager;
 
     int wantedFPS;
     long int previousFrameTime;

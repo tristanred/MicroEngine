@@ -1,5 +1,8 @@
 #include "GameTestModule.h"
 
+#include "Asset.h"
+#include "ResourceManager.h"
+
 #define MAX_BOX_COLOR 7
 int currentColorIndex = 0;
 uint32_t colorCycle[MAX_BOX_COLOR] = {
@@ -22,8 +25,9 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     Box->SetTexture(BoxTexture);
 
+    Asset* arialFontAsset = engine->ResManager->GetResource("arial.ttf");
     ArialFont = this->CreateTextFont();
-    ArialFont->LoadFontFile("assets/engine/arial.ttf");
+    ArialFont->LoadFontFile(arialFontAsset);
 
     BoxText = this->CreateText();
     BoxText->SetFont(ArialFont);

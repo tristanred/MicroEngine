@@ -3,12 +3,15 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Asset.h"
+#include <libtech/fsutils.h>
+
 ResourceManager::ResourceManager()
 {
     files = new std::list<const char*>();
     resourceRoots = new std::list<const char*>();
     packageFiles = new std::list<const char*>();
-    resourceCache = new std::list<Resource*>();
+    resourceCache = new std::list<Asset*>();
 }
 
 ResourceManager::~ResourceManager()
@@ -56,7 +59,7 @@ ResourceManager::~ResourceManager()
     auto resourcesEnd = resourceCache->end();
     while(resourcesBegin != resourcesEnd);
     {
-        Resource* res = *resourcesBegin;
+        Asset* res = *resourcesBegin;
         
         delete(res);
 
@@ -66,19 +69,19 @@ ResourceManager::~ResourceManager()
     delete(resourceCache);
 }
 
-Resource* ResourceManager::AddFile(const char* filePath)
+Asset* ResourceManager::AddFile(const char* filePath)
 {
     return this->AddFile(filePath, filePath);
 }
 
-Resource* ResourceManager::AddFile(const char* filePath, const char* resourceName)
+Asset* ResourceManager::AddFile(const char* filePath, const char* resourceName)
 {
     // Check if we already have the resource in our cache.
     auto resBegin = resourceCache->begin();
     auto resEnd = resourceCache->end();
     while(resBegin != resEnd)
     {
-        Resource* res = *resBegin;
+        Asset* res = *resBegin;
 
         if(strcmp(res->name, resourceName) == 0)
         {
@@ -87,29 +90,24 @@ Resource* ResourceManager::AddFile(const char* filePath, const char* resourceNam
 
         resBegin++;
     }
-
-    FILE* found = fopen(filePath, "rb");
-
-    if (found)
+    
+    Asset* newAsset = new Asset();
+    newAsset->LoadData(filePath);
+    
+    if(newAsset->size > 0)
     {
-        Resource* newRes = new Resource();
-        newRes->name = new char[strlen(resourceName)+1];
-        strcpy((char*)newRes->name, resourceName);
-
-        long fileSize = 0;
-        fseek(found, 0, SEEK_END);
-        fileSize = ftell(found);
-        fseek(found, 0, SEEK_SET);
-
-        newRes->length = fileSize;
-        newRes->data = new uint8_t[fileSize];
-        size_t readBytes = fread(newRes->data, 1, fileSize, found);
-
-        this->resourceCache->push_back(newRes);
-
-        fclose(found);
-
-        return newRes;
+        // Assign name
+        newAsset->name = new char[strlen(resourceName)+1];
+        strcpy(newAsset->name, resourceName);
+        
+        // Put in cache
+        this->resourceCache->push_back(newAsset);
+        
+        return newAsset;
+    }
+    else
+    {
+        delete(newAsset);
     }
 
     return NULL;
@@ -131,15 +129,7 @@ void ResourceManager::AddPackageFile(const char* packageFile)
     this->packageFiles->push_back(pakPathCopy);
 }
 
-// Temp function signature
-// This function returns the full path of a file under the 'folder' directory
-// Returns NULL if none found.
-char* find_subdir_file(char* folder, const char* filePath)
-{
-    return NULL;
-}
-
-Resource* ResourceManager::GetResource(const char* name)
+Asset* ResourceManager::GetResource(const char* name)
 {
     // Finding a resource is a multi-step process
     // First we check in the list of assets we have added
@@ -147,7 +137,7 @@ Resource* ResourceManager::GetResource(const char* name)
     auto filesEnd = resourceCache->end();
     while (filesBegin != filesEnd)
     {
-        Resource* res = *filesBegin;
+        Asset* res = *filesBegin;
 
         if (strcmp(res->name, name) == 0)
         {
@@ -165,11 +155,12 @@ Resource* ResourceManager::GetResource(const char* name)
     {
         char* rootObject = (char*)*rootsBegin;
 
-        const char* foundPathName = find_subdir_file(rootObject, name);
+        // Seach that any asset ends with the requested name
+        const char* foundPathName = find_subdir_file(name, rootObject);
 
         if (foundPathName != NULL)
         {
-            Resource* newRes = this->AddFile(foundPathName);
+            Asset* newRes = this->AddFile(foundPathName, name);
 
             return newRes;
         }

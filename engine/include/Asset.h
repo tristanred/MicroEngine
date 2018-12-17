@@ -9,7 +9,7 @@
 #endif
 
 #define LARGE_FILE_MMAP_TRESH (1024*1024*10)// 10MB
-#define LARGE_FILE_MMAP_LIMIT ((1024*1024*1024*4)-1) // 4GB
+#define LARGE_FILE_MMAP_LIMIT (1024*1024*1024*4) // 4GB
 
 enum Asset_Type
 {
@@ -29,7 +29,8 @@ public:
     Asset_Type type;
     
     bool IsLoaded;
-    const char* path;
+    char* name; // Friendly name
+    const char* path; // Full path, may be relative
     uint64_t size;
     void* data;
     

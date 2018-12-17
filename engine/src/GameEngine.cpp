@@ -16,6 +16,7 @@
 #include "Input/AKeyboard.h"
 #include "Viewport.h"
 #include "Debugging/DebugLayer.h"
+#include "ResourceManager.h"
 
 #include <libtech/filecache.h>
 #include <libtech/sysutils.h>
@@ -34,6 +35,8 @@ GameEngine::GameEngine()
     LogTrace("GameEngine::GameEngine");
 
     Renderer = NULL;
+    FilesCache = NULL;
+    ResManager = NULL;
     Mouse = NULL;
     Keyboard = NULL;
     Platform = NULL;
@@ -63,6 +66,9 @@ GameEngine::~GameEngine()
     delete(Modules);
 
     delete(this->debugLayer);
+    
+    delete(FilesCache);
+    delete(ResManager);
 
     delete(Platform);
     delete(Mouse);
@@ -81,6 +87,8 @@ void GameEngine::Initialize()
     LogMessage(msg);
 
     FilesCache = new FileCache();
+    ResManager = new ResourceManager();
+    ResManager->AddAssetRoot("assets/engine");
 
     Renderer = AbstractFactory::CreateRenderer();
     Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache

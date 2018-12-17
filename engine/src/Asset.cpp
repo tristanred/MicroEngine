@@ -106,6 +106,7 @@ void Asset::LoadData(const char* path)
     }
     else
     {
+        data = new uint8_t[size.QuadPart];
         DWORD readBytes = 0;
         BOOL res = ReadFile(
             hAssetFile,
@@ -149,7 +150,7 @@ void* Asset::GetBlock(uint64_t start, uint64_t end, uint64_t* readBytes)
 
 Asset_Type Asset::DetermineAssetType(const char* assetPath)
 {
-    char* assetExt = get_file_extension(path);
+    char* assetExt = get_file_extension(assetPath);
     
     if(strcmp(assetExt, ".png") == 0)
     {

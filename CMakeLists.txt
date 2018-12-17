@@ -126,22 +126,22 @@ include_directories("engine/include")
 
 # Setup the Static and Shared library builds
 add_library(MICROENGINE STATIC ${ENGINE_HEADERS} ${ENGINE_SOURCES})
-add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
+#add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 
 # Link dependencies
 target_link_libraries(MICROENGINE LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
-target_link_libraries(MICROENGINED LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
+#target_link_libraries(MICROENGINED LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
 
 # Add DEFINES to tell the engine to export functions and api
 target_compile_definitions(MICROENGINE PRIVATE MICROENGINE_EXPORTS)
-target_compile_definitions(MICROENGINED PRIVATE MICROENGINE_EXPORTS)
+#target_compile_definitions(MICROENGINED PRIVATE MICROENGINE_EXPORTS)
 
 ## Engine Tester
 file(GLOB_RECURSE TESTER_SOURCES "projects/tester/*.cpp")
 file(GLOB_RECURSE TESTER_HEADERS "projects/tester/*.h")
 
 add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
-target_link_libraries(EngineTester MICROENGINED)
+target_link_libraries(EngineTester MICROENGINE)
 
 ## RPG-Game
 file(GLOB_RECURSE RPGGAME_SOURCES "projects/rpg-game/*.cpp")
@@ -156,14 +156,14 @@ target_link_libraries(RPG-Game MICROENGINE)
 IF(WIN32)
 
 set_target_properties(MICROENGINE PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
-set_target_properties(MICROENGINED PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
+#set_target_properties(MICROENGINED PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 set_target_properties(EngineTester PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 set_target_properties(RPG-Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
 
 ELSEIF(UNIX)
 
 target_compile_options(MICROENGINE PRIVATE -Wall)
-target_compile_options(MICROENGINED PRIVATE -Wall)
+#target_compile_options(MICROENGINED PRIVATE -Wall)
 target_compile_options(EngineTester PRIVATE -Wall)
 target_compile_options(RPG-Game PRIVATE -Wall)
 
@@ -188,7 +188,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_image/windows/lib/$(PlatformTarget)/SDL2_image.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #libjpeg-9.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -196,7 +196,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_image/windows/lib/$(PlatformTarget)/libjpeg-9.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #libpng16-16.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -204,7 +204,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_image/windows/lib/$(PlatformTarget)/libpng16-16.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #libtiff-5.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -212,7 +212,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_image/windows/lib/$(PlatformTarget)/libtiff-5.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #libwebp-4.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -228,7 +228,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_ttf/windows/lib/$(PlatformTarget)/SDL2_ttf.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #libfreetype-6.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -236,7 +236,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_ttf/windows/lib/$(PlatformTarget)/libfreetype-6.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
     #zlib1.dll
     add_custom_command(
         TARGET MICROENGINE POST_BUILD
@@ -244,7 +244,7 @@ IF(WIN32)
         "${PROJECT_SOURCE_DIR}/engine/lib/SDL_image/windows/lib/$(PlatformTarget)/zlib1.dll"
         $<TARGET_FILE_DIR:MICROENGINE>
     )
-    
+
 ENDIF(WIN32)
 
 add_custom_command(

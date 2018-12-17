@@ -34,7 +34,7 @@ ResourceManager::~ResourceManager()
     while(rootsBegin != rootsEnd)
     {
         const char* rootPath = *rootsBegin;
-        
+
         delete(rootPath);
 
         rootsBegin++;
@@ -47,7 +47,7 @@ ResourceManager::~ResourceManager()
     while(pakFileBegin != pakFileEnd)
     {
         const char* pakFilePath = *pakFileBegin;
-        
+
         delete(pakFilePath);
 
         pakFileBegin++;
@@ -57,10 +57,10 @@ ResourceManager::~ResourceManager()
 
     auto resourcesBegin = resourceCache->begin();
     auto resourcesEnd = resourceCache->end();
-    while(resourcesBegin != resourcesEnd);
+    while(resourcesBegin != resourcesEnd)
     {
         Asset* res = *resourcesBegin;
-        
+
         delete(res);
 
         resourcesBegin++;
@@ -90,19 +90,19 @@ Asset* ResourceManager::AddFile(const char* filePath, const char* resourceName)
 
         resBegin++;
     }
-    
+
     Asset* newAsset = new Asset();
     newAsset->LoadData(filePath);
-    
+
     if(newAsset->size > 0)
     {
         // Assign name
         newAsset->name = new char[strlen(resourceName)+1];
         strcpy(newAsset->name, resourceName);
-        
+
         // Put in cache
         this->resourceCache->push_back(newAsset);
-        
+
         return newAsset;
     }
     else

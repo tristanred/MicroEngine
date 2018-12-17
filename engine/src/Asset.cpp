@@ -4,6 +4,10 @@
 #include <libtech/sysutils.h>
 #include <string.h>
 
+#ifdef linux
+#include <libtech/binreader.h>
+#endif
+
 Asset::Asset()
 {
     type = AT_UNKNOWN;
@@ -129,7 +133,21 @@ void Asset::LoadData(const char* path)
         this->path = path;
         this->size = size.QuadPart;
     }
-    
+#elif linux
+
+    size_t size;
+    this->data = getfilebytes(path, &size);
+
+    if(this->data != NULL)
+    {
+        this->type = this->DetermineAssetType(path);
+        this->IsMemoryMapped = false;
+        this->IsLoaded = true;
+        this->path = path;
+        this->size = size;
+    }
+
+
 #endif
 }
 

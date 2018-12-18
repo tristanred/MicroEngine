@@ -34,8 +34,11 @@ Asset::~Asset()
 
 void Asset::LoadData(const char* path)
 {
+    char* safepath = new char[strlen(path) + 1];
+    sanitize_path_slashes(path, safepath);
+
 #ifdef _WIN32
-    
+
     hAssetFile = CreateFileA(
         path,
         GENERIC_READ,
@@ -44,35 +47,35 @@ void Asset::LoadData(const char* path)
         OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,
         NULL);
-        
+
     if(hAssetFile == INVALID_HANDLE_VALUE)
     {
         print_last_win32_error();
-        
+
         IsLoaded = NULL;
         path = NULL;
         size = 0;
         data = NULL;
-        
+
         return;
     }
-    
+
     LARGE_INTEGER size;
     size.QuadPart = 0;
     BOOL res = GetFileSizeEx(hAssetFile, &size);
     if(res == FALSE)
     {
         print_last_win32_error();
-        
+
         return;
     }
-    
+
     char* assetExt = get_file_extension(path);
-    
+
     if(strcmp(path, ".pak") != -1 && this->CanMemoryMapAsset(this->size))
     {
         delete(assetExt); // Ugh....
-        
+
         hFileMap = CreateFileMappingA(
             hAssetFile,
             NULL,
@@ -80,28 +83,28 @@ void Asset::LoadData(const char* path)
             0,
             0,
             NULL);
-        
+
         if(hFileMap == NULL)
         {
             print_last_win32_error();
-            
+
             return;
         }
-        
+
         data = MapViewOfFile(
             hFileMap,
             FILE_MAP_READ,
             0,
             0,
             0);
-        
+
         if(data == NULL)
         {
             print_last_win32_error();
-            
+
             return;
         }
-        
+
         this->type = AT_PACKAGE;
         this->IsMemoryMapped = true;
         this->IsLoaded = true;
@@ -126,7 +129,7 @@ void Asset::LoadData(const char* path)
 
             return;
         }
-        
+
         this->type = this->DetermineAssetType(path);
         this->IsMemoryMapped = false;
         this->IsLoaded = true;
@@ -136,17 +139,16 @@ void Asset::LoadData(const char* path)
 #elif linux
 
     size_t size;
-    this->data = getfilebytes(path, &size);
+    this->data = getfilebytes(safepath, &size);
 
     if(this->data != NULL)
     {
-        this->type = this->DetermineAssetType(path);
+        this->type = this->DetermineAssetType(safepath);
         this->IsMemoryMapped = false;
         this->IsLoaded = true;
-        this->path = path;
+        this->path = safepath;
         this->size = size;
     }
-
 
 #endif
 }
@@ -169,7 +171,7 @@ void* Asset::GetBlock(uint64_t start, uint64_t end, uint64_t* readBytes)
 Asset_Type Asset::DetermineAssetType(const char* assetPath)
 {
     char* assetExt = get_file_extension(assetPath);
-    
+
     if(strcmp(assetExt, ".png") == 0)
     {
         return AT_IMAGE;
@@ -215,7 +217,7 @@ bool Asset::CanMemoryMapAsset(uint64_t candidateSize)
 {
     // MM assets only on windows for now.
 #ifdef _WIN32
-    if(candidateSize >= LARGE_FILE_MMAP_TRESH && 
+    if(candidateSize >= LARGE_FILE_MMAP_TRESH &&
        candidateSize < LARGE_FILE_MMAP_LIMIT)
     {
         return true;

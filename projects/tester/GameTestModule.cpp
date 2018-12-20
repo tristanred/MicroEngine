@@ -25,9 +25,9 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     Box->SetTexture(BoxTexture);
 
-    Asset* arialFontAsset = engine->ResManager->GetResource("arial.ttf");
+    //Asset* arialFontAsset = engine->ResManager->GetResource("arial.ttf");
     ArialFont = this->CreateTextFont();
-    ArialFont->LoadFontFile(arialFontAsset);
+    ArialFont->LoadFontFile("assets/engine/arial.ttf");
 
     BoxText = this->CreateText();
     BoxText->SetFont(ArialFont);

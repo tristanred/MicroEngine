@@ -77,8 +77,6 @@ uint8_t* XFile::Read(size_t* length)
         return NULL;
     }
 
-    uint8_t* data = new uint8_t[this->Size];
-
 #ifdef WIN32
 
     DWORD readBytes = 0;

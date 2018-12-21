@@ -17,5 +17,5 @@ public:
     std::list<XFile*>* GetFiles(bool recursive = false);
     
 private:
-    char* loadedPath;
+    //char* loadedPath;
 };

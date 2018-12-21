@@ -12,6 +12,7 @@ Asset::Asset()
 {
     type = AT_UNKNOWN;
     IsLoaded = false;
+    IsMemoryMapped = false;
     path = NULL;
     size = 0;
     data = NULL;

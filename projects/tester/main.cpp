@@ -25,9 +25,6 @@
 
 int main(int argc, char** argv)
 {
-    ArrayList<char*>* result = new ArrayList<char*>();
-    get_directory_files("E:\\Prog\\MicroEngine\\engine\\src", true, result);
-
     GameEngine* eng = new GameEngine();
     eng->Initialize();
 

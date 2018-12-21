@@ -4,7 +4,7 @@
 #include <libtech/sysutils.h>
 #include <string.h>
 
-#ifdef linux
+#if defined(linux) || defined(__APPLE__)
 #include <libtech/binreader.h>
 #endif
 
@@ -137,7 +137,7 @@ void Asset::LoadData(const char* path)
         this->path = path;
         this->size = size.QuadPart;
     }
-#elif linux
+#elif defined(linux) || defined(__APPLE__)
 
     size_t size;
     this->data = getfilebytes(safepath, &size);
@@ -150,7 +150,6 @@ void Asset::LoadData(const char* path)
         this->path = safepath;
         this->size = size;
     }
-
 #endif
 }
 

@@ -79,6 +79,7 @@ uint8_t* XFile::Read(size_t* length)
 
 #ifdef WIN32
 
+	uint8_t* data = new uint8_t[this->Size];
     DWORD readBytes = 0;
     DWORD bytesToRead = (DWORD)this->Size; // Cutting the upper 32 bits, TODO
     BOOL res = ReadFile(

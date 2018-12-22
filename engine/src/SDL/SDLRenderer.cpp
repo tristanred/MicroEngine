@@ -164,21 +164,20 @@ void SDLRenderer::Shutdown()
     SDL_Quit();
 }
 
-void SDLRenderer::Draw(ARenderable* sprite)
+void SDLRenderer::Draw(ARenderable* renderObject)
 {
-    if (sprite->IsVisible() == false)
+    if (renderObject->IsVisible() == false)
         return;
 
-    SDLSprite* sdlSprite = (SDLSprite*)sprite;
-    SDLTexture* tex = (SDLTexture*)sdlSprite->GetTexture();
+    SDLTexture* tex = (SDLTexture*)renderObject->GetTexture();
 
     SDL_Rect dest;
     dest.w = (int)tex->GetSize().Width;
     dest.h = (int)tex->GetSize().Height;
-    dest.x = (int)sdlSprite->GetPosition().X;
-    dest.y = (int)sdlSprite->GetPosition().Y;
+    dest.x = (int)renderObject->GetPosition().X;
+    dest.y = (int)renderObject->GetPosition().Y;
 
-    if (sdlSprite->GetPositionSystem() == VIEWPORT_RELATIVE)
+    if (renderObject->GetPositionSystem() == VIEWPORT_RELATIVE)
     {
         dest.x -= (int)this->RenderViewport->CurrentView.X;
         dest.y -= (int)this->RenderViewport->CurrentView.Y;

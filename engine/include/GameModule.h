@@ -41,6 +41,11 @@ public:
 
     virtual Viewport* CreateViewport();
 
+    /*
+     * Add an object to be drawn. That object should have been created manually
+     * because using CreateSprite/CreateText methods already add the new object
+     * to the list.
+     */
     virtual void AttachRenderable(ARenderable* object);
 
     virtual void Enabled();
@@ -71,13 +76,13 @@ private:
 template<>
 inline CButton* GameModule::CreateControl<CButton>()
 {
-    CButton* newbutan = new CButton(FSize(0, 0));
+    CButton* newbutan = new CButton(this->Engine);
     return newbutan;
 }
 
 template<>
 inline CLabel* GameModule::CreateControl<CLabel>()
 {
-    CLabel* newlab = new CLabel(FSize(0, 0));
+    CLabel* newlab = new CLabel(this->Engine);
     return newlab;
 }

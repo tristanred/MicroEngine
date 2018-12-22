@@ -10,6 +10,7 @@
 #include <ATexture.h>
 #include <AFont.h>
 #include <TickTimer.h>
+#include <Controls/CButton.h>
 
 #include <libtech/vec.h>
 
@@ -25,6 +26,8 @@ public:
     ATexture* BoxTexture;
     AText* BoxText;
     AFont* ArialFont;
+    
+    CButton* buttan;
 
     vec2 boxVelocity;
 

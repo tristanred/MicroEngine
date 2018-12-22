@@ -5,6 +5,8 @@
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
 
+#include <Input/AKeyboard.h>
+
 #define MAX_BOX_COLOR 7
 int currentColorIndex = 0;
 uint32_t colorCycle[MAX_BOX_COLOR] = {
@@ -47,10 +49,15 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     timer = this->CreateTimer(10000);
     timer->Start();
 
+    ATexture* enabl = this->CreateTexture("assets/engine/Enabled.png");
+    ATexture* disabl = this->CreateTexture("assets/engine/Disabled.png");
+    ATexture* down = this->CreateTexture("assets/engine/Down.png");
+    ATexture* hovr = this->CreateTexture("assets/engine/Hover.png");
+    
     // Control API example ?
-    CButton* btn = this->CreateControl<CButton>();
-    CLabel* lbl = this->CreateControl<CLabel>();
-
+    buttan = this->CreateControl<CButton>();
+    buttan->Initialize(FSize(150, 50), enabl, disabl, down, hovr);
+    this->AttachRenderable(buttan);
 
     //engine->ShowDebugLayer();
 }
@@ -63,6 +70,17 @@ GameTestModule::~GameTestModule()
 void GameTestModule::Update(unsigned int deltaTime)
 {
     GameModule::Update(deltaTime);
+    
+    buttan->Update();
+    
+    if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == true)
+    {
+        buttan->Enable(false);
+    }
+    else if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == false)
+    {
+        buttan->Enable(true);
+    }
 
     char timermsg[256];
     sprintf(timermsg, "%f %%", timer->GetCurrentPercentage() * 100);

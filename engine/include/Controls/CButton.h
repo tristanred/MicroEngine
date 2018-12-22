@@ -1,30 +1,43 @@
 #pragma once
 
-#include "core.h"
-#include "ARenderable.h"
-#include "CBaseControl.h"
-#include <libtech/Geometry.h>
-
+class GameEngine;
 class ATexture;
 class AMouse;
 class AKeyboard;
 
-/*
-Button states :
-
-Idle
-Disabled
-Pressed
-MouseOver
-
-*/
+#include "core.h"
+#include "CBaseControl.h"
 
 class ENGINE_CLASS CButton : public CBaseControl
 {
 public:
-    CButton(FSize size, ATexture* idleTex = NULL, ATexture* disabledTex = NULL, ATexture* pressedTex = NULL, ATexture* overTex = NULL);
+    enum Button_State
+    {
+        ENABLED,
+        DISABLED,
+        DOWN,
+        HOVERED
+    };
+
+    Button_State CurrentState;
+
+    CButton(GameEngine* engine);
     ~CButton();
 
-    void DoStuff() override;
+    void Initialize(FSize size, ATexture* enabledTexture = NULL, ATexture* disabledTexture = NULL, ATexture* downTexture = NULL, ATexture* overTexture = NULL);
 
+    void Update() override;
+
+    bool IsEnabled();
+    void Enable(bool status);
+
+    ATexture* GetTexture() override;
+
+private:
+    bool isEnabled;
+
+    ATexture* enabledTexture;
+    ATexture* disabledTexture;
+    ATexture* downTexture;
+    ATexture* mouseOverTexture;
 };

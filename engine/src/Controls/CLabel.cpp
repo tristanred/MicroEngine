@@ -1,16 +1,11 @@
 #include "Controls/CLabel.h"
 
-CLabel::CLabel(FSize size) : CBaseControl(size)
+CLabel::CLabel(GameEngine* engine) : CBaseControl(engine)
 {
 
 }
 
 CLabel::~CLabel()
-{
-
-}
-
-void CLabel::DoStuff()
 {
 
 }

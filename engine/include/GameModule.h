@@ -15,6 +15,9 @@ class TickTimer;
 #include <stdint.h>
 
 #include "core.h"
+#include "Controls/CBaseControl.h"
+#include "Controls/CButton.h"
+#include "Controls/CLabel.h"
 
 class ENGINE_CLASS GameModule
 {
@@ -56,8 +59,25 @@ public:
 protected:
     bool moduleEnabled;
 
+    template<class T>
+    T* CreateControl();
+
 private:
     GameEngine* Engine;
 
     void UpdateTimers(uint32_t deltaTime);
 };
+
+template<>
+inline CButton* GameModule::CreateControl<CButton>()
+{
+    CButton* newbutan = new CButton(FSize(0, 0));
+    return newbutan;
+}
+
+template<>
+inline CLabel* GameModule::CreateControl<CLabel>()
+{
+    CLabel* newlab = new CLabel(FSize(0, 0));
+    return newlab;
+}

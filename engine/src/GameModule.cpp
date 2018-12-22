@@ -19,19 +19,19 @@ GameModule::GameModule(GameEngine* engine)
 
     this->Engine = engine;
     Objects = new std::list<ARenderable*>();
-    
+
     Timers = new std::list<TickTimer*>();
 }
 
 GameModule::~GameModule()
 {
     LogTrace("GameModule::~GameModule");
-    
-    // We do not clear the elements inside the list because they are 
+
+    // We do not clear the elements inside the list because they are
     // ARenderables and they are owned by the Engine.
     this->Objects->clear();
     delete(this->Objects);
-    
+
     DELETE_LIST_ELEMENTS(this->Timers, TickTimer);
     delete(this->Timers);
 }
@@ -137,22 +137,22 @@ GameEngine* GameModule::GetEngine()
 TickTimer* GameModule::CreateTimer(uint32_t totalTime)
 {
     TickTimer* newTimer = new TickTimer(totalTime);
-    
+
     this->Timers->push_back(newTimer);
-    
+
     return newTimer;
 }
 
 void GameModule::DestroyTimer(TickTimer* timer)
 {
     auto iter = std::find(Timers->begin(), Timers->end(), timer);
-    
+
     if(iter != Timers->end())
     {
         TickTimer* result = *iter;
-        
+
         std::remove(Timers->begin(), Timers->end(), timer);
-        
+
         delete(result);
     }
 }
@@ -164,9 +164,9 @@ void GameModule::UpdateTimers(uint32_t deltaTime)
     while (begin != end)
     {
         TickTimer* timer = *begin;
-        
+
         timer->Update(deltaTime);
-        
+
         begin++;
     }
 }

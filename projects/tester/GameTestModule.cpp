@@ -2,6 +2,8 @@
 
 #include "Asset.h"
 #include "ResourceManager.h"
+#include "Controls/CButton.h"
+#include "Controls/CLabel.h"
 
 #define MAX_BOX_COLOR 7
 int currentColorIndex = 0;
@@ -44,7 +46,12 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     timer = this->CreateTimer(10000);
     timer->Start();
-    
+
+    // Control API example ?
+    CButton* btn = this->CreateControl<CButton>();
+    CLabel* lbl = this->CreateControl<CLabel>();
+
+
     //engine->ShowDebugLayer();
 }
 
@@ -94,7 +101,7 @@ void GameTestModule::Update(unsigned int deltaTime)
         Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
-    
+
     Box->SetPosition(nextPos);
 
     FPosition textPosition = nextPos;

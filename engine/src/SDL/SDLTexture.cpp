@@ -28,6 +28,7 @@ SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTextu
 SDLTexture::~SDLTexture()
 {
     SDL_DestroyTexture(tex);
+    SDL_FreeSurface(surf);
 }
 
 void SDLTexture::SetSolidColor(FSize size, uint32_t color)

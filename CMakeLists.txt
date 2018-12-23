@@ -107,53 +107,20 @@ IF(APPLE)
     include_directories("engine/lib/SDL_image/linux/include")
     include_directories("engine/lib/SDL_ttf/linux/include")
 
-    find_path(
-        SDL2_INCLUDE
-        SDL.h
-        HINTS $ENV{SDL2DIR}
-        PATH_SUFFIXES
-            include/SDL2
-            include
-        PATHS ${SDL2_SEARCH_PATHS}
-    )
-    find_path(
-        SDL2_IMAGE_INCLUDE
-        SDL_image.h
-        HINTS
-            ENV SDL2IMAGEDIR
-            ENV SDL2DIR
-        PATH_SUFFIXES
-            SDL2
-            # path suffixes to search inside ENV{SDLDIR}
-            include/SDL2 include
-        PATHS ${SDL2_IMAGE_PATH}
-    )
-    find_path(
-        SDL2_TTF_INCLUDE
-        SDL_ttf.h
-        HINTS
-            ENV SDL2TTFDIR
-            ENV SDL2DIR
-        PATH_SUFFIXES
-            SDL2
-            # path suffixes to search inside ENV{SDLDIR}
-            include/SDL2 include
-        PATHS ${SDL2_TTF_PATH}
-    )
     find_library(
         SDL2_LIB
         NAMES SDL2
-        #HINTS "../libs/linux/SDL/lib/x86"
+        HINTS "engine/lib/SDL/mac/SDL2.framework"
     )
     find_library(
         SDL2_IMAGE_LIB
         NAMES SDL2_image
-        #HINTS "../libs/linux/SDL_Image/lib/x86"
+        HINTS "engine/lib/SDL_image/mac/SDL2_image.framework"
     )
     find_library(
         SDL2_TTF_LIB
         NAMES SDL2_ttf
-        #HINTS "../libs/linux/SDL_ttf/lib/x86"
+        HINTS "engine/lib/SDL_ttf/mac/SDL2_ttf.framework"
     )
 
 ENDIF(APPLE)

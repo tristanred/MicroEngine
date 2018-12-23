@@ -9,6 +9,11 @@ CButton::CButton(GameEngine* engine) : CBaseControl(engine)
     this->CurrentState = Button_State::ENABLED;
     this->isEnabled = true;
     this->clickLock = false;
+    
+    this->enabledTexture = NULL;
+    this->disabledTexture = NULL;
+    this->downTexture = NULL;
+    this->mouseOverTexture = NULL;
 }
 
 CButton::~CButton()

@@ -12,6 +12,15 @@ enum POSITION_SYSTEM
     VIEWPORT_RELATIVE
 };
 
+/*
+ * The ARenderable class is the root type for any object that needs to be drawn
+ * on the screen. A renderable has a position on screen and a size. It can
+ * return a texture and that texture will be drawn.
+ *
+ * The are multiple position systems that can be used. A VIEWPORT_STATIC system
+ * will use the position directly on the Window. VIEWPORT_RELATIVE is used to
+ * position the object relative to the currently selected viewport.
+ */
 class ENGINE_CLASS ARenderable
 {
 public:

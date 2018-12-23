@@ -8,6 +8,7 @@ CButton::CButton(GameEngine* engine) : CBaseControl(engine)
 {
     this->CurrentState = Button_State::ENABLED;
     this->isEnabled = true;
+    this->clickLock = false;
 }
 
 CButton::~CButton()
@@ -46,11 +47,17 @@ void CButton::Update()
             else
             {
                 this->CurrentState = Button_State::HOVERED;
+                
+                // When going back into Hovered mode, reset the clicked lock flag
+                this->clickLock = false;
             }
         }
         else
         {
             this->CurrentState = Button_State::ENABLED;
+            
+            // When going back into Enabled mode, reset the clicked lock flag
+            this->clickLock = false;
         }
     }
 }
@@ -130,4 +137,24 @@ void CButton::Enable(bool status)
     }
 
     this->isEnabled = status;
+}
+
+bool CButton::IsClicked(bool clickedLockButton)
+{
+    // If the button is clicked
+    if(this->IsEnabled() && this->CurrentState == Button_State::DOWN)
+    {
+        // Check that the button is not locked
+        if(this->clickLock == false)
+        {
+            if(clickedLockButton == true)
+            {
+                this->clickLock = true;
+            }
+            
+            return true;
+        }
+    }
+    
+    return false;
 }

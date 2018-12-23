@@ -29,6 +29,7 @@ int main(int argc, char** argv)
     eng->Initialize();
 
     GameModule* mod = eng->CreateModule<GameTestModule>();
+    (void)mod;
 
     eng->Play();
 

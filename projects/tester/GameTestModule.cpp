@@ -81,6 +81,11 @@ void GameTestModule::Update(unsigned int deltaTime)
     {
         buttan->Enable(true);
     }
+    
+    if(buttan->IsClicked(true))
+    {
+        LogMessage("CLICKED !!");
+    }
 
     char timermsg[256];
     sprintf(timermsg, "%f %%", timer->GetCurrentPercentage() * 100);

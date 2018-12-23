@@ -64,24 +64,18 @@ IF(UNIX)
     find_path(
         SDL2_IMAGE_INCLUDE
         SDL_image.h
-        HINTS
-            ENV SDL2IMAGEDIR
-            ENV SDL2DIR
+        HINTS $ENV{SDL2IMAGEDIR}
         PATH_SUFFIXES
             SDL2
-            # path suffixes to search inside ENV{SDLDIR}
             include/SDL2 include
         PATHS ${SDL2_IMAGE_PATH}
     )
     find_path(
         SDL2_TTF_INCLUDE
         SDL_ttf.h
-        HINTS
-            ENV SDL2TTFDIR
-            ENV SDL2DIR
+        HINTS $ENV{SDL2TTFDIR}
         PATH_SUFFIXES
             SDL2
-            # path suffixes to search inside ENV{SDLDIR}
             include/SDL2 include
         PATHS ${SDL2_TTF_PATH}
     )
@@ -101,29 +95,6 @@ IF(UNIX)
         #HINTS "../libs/linux/SDL_ttf/lib/x86"
     )
 ENDIF(UNIX)
-
-IF(APPLE)
-    include_directories("engine/lib/SDL/linux/include")
-    include_directories("engine/lib/SDL_image/linux/include")
-    include_directories("engine/lib/SDL_ttf/linux/include")
-
-    find_library(
-        SDL2_LIB
-        NAMES SDL2
-        HINTS "engine/lib/SDL/mac/SDL2.framework"
-    )
-    find_library(
-        SDL2_IMAGE_LIB
-        NAMES SDL2_image
-        HINTS "engine/lib/SDL_image/mac/SDL2_image.framework"
-    )
-    find_library(
-        SDL2_TTF_LIB
-        NAMES SDL2_ttf
-        HINTS "engine/lib/SDL_ttf/mac/SDL2_ttf.framework"
-    )
-
-ENDIF(APPLE)
 
 #
 # Setup common properties

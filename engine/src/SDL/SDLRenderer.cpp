@@ -43,6 +43,13 @@ bool SDLRenderer::Initialize(ConfigFile* config)
 {
     LogTrace("SDLRenderer::Initialize with ConfigFile");
 
+    if(config == NULL)
+    {
+        LogError("Config file is NULL. Loading backup defaults.");
+
+        return this->Initialize();
+    }
+
     RendererParameters defaults;
 
     std::string configValueSafe = config->GetConfigValueSafe("default_window_name", "Window Titlez !");
@@ -171,6 +178,9 @@ void SDLRenderer::Draw(ARenderable* renderObject)
 
     SDLTexture* tex = (SDLTexture*)renderObject->GetTexture();
 
+    // TODO : If null, draw default "missing texture" texture.
+    assert(tex != NULL);
+
     SDL_Rect dest;
     dest.w = (int)tex->GetSize().Width;
     dest.h = (int)tex->GetSize().Height;
@@ -192,6 +202,8 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
 {
     SDLTexture* tex = (SDLTexture*)texture;
 
+    assert(texture != NULL);
+    
     SDL_Rect dest;
     dest.w = (int)tex->GetSize().Width;
     dest.h = (int)tex->GetSize().Height;
@@ -205,6 +217,8 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
 
 void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts)
 {
+    assert(opts != NULL);
+    
     float offsetPosX = posX;
     float offsetPosY = posY;
 
@@ -219,6 +233,8 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct 
 
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
+    assert(surface != NULL);
+    
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;
@@ -226,7 +242,7 @@ SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 
 FSize SDLRenderer::GetWindowSize()
 {
-    int x = 0; 
+    int x = 0;
     int y = 0;
     SDL_GetWindowSize(mainWindow, &x, &y);
 
@@ -263,7 +279,7 @@ ATexture* SDLRenderer::CreateTexture(const char* filepath)
             SDL_RWops* stream = SDL_RWFromMem(data, (int)fileLength);
 
             SDL_Surface* surface = IMG_Load_RW(stream, false);
-            
+
             // Delete the stream ?
 
             result->surf = surface;
@@ -281,7 +297,7 @@ ATexture* SDLRenderer::CreateTexture(const char* filepath)
 
             return NULL;
         }
-        
+
         result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
 
         TextureRepo->CacheTexture(result);

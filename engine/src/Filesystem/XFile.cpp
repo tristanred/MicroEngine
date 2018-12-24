@@ -11,7 +11,7 @@ XFile::XFile()
 
     loadedPath = NULL;
 
-#ifdef WIN32
+#ifdef _WIN32
     winFileHandle = INVALID_HANDLE_VALUE;
 #endif
 }
@@ -29,7 +29,7 @@ XFile::~XFile()
     delete(FileExt);
     delete(ParentDirectoryPath);
 
-#ifdef WIN32
+#ifdef _WIN32
     if (winFileHandle != INVALID_HANDLE_VALUE)
     {
         BOOL res = CloseHandle(winFileHandle);
@@ -46,7 +46,7 @@ XFile::~XFile()
 
 void XFile::Open(const char* path)
 {
-#ifdef WIN32
+#ifdef _WIN32
     winFileHandle = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (winFileHandle == INVALID_HANDLE_VALUE)
@@ -77,7 +77,7 @@ uint8_t* XFile::Read(size_t* length)
         return NULL;
     }
 
-#ifdef WIN32
+#ifdef _WIN32
 
 	uint8_t* data = new uint8_t[this->Size];
     DWORD readBytes = 0;
@@ -109,7 +109,7 @@ uint8_t* XFile::Read(size_t* length)
 
 size_t XFile::Write(uint8_t* data, size_t length)
 {
-#ifdef WIN32
+#ifdef _WIN32
     
     DWORD bytesWritten = 0;
 
@@ -151,7 +151,7 @@ void XFile::AssignFileNames()
 
 void XFile::SetSize()
 {
-#ifdef WIN32
+#ifdef _WIN32
     LARGE_INTEGER sizeResult;
     BOOL res = GetFileSizeEx(winFileHandle, &sizeResult);
     

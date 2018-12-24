@@ -40,6 +40,9 @@ void CButton::Update()
 
     if(this->IsEnabled())
     {
+        // TODO : Viewport offset will screw up the mouse position, update to
+        //        make sure that the viewport is taken into account.
+        
         // Check if mouse is over the rectangle
         FRectangle rec = this->GetRectangle();
         if(rec.PointIsInside(this->Mouse->GetMousePosition()))

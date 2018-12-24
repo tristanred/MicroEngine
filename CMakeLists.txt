@@ -82,17 +82,14 @@ IF(UNIX)
     find_library(
         SDL2_LIB
         NAMES SDL2
-        #HINTS "../libs/linux/SDL/lib/x86"
     )
     find_library(
         SDL2_IMAGE_LIB
         NAMES SDL2_image
-        #HINTS "../libs/linux/SDL_Image/lib/x86"
     )
     find_library(
         SDL2_TTF_LIB
         NAMES SDL2_ttf
-        #HINTS "../libs/linux/SDL_ttf/lib/x86"
     )
 ENDIF(UNIX)
 

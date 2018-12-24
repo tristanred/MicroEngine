@@ -26,18 +26,18 @@ public:
     virtual ~ASprite() override;
 
     // Setup from a file, automatically creates a textureand applies it to itself.
-    virtual void Setup(const char* filepath);
+    virtual void SetTexture(const char* filepath);
 
     // Set sprite with just a static image
-    virtual void Setup(ATexture* texture);
+    virtual void SetTexture(ATexture* texture) override;
 
     // Setup from a list of textures and use that as the only animation
-    virtual void Setup(ArrayList<ATexture*>* textureList);
+    virtual void SetTexture(ArrayList<ATexture*>* textureList);
 
     // Setup from a list of animations
-    virtual void Setup(ArrayList<SpriteAnimation*>* animList);
+    virtual void SetTexture(ArrayList<SpriteAnimation*>* animList);
 
-    //virtual ATexture* GetTexture() override;
+    virtual ATexture* GetTexture() override;
     //virtual void SetTexture(ATexture* texture) override;
 
     void Update(unsigned int deltaTime);
@@ -50,11 +50,14 @@ protected:
     int framesPerSecond;
     uint32_t previousFrameTime;
     bool isTimeForNextFrame();
+    bool isPlaying;
+    bool looping;
 
     // Animation settings
     int currentAnimationIndex;
     ArrayList<SpriteAnimation*>* spriteAnimations;
 
+    void AdvanceFrame();
 
 };
 

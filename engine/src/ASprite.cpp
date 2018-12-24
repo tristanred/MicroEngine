@@ -16,7 +16,11 @@ ASprite::ASprite(ARenderer* renderer) : ARenderable(renderer)
 
     framesPerSecond = 0;
     previousFrameTime = 0;
+    currentAnimationIndex = false;
     spriteAnimations = NULL;
+    
+    isPlaying = false;
+    looping = false;
 }
 
 ASprite::~ASprite()
@@ -24,28 +28,28 @@ ASprite::~ASprite()
     LogTrace("ASprite::~ASprite");
 }
 
-void ASprite::Setup(const char* filepath)
+void ASprite::SetTexture(const char* filepath)
 {
     if (filepath != NULL)
     {
         ATexture* tex = this->Renderer->CreateTexture(filepath);
 
-        this->Setup(tex);
+        this->SetTexture(tex);
     }
 }
 
-void ASprite::Setup(ATexture* texture)
+void ASprite::SetTexture(ATexture* texture)
 {
     if (texture != NULL)
     {
         ArrayList<ATexture*>* textureList = new ArrayList<ATexture*>();
         textureList->Add(texture);
 
-        this->Setup(textureList);
+        this->SetTexture(textureList);
     }
 }
 
-void ASprite::Setup(ArrayList<ATexture*>* textureList)
+void ASprite::SetTexture(ArrayList<ATexture*>* textureList)
 {
     if (textureList != NULL)
     {
@@ -57,11 +61,11 @@ void ASprite::Setup(ArrayList<ATexture*>* textureList)
         ArrayList<SpriteAnimation*>* animList = new ArrayList<SpriteAnimation*>();
         animList->Add(anim);
 
-        this->Setup(animList);
+        this->SetTexture(animList);
     }
 }
 
-void ASprite::Setup(ArrayList<SpriteAnimation*>* animList)
+void ASprite::SetTexture(ArrayList<SpriteAnimation*>* animList)
 {
     if (animList != NULL)
     {
@@ -70,31 +74,30 @@ void ASprite::Setup(ArrayList<SpriteAnimation*>* animList)
     }
 }
 
-//ATexture* ASprite::GetTexture()
-//{
-//    if (spriteAnimations != NULL && spriteAnimations->Count() > currentAnimationIndex)
-//    {
-//        int textureIndex = spriteAnimations->Get(currentAnimationIndex)->currentFrameIndex;
-//        ATexture* ct = spriteAnimations->Get(currentAnimationIndex)->Textures->Get(textureIndex);
-//
-//        assert(ct != NULL);
-//
-//        return ct;
-//    }
-//}
-//
-//void ASprite::SetTexture(ATexture* texture)
-//{
-//    // Not sure what to do in this situation
-//}
+ATexture* ASprite::GetTexture()
+{
+    if (spriteAnimations != NULL && spriteAnimations->Count() > currentAnimationIndex)
+    {
+        int textureIndex = spriteAnimations->Get(currentAnimationIndex)->currentFrameIndex;
+        ATexture* ct = spriteAnimations->Get(currentAnimationIndex)->Textures->Get(textureIndex);
+
+        assert(ct != NULL);
+
+        return ct;
+    }
+    
+    return NULL;
+}
 
 void ASprite::Update(unsigned int deltaTime)
 {
     (void)deltaTime; // Unused for now
 
-    if (isTimeForNextFrame())
+    if (this->isPlaying == true && isTimeForNextFrame())
     {
         this->previousFrameTime = get_a_ticks();
+        
+        this->AdvanceFrame();
     }
 }
 
@@ -112,3 +115,23 @@ bool ASprite::isTimeForNextFrame()
         return false;
     }
 }
+
+void ASprite::AdvanceFrame()
+{
+    SpriteAnimation* currentAnim = this->spriteAnimations->Get(currentAnimationIndex);
+    
+    currentAnim->currentFrameIndex++;
+    
+    if(currentAnim->currentFrameIndex >= currentAnim->Textures->Count())
+    {
+        if(this->looping == true)
+        {
+            currentAnim->currentFrameIndex = 0;
+        }
+        else
+        {
+            currentAnim->currentFrameIndex = currentAnim->Textures->Count() - 1;
+        }
+    }
+}
+

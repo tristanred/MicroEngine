@@ -16,7 +16,6 @@ public:
     // Texture modification methods, calling any of them will probably reset the texture
     virtual void SetSolidColor(FSize size, uint32_t color) = 0;
     virtual void LoadFromFile(const char* filepath) = 0;
-    
 
     virtual FSize GetSize();
     virtual void SetSize(FSize size);
@@ -27,6 +26,8 @@ public:
     virtual void ReloadTexture() = 0;
 
     virtual const char* GetTexturePath();
+    
+    virtual ATexture* GetSubTexture(int x, int y, int width, int height) = 0;
 
 protected:
     ARenderer* BaseRenderer;

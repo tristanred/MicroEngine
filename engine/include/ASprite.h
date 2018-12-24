@@ -28,6 +28,8 @@ public:
     // Setup from a file, automatically creates a textureand applies it to itself.
     virtual void SetTexture(const char* filepath);
 
+    virtual void SetTexture(const char* filepath[], int amount);
+
     // Set sprite with just a static image
     virtual void SetTexture(ATexture* texture) override;
 
@@ -38,11 +40,10 @@ public:
     virtual void SetTexture(ArrayList<SpriteAnimation*>* animList);
 
     virtual ATexture* GetTexture() override;
-    //virtual void SetTexture(ATexture* texture) override;
 
     void Update(unsigned int deltaTime);
 
-    void Play(char* animName = NULL);
+    void Play(int fps, bool loop, char* animName = NULL);
     void Stop();
 
 protected:

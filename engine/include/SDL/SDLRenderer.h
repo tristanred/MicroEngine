@@ -31,6 +31,7 @@ public:
 
     ATexture* CreateTexture() override;
     ATexture* CreateTexture(const char* filepath) override;
+    void DeleteTexture(ATexture* texture) override;
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 

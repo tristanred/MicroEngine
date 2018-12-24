@@ -2,6 +2,7 @@
 
 #include "libtech/geometry.h"
 #include "ARenderer.h"
+#include "ATexture.h"
 #include <libtech/mytime.h>
 
 ASprite::ASprite(ARenderer* renderer) : ARenderable(renderer)
@@ -74,6 +75,11 @@ void ASprite::SetTexture(ArrayList<SpriteAnimation*>* animList)
     }
 }
 
+void ASprite::SetTexture(const char* filepath[], int amount)
+{
+
+}
+
 ATexture* ASprite::GetTexture()
 {
     if (spriteAnimations != NULL && spriteAnimations->Count() > currentAnimationIndex)
@@ -99,6 +105,18 @@ void ASprite::Update(unsigned int deltaTime)
         
         this->AdvanceFrame();
     }
+}
+
+void ASprite::Play(int fps, bool loop, char* animName)
+{
+    this->framesPerSecond = fps;
+    this->looping = loop;
+    this->isPlaying = true;
+}
+
+void ASprite::Stop()
+{
+    this->isPlaying = false;
 }
 
 bool ASprite::isTimeForNextFrame()

@@ -38,19 +38,6 @@ void SDLTexture::SetSolidColor(FSize size, uint32_t color)
         SDL_FreeSurface(this->surf);
     }
 
-    Uint32 rmask, gmask, bmask, amask;
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    rmask = 0xff000000;
-    gmask = 0x00ff0000;
-    bmask = 0x0000ff00;
-    amask = 0x000000ff;
-#else
-    rmask = 0x000000ff;
-    gmask = 0x0000ff00;
-    bmask = 0x00ff0000;
-    amask = 0xff000000;
-#endif
-
     this->textureSize = size;
     this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
     SDL_FillRect(surf, NULL, color);
@@ -111,6 +98,35 @@ void SDLTexture::ReloadTexture()
     {
         this->LoadFromFile(loadedTexturePath);
     }
+}
+
+ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
+{
+    SDL_Surface* subSurface = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
+    
+    Uint32 color = SDL_MapRGBA(subSurface->format, 255, 255, 255, 255);
+    
+    SDL_FillRect(subSurface, NULL, color);
+    
+    SDL_Rect sourceRect = SDL_Rect();
+    sourceRect.x = x;
+    sourceRect.y = y;
+    sourceRect.w = width;
+    sourceRect.h = height;
+    
+    int res = SDL_BlitSurface(this->surf, &sourceRect, subSurface, NULL);
+    
+    if(res != 0)
+    {
+        const char* errstring = SDL_GetError();
+        LogError(errstring);
+        
+        return NULL; // TODO Free stuff
+    }
+    
+    SDLTexture* newTexture = new SDLTexture(this->Renderer, subSurface);
+    
+    return newTexture;
 }
 
 //************************************

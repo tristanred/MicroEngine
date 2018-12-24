@@ -26,10 +26,11 @@ public:
     ATexture* BoxTexture;
     AText* BoxText;
     AFont* ArialFont;
+    vec2 boxVelocity;
     
     CButton* buttan;
 
-    vec2 boxVelocity;
+    ASprite* clockSprite;
 
     AText* TimerText;
     TickTimer* timer;

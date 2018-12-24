@@ -26,6 +26,7 @@ public:
     void FreeTextureMemory() override;
     void ReloadTexture() override;
 
+    ATexture* GetSubTexture(int x, int y, int width, int height);
     
     void RefreshSDLTexture();
 
@@ -42,4 +43,16 @@ public:
 
 private:
     FSize TextureSize;
+    
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+    const Uint32 rmask = 0xff000000;
+    const Uint32 gmask = 0x00ff0000;
+    const Uint32 bmask = 0x0000ff00;
+    const Uint32 amask = 0x000000ff;
+#else
+    const Uint32 rmask = 0x000000ff;
+    const Uint32 gmask = 0x0000ff00;
+    const Uint32 bmask = 0x00ff0000;
+    const Uint32 amask = 0xff000000;
+#endif
 };

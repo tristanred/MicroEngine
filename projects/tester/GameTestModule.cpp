@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
+#include <libtech/arraylist.h>
 
 #include <Input/AKeyboard.h>
 
@@ -58,6 +59,12 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     buttan = this->CreateControl<CButton>();
     buttan->Initialize(FSize(150, 50), enabl, disabl, down, hovr);
     this->AttachRenderable(buttan);
+    
+    // Sprite animations
+    ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
+    clockSprite = this->CreateSprite();
+    clockSprite->SetTexture(frames);
+    clockSprite->Play(10, true);
 
     //engine->ShowDebugLayer();
 }
@@ -131,4 +138,6 @@ void GameTestModule::Update(unsigned int deltaTime)
     textPosition.X += 12;
     textPosition.Y += 20;
     BoxText->SetPosition(textPosition);
+
+    clockSprite->Update(deltaTime);
 }

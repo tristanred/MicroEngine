@@ -51,7 +51,7 @@ ConfigFile::ConfigFile(const char *filepath)
 
 ConfigFile::~ConfigFile()
 {
-    LogTrace("Deleting config file %s", this->LoadedFile);
+    LogTrace("Deleting config file object %s", this->LoadedFile);
 
     delete(doc);
     

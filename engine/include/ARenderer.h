@@ -4,6 +4,7 @@
 
 #include "libtech/geometry.h"
 #include "ARenderable.h"
+#include <libtech/arraylist.h>
 
 class ARenderable;
 class ATexture;
@@ -37,6 +38,7 @@ public:
     TextureRepository* TextureRepo;
     Viewport* RenderViewport;
 
+    // Methods to be managed by the concrete class
     virtual bool Initialize() = 0;
     virtual bool Initialize(ConfigFile* config) = 0;
     virtual bool Initialize(RendererParameters* params) = 0;
@@ -47,10 +49,17 @@ public:
 
     virtual ATexture* CreateTexture() = 0;
     virtual ATexture* CreateTexture(const char* filepath) = 0;
+    virtual void DeleteTexture(ATexture* texture) = 0;
 
     virtual FSize GetWindowSize() = 0;
 
     virtual void BeginDraw() = 0;
     virtual void EndDraw() = 0;
     virtual void Shutdown() = 0;
+
+    // Utility methods provided by the base ARenderer class
+    
+    ArrayList<ATexture*>* CreateTextureList(const char* fileNames[], int length);
+    
+    ArrayList<ATexture*>* LoadFrames(const char* path);
 };

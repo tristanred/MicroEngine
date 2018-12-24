@@ -310,6 +310,13 @@ ATexture* SDLRenderer::CreateTexture(const char* filepath)
     }
 }
 
+void SDLRenderer::DeleteTexture(ATexture* texture)
+{
+    SDLTexture* tex = (SDLTexture*)texture;
+    
+    delete(tex);
+}
+
 void SDLRenderer::BeginDraw()
 {
     SDL_SetRenderDrawColor(gameRenderer, 100, 149, 237, 255);

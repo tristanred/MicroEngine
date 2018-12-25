@@ -22,6 +22,12 @@ uint32_t colorCycle[MAX_BOX_COLOR] = {
 
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
+    // Sprite animations
+    ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
+    clockSprite = this->CreateSprite();
+    clockSprite->SetTexture(frames);
+    clockSprite->Play(10, true);
+
     Box = this->CreateSprite();
     Box->SetSize(FSize(75, 75));
 
@@ -59,14 +65,6 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     buttan = this->CreateControl<CButton>();
     buttan->Initialize(FSize(150, 50), enabl, disabl, down, hovr);
     this->AttachRenderable(buttan);
-    
-    // Sprite animations
-    ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
-    clockSprite = this->CreateSprite();
-    clockSprite->SetTexture(frames);
-    clockSprite->Play(10, true);
-
-    //engine->ShowDebugLayer();
 }
 
 GameTestModule::~GameTestModule()

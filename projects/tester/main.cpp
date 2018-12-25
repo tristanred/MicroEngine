@@ -22,6 +22,7 @@
 
 #include <libtech/fsutils.h>
 #include <libtech/arraylist.h>
+#include "FormatLoaders/TPXmlReader.h"
 
 int main(int argc, char** argv)
 {

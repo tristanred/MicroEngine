@@ -8,6 +8,7 @@
 #include "ARenderer.h"
 #include "ATexture.h"
 #include "ASprite.h"
+#include "FormatLoaders/TPXmlReader.h"
 
 #define PUGIXML_HEADER_ONLY
 #include "pugixml.hpp"
@@ -15,12 +16,12 @@
 FrameListLoader::FrameListLoader(ARenderer* renderer)
 {
     this->renderer = renderer;
-    currentDirectory = NULL;
+    currentPath = NULL;
 }
 
 FrameListLoader::FrameListLoader(const char* framesDirectory, ARenderer* renderer)
 {
-    currentDirectory = framesDirectory;
+    currentPath = framesDirectory;
     this->renderer = renderer;
 }
 
@@ -28,19 +29,50 @@ FrameListLoader::~FrameListLoader()
 {
 }
 
-void FrameListLoader::OpenDirectory(const char* framesDirectory)
+void FrameListLoader::Open(const char* framesDirectory)
 {
-    this->currentDirectory = framesDirectory;
+    this->currentPath = framesDirectory;
+}
+
+char** FrameListLoader::ExtractAsArray(int* framesAmount)
+{
+    if(path_is_directory(currentPath))
+    {
+        ArrayList<char*>* filesList = new ArrayList<char*>();
+        get_directory_files(currentPath, false, filesList);
+
+        char** ret = filesList->GetListData();
+
+        *framesAmount = (int)filesList->Count();
+
+        delete(filesList);
+
+        return ret;
+    }
+    else
+    {
+        
+    }
+
+    return NULL;
+}
+
+ArrayList<char*>* FrameListLoader::ExtractAsList()
+{
+    ArrayList<char*>* filesList = new ArrayList<char*>();
+    get_directory_files(currentPath, false, filesList);
+
+    return filesList;
 }
 
 ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
 {
-    if(currentDirectory == NULL)
+    if(currentPath == NULL)
         return NULL;
     
     // Check if the path is a directory. If it is, we need to load many files.
     // If not, we probably point to a spritesheet that we need to decompose
-    if(path_is_directory(currentDirectory))
+    if(path_is_directory(currentPath))
     {
         // If we have a manifest, load the texture in the way specified by it
         // If no manifest, load all the images present
@@ -64,19 +96,32 @@ ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
     return NULL;
 }
 
+
+SpriteAnimation* FrameListLoader::ExtractAsAnimation(const char* name)
+{
+    SpriteAnimation* anim = new SpriteAnimation();
+    anim->AnimationName = new char[strlen(name)+1];
+    strcpy(anim->AnimationName, name);
+
+    anim->currentFrameIndex = 0;
+    anim->Textures = this->ExtractAsTextures();
+
+    return anim;
+}
+
 bool FrameListLoader::DirectoryContainsManifest()
 {
-    if(this->currentDirectory == NULL)
+    if(this->currentPath == NULL)
         return NULL;
     
     bool result = false;
     
     // Look for a [directoryName].xml file in the current directory.
-    char* targetXmlFileName = get_file_name(currentDirectory);
+    char* targetXmlFileName = get_file_name(currentPath);
     std::string xmlFileName = std::string(targetXmlFileName);
     xmlFileName.append(".xml");
     
-    char* foundFile = find_subdir_file(xmlFileName.c_str(), currentDirectory);
+    char* foundFile = find_subdir_file(xmlFileName.c_str(), currentPath);
     
     if(foundFile != NULL)
     {
@@ -95,61 +140,44 @@ bool FrameListLoader::DirectoryContainsManifest()
 
 ArrayList<ATexture*>* FrameListLoader::CreateFromSpritesheet()
 {
-    ArrayList<ATexture*>* listResult = new ArrayList<ATexture*>();
-    
-    pugi::xml_document doc = pugi::xml_document();
-    
-    pugi::xml_parse_result result = doc.load_file(currentDirectory);
-    
-    if(result)
+    TPXmlReader rdr = TPXmlReader(currentPath);
+    TPXmlHeader tpHeader;
+
+    ArrayList<TPXmlEntry*>* entries = rdr.ReadEntries(&tpHeader);
+
+    if (entries == NULL)
     {
-        auto atlasNode = doc.select_node("/TextureAtlas");
-        const char* spritesheetPath = atlasNode.node().attribute("imagePath").as_string();
-        int sheetWidth = atlasNode.node().attribute("width").as_int();
-        int sheetHeight = atlasNode.node().attribute("height").as_int();
+        // No entries found.
+        TPXmlReader rdr = TPXmlReader(currentPath);
+        LogError("No TP entries found in file %s", currentPath);
 
-        // SpritesheetPath is relative to the currentDirectory/File
-        
-        char* parentFolder = get_parent_directory_path(currentDirectory);
-        std::string stringBuilder = std::string(parentFolder);
-        stringBuilder.append("/");
-        stringBuilder.append(spritesheetPath);
-
-        ATexture* sheetTexture = this->renderer->CreateTexture(stringBuilder.c_str());
-        
-        auto frameNodes = doc.select_nodes("/TextureAtlas/sprite");
-        auto begin = frameNodes.begin();
-        auto end = frameNodes.end();
-        
-        while(begin != end)
-        {
-            pugi::xpath_node val = *begin;
-            
-            const char* filename = val.node().attribute("n").as_string();
-            int tx = val.node().attribute("x").as_int();
-            int ty = val.node().attribute("y").as_int();
-            int tw = val.node().attribute("w").as_int();
-            int th = val.node().attribute("h").as_int();
-            
-            ATexture* sprite = sheetTexture->GetSubTexture(tx, ty, tw, th);
-            
-            listResult->Add(sprite);
-
-            begin++;
-        }
-        
-        // delete(parentFolder); // Creates error ?
-
-        this->renderer->DeleteTexture(sheetTexture);
-    }
-    else
-    {
-        LogTrace("Failed to open file %s.", currentDirectory);
-        
-        delete(listResult);
-        
         return NULL;
     }
+
+    ArrayList<ATexture*>* listResult = new ArrayList<ATexture*>();
+
+    char* parentFolder = get_parent_directory_path(currentPath);
+    std::string stringBuilder = std::string(parentFolder);
+    stringBuilder.append("/");
+    stringBuilder.append(tpHeader.imagePath);
+
+    ATexture* sheetTexture = this->renderer->CreateTexture(stringBuilder.c_str());
+
+    auto begin = entries->GetContainer()->begin();
+    auto end = entries->GetContainer()->end();
+
+    while (begin != end)
+    {
+        TPXmlEntry* entry = *begin;
+
+        ATexture* sprite = sheetTexture->GetSubTexture(entry->x, entry->y, entry->w, entry->h);
+
+        listResult->Add(sprite);
+
+        begin++;
+    }
+    
+    this->renderer->DeleteTexture(sheetTexture);
     
     return listResult;
 }

@@ -1,6 +1,5 @@
 #include "FormatLoaders/TPXmlReader.h"
 
-#define PUGIXML_HEADER_ONLY
 #include "pugixml.hpp"
 
 TPXmlReader::TPXmlReader(const char* path)

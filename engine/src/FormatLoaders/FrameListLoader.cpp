@@ -10,7 +10,6 @@
 #include "ASprite.h"
 #include "FormatLoaders/TPXmlReader.h"
 
-#define PUGIXML_HEADER_ONLY
 #include "pugixml.hpp"
 
 FrameListLoader::FrameListLoader(ARenderer* renderer)

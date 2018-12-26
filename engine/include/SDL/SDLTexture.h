@@ -26,7 +26,7 @@ public:
     void FreeTextureMemory() override;
     void ReloadTexture() override;
 
-    ATexture* GetSubTexture(int x, int y, int width, int height);
+    ATexture* GetSubTexture(int x, int y, int width, int height) override;
     
     void RefreshSDLTexture();
 

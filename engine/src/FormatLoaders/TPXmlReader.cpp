@@ -67,8 +67,15 @@ ArrayList<TPXmlEntry*>* TPXmlReader::ReadEntries(TPXmlHeader* outHeaderInfo)
             tpEntry->oH = val.node().attribute("oH").as_int(0);
             
             // Set the rotation value to 'r' or 0 if not present
-            tpEntry->r = val.node().attribute("r").as_string() == "r" ? 'r' : 0;
-            
+            if(strcmp(val.node().attribute("r").as_string(), "r") == 0)
+            {
+                tpEntry->r = 'r';
+            }
+            else
+            {
+                tpEntry->r = 0;
+            }
+               
             listResult->Add(tpEntry);
 
             begin++;

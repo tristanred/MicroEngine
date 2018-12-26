@@ -402,6 +402,19 @@ Viewport* GameEngine::GetCurrentViewport()
     return this->Renderer->RenderViewport;
 }
 
+FPosition GameEngine::GetMouseRelativePosition()
+{
+    FPosition pos;
+    
+    vec2 currentMousePos = this->Mouse->GetMousePosition();
+    Viewport* currentVp = this->Renderer->RenderViewport;
+    
+    pos.X = currentMousePos.x + currentVp->CurrentView.X;
+    pos.Y = currentMousePos.y + currentVp->CurrentView.Y;
+    
+    return pos;
+}
+
 void GameEngine::ReleaseObject(ARenderable* DebugDarkplate)
 {
 }

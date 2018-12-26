@@ -72,6 +72,7 @@ public:
     ATexture* GetTexture() override;
 
 private:
+
     /* Flag to check if the button response to the mouse clicks and hovers.
      * The button won't really update if it's disabled. Setting this flag to 
      * false will set the state to DISABLED too, opposite when going enabled.

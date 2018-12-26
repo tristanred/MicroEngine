@@ -4,6 +4,10 @@
 
 class ARenderer;
 
+/**
+ * Abstract platform class. The platform is the middle layer in charge of 
+ * responding to specific platform events.
+ */
 class ENGINE_CLASS APlatform
 {
 public:

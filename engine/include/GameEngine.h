@@ -19,6 +19,7 @@ using namespace std;
 #include "core.h"
 #include "ARenderer.h"
 #include "GameModule.h"
+#include <libtech/geometry.h>
 
 class ENGINE_CLASS GameEngine
 {
@@ -82,6 +83,12 @@ public:
     Viewport* CreateViewport();
     Viewport* GetCurrentViewport();
 
+    /**
+     * Return the mouse coordinates relative to the current viewport.
+     */ 
+    FPosition GetMouseRelativePosition();
+
+    // Debug
     void ShowDebugLayer();
     void HideDebugLayer();
 

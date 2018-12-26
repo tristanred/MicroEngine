@@ -36,3 +36,8 @@ void CBaseControl::Initialize()
 {
     this->initializeCalled = true;
 }
+
+GameEngine* CBaseControl::GetEngine()
+{
+    return this->Engine;
+}

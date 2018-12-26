@@ -6,6 +6,11 @@ class Asset;
 #include <string.h>
 #include <string>
 
+/**
+ * Abstract font class. Fonts contain the glyph information needed by a Text
+ * to draw characters. Fonts can be provided in two formats : from a font file
+ * like ttf or otf. Or from a spritesheet font, not supported yet.
+ */
 class ENGINE_CLASS AFont
 {
 public:

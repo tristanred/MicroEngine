@@ -2,6 +2,7 @@
 
 #include "Asset.h"
 #include "ResourceManager.h"
+#include "Viewport.h"
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
 #include <libtech/arraylist.h>
@@ -27,6 +28,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     clockSprite = this->CreateSprite();
     clockSprite->SetTexture(frames);
     clockSprite->Play(10, true);
+    clockSprite->SetPositionSystem(VIEWPORT_RELATIVE);
 
     Box = this->CreateSprite();
     Box->SetSize(FSize(75, 75));
@@ -69,12 +71,30 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
 GameTestModule::~GameTestModule()
 {
-
 }
 
 void GameTestModule::Update(unsigned int deltaTime)
 {
     GameModule::Update(deltaTime);
+    
+    // Update Viewport
+    Viewport* vp = this->GetEngine()->GetCurrentViewport();
+    if(this->GetEngine()->Keyboard->IsKeyDown(Key::Right))
+    {
+        vp->CurrentView.X++;
+    }
+    if(this->GetEngine()->Keyboard->IsKeyDown(Key::Down))
+    {
+        vp->CurrentView.Y++;
+    }
+    if(this->GetEngine()->Keyboard->IsKeyDown(Key::Left))
+    {
+        vp->CurrentView.X--;
+    }
+    if(this->GetEngine()->Keyboard->IsKeyDown(Key::Up))
+    {
+        vp->CurrentView.Y--;
+    }
     
     buttan->Update();
     

@@ -46,6 +46,8 @@ public:
     virtual void Update();
 
 protected:
+    GameEngine* GetEngine();
+
     // IO Objects
     AMouse* Mouse;
     AKeyboard* Keyboard;

@@ -5,6 +5,7 @@ class ATexture;
 
 #include "core.h"
 #include "libtech/geometry.h"
+#include "libtech/arraylist.h"
 
 enum POSITION_SYSTEM
 {
@@ -44,9 +45,39 @@ public:
     virtual void SetPositionSystem(enum POSITION_SYSTEM value);
 
     virtual bool IsVisible();
+    
+    /**
+     * Get the current parent or NULL if no parent.
+     */
+    virtual ARenderable* GetParent();
+    
+    /**
+     * Set this object's parent. Passing NULL will break the current parent
+     * relationship.
+     */
+    virtual void SetParent(ARenderable* object);
+    
+    /**
+     * Add a child to this renderable object. The child will be drawn after this
+     * object and will be positioned relative to this object.
+     */
+    virtual void AddChild(ARenderable* object);
+    
+    /**
+     * Remove a child from this object's children collection. (eww)
+     */
+    virtual void RemoveChild(ARenderable* object);
+    
+    /**
+     * Get the list of children of this object.
+     */
+    virtual ArrayList<ARenderable*>* GetChildren();
 
 protected:
     ARenderer* Renderer;
+    
+    ARenderable* Parent;
+    ArrayList<ARenderable*>* Children;
 
     ATexture* texture;
 

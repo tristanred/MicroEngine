@@ -23,6 +23,7 @@ public:
     ~GameTestModule();
 
     ASprite* Box;
+    ASprite* Box2;
     ATexture* BoxTexture;
     AText* BoxText;
     AFont* ArialFont;

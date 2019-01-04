@@ -148,7 +148,7 @@ void ASprite::AdvanceFrame()
         }
         else
         {
-            currentAnim->currentFrameIndex = currentAnim->Textures->Count() - 1;
+            currentAnim->currentFrameIndex = (int)currentAnim->Textures->Count() - 1;
         }
     }
 }

@@ -28,7 +28,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     clockSprite = this->CreateSprite();
     clockSprite->SetTexture(frames);
     clockSprite->Play(10, true);
-    clockSprite->SetPositionSystem(VIEWPORT_RELATIVE);
+	clockSprite->SetPosition(50, 50);
 
     Box = this->CreateSprite();
     Box->SetSize(FSize(75, 75));
@@ -37,6 +37,11 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     BoxTexture->SetSolidColor(FSize(75, 75), 0xFFAA0000);
 
     Box->SetTexture(BoxTexture);
+    
+    Box2 = this->CreateSprite();
+    Box2->SetSize(FSize(75, 75));
+    Box2->SetTexture(BoxTexture);
+    Box2->SetParent(clockSprite);
 
     Asset* arialFontAsset = engine->ResManager->GetResource("arial.ttf");
     ArialFont = this->CreateTextFont();

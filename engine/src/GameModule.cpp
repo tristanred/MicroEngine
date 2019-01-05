@@ -81,6 +81,11 @@ ATexture* GameModule::CreateTexture(const char* filePath)
     return texture;
 }
 
+void GameModule::DestroyObject(ARenderable* object)
+{
+    this->Engine->ReleaseObject(object);
+}
+
 Viewport* GameModule::CreateViewport()
 {
     Viewport* vp = this->Engine->CreateViewport();
@@ -117,7 +122,7 @@ void GameModule::Draw(ARenderer* renderer)
     while (begin != end)
     {
         ARenderable* obj = *begin;
-        
+
         if(obj->GetParent() == NULL)
         {
             renderer->Draw(obj);

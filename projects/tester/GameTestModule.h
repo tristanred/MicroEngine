@@ -2,7 +2,6 @@
 
 #include <GameModule.h>
 #include <GameEngine.h>
-
 #include <ARenderer.h>
 #include <ASprite.h>
 #include <AText.h>
@@ -10,10 +9,10 @@
 #include <AFont.h>
 #include <TickTimer.h>
 #include <Controls/CButton.h>
-
 #include <libtech/vec.h>
-
 #include <stdint.h>
+
+#include "DinoCharacter.h"
 
 class GameTestModule : public GameModule
 {
@@ -27,10 +26,12 @@ public:
     AText* BoxText;
     AFont* ArialFont;
     vec2 boxVelocity;
-    
+
     CButton* buttan;
 
     ASprite* clockSprite;
+
+    DinoCharacter* Dinono;
 
     AText* TimerText;
     TickTimer* timer;

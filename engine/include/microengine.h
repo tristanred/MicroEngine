@@ -1,5 +1,5 @@
-/* 
-* Common Engine includes
+/*
+* Basic Engine includes
 * Designed to be included by MicroEngine consumers.
 * The engine itself should include all files individually.
 */

@@ -27,7 +27,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
     clockSprite = this->CreateSprite();
     clockSprite->SetTexture(frames);
-    clockSprite->Play(10, true);
+    clockSprite->Play(NULL, true, 12);
 	clockSprite->SetPosition(50, 50);
 
     Box = this->CreateSprite();
@@ -37,7 +37,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     BoxTexture->SetSolidColor(FSize(75, 75), 0xFFAA0000);
 
     Box->SetTexture(BoxTexture);
-    
+
     Box2 = this->CreateSprite();
     Box2->SetSize(FSize(75, 75));
     Box2->SetTexture(BoxTexture);
@@ -67,11 +67,16 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     ATexture* disabl = this->CreateTexture("assets/engine/Disabled.png");
     ATexture* down = this->CreateTexture("assets/engine/Down.png");
     ATexture* hovr = this->CreateTexture("assets/engine/Hover.png");
-    
+
     // Control API example ?
     buttan = this->CreateControl<CButton>();
     buttan->Initialize(FSize(150, 50), enabl, disabl, down, hovr);
     this->AttachRenderable(buttan);
+
+    // Creating a game object API example
+    this->Dinono = new DinoCharacter();
+    this->Dinono->Setup(this);
+
 }
 
 GameTestModule::~GameTestModule()
@@ -81,6 +86,7 @@ GameTestModule::~GameTestModule()
 void GameTestModule::Update(unsigned int deltaTime)
 {
     GameModule::Update(deltaTime);
+
     
     // Update Viewport
     Viewport* vp = this->GetEngine()->GetCurrentViewport();
@@ -100,9 +106,9 @@ void GameTestModule::Update(unsigned int deltaTime)
     {
         vp->CurrentView.Y--;
     }
-    
+
     buttan->Update();
-    
+
     if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == true)
     {
         buttan->Enable(false);
@@ -111,7 +117,7 @@ void GameTestModule::Update(unsigned int deltaTime)
     {
         buttan->Enable(true);
     }
-    
+
     if(buttan->IsClicked(true))
     {
         LogMessage("CLICKED !!");
@@ -163,4 +169,6 @@ void GameTestModule::Update(unsigned int deltaTime)
     BoxText->SetPosition(textPosition);
 
     clockSprite->Update(deltaTime);
+    
+    this->Dinono->Update(deltaTime);
 }

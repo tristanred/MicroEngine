@@ -39,6 +39,8 @@ public:
     ATexture* CreateTexture(); // Create empty texture
     ATexture* CreateTexture(const char* filePath); // Create texture from file
 
+    void DestroyObject(ARenderable* object);
+
     virtual Viewport* CreateViewport();
 
     /*

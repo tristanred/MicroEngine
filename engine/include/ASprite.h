@@ -6,11 +6,17 @@ class ATexture;
 #include "ARenderable.h"
 #include <libtech/arraylist.h>
 
-struct ENGINE_CLASS SpriteAnimation
+class ENGINE_CLASS SpriteAnimation
 {
+public:
     char* AnimationName;
     int currentFrameIndex;
     ArrayList<ATexture*>* Textures;
+    
+    void SetName(const char* name);
+
+    static SpriteAnimation* FromTextures(ArrayList<ATexture*>* list, const char* pattern);
+    static SpriteAnimation* FromTextures(ATexture*, ...); // Variadic of ATextures*
 };
 
 /*
@@ -25,7 +31,11 @@ public:
     ASprite(ARenderer* renderer);
     virtual ~ASprite() override;
 
-    // Setup from a file, automatically creates a textureand applies it to itself.
+    virtual void AddAnimation(SpriteAnimation* anim);
+
+    /**
+     * Setup from a file, automatically creates a textureand applies it to itself.
+     */
     virtual void SetTexture(const char* filepath);
 
     virtual void SetTexture(const char* filepath[], int amount);
@@ -43,7 +53,7 @@ public:
 
     void Update(unsigned int deltaTime);
 
-    void Play(int fps, bool loop, char* animName = NULL);
+    void Play(const char* animName = NULL, bool loop = false, int fps = 60);
     void Stop();
 
 protected:

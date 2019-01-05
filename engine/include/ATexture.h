@@ -6,6 +6,7 @@ class ARenderer;
 
 #include "core.h"
 #include "libtech/geometry.h"
+#include <libtech/arraylist.h>
 
 class ENGINE_CLASS ATexture
 {
@@ -26,8 +27,12 @@ public:
     virtual void ReloadTexture() = 0;
 
     virtual const char* GetTexturePath();
-    
+
     virtual ATexture* GetSubTexture(int x, int y, int width, int height) = 0;
+
+    virtual ArrayList<ATexture*>* SplitTexture(int splits);
+    virtual ArrayList<ATexture*>* SplitTexture(int rows, int columns);
+    virtual ArrayList<ATexture*>* SplitTexture(FRectangle pieceSize);
 
 protected:
     ARenderer* BaseRenderer;

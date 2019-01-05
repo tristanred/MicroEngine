@@ -30,7 +30,8 @@ public:
     void DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts) override;
 
     ATexture* CreateTexture() override;
-    ATexture* CreateTexture(const char* filepath) override;
+    ATexture* CreateTexture(void* data, int length) override;
+
     void DeleteTexture(ATexture* texture) override;
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);

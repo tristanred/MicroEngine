@@ -1,13 +1,12 @@
 #include "ARenderer.h"
 
-#include "TextureRepository.h"
+#include "ResourceManager.h"
+#include "Asset.h"
 #include "FormatLoaders/FrameListLoader.h"
 
 ARenderer::ARenderer()
 {
     LogTrace("ARenderer::ARenderer");
-
-    TextureRepo = new TextureRepository();
 }
 
 ARenderer::~ARenderer()
@@ -39,4 +38,18 @@ ArrayList<ATexture*>* ARenderer::LoadFrames(const char* path)
     FrameListLoader loader = FrameListLoader(path, this);
     
     return loader.ExtractAsTextures();
+}
+
+ATexture* ARenderer::CreateTexture(const char* filepath)
+{
+    Asset* result = this->Resman->GetResource(filepath);
+    
+    return this->CreateTexture(result);
+}
+
+ATexture* ARenderer::CreateTexture(Asset* asset)
+{
+    assert(asset != NULL);
+    
+    return this->CreateTexture(asset->GetData(), (int)asset->size);
 }

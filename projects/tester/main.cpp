@@ -11,7 +11,6 @@
 #include <ASprite.h>
 #include <AText.h>
 #include <AFont.h>
-#include <TextureRepository.h>
 #include <ConfigFile.h>
 
 #include "GameTestModule.h"

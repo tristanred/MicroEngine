@@ -3,7 +3,6 @@
 class ASprite;
 class ATexture;
 class FileLogger;
-class TextureRepository;
 class FileCache;
 class APlatform;
 class AMouse;

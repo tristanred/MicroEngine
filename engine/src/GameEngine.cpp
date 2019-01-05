@@ -1,7 +1,6 @@
 #include "GameEngine.h"
 
 #include "GameModule.h"
-#include "TextureRepository.h"
 #include "libtech/geometry.h"
 #include "libtech/filelogger.h"
 #include "ConfigFile.h"
@@ -92,6 +91,7 @@ void GameEngine::Initialize()
 
     Renderer = AbstractFactory::CreateRenderer();
     Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache
+    Renderer->Resman = ResManager;
 
     this->Renderer->RenderViewport = this->CreateViewport();
     this->Renderer->RenderViewport->ViewRange = FRectangle(0, 0, Renderer->GetWindowSize().Width, Renderer->GetWindowSize().Height);

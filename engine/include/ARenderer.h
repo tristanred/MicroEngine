@@ -9,9 +9,10 @@
 class ARenderable;
 class ATexture;
 class ConfigFile;
-class TextureRepository;
 class FileCache;
 class Viewport;
+class Asset;
+class ResourceManager;
 
 struct RendererParameters
 {
@@ -35,7 +36,7 @@ public:
     virtual ~ARenderer();
 
     FileCache* Cache; // Set externally, may be NULL if no cache is enabled
-    TextureRepository* TextureRepo;
+    ResourceManager* Resman;
     Viewport* RenderViewport;
 
     // Methods to be managed by the concrete class
@@ -48,7 +49,10 @@ public:
     virtual void DrawTexture(ATexture*tex, float posX, float posY, struct TextureDrawOptions* opt) = 0;
 
     virtual ATexture* CreateTexture() = 0;
-    virtual ATexture* CreateTexture(const char* filepath) = 0;
+    virtual ATexture* CreateTexture(const char* filepath);
+    virtual ATexture* CreateTexture(Asset* asset);
+    virtual ATexture* CreateTexture(void* data, int length) = 0;
+    
     virtual void DeleteTexture(ATexture* texture) = 0;
 
     virtual FSize GetWindowSize() = 0;

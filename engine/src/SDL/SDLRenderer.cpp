@@ -7,7 +7,6 @@
 #include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
 #include "ConfigFile.h"
-#include "TextureRepository.h"
 #include "Viewport.h"
 #include <libtech/filecache.h>
 
@@ -258,56 +257,32 @@ ATexture* SDLRenderer::CreateTexture()
     return result;
 }
 
-ATexture* SDLRenderer::CreateTexture(const char* filepath)
+ATexture* SDLRenderer::CreateTexture(void* data, int length)
 {
     LogTrace("SDLRenderer::CreateTexture(filepath)");
 
-    ATexture* foundTexture = TextureRepo->FindTexture(filepath);
+    SDLTexture* result = new SDLTexture(this);
 
-    if (foundTexture == NULL)
+    SDL_RWops* stream = SDL_RWFromMem(data, length);
+
+    SDL_Surface* surface = IMG_Load_RW(stream, false);
+
+    // Delete the stream ?
+
+    result->surf = surface;
+
+    if (result->surf == NULL)
     {
-        SDLTexture* result = new SDLTexture(this);
+        LogError("Unable to load texture file.");
 
-        // Check if the files cache has been enabled and look inside for the cached data.
-        // The data will be loaded from disk automatically if the cache fails.
-        // If no cache, load directly from disk.
-        if (this->Cache != NULL)
-        {
-            size_t fileLength = 0;
-            uint8_t* data = this->Cache->ReadFileContents(filepath, &fileLength);
+        delete(result);
 
-            SDL_RWops* stream = SDL_RWFromMem(data, (int)fileLength);
-
-            SDL_Surface* surface = IMG_Load_RW(stream, false);
-
-            // Delete the stream ?
-
-            result->surf = surface;
-        }
-        else
-        {
-            result->surf = IMG_Load(filepath);
-        }
-
-        if (result->surf == NULL)
-        {
-            LogError("Unable to load texture file.");
-
-            delete(result);
-
-            return NULL;
-        }
-
-        result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
-
-        TextureRepo->CacheTexture(result);
-
-        return result;
+        return NULL;
     }
-    else
-    {
-        return foundTexture;
-    }
+
+    result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
+
+    return result;
 }
 
 void SDLRenderer::DeleteTexture(ATexture* texture)

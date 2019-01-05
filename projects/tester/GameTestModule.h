@@ -2,7 +2,6 @@
 
 #include <GameModule.h>
 #include <GameEngine.h>
-#include <TextureRepository.h>
 
 #include <ARenderer.h>
 #include <ASprite.h>

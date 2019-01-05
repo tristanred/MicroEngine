@@ -49,7 +49,7 @@ public:
 protected:
     // Playback settings
     int framesPerSecond;
-    uint32_t previousFrameTime;
+    long previousFrameTime;
     bool isTimeForNextFrame();
     bool isPlaying;
     bool looping;

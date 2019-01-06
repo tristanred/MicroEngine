@@ -13,6 +13,8 @@ DinoCharacter::~DinoCharacter()
 void DinoCharacter::Setup(GameModule* currentModule)
 {
     this->DinoSprite = currentModule->CreateSprite();
+    this->DinoSprite->SetPosition(600, 0);
+    this->DinoSprite->SetScale(6);
 
     /**
      * Current implementation needs :
@@ -41,7 +43,7 @@ void DinoCharacter::Setup(GameModule* currentModule)
     this->DinoSprite->AddAnimation(moveAnim);
     this->DinoSprite->AddAnimation(hurtAnim);
     
-    this->DinoSprite->Play("Idle", true, 24);
+    this->DinoSprite->Play("Idle", true, 10);
 
 }
 

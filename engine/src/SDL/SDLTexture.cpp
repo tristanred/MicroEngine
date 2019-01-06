@@ -104,7 +104,7 @@ ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
 {
     SDL_Surface* subSurface = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
     
-    Uint32 color = SDL_MapRGBA(subSurface->format, 255, 255, 255, 255);
+    Uint32 color = SDL_MapRGBA(subSurface->format, 255, 255, 255, 0);
     
     SDL_FillRect(subSurface, NULL, color);
     

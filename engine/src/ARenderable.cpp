@@ -15,6 +15,7 @@ ARenderable::ARenderable(ARenderer* renderer)
 
     this->size = FSize(0, 0);
     this->position = FPosition(0, 0);
+    this->scale = vec2(1, 1);
     this->PositionSystem = VIEWPORT_RELATIVE;
     this->isVisible = true;
 }
@@ -78,7 +79,11 @@ FSize ARenderable::GetSize()
 {
     if(this->Parent == NULL)
     {
-        return this->size;
+        FSize totalSize = this->size;
+        totalSize.Width *= this->scale.x;
+        totalSize.Height *= this->scale.y;
+
+        return totalSize;
     }
     else
     {
@@ -95,6 +100,26 @@ void ARenderable::SetSize(float w, float h)
 {
     this->size.Width = w;
     this->size.Height = h;
+}
+
+vec2 ARenderable::GetScale()
+{
+    return this->scale;
+}
+
+void ARenderable::SetScale(float scale)
+{
+    this->SetScale(scale, scale);
+}
+
+void ARenderable::SetScale(float x, float y)
+{
+    this->SetScale(vec2(x, y));
+}
+
+void ARenderable::SetScale(vec2 scale)
+{
+    this->scale = scale;
 }
 
 ATexture* ARenderable::GetTexture()

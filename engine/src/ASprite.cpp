@@ -108,6 +108,8 @@ void ASprite::AddAnimation(SpriteAnimation *anim)
         
         spriteAnimations->Add(anim);
         currentAnimationIndex = 0;
+
+        this->SetTexture(spriteAnimations);
     }
     else
     {
@@ -119,49 +121,52 @@ void ASprite::SetTexture(const char *filepath)
 {
     if (filepath != NULL)
     {
-        ATexture *tex = this->Renderer->CreateTexture(filepath);
+        ATexture* tex = this->Renderer->CreateTexture(filepath);
 
         this->SetTexture(tex);
     }
 }
 
-void ASprite::SetTexture(ATexture *texture)
+void ASprite::SetTexture(ATexture* texture)
 {
     if (texture != NULL)
     {
-        ArrayList<ATexture *> *textureList = new ArrayList<ATexture *>();
+        ArrayList<ATexture*>* textureList = new ArrayList<ATexture*>();
         textureList->Add(texture);
 
         this->SetTexture(textureList);
     }
 }
 
-void ASprite::SetTexture(ArrayList<ATexture *> *textureList)
+void ASprite::SetTexture(ArrayList<ATexture*>* textureList)
 {
     if (textureList != NULL)
     {
-        SpriteAnimation *anim = new SpriteAnimation();
+        SpriteAnimation* anim = new SpriteAnimation();
         anim->currentFrameIndex = 0;
         anim->AnimationName = NULL;
         anim->Textures = textureList;
 
-        ArrayList<SpriteAnimation *> *animList = new ArrayList<SpriteAnimation *>();
+        ArrayList<SpriteAnimation*>* animList = new ArrayList<SpriteAnimation*>();
         animList->Add(anim);
 
         this->SetTexture(animList);
     }
 }
 
-void ASprite::SetTexture(ArrayList<SpriteAnimation *> *animList)
+void ASprite::SetTexture(ArrayList<SpriteAnimation*>* animList)
 {
     if (animList != NULL)
     {
         currentAnimationIndex = 0;
         this->spriteAnimations = animList;
+
+        ATexture* initialTexture = animList->Get(0)->Textures->Get(0);
+        this->size = initialTexture->GetSize();
     }
 }
 
-void ASprite::SetTexture(const char *filepath[], int amount)
+void ASprite::SetTexture(const char* filepath[], int amount)
 {
 }
 
@@ -170,7 +175,7 @@ ATexture *ASprite::GetTexture()
     if (spriteAnimations != NULL && spriteAnimations->Count() > currentAnimationIndex)
     {
         int textureIndex = spriteAnimations->Get(currentAnimationIndex)->currentFrameIndex;
-        ATexture *ct = spriteAnimations->Get(currentAnimationIndex)->Textures->Get(textureIndex);
+        ATexture* ct = spriteAnimations->Get(currentAnimationIndex)->Textures->Get(textureIndex);
 
         assert(ct != NULL);
 
@@ -198,17 +203,42 @@ void ASprite::Play(const char* animName, bool loop, int fps)
     for(int i = 0; i < this->spriteAnimations->Count(); i++)
     {
         SpriteAnimation* anim = this->spriteAnimations->Get(i);
-        
-        if( (animName == NULL && anim->AnimationName == NULL) ||
-           strcmp(anim->AnimationName, animName) == 0)
+
+        // animName NULL and anim->name NULL
+        if (anim->AnimationName == NULL && animName == NULL)
         {
             this->currentAnimationIndex = i;
             this->looping = loop;
             this->framesPerSecond = fps;
-            
+
             this->isPlaying = true;
+
+            return;
+        }
+
+        // animName not null and anim name null
+        if (anim->AnimationName != NULL && animName == NULL)
+        {
+            continue;
+        }
+
+        if (anim->AnimationName != NULL && animName != NULL)
+        {
+            if (strcmp(anim->AnimationName, animName) == 0)
+            {
+                this->currentAnimationIndex = i;
+                this->looping = loop;
+                this->framesPerSecond = fps;
+
+                this->isPlaying = true;
+
+                return;
+            }
         }
     }
+
+    // No animation found ?
+    int i = 0;
 }
 
 void ASprite::Stop()

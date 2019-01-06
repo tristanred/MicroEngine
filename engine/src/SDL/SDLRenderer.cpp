@@ -181,8 +181,8 @@ void SDLRenderer::Draw(ARenderable* renderObject)
     assert(tex != NULL);
 
     SDL_Rect dest;
-    dest.w = (int)tex->GetSize().Width;
-    dest.h = (int)tex->GetSize().Height;
+    dest.w = (int)renderObject->GetSize().Width;
+    dest.h = (int)renderObject->GetSize().Height;
     dest.x = (int)renderObject->GetPosition().X;
     dest.y = (int)renderObject->GetPosition().Y;
 

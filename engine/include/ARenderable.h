@@ -36,6 +36,11 @@ public:
     virtual void SetSize(FSize size);
     virtual void SetSize(float w, float h);
 
+    virtual vec2 GetScale();
+    virtual void SetScale(float scale);
+    virtual void SetScale(float x, float y);
+    virtual void SetScale(vec2 scale);
+
     virtual FRectangle GetRectangle();
 
     virtual ATexture* GetTexture();
@@ -84,6 +89,7 @@ protected:
     enum POSITION_SYSTEM PositionSystem;
     FPosition position;
     FSize size;
+    vec2 scale;
 
     bool isVisible;
 };

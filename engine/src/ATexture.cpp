@@ -41,13 +41,13 @@ ArrayList<ATexture*>* ATexture::SplitTexture(int splits)
 {
     ArrayList<ATexture*>* result = new ArrayList<ATexture*>(splits);
 
-    int splitWidth = this->textureSize.Width / splits;
+    int splitWidth = (int)this->textureSize.Width / splits;
 
     int splitStartX = 0;
     int splitStartY = 0;
     for(int i = 0; i < splits; i++)
     {
-        ATexture* split = this->GetSubTexture(splitStartX, splitStartY, splitWidth, this->textureSize.Height);
+        ATexture* split = this->GetSubTexture(splitStartX, splitStartY, splitWidth, (int)this->textureSize.Height);
 
         splitStartX += splitWidth;
 

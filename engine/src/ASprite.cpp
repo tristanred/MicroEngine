@@ -238,9 +238,8 @@ void ASprite::Play(const char* animName, bool loop, int fps)
             }
         }
     }
-
-    // No animation found ?
-    int i = 0;
+    
+    assert(false); // No animation was found. Debug
 }
 
 void ASprite::Stop()

@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 #include "Asset.h"
 #include <libtech/fsutils.h>

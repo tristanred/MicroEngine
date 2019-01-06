@@ -4,6 +4,8 @@
 #include "ARenderer.h"
 #include "ATexture.h"
 #include <libtech/mytime.h>
+#include <string.h>
+#include <string>
 
 SpriteAnimation* SpriteAnimation::FromTextures(ArrayList<ATexture *>* list, const char* pattern)
 {

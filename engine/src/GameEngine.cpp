@@ -21,6 +21,10 @@
 #include <libtech/sysutils.h>
 #include <libtech/mytime.h>
 
+#ifdef __APPLE__
+#include <time.h>
+#endif
+
 GameEngine::GameEngine()
 {
     this->Modules = new std::list<GameModule*>();
@@ -176,6 +180,25 @@ void GameEngine::Play()
 
             Keyboard->UpdateKeyboardPastState();
             Mouse->UpdatePastMouseState();
+        }
+        else
+        {
+#if __APPLE__
+             /* macOS performance optimization.
+             * This is mostly to save battery life and CPU cycles. Calling
+             * get_a_ticks each frame ends up calling gettimeofday quite often
+             * and this functions costs a lot. Instead of polling each loop
+             * we just sleep for 16ms to be able to hit 60fps max and be sleeping
+             * for most of the time. The timer should be lowered to a much smaller
+             * value when the weight of the engine becomes higher. Even sleeping
+             * for 1ms is a major improvement.
+             */
+            
+            struct timespec x;
+            x.tv_nsec = 1000 * 1000 * 1; // 16ms
+            x.tv_sec = 0;
+            nanosleep(&x, NULL);
+#endif
         }
     }
 }

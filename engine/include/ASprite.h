@@ -12,9 +12,10 @@ public:
     char* AnimationName;
     int currentFrameIndex;
     ArrayList<ATexture*>* Textures;
-    
+
     void SetName(const char* name);
 
+    static SpriteAnimation* FromTextures(ArrayList<ATexture*>* list);
     static SpriteAnimation* FromTextures(ArrayList<ATexture*>* list, const char* pattern);
     static SpriteAnimation* FromTextures(ATexture*, ...); // Variadic of ATextures*
 };

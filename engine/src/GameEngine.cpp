@@ -69,7 +69,7 @@ GameEngine::~GameEngine()
     delete(Modules);
 
     delete(this->debugLayer);
-    
+
     delete(FilesCache);
     delete(ResManager);
 
@@ -193,7 +193,7 @@ void GameEngine::Play()
              * value when the weight of the engine becomes higher. Even sleeping
              * for 1ms is a major improvement.
              */
-            
+
             struct timespec x;
             x.tv_nsec = 1000 * 1000 * 1; // 16ms
             x.tv_sec = 0;
@@ -428,13 +428,13 @@ Viewport* GameEngine::GetCurrentViewport()
 FPosition GameEngine::GetMouseRelativePosition()
 {
     FPosition pos;
-    
+
     vec2 currentMousePos = this->Mouse->GetMousePosition();
     Viewport* currentVp = this->Renderer->RenderViewport;
-    
+
     pos.X = currentMousePos.x + currentVp->CurrentView.X;
     pos.Y = currentMousePos.y + currentVp->CurrentView.Y;
-    
+
     return pos;
 }
 
@@ -462,7 +462,7 @@ Viewport* GameEngine::CreateViewport()
     }
 
     this->GameViewports->push_back(newVp);
-    
+
     return newVp;
 }
 

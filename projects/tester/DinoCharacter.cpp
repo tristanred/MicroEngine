@@ -32,19 +32,18 @@ void DinoCharacter::Setup(GameModule* currentModule)
 
     SpriteAnimation* idleAnim = SpriteAnimation::FromTextures(splitted, "0..6");
     idleAnim->SetName("Idle");
-    
+
     SpriteAnimation* moveAnim = SpriteAnimation::FromTextures(splitted, "6..12");
     moveAnim->SetName("Move");
-    
+
     SpriteAnimation* hurtAnim = SpriteAnimation::FromTextures(splitted, "12..24");
     hurtAnim->SetName("Hurt");
 
     this->DinoSprite->AddAnimation(idleAnim);
     this->DinoSprite->AddAnimation(moveAnim);
     this->DinoSprite->AddAnimation(hurtAnim);
-    
-    this->DinoSprite->Play("Idle", true, 10);
 
+    this->DinoSprite->Play("Idle", true, 10);
 }
 
 void DinoCharacter::Update(unsigned int deltaTime)

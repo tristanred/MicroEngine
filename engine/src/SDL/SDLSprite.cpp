@@ -5,7 +5,6 @@
 
 SDLSprite::SDLSprite(ARenderer* renderer) : ASprite(renderer)
 {
-    tex = NULL;
     LogTrace("SDLSprite::SDLSprite");
 }
 

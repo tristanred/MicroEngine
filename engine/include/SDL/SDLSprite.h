@@ -12,6 +12,4 @@ class ENGINE_CLASS SDLSprite : public ASprite
 public:
     SDLSprite(ARenderer* renderer);
     ~SDLSprite() override;
-private:
-    SDLTexture* tex;
 };

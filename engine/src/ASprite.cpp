@@ -7,6 +7,16 @@
 #include <string.h>
 #include <string>
 
+SpriteAnimation* SpriteAnimation::FromTextures(ArrayList<ATexture*>* list)
+{
+    SpriteAnimation* newAnim = new SpriteAnimation();
+    newAnim->AnimationName = NULL;
+    newAnim->currentFrameIndex = 0;
+    newAnim->Textures = list;
+
+    return newAnim;
+}
+
 SpriteAnimation* SpriteAnimation::FromTextures(ArrayList<ATexture *>* list, const char* pattern)
 {
     char* patternCopy = new char[strlen(pattern)+1];
@@ -72,7 +82,7 @@ void SpriteAnimation::SetName(const char *name)
     {
         this->AnimationName = new char[256];
     }
-    
+
     strcpy(this->AnimationName, name);
 }
 
@@ -107,7 +117,7 @@ void ASprite::AddAnimation(SpriteAnimation *anim)
     if(spriteAnimations == NULL)
     {
         spriteAnimations = new ArrayList<SpriteAnimation*>();
-        
+
         spriteAnimations->Add(anim);
         currentAnimationIndex = 0;
 
@@ -238,7 +248,7 @@ void ASprite::Play(const char* animName, bool loop, int fps)
             }
         }
     }
-    
+
     assert(false); // No animation was found. Debug
 }
 

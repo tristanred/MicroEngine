@@ -2,7 +2,7 @@
 
 #include "core.h"
 
-#include "libtech/geometry.h"
+#include <libtech/geometry.h>
 #include "ARenderable.h"
 #include <libtech/arraylist.h>
 
@@ -52,7 +52,7 @@ public:
     virtual ATexture* CreateTexture(const char* filepath);
     virtual ATexture* CreateTexture(Asset* asset);
     virtual ATexture* CreateTexture(void* data, int length) = 0;
-    
+
     virtual void DeleteTexture(ATexture* texture) = 0;
 
     virtual FSize GetWindowSize() = 0;
@@ -62,8 +62,8 @@ public:
     virtual void Shutdown() = 0;
 
     // Utility methods provided by the base ARenderer class
-    
+
     ArrayList<ATexture*>* CreateTextureList(const char* fileNames[], int length);
-    
+
     ArrayList<ATexture*>* LoadFrames(const char* path);
 };

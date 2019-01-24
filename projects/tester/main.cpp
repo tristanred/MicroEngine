@@ -23,8 +23,12 @@
 #include <libtech/arraylist.h>
 #include "FormatLoaders/TPXmlReader.h"
 
+#include "Events/Event.h"
+
 int main(int argc, char** argv)
 {
+    Event<int>* x = new Event<int>();
+
     GameEngine* eng = new GameEngine();
     eng->Initialize();
 

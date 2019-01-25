@@ -18,6 +18,17 @@
  * When a caller uses the .Listen method to attach a callback, a handle of type
  * EventHandle is returned. This object can be .Disposed() to stop listening
  * to that particular event. It also releases resources taken by the listener.
+ *
+ * Thanks to Template Parameter packing and template class specialization, the
+ * event class can handle 0 to N number of arguments for the callback function.
+ * Since the std::function syntax must be different if we pass no parameters the
+ * Event classes are specialized to void when using no arguments. The default
+ * class template implementation accepts a template parameter pack and expands
+ * the types during function calls.
+ *
+ * Ref :
+ * https://en.cppreference.com/w/cpp/language/parameter_pack
+ * https://en.cppreference.com/w/cpp/language/template_specialization
  */
 
 
@@ -29,23 +40,23 @@
  * Since both classes depend on each other, I am forward-declaring them both
  * as early as possible.
  */
-template <class T>
+template <class ...T>
 class EventHandle;
 template <>
 class EventHandle<void>;
 
-template <class T>
+template <class ...T>
 class Event;
 template <>
 class Event<void>;
 
 
-template <class T>
+template <class ...T>
 class ENGINE_CLASS EventHandle
 {
-    friend class Event<T>;
+    friend class Event<T...>;
 public:
-    EventHandle(Event<T>* target, std::function<void(T)> func)
+    EventHandle(Event<T...>* target, std::function<void(T...)> func)
     {
         this->isDisposed = false;
         this->targetEvent = target;
@@ -69,8 +80,8 @@ public:
     
 private:
     bool isDisposed;
-    Event<T>* targetEvent;
-    std::function<void(T)> targetFunction;
+    Event<T...>* targetEvent;
+    std::function<void(T...)> targetFunction;
 };
 
 template <>
@@ -99,14 +110,14 @@ private:
 
 
 
-template <class T>
+template <class ...T>
 class ENGINE_CLASS Event
 {
-    friend class EventHandle<T>;
+    friend class EventHandle<T...>;
 public:
     Event()
     {
-        this->Listeners = new ArrayList<EventHandle<T>*>();
+        this->Listeners = new ArrayList<EventHandle<T...>*>();
     };
 
     ~Event()
@@ -115,26 +126,26 @@ public:
         delete(this->Listeners);
     };
     
-    EventHandle<T>* Listen(std::function<void(T)> listenFunction)
+    EventHandle<T...>* Listen(std::function<void(T...)> listenFunction)
     {
-        EventHandle<T>* handle = new EventHandle<T>(this, listenFunction);
+        EventHandle<T...>* handle = new EventHandle<T...>(this, listenFunction);
 
         this->Listeners->Add(handle);
 
         return handle;
     };
     
-    void Dispatch(T argument)
+    void Dispatch(T... argument)
     {
         for(int i = 0; i < this->Listeners->Count(); i++)
         {
-            EventHandle<T>* handel = this->Listeners->Get(i);
-            handel->targetFunction(argument);
+            EventHandle<T...>* handel = this->Listeners->Get(i);
+            handel->targetFunction(argument...);
         }
     };
 
 private:
-    ArrayList<EventHandle<T>*>* Listeners;
+    ArrayList<EventHandle<T...>*>* Listeners;
 };
 
 template <>

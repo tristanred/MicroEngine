@@ -13,7 +13,7 @@ SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
     this->surf = NULL;
     this->tex = NULL;
 
-    TextureSize = FSize(0, 0);
+    textureSize = FSize(0, 0);
 }
 
 SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTexture(renderer)
@@ -29,6 +29,53 @@ SDLTexture::~SDLTexture()
 {
     SDL_DestroyTexture(tex);
     SDL_FreeSurface(surf);
+}
+
+void SDLTexture::SetSize(FSize size)
+{
+    // If we try to change the texture size and we are still at size 0, we can
+    // change the size without rescaling the surface.
+    // TODO : Special exception, not the best option but this is the only way
+    // in some situation to set the initial size of the texture.
+    if(this->textureSize.Zero())
+    {
+        this->textureSize = size;
+        return;
+    }
+    
+    /*
+     * Calling SetSize is a destructive action. We create a new surface,
+     * do a scaled blit from the current to the new one and destroy the old
+     * surface data.
+     */
+    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, size.Width, size.Height, 32, rmask, gmask, bmask, amask);
+    
+    SDL_Rect srcRect;
+    srcRect.x = 0;
+    srcRect.y = 0;
+    srcRect.w = this->textureSize.Width;
+    srcRect.h = this->textureSize.Height;
+    
+    SDL_Rect destRect;
+    destRect.x = 0;
+    destRect.y = 0;
+    destRect.w = size.Width;
+    destRect.h = size.Height;
+    int res = SDL_BlitScaled(this->surf, &srcRect, newSurface, &destRect);
+    
+    if(res != 0)
+    {
+        const char* errstring = SDL_GetError();
+        LogError(errstring);
+        
+        return;
+    }
+    
+    SDL_FreeSurface(this->surf);
+    this->surf = newSurface;
+    this->isDirty = true;
+    
+    this->textureSize = size;
 }
 
 void SDLTexture::SetSolidColor(FSize size, uint32_t color)
@@ -127,6 +174,46 @@ ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
     SDLTexture* newTexture = new SDLTexture(this->Renderer, subSurface);
     
     return newTexture;
+}
+
+void SDLTexture::CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos)
+{
+    SDLTexture* otherTexture = (SDLTexture*)other;
+    
+    FSize currentTextureNewSize;
+    if(sourceSize.Zero())
+    {
+        currentTextureNewSize = otherTexture->GetSize();
+    }
+    else
+    {
+        currentTextureNewSize = sourceSize;
+    }
+    
+    this->SetSize(currentTextureNewSize);
+    
+    SDL_Rect sourceRect;
+    sourceRect.x = sourcePos.X;
+    sourceRect.y = sourcePos.Y;
+    sourceRect.h = sourceSize.Height;
+    sourceRect.w = sourceSize.Width;
+    
+    SDL_Rect destRect;
+    destRect.x = 0;
+    destRect.y = 0;
+    destRect.w = currentTextureNewSize.Width;
+    destRect.h = currentTextureNewSize.Height;
+    int res = SDL_BlitSurface(otherTexture->surf, &sourceRect, this->surf, &destRect);
+    
+    if(res != 0)
+    {
+        const char* errstring = SDL_GetError();
+        LogError(errstring);
+        
+        return;
+    }
+    
+    this->isDirty = true;
 }
 
 //************************************

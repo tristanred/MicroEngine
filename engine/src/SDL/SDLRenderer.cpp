@@ -281,7 +281,7 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
     }
 
     result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
-
+    
     return result;
 }
 

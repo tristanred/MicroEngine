@@ -100,6 +100,12 @@ void ARenderable::SetSize(float w, float h)
 {
     this->size.Width = w;
     this->size.Height = h;
+    
+    ATexture* textureToResize = this->GetTexture();
+    if(textureToResize != NULL)
+    {
+        textureToResize->SetSize(this->size);
+    }
 }
 
 vec2 ARenderable::GetScale()

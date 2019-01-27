@@ -34,6 +34,7 @@ public:
     virtual ArrayList<ATexture*>* SplitTexture(int rows, int columns);
     virtual ArrayList<ATexture*>* SplitTexture(FRectangle pieceSize);
 
+    virtual void CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos) = 0;
 protected:
     ARenderer* BaseRenderer;
     const char* loadedTexturePath;

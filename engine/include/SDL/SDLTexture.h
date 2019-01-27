@@ -17,6 +17,8 @@ public:
     explicit SDLTexture(ARenderer* renderer);
     SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface);
     ~SDLTexture() override;
+    
+    void SetSize(FSize size) override;
 
     void SetSolidColor(FSize size, uint32_t color) override;
     void LoadFromFile(const char* filepath) override;
@@ -27,6 +29,9 @@ public:
     void ReloadTexture() override;
 
     ATexture* GetSubTexture(int x, int y, int width, int height) override;
+    
+    void CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos) override;
+    
     
     void RefreshSDLTexture();
 
@@ -41,9 +46,7 @@ public:
 
 
 
-private:
-    FSize TextureSize;
-    
+private:    
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     const Uint32 rmask = 0xff000000;
     const Uint32 gmask = 0x00ff0000;

@@ -13,6 +13,7 @@ class FileCache;
 class Viewport;
 class Asset;
 class ResourceManager;
+class SpriteAnimation;
 
 struct RendererParameters
 {
@@ -63,7 +64,21 @@ public:
 
     // Utility methods provided by the base ARenderer class
 
+    /**
+     * Load a list of files and add those as textures in a Texture Array.
+     * @param fileNames List of file paths.
+     * @param length Amount of entries in the 'fileNames' list.
+     */
     ArrayList<ATexture*>* CreateTextureList(const char* fileNames[], int length);
 
+    /**
+     * Load frames from a file path. Executes multiple strategies to extract
+     * frames in the correct way. See FrameListLoader for the implementation.
+     */
     ArrayList<ATexture*>* LoadFrames(const char* path);
+
+    /**
+     * Convert a Sprite Animation into a texture strip.
+     */
+    ATexture* MakeTextureFromAnimation(SpriteAnimation* anim);
 };

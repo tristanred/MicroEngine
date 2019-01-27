@@ -186,7 +186,7 @@ private:
     ArrayList<EventHandle<void>*>* Listeners;
 };
 
-void EventHandle<void>::Dispose()
+inline void EventHandle<void>::Dispose()
 {
     assert(targetEvent != NULL);
     

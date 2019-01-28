@@ -43,6 +43,9 @@ void SDLTexture::SetSize(FSize size)
         return;
     }
     
+    // Case should be covered with a 0 texture size
+    assert(this->surf != NULL);
+    
     /*
      * Calling SetSize is a destructive action. We create a new surface,
      * do a scaled blit from the current to the new one and destroy the old
@@ -69,6 +72,11 @@ void SDLTexture::SetSize(FSize size)
         LogError(errstring);
         
         return;
+    }
+    
+    if(this->tex != NULL)
+    {
+        SDL_DestroyTexture(this->tex);
     }
     
     SDL_FreeSurface(this->surf);

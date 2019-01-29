@@ -47,6 +47,18 @@ ASprite* GameModule::CreateSprite()
     return x;
 }
 
+ASprite* GameModule::CreateSprite(ATexture* texture)
+{
+    LogTrace("GameModule::CreateSprite");
+    
+    ASprite* x = this->Engine->CreateSprite();
+    x->SetTexture(texture);
+    
+    this->AttachRenderable(x);
+    
+    return x;
+}
+
 AText* GameModule::CreateText()
 {
     LogTrace("GameModule::CreateText");
@@ -55,6 +67,18 @@ AText* GameModule::CreateText()
 
     this->AttachRenderable(x);
 
+    return x;
+}
+
+AText* GameModule::CreateText(AFont* textFont)
+{
+    LogTrace("GameModule::CreateText");
+    
+    AText* x = this->Engine->CreateText();
+    x->SetFont(textFont);
+    
+    this->AttachRenderable(x);
+    
     return x;
 }
 
@@ -74,9 +98,9 @@ ATexture* GameModule::CreateTexture()
     return texture;
 }
 
-ATexture* GameModule::CreateTexture(const char* filePath)
+ATexture* GameModule::CreateTexture(const char* textureName)
 {
-    ATexture* texture = this->Engine->CreateTexture(filePath);
+    ATexture* texture = this->Engine->CreateTexture(textureName);
 
     return texture;
 }

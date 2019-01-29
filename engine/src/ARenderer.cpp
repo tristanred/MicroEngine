@@ -42,14 +42,14 @@ ArrayList<ATexture*>* ARenderer::LoadFrames(const char* path)
     return loader.ExtractAsTextures();
 }
 
-ATexture* ARenderer::CreateTexture(const char* filepath)
+ATexture* ARenderer::CreateTexture(const char* textureName)
 {
-    Asset* result = this->Resman->GetResource(filepath);
+    Asset* result = this->Resman->GetResource(textureName);
 
     if(result == NULL)
     {
         // No assets found
-        printf("Creating texture [%s] failed.\n", filepath);
+        printf("Creating texture [%s] failed.\n", textureName);
 
         return NULL;
     }

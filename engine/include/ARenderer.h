@@ -50,7 +50,7 @@ public:
     virtual void DrawTexture(ATexture*tex, float posX, float posY, struct TextureDrawOptions* opt) = 0;
 
     virtual ATexture* CreateTexture() = 0;
-    virtual ATexture* CreateTexture(const char* filepath);
+    virtual ATexture* CreateTexture(const char* textureName);
     virtual ATexture* CreateTexture(Asset* asset);
     virtual ATexture* CreateTexture(void* data, int length) = 0;
 

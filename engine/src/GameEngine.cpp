@@ -340,11 +340,11 @@ ATexture* GameEngine::CreateTexture()
     return newTexture;
 }
 
-ATexture* GameEngine::CreateTexture(const char* filepath)
+ATexture* GameEngine::CreateTexture(const char* textureName)
 {
     LogTrace("GameEngine::CreateTexture(char*)");
 
-    ATexture* tex = this->Renderer->CreateTexture(filepath);
+    ATexture* tex = this->Renderer->CreateTexture(textureName);
 
     return tex;
 }

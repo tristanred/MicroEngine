@@ -68,7 +68,7 @@ public:
     AText * CreateText();
     AFont* CreateTextFont();
     ATexture * CreateTexture();
-    ATexture * CreateTexture(const char* filepath);
+    ATexture * CreateTexture(const char* textureName);
 
     void ReleaseObject(ATexture* DebugDarkplate);
     void ReleaseObject(ARenderable* DebugDarkplate);

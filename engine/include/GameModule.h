@@ -32,13 +32,42 @@ public:
     GameEngine* GetEngine();
 
     // Create renderer-specific objects.
+    
+    /**
+     * Create a Sprite object and attaches it to this Module's object-list.
+     */
     ASprite* CreateSprite();
+    
+    /**
+     * Create a Sprite object with a texture and attaches it to this Module's object-list.
+     */
+    ASprite* CreateSprite(ATexture* texture);
+    
+    /**
+     * Create a Text object and attaches it to this Module's object-list.
+     */
     AText* CreateText();
+    
+    /**
+     * Create a Text object with a font and attaches it to this Module's object-list.
+     */
+    AText* CreateText(AFont* textFont);
+    
+    /**
+     * Create a Font objet.
+     */
     AFont* CreateTextFont();
 
+    /**
+     * Create a blank texture.
+     */
     ATexture* CreateTexture(); // Create empty texture
-    ATexture* CreateTexture(const char* filePath); // Create texture from file
-
+    
+    /**
+     * Create a texture from the provided resource name.
+     */
+    ATexture* CreateTexture(const char* textureName);
+    
     void DestroyObject(ARenderable* object);
 
     virtual Viewport* CreateViewport();

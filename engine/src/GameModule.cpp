@@ -50,12 +50,12 @@ ASprite* GameModule::CreateSprite()
 ASprite* GameModule::CreateSprite(ATexture* texture)
 {
     LogTrace("GameModule::CreateSprite");
-    
+
     ASprite* x = this->Engine->CreateSprite();
     x->SetTexture(texture);
-    
+
     this->AttachRenderable(x);
-    
+
     return x;
 }
 
@@ -73,12 +73,12 @@ AText* GameModule::CreateText()
 AText* GameModule::CreateText(AFont* textFont)
 {
     LogTrace("GameModule::CreateText");
-    
+
     AText* x = this->Engine->CreateText();
     x->SetFont(textFont);
-    
+
     this->AttachRenderable(x);
-    
+
     return x;
 }
 
@@ -154,6 +154,8 @@ void GameModule::Draw(ARenderer* renderer)
 
         if(obj->GetChildren()->Count() > 0)
         {
+            renderer->Draw(obj);
+
             for(int i = 0; i < obj->GetChildren()->Count(); i++)
             {
                 renderer->Draw(obj->GetChildren()->Get(i));

@@ -23,10 +23,11 @@ uint32_t colorCycle[MAX_BOX_COLOR] = {
 
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
-    engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
+    // Cause occasional crash
+    //engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
 
     Map = new Tilemap();
-    //Map->Setup(this->GetRenderer());
+    Map->Setup(this->GetRenderer());
 
     // Sprite animations
     ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");

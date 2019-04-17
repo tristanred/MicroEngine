@@ -22,12 +22,12 @@ void Tilemap::Setup(ARenderer* renderer)
     {
         for(int k = 0; k < this->height; k++)
         {
-            tiles[i][k]->tex = renderer->CreateTexture("tile_grass");
+            //tiles[i][k]->tex = renderer->CreateTexture("tile_grass");
             tiles[i][k]->w = 32;
             tiles[i][k]->h = 32;
             tiles[i][k]->x = i * tiles[i][k]->w;
             tiles[i][k]->y = k * tiles[i][k]->h;
-            tiles[i][k]->tex->SetSize(FSize(tiles[i][k]->w , tiles[i][k]->h));
+            //tiles[i][k]->tex->SetSize(FSize(tiles[i][k]->w , tiles[i][k]->h));
         }
     }
 }

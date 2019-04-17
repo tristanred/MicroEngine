@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include "DinoCharacter.h"
+#include "Tilemap.h"
 
 class GameTestModule : public GameModule
 {
@@ -36,5 +37,8 @@ public:
     AText* TimerText;
     TickTimer* timer;
 
+    Tilemap* Map;
+
     void Update(unsigned int deltaTime) override;
+    void Draw(ARenderer* renderer) override;
 };

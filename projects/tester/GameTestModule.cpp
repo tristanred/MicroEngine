@@ -23,6 +23,11 @@ uint32_t colorCycle[MAX_BOX_COLOR] = {
 
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
+    engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
+
+    Map = new Tilemap();
+    //Map->Setup(this->GetRenderer());
+
     // Sprite animations
     ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
     clockSprite = this->CreateSprite();
@@ -87,7 +92,6 @@ void GameTestModule::Update(unsigned int deltaTime)
 {
     GameModule::Update(deltaTime);
 
-    
     // Update Viewport
     Viewport* vp = this->GetEngine()->GetCurrentViewport();
     if(this->GetEngine()->Keyboard->IsKeyDown(Key::Right))
@@ -169,6 +173,13 @@ void GameTestModule::Update(unsigned int deltaTime)
     BoxText->SetPosition(textPosition);
 
     clockSprite->Update(deltaTime);
-    
+
     this->Dinono->Update(deltaTime);
+}
+
+void GameTestModule::Draw(ARenderer* renderer)
+{
+    GameModule::Draw(renderer);
+
+    //this->Map->Draw(renderer);
 }

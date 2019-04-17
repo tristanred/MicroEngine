@@ -16,6 +16,7 @@
 #include "GameTestModule.h"
 
 #include "libtech/pathutils.h"
+#include "libtech/sysutils.h"
 
 #include <list>
 

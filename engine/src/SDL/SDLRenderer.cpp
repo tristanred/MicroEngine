@@ -177,8 +177,8 @@ void SDLRenderer::Draw(ARenderable* renderObject)
 
     SDLTexture* tex = (SDLTexture*)renderObject->GetTexture();
 
-    // TODO : If null, draw default "missing texture" texture.
-    assert(tex != NULL);
+    if(tex == NULL)
+        return;
 
     SDL_Rect dest;
     dest.w = (int)renderObject->GetSize().Width;

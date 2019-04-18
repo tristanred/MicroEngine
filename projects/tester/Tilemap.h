@@ -4,26 +4,22 @@
 
 struct Tile
 {
-    ATexture* tex;
-    
-    int x;
-    int y;
-    int w;
-    int h;
+    ASprite* tex;
 };
 
-class Tilemap
+class Tilemap : public ARenderable
 {
 public:
-    Tilemap();
+    Tilemap(GameEngine* engine);
     ~Tilemap();
 
     int width;
     int height;
     Tile*** tiles;
 
-
     void Setup(ARenderer* renderer);
     void Update(unsigned int deltaTime);
-    void Draw(ARenderer* renderer);
+    
+private:
+    GameEngine* Engine;
 };

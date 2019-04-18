@@ -24,9 +24,9 @@ uint32_t colorCycle[MAX_BOX_COLOR] = {
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
     // Cause occasional crash
-    //engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
+    engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
 
-    Map = new Tilemap();
+    Map = new Tilemap(engine);
     Map->Setup(this->GetRenderer());
 
     // Sprite animations
@@ -35,6 +35,8 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     clockSprite->SetTexture(frames);
     clockSprite->Play(NULL, true, 12);
 	clockSprite->SetPosition(50, 50);
+    
+    this->AttachRenderable(this->Map);
 
     Box = this->CreateSprite();
     Box->SetSize(FSize(75, 75));
@@ -176,11 +178,4 @@ void GameTestModule::Update(unsigned int deltaTime)
     clockSprite->Update(deltaTime);
 
     this->Dinono->Update(deltaTime);
-}
-
-void GameTestModule::Draw(ARenderer* renderer)
-{
-    GameModule::Draw(renderer);
-
-    //this->Map->Draw(renderer);
 }

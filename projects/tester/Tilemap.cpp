@@ -1,7 +1,11 @@
 #include "Tilemap.h"
 
-Tilemap::Tilemap()
+#include <ARenderable.h>
+
+Tilemap::Tilemap(GameEngine* engine) : ARenderable(engine->Renderer)
 {
+    this->Engine = engine;
+    
     this->width = 10;
     this->height = 10;
 
@@ -16,30 +20,24 @@ Tilemap::Tilemap()
     }
 }
 
+Tilemap::~Tilemap()
+{
+}
+
 void Tilemap::Setup(ARenderer* renderer)
 {
     for(int i = 0; i < this->width; i++)
     {
         for(int k = 0; k < this->height; k++)
         {
-            //tiles[i][k]->tex = renderer->CreateTexture("tile_grass");
-            tiles[i][k]->w = 32;
-            tiles[i][k]->h = 32;
-            tiles[i][k]->x = i * tiles[i][k]->w;
-            tiles[i][k]->y = k * tiles[i][k]->h;
-            //tiles[i][k]->tex->SetSize(FSize(tiles[i][k]->w , tiles[i][k]->h));
-        }
-    }
-}
-
-void Tilemap::Draw(ARenderer* renderer)
-{
-    for(int i = 0; i < this->width; i++)
-    {
-        for(int k = 0; k < this->height; k++)
-        {
-            Tile* s = tiles[i][k];
-            renderer->DrawTexture(s->tex, s->x, s->y);
+            tiles[i][k]->tex = this->Engine->CreateSprite();
+            tiles[i][k]->tex->SetTexture("tile_grass");
+            
+            //renderer->CreateTexture("tile_grass");
+            tiles[i][k]->tex->SetSize(32, 32);
+            tiles[i][k]->tex->SetPosition(i * 32, k * 32);
+            
+            this->AddChild(tiles[i][k]->tex);
         }
     }
 }

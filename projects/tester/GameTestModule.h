@@ -40,5 +40,4 @@ public:
     Tilemap* Map;
 
     void Update(unsigned int deltaTime) override;
-    void Draw(ARenderer* renderer) override;
 };

@@ -24,7 +24,7 @@ uint32_t colorCycle[MAX_BOX_COLOR] = {
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
     // Cause occasional crash
-    engine->ResManager->AddFile("assets/Grass.png", "tile_grass");
+    engine->ResManager->AddFile("assets/engine/grass.png", "tile_grass");
 
     Map = new Tilemap(engine);
     Map->Setup(this->GetRenderer());

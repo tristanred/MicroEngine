@@ -5,6 +5,15 @@
 struct Tile
 {
     ASprite* tex;
+
+    int tilemapPositionX;
+    int tilemapPositionY;
+
+    // Neighbor tiles, NULL if it is the edge.
+    Tile* North;
+    Tile* East;
+    Tile* South;
+    Tile* West;
 };
 
 class Tilemap : public ARenderable

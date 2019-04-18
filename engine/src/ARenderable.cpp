@@ -230,3 +230,13 @@ ArrayList<ARenderable*>* ARenderable::GetChildren()
 {
     return this->Children;
 }
+
+void ARenderable::OnPreDraw()
+{
+
+}
+
+void ARenderable::OnPostDraw()
+{
+
+}

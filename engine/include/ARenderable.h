@@ -69,7 +69,7 @@ public:
     virtual void AddChild(ARenderable* object);
     
     /**
-     * Remove a child from this object's children collection. (eww)
+     * Remove a child from this object's children collection.
      */
     virtual void RemoveChild(ARenderable* object);
     
@@ -77,6 +77,16 @@ public:
      * Get the list of children of this object.
      */
     virtual ArrayList<ARenderable*>* GetChildren();
+
+    /**
+     * The PreDraw hook is called before any information is queried from this object.
+     */
+    virtual void OnPreDraw();
+
+    /**
+     * The PostDraw hook is called after the texture was drawn to the context.
+     */
+    virtual void OnPostDraw();
 
 protected:
     ARenderer* Renderer;

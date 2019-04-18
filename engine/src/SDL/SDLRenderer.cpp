@@ -175,6 +175,8 @@ void SDLRenderer::Draw(ARenderable* renderObject)
     if (renderObject->IsVisible() == false)
         return;
 
+    renderObject->OnPreDraw();
+
     SDLTexture* tex = (SDLTexture*)renderObject->GetTexture();
 
     if(tex == NULL)
@@ -195,6 +197,8 @@ void SDLRenderer::Draw(ARenderable* renderObject)
     tex->RefreshSDLTexture(); // Refresh the texture if needed.
 
     SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+
+    renderObject->OnPostDraw();
 }
 
 void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)

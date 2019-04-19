@@ -47,3 +47,4 @@ a texture. In order to set a texture to a solid color, it needs to be given
 a size first. When calling SetSolidColor you need to provide both upfront. The
 other method ATexture::FillColor will use the existing size and fill the pixels
 with the provided color.
+

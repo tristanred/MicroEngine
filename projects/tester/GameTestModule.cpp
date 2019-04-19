@@ -35,7 +35,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     clockSprite->SetTexture(frames);
     clockSprite->Play(NULL, true, 12);
 	clockSprite->SetPosition(50, 50);
-    
+
     this->AttachRenderable(this->Map);
 
     Box = this->CreateSprite();

@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #include "DinoCharacter.h"
-#include "Tilemap.h"
+#include <Game/Tilemap.h>
 
 class GameTestModule : public GameModule
 {

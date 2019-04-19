@@ -239,26 +239,17 @@ IF(MICROENGINE_BUILD_TOOLS)
     add_executable(EngineTester ${TESTER_HEADERS} ${TESTER_SOURCES})
     target_link_libraries(EngineTester MICROENGINE)
 
-    ## RPG-Game
-    file(GLOB_RECURSE RPGGAME_SOURCES "projects/rpg-game/*.cpp")
-    file(GLOB_RECURSE RPGGAME_HEADERS "projects/rpg-game/*.h")
-
-    add_executable(RPG-Game ${RPGGAME_HEADERS} ${RPGGAME_SOURCES})
-    target_link_libraries(RPG-Game MICROENGINE)
-
     IF(WIN32)
         set_target_properties(EngineTester PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
-        set_target_properties(RPG-Game PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)/$(Configuration)")
     ELSEIF(UNIX)
         target_compile_options(EngineTester PRIVATE -Wall)
-        target_compile_options(RPG-Game PRIVATE -Wall)
     ENDIF(WIN32)
 
-    add_custom_command(
-        TARGET RPG-Game POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${PROJECT_SOURCE_DIR}/projects/rpg-game/data"
-        $<TARGET_FILE_DIR:RPG-Game>/data
-    )
+    # add_custom_command(
+    #     TARGET RPG-Game POST_BUILD
+    #     COMMAND ${CMAKE_COMMAND} -E copy_directory
+    #     "${PROJECT_SOURCE_DIR}/projects/rpg-game/data"
+    #     $<TARGET_FILE_DIR:RPG-Game>/data
+    # )
 
 ENDIF(MICROENGINE_BUILD_TOOLS)

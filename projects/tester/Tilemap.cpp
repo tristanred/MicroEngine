@@ -2,12 +2,12 @@
 
 #include <ARenderable.h>
 
-Tilemap::Tilemap(GameEngine* engine) : ARenderable(engine->Renderer)
+Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : ARenderable(engine->Renderer)
 {
     this->Engine = engine;
     
-    this->width = 10;
-    this->height = 10;
+    this->width = config->width;
+    this->height = config->height;
 
     tiles = new Tile**[this->width];
     for(int i = 0; i < this->width; i++)

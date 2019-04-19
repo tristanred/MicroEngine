@@ -26,7 +26,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     // Cause occasional crash
     engine->ResManager->AddFile("assets/engine/grass.png", "tile_grass");
 
-    Map = new Tilemap(engine);
+    Map = new Tilemap(engine, NULL);
     Map->Setup(this->GetRenderer());
 
     // Sprite animations

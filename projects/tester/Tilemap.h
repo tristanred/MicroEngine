@@ -16,10 +16,21 @@ struct Tile
     Tile* West;
 };
 
+typedef ATexture** Tileset;
+
+struct TilemapConfig
+{
+    int width;
+    int height;
+
+    Tileset tileset;
+    int** tileData;
+};
+
 class Tilemap : public ARenderable
 {
 public:
-    Tilemap(GameEngine* engine);
+    Tilemap(GameEngine* engine, TilemapConfig* config);
     ~Tilemap();
 
     int width;

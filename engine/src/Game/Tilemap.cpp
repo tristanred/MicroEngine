@@ -31,7 +31,7 @@ void Tilemap::Setup(ARenderer* renderer)
         for(int k = 0; k < this->height; k++)
         {
             tiles[i][k]->tex = this->Engine->CreateSprite();
-            tiles[i][k]->tex->SetTexture("tile_grass");
+            tiles[i][k]->tex->SetTexture("grass");
             tiles[i][k]->tilemapPositionX = i;
             tiles[i][k]->tilemapPositionY = k;
 
@@ -73,7 +73,7 @@ void Tilemap::Setup(ARenderer* renderer)
             int w = 32;
             int h = 32;
             tiles[i][k]->tex->SetSize(w, h);
-            tiles[i][k]->tex->SetPosition((i * w) + 1*i, (k * h) + 1*k);
+            tiles[i][k]->tex->SetPosition((i * w), (k * h));
             
             this->AddChild(tiles[i][k]->tex);
         }

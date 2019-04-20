@@ -32,27 +32,27 @@ public:
     GameEngine* GetEngine();
 
     // Create renderer-specific objects.
-    
+
     /**
      * Create a Sprite object and attaches it to this Module's object-list.
      */
     ASprite* CreateSprite();
-    
+
     /**
      * Create a Sprite object with a texture and attaches it to this Module's object-list.
      */
     ASprite* CreateSprite(ATexture* texture);
-    
+
     /**
      * Create a Text object and attaches it to this Module's object-list.
      */
     AText* CreateText();
-    
+
     /**
      * Create a Text object with a font and attaches it to this Module's object-list.
      */
     AText* CreateText(AFont* textFont);
-    
+
     /**
      * Create a Font objet.
      */
@@ -62,17 +62,17 @@ public:
      * Create a blank texture.
      */
     ATexture* CreateTexture(); // Create empty texture
-    
+
     /**
      * Create a texture from the provided resource name.
      */
     ATexture* CreateTexture(const char* textureName);
-    
+
     void DestroyObject(ARenderable* object);
 
     virtual Viewport* CreateViewport();
 
-    /*
+    /**
      * Add an object to be drawn. That object should have been created manually
      * because using CreateSprite/CreateText methods already add the new object
      * to the list.

@@ -31,6 +31,7 @@ IF(WIN32)
     include_directories("engine/lib/SDL/windows/include")
     include_directories("engine/lib/SDL_image/windows/include")
     include_directories("engine/lib/SDL_ttf/windows/include")
+    include_directories("engine/lib/SDL_gfx")
 
     find_library(
         SDL2_LIB
@@ -47,6 +48,11 @@ IF(WIN32)
         NAMES SDL2_ttf
         HINTS "engine/lib/SDL_ttf/windows/lib/${ARCH}"
     )
+    find_library(
+        SDL2_GFX_LIB
+        NAMES SDL2_gfx
+        HINTS "engine/lib/SDL_gfx/windows/lib/${ARCH}"
+    )
 ENDIF(WIN32)
 
 # Setup Linux dependencies
@@ -54,6 +60,7 @@ IF(UNIX)
     include_directories("engine/lib/SDL/linux/include")
     include_directories("engine/lib/SDL_image/linux/include")
     include_directories("engine/lib/SDL_ttf/linux/include")
+    include_directories("engine/lib/SDL_gfx")
 
     find_path(
         SDL2_INCLUDE
@@ -82,6 +89,14 @@ IF(UNIX)
             include/SDL2 include
         PATHS ${SDL2_TTF_PATH}
     )
+    find_path(
+        SDL2_GFX_INCLUDE
+        SDL_gfxPrimitives.h
+        PATHS "/usr/local/include"
+        PATH_SUFFIXES
+            SDL
+            include/SDL include
+    )
     find_library(
         SDL2_LIB
         NAMES SDL2
@@ -93,6 +108,11 @@ IF(UNIX)
     find_library(
         SDL2_TTF_LIB
         NAMES SDL2_ttf
+    )
+    find_library(
+        SDL2_GFX_LIB
+        NAMES SDL_gfx
+        PATHS "/usr/local/lib"
     )
 ENDIF(UNIX)
 
@@ -123,7 +143,7 @@ add_library(MICROENGINE STATIC ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 #add_library(MICROENGINED SHARED ${ENGINE_HEADERS} ${ENGINE_SOURCES})
 
 # Link dependencies
-target_link_libraries(MICROENGINE LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
+target_link_libraries(MICROENGINE LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} ${SDL2_GFX_LIB} pugixml)
 #target_link_libraries(MICROENGINED LIBTECH ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${SDL2_TTF_LIB} pugixml)
 
 # Add DEFINES to tell the engine to export functions and api

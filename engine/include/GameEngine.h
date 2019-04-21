@@ -301,6 +301,9 @@ private:
     bool TimeForNextFrame();
 };
 
+/**
+ * \brief Implementation of the CreateModule function
+ */
 template<typename TModule>
 TModule* GameEngine::CreateModule()
 {

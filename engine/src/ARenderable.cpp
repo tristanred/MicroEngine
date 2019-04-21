@@ -7,7 +7,7 @@ ARenderable::ARenderable(ARenderer* renderer)
     LogTrace("ARenderable::ARenderable");
 
     this->Renderer = renderer;
-    
+
     this->Parent = NULL;
     this->Children = new ArrayList<ARenderable*>();
 
@@ -23,7 +23,7 @@ ARenderable::ARenderable(ARenderer* renderer)
 ARenderable::~ARenderable()
 {
     LogTrace("ARenderable::~ARenderable");
-    
+
     this->Parent = NULL;
     delete(this->Children);
 }
@@ -49,17 +49,18 @@ FPosition ARenderable::GetPosition()
     else
     {
         FPosition calculatedResult = this->position;
-        
+
+        // TODO : Why not just call this->Parent->GetPosition() ?
         ARenderable* next = this->Parent;
         while(next != NULL)
         {
             FPosition nextPos = next->position;
             calculatedResult.X += nextPos.X;
             calculatedResult.Y += nextPos.Y;
-            
+
             next = next->Parent;
         }
-        
+
         return calculatedResult;
     }
 }
@@ -100,7 +101,7 @@ void ARenderable::SetSize(float w, float h)
 {
     this->size.Width = w;
     this->size.Height = h;
-    
+
     ATexture* textureToResize = this->GetTexture();
     if(textureToResize != NULL)
     {
@@ -157,7 +158,7 @@ bool ARenderable::IsVisible()
     {
         return false;
     }
-    
+
     if(this->Parent == NULL)
     {
         return isVisible;
@@ -171,10 +172,10 @@ bool ARenderable::IsVisible()
             {
                 return false;
             }
-            
+
             next = next->Parent;
         }
-        
+
         return true;
     }
 }
@@ -190,7 +191,7 @@ void ARenderable::SetParent(ARenderable* object)
     {
         this->Parent->RemoveChild(this);
     }
-    
+
     if(object == NULL)
     {
         // Detatch the object from its parent.
@@ -200,7 +201,7 @@ void ARenderable::SetParent(ARenderable* object)
     {
         // Attach this object to a new parent.
         object->AddChild(this);
-        
+
         // It is the parent's job to assign this object Parent variable
         assert(this->Parent == object);
     }
@@ -211,7 +212,7 @@ void ARenderable::AddChild(ARenderable* object)
     if(object != NULL)
     {
         this->Children->Add(object);
-        
+
         object->Parent = this;
     }
 }
@@ -221,7 +222,7 @@ void ARenderable::RemoveChild(ARenderable* object)
     if(object != NULL)
     {
         object->Parent = NULL;
-        
+
         this->Children->RemoveObject(object);
     }
 }

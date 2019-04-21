@@ -438,11 +438,11 @@ FPosition GameEngine::GetMouseRelativePosition()
     return pos;
 }
 
-void GameEngine::ReleaseObject(ARenderable* DebugDarkplate)
+void GameEngine::ReleaseObject(ARenderable* textureObject)
 {
 }
 
-void GameEngine::ReleaseObject(ATexture* DebugDarkplate)
+void GameEngine::ReleaseObject(ATexture* renderableObject)
 {
 }
 

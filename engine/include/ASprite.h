@@ -65,8 +65,8 @@ public:
 /*
  * \brief A Sprite is a renderable object that has some playback mechanism.
  *
- *
- *
+ * Sprites that have any kind of playback need to have their update methods
+ * called.
 */
 class ENGINE_CLASS ASprite : public ARenderable
 {
@@ -74,35 +74,98 @@ public:
     ASprite(ARenderer* renderer);
     virtual ~ASprite() override;
 
+    /**
+     * \brief Add an animation on this Sprite that can be played.
+     *
+     * To play an animation after it has been added, we must call the Play
+     * method using the animation's name.
+     *
+     * \param anim - The animation to add.
+     */
     virtual void AddAnimation(SpriteAnimation* anim);
 
     /**
-     * Setup from a file, automatically creates a textureand applies it to itself.
+     * \brief Setup from a file, automatically creates a texture and
+     * applies it to itself.
+     *
+     * This sets the sprite to a single texture.
+     *
+     * \param filepath - Path to load as a texture.
      */
     virtual void SetTexture(const char* filepath);
 
+    /**
+     * \brief Setup the sprite with a sequence of file to be played as the
+     * default animation.
+     *
+     * \param filepath - Array of file paths to load as a texture.
+     * \param amount - Length of the paths array.
+     */
     virtual void SetTexture(const char* filepath[], int amount);
 
-    // Set sprite with just a static image
+    /**
+     * \brief Setup the sprite with a single texture.
+     *
+     * \param texture - Target texture.
+     */
     virtual void SetTexture(ATexture* texture) override;
 
-    // Setup from a list of textures and use that as the only animation
+    /**
+     * \brief Setup the sprite with a list of textures to be played as the
+     * default animation.
+     *
+     * \param textureList - List of textures
+     */
     virtual void SetTexture(ArrayList<ATexture*>* textureList);
 
-    // Setup from a list of animations
+    /**
+     * \brief Setup the sprite with a list of animations. Each can be played
+     * with its name.
+     *
+     * \param animList - List of animations
+     */
     virtual void SetTexture(ArrayList<SpriteAnimation*>* animList);
 
+    /**
+     * \brief Get the currently applied texture. When playing an animation, this
+     * will return the current texture of the current animation at the current
+     * frame.
+     *
+     * \return ATexture - The current texture.
+     */
     virtual ATexture* GetTexture() override;
 
+    /**
+     * \brief Update the sprite.
+     *
+     * \param deltaTime - Difference of time between this frame and the last.
+     */
     void Update(unsigned int deltaTime);
 
+    /**
+     * \brief Play an animation on the sprite.
+     *
+     * \param animName - Name of the animation to play.
+     * \param loop - Set to true if the animation loops back to the start.
+     * \param fps - Frames per second speed of the animation.
+     */
     void Play(const char* animName = NULL, bool loop = false, int fps = 60);
+
+    /**
+     * \brief Stop the animation playback. Stops at the current frame.
+     *
+     * \remark Will be upgraded with a parameter to reset to the first frame.
+     */
     void Stop();
 
 protected:
     // Playback settings
     int framesPerSecond;
     long previousFrameTime;
+
+    /**
+     * \brief Check if is time to switch to the next frame.
+     */
     bool isTimeForNextFrame();
     bool isPlaying;
     bool looping;
@@ -111,8 +174,8 @@ protected:
     int currentAnimationIndex;
     ArrayList<SpriteAnimation*>* spriteAnimations;
 
+    /**
+     * \brief Advance to the next frame.
+     */
     void AdvanceFrame();
-
 };
-
-

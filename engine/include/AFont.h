@@ -9,9 +9,11 @@ class Asset;
 /**
  *\brief Abstract font class.
  *
- * Fonts contain the glyph information needed by a Text to draw characters.
+ * Fonts contain the glyph information needed by an AText to draw characters.
  * Fonts can be provided in two formats : from a font file like ttf or otf.
  * Or from a spritesheet font, not supported yet.
+ *
+ * \see AText
  */
 class ENGINE_CLASS AFont
 {

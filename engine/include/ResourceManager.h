@@ -8,6 +8,8 @@ class Asset;
 #include <stdint.h>
 
 /**
+ * \brief Resource loader and handler for the engine.
+ *
  * The ResourceManager is in charge of loading data from sources like the disk
  * or from the network. Resources must be added to the manager before they can
  * be loaded. Resources are given a name when they are added, this name is used
@@ -23,25 +25,60 @@ public:
     virtual ~ResourceManager();
 
     /**
-     * Load a resource into the manager. This will load the selected file from disk.
-     * The resource will be available when calling GetResource(char*).
+     * \brief Load a resource into the manager.
+     *
+     * This overlod does not specify a name to give to the resource. The name
+     * given will be automatically created from the file name. Usually the name
+     * will be filename without extension.
+     *
+     * This will load the selected file from disk. The resource will be
+     * available when calling GetResource(char*).
+     *
+     * \param filePath - File path to load.
+     *
+     * \return Asset - Asset object with the data.
      */
     Asset* AddFile(const char* filePath);
+
+    /**
+     * \brief Load a resource into the manager and set a name for it.
+     *
+     * \param filePath - File path to load.
+     * \param resourceName - Name given to the new resource.
+     *
+     * \return Asset - Asset object with the data.
+     */
     Asset* AddFile(const char* filePath, const char* resourceName);
 
     /**
-     * Add a searchable path used when calling GetResource(char*).
+     * \brief Add a searchable path used when calling GetResource(char*).
+     *
+     * This directory will be recursively searched when looking for an asset
+     * that isn't found in the immediate files list.
+     *
+     * \param rootFolderPath - Path to a directory.
      */
     void AddAssetRoot(const char* rootFolderPath);
 
     /**
-     * Add a PAK file that will be searched when calling GetResource(char*).
+     * \brief Add a PAK file that will be searched when calling
+     * GetResource(char*).
+     *
+     * \param packageFile - File path of the package file.
      */
     void AddPackageFile(const char* packageFile);
 
     /**
+     * \brief Find a resource by name.
+     *
+     * Returns NULL if nothing is found.
+     *
      * Find a resource from the manager's stored resources. Data needs to be added
      * individually by AddFile or search roots need to be added.
+     *
+     * \param name - Name identifier of the resource to find.
+     *
+     * \return Asset - Asset found.
      */
     Asset* GetResource(const char* name);
 

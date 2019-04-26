@@ -25,7 +25,7 @@ enum POSITION_SYSTEM
 };
 
 /**
- * \brief Base class of any renderable object.
+ * \brief Abstract base class of any renderable object.
  *
  * The ARenderable class is the root type for any object that needs to be drawn
  * on the screen. A renderable has a position on screen and a size. It can

@@ -63,7 +63,7 @@ public:
 };
 
 /*
- * \brief A Sprite is a renderable object that has some playback mechanism.
+ * \brief Abstract renderable object that has some playback mechanism.
  *
  * Sprites that have any kind of playback need to have their update methods
  * called.

@@ -25,3 +25,8 @@ void GameObject::Draw()
 {
     this->lastDrawTime = get_a_ticks();
 }
+
+GameEngine* GameObject::GetEngine()
+{
+    return this->Owner->GetEngine();
+}

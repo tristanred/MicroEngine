@@ -17,6 +17,8 @@ public:
 protected:
     GameModule* Owner;
 
+    GameEngine* GetEngine();
+
 private:
     // Some debug properties
     unsigned int lastUpdateTime;

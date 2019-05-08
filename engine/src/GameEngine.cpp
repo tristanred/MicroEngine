@@ -304,14 +304,14 @@ long GameEngine::GetDeltaTime()
     return currentFrameTime - previousFrameTime;
 }
 
-ASprite* GameEngine::CreateSprite()
-{
-    LogTrace("GameEngine::CreateSprite");
+// ASprite* GameEngine::CreateSprite()
+// {
+//     LogTrace("GameEngine::CreateSprite");
 
-    ASprite* sprt = AbstractFactory::CreateSprite(Renderer);
+//     ASprite* sprt = AbstractFactory::CreateSprite(Renderer);
 
-    return sprt;
-}
+//     return sprt;
+// }
 
 AText* GameEngine::CreateText()
 {

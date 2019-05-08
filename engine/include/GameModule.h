@@ -14,6 +14,7 @@ class TickTimer;
 #include <list>
 #include <stdint.h>
 
+#include "GameEngine.h"
 #include "core.h"
 #include "Controls/CBaseControl.h"
 #include "Controls/CButton.h"
@@ -69,7 +70,8 @@ public:
      *
      * \return ASprite
      */
-    ASprite* CreateSprite();
+    template <typename TSubType = ASprite>
+    TSubType* CreateSprite();
 
     /**
      * \brief Create a Sprite object with a texture and attaches it to this
@@ -79,7 +81,8 @@ public:
      *
      * \return ASprite
      */
-    ASprite* CreateSprite(ATexture* texture);
+    template <typename TSubType = ASprite>
+    TSubType* CreateSprite(ATexture* texture);
 
     /**
      * \brief Create a Text object and attaches it to this Module's object-list.
@@ -236,4 +239,29 @@ inline CLabel* GameModule::CreateControl<CLabel>()
 {
     CLabel* newlab = new CLabel(this->Engine);
     return newlab;
+}
+
+template<typename TSubType>
+TSubType* GameModule::CreateSprite()
+{
+    LogTrace("GameModule::CreateSprite");
+
+    TSubType* x = this->Engine->CreateSprite<TSubType>();
+
+    this->AttachRenderable(x);
+
+    return x;
+}
+
+template<typename TSubType>
+TSubType* GameModule::CreateSprite(ATexture* texture)
+{
+    LogTrace("GameModule::CreateSprite");
+
+    TSubType* x = this->Engine->CreateSprite<TSubType>();
+    x->SetTexture(texture);
+
+    this->AttachRenderable(x);
+
+    return x;
 }

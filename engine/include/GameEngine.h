@@ -2,6 +2,8 @@
 
 class ASprite;
 class ATexture;
+class AText;
+class AFont;
 class FileLogger;
 class FileCache;
 class APlatform;
@@ -10,6 +12,7 @@ class AKeyboard;
 class Viewport;
 class DebugLayer;
 class ResourceManager;
+class GameModule;
 
 #include <list>
 #include <cstdint>
@@ -17,7 +20,6 @@ using namespace std;
 
 #include "core.h"
 #include "ARenderer.h"
-#include "GameModule.h"
 #include <libtech/geometry.h>
 
 /**
@@ -146,7 +148,8 @@ public:
      *
      * \return ASprite.
      */
-    ASprite* CreateSprite();
+    template <typename TSubType = ASprite>
+    TSubType* CreateSprite();
 
     /**
      * \brief Create an AText instance.
@@ -313,3 +316,10 @@ TModule* GameEngine::CreateModule()
     return newModule;
 }
 
+template<typename TSubType>
+TSubType* GameEngine::CreateSprite()
+{
+    LogTrace("GameEngine::CreateSprite");
+
+    return new TSubType(Renderer);
+}

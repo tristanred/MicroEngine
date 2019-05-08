@@ -36,28 +36,28 @@ GameModule::~GameModule()
     delete(this->Timers);
 }
 
-ASprite* GameModule::CreateSprite()
-{
-    LogTrace("GameModule::CreateSprite");
+// ASprite* GameModule::CreateSprite()
+// {
+//     LogTrace("GameModule::CreateSprite");
 
-    ASprite* x = this->Engine->CreateSprite();
+//     ASprite* x = this->Engine->CreateSprite();
 
-    this->AttachRenderable(x);
+//     this->AttachRenderable(x);
 
-    return x;
-}
+//     return x;
+// }
 
-ASprite* GameModule::CreateSprite(ATexture* texture)
-{
-    LogTrace("GameModule::CreateSprite");
+// ASprite* GameModule::CreateSprite(ATexture* texture)
+// {
+//     LogTrace("GameModule::CreateSprite");
 
-    ASprite* x = this->Engine->CreateSprite();
-    x->SetTexture(texture);
+//     ASprite* x = this->Engine->CreateSprite();
+//     x->SetTexture(texture);
 
-    this->AttachRenderable(x);
+//     this->AttachRenderable(x);
 
-    return x;
-}
+//     return x;
+// }
 
 AText* GameModule::CreateText()
 {

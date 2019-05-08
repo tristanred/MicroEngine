@@ -30,3 +30,8 @@ GameEngine* GameObject::GetEngine()
 {
     return this->Owner->GetEngine();
 }
+
+long GameObject::DeltaTime()
+{
+    return this->GetEngine()->GetDeltaTime();
+}

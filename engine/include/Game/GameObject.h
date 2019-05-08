@@ -19,6 +19,8 @@ protected:
 
     GameEngine* GetEngine();
 
+    long DeltaTime();
+
 private:
     // Some debug properties
     unsigned int lastUpdateTime;

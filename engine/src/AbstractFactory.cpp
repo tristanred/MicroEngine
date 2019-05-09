@@ -2,7 +2,6 @@
 
 #if SUPPORT_SDL == 1
 
-#include "SDL/SDLSprite.h"
 #include "SDL/SDLText.h"
 #include "SDL/SDLTexture.h"
 #include "SDL/SDLRenderer.h"
@@ -54,35 +53,6 @@ ARenderer *AbstractFactory::CreateRenderer()
     return nullptr;
 
 }
-
-ASprite *AbstractFactory::CreateSprite(ARenderer* renderer)
-{
-    switch(ActivatedRenderer)
-    {
-#if SUPPORT_SDL == 1
-        case RENDERER_SDL:
-        {
-            LogTrace("AbstractFactory creating SDL Sprite.");
-            return new SDLSprite(renderer);
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXSprite();
-        }
-#endif
-        default:
-        {
-            LogError("Factory unable to create a Sprite instance. Activated renderer is %d", ActivatedRenderer);
-
-            return NULL;
-        }
-    }
-
-    return nullptr;
-}
-
 
 AText* AbstractFactory::CreateText(ARenderer* renderer)
 {

@@ -35,7 +35,7 @@ enum ImplementedRenderers
  * create a sprite or a texture, it must ask the AbstractFactory for it.
  *
  * From within a specific library, there is no need to go through this factory.
- * For example, from a SDLSprite we can create a new SDLTexture manually
+ * For example, from a SDLText we can create a new SDLTexture manually
  * because we know that SDL is the current renderer anyway.
  *
  * The way to detect which renderer is a mix of #define depending on the
@@ -57,15 +57,6 @@ public:
      * \return ARenderer
      */
     static ARenderer* CreateRenderer();
-
-    /**
-     * \brief Create a platform specific ASprite instance.
-     *
-     * \param renderer - Owning ARenderer instance
-     * \see SDLSprite
-     * \return ASprite
-     */
-    static ASprite* CreateSprite(ARenderer* renderer);
 
     /**
      * \brief Create a platform specific AText instance.

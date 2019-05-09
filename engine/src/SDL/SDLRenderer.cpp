@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "SDL/SDLSprite.h"
 #include "SDL/SDLTexture.h"
 #include "ConfigFile.h"
 #include "Viewport.h"
@@ -206,7 +205,7 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
     SDLTexture* tex = (SDLTexture*)texture;
 
     assert(texture != NULL);
-    
+
     SDL_Rect dest;
     dest.w = (int)tex->GetSize().Width;
     dest.h = (int)tex->GetSize().Height;
@@ -221,7 +220,7 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
 void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts)
 {
     assert(opts != NULL);
-    
+
     float offsetPosX = posX;
     float offsetPosY = posY;
 
@@ -237,7 +236,7 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct 
 SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
     assert(surface != NULL);
-    
+
     SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;
@@ -285,14 +284,14 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
     }
 
     result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
-    
+
     return result;
 }
 
 void SDLRenderer::DeleteTexture(ATexture* texture)
 {
     SDLTexture* tex = (SDLTexture*)texture;
-    
+
     delete(tex);
 }
 

@@ -144,8 +144,6 @@ public:
      * This creates an instance of ASprite with the proper inner type for
      * the current rendering library.
      *
-     * \see SDLSprite
-     *
      * \return ASprite.
      */
     template <typename TSubType = ASprite>

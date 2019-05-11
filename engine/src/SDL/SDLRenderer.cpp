@@ -208,7 +208,12 @@ void SDLRenderer::Draw(ARenderable* renderObject)
 
     tex->RefreshSDLTexture(); // Refresh the texture if needed.
 
-    SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+    int res = SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+    if(res == -1)
+    {
+        const char* msg = SDL_GetError();
+        LogError(msg);
+    }
 
     renderObject->OnPostDraw();
 }
@@ -227,7 +232,12 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
 
     tex->RefreshSDLTexture();
 
-    SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+    int res = SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+    if(res == -1)
+    {
+        const char* msg = SDL_GetError();
+        LogError(msg);
+    }
 }
 
 void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts)
@@ -331,6 +341,11 @@ void SDLRenderer::EndDraw()
         {
             IMG_SavePNG(surf, "out.png");
         }
+        else
+        {
+            const char* msg = SDL_GetError();
+            LogError(msg);
+        }
 
         SDL_FreeSurface(surf);
 
@@ -345,9 +360,6 @@ void SDLRenderer::ScreenshotNextFrame()
 
 void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
 {
-     //SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
-    //SDL_Renderer* rendy = SDL_CreateSoftwareRenderer(surf);
-
     SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, object->GetSize().Width, object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
     

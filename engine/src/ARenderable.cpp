@@ -31,12 +31,12 @@ ARenderable::~ARenderable()
 FRectangle ARenderable::GetRectangle()
 {
     FRectangle myChildBounds = FRectangle(0, 0, 0, 0);
-    
+
     // Get max size of the children bounds
     for(int i = 0; i < this->Children->Count(); i++)
     {
         FRectangle target = this->Children->Get(i)->GetRectangle();
-        
+
         if(target.Left() > myChildBounds.Left())
         {
             myChildBounds.X = target.Left();
@@ -54,7 +54,7 @@ FRectangle ARenderable::GetRectangle()
             myChildBounds.Height = target.Height;
         }
     }
-    
+
     FRectangle myRect = FRectangle(this->position, this->size);
     if(myRect.Left() > myChildBounds.Left())
     {
@@ -72,7 +72,7 @@ FRectangle ARenderable::GetRectangle()
     {
         myRect.Height = myChildBounds.Height;
     }
-    
+
     return myRect;
 }
 
@@ -126,7 +126,7 @@ FSize ARenderable::GetSize()
             biggestSize.Height = this->Children->Get(i)->GetSize().Height;
         }
     }
-    
+
     if(this->size.Width > biggestSize.Width)
     {
         biggestSize.Width = this->size.Width;
@@ -135,7 +135,10 @@ FSize ARenderable::GetSize()
     {
         biggestSize.Height = this->size.Height;
     }
-    
+
+    biggestSize.Width *= this->scale.x;
+    biggestSize.Height *= this->scale.y;
+
     return biggestSize;
 }
 

@@ -71,6 +71,26 @@ public:
     virtual void FillColor(uint32_t color) = 0;
 
     /**
+     * \brief Draw the outline of a rectangle.
+     *
+     * The strokes of the rectangle will start at the specified rec and grow
+     * on the inside by the specified size.
+     *
+     * \param rect - Rectangle to stroke.
+     * \param size - Size of the rectangle strokes;
+     * \param color - Color to use when drawing.
+     */
+    virtual void StrokeRect(FRectangle rect, uint32_t size, uint32_t color) = 0;
+
+    /**
+     * \brief Fill a rectangle on the texture with the specified color.
+     *
+     * \param rect - Rectangle to fill.
+     * \param color - Color to use when drawing.
+     */
+    virtual void FillRect(FRectangle rect, uint32_t color) = 0;
+
+    /**
      * \brief Free all memory allocated by this texture.
      *
      * This can help when the system is under memory pressure. The texture can

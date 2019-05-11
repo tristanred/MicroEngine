@@ -17,7 +17,7 @@ public:
     explicit SDLTexture(ARenderer* renderer);
     SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface);
     ~SDLTexture() override;
-    
+
     void SetSize(FSize size) override;
 
     void SetSolidColor(FSize size, uint32_t color) override;
@@ -25,14 +25,18 @@ public:
 
     void FillColor(uint32_t color) override;
 
+    void StrokeRect(FRectangle rect, uint32_t size, uint32_t color);
+
+    void FillRect(FRectangle rect, uint32_t color);
+
     void FreeTextureMemory() override;
     void ReloadTexture() override;
 
     ATexture* GetSubTexture(int x, int y, int width, int height) override;
-    
+
     void CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos) override;
-    
-    
+
+
     void RefreshSDLTexture();
 
     ARenderer* Renderer;
@@ -46,7 +50,7 @@ public:
 
 
 
-private:    
+private:
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     const Uint32 rmask = 0xff000000;
     const Uint32 gmask = 0x00ff0000;

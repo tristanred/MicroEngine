@@ -37,4 +37,9 @@ public:
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 
     FSize GetWindowSize() override;
+
+    bool screenshotRequested;
+    void ScreenshotNextFrame() override;
+    void SaveToFile(ARenderable* object, const char* path) override;
+    void DrawHiearchy(ARenderable* object);
 };

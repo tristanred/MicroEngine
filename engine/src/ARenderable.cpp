@@ -30,14 +30,50 @@ ARenderable::~ARenderable()
 
 FRectangle ARenderable::GetRectangle()
 {
-    if(this->Parent == NULL)
+    FRectangle myChildBounds = FRectangle(0, 0, 0, 0);
+    
+    // Get max size of the children bounds
+    for(int i = 0; i < this->Children->Count(); i++)
     {
-        return FRectangle(this->position, this->size);
+        FRectangle target = this->Children->Get(i)->GetRectangle();
+        
+        if(target.Left() > myChildBounds.Left())
+        {
+            myChildBounds.X = target.Left();
+        }
+        if(target.Top() > myChildBounds.Top())
+        {
+            myChildBounds.Y = target.Top();
+        }
+        if(target.Right() < target.Right())
+        {
+            myChildBounds.Width = myChildBounds.Width;
+        }
+        if(myChildBounds.Bottom() < target.Bottom())
+        {
+            myChildBounds.Height = target.Height;
+        }
     }
-    else
+    
+    FRectangle myRect = FRectangle(this->position, this->size);
+    if(myRect.Left() > myChildBounds.Left())
     {
-        return FRectangle(this->position, this->size); // TODO
+        myRect.X = myChildBounds.Left();
     }
+    if(myRect.Top() > myChildBounds.Top())
+    {
+        myRect.Y = myChildBounds.Top();
+    }
+    if(myRect.Right() < myChildBounds.Right())
+    {
+        myRect.Width = myChildBounds.Width;
+    }
+    if(myRect.Bottom() < myChildBounds.Bottom())
+    {
+        myRect.Height = myChildBounds.Height;
+    }
+    
+    return myRect;
 }
 
 FPosition ARenderable::GetPosition()
@@ -78,18 +114,29 @@ void ARenderable::SetPosition(float x, float y)
 
 FSize ARenderable::GetSize()
 {
-    if(this->Parent == NULL)
+    FSize biggestSize = FSize(0, 0);
+    for(int i = 0; i < this->Children->Count(); i++)
     {
-        FSize totalSize = this->size;
-        totalSize.Width *= this->scale.x;
-        totalSize.Height *= this->scale.y;
-
-        return totalSize;
+        if(this->Children->Get(i)->GetSize().Width > biggestSize.Width)
+        {
+            biggestSize.Width = this->Children->Get(i)->GetSize().Width;
+        }
+        if(this->Children->Get(i)->GetSize().Height > biggestSize.Height)
+        {
+            biggestSize.Height = this->Children->Get(i)->GetSize().Height;
+        }
     }
-    else
+    
+    if(this->size.Width > biggestSize.Width)
     {
-        return this->size; // TODO
+        biggestSize.Width = this->size.Width;
     }
+    if(this->size.Height > biggestSize.Height)
+    {
+        biggestSize.Height = this->size.Height;
+    }
+    
+    return biggestSize;
 }
 
 void ARenderable::SetSize(FSize size)

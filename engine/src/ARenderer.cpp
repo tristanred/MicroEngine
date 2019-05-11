@@ -70,8 +70,8 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
      * we just put everything on a single row. So check each anim frames for
      * the highest one and add each frame's width to get the total width.
      */
-    
-    
+
+
     int minWidth = 0;
     int minHeight = 0;
 
@@ -85,10 +85,10 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
             minHeight = texture->GetSize().Height;
         }
     }
-    
+
     ATexture* tex = this->CreateTexture();
     tex->SetSize(FSize(minWidth, minHeight));
-    
+
     int currentWidth = 0;
     for(int i = 0; i < anim->Textures->Count(); i++)
     {
@@ -96,6 +96,6 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
         //tex->CopyFrom(texture, FPosition(currentWidth, 0));
     }
 
-    
+
     return tex;
 }

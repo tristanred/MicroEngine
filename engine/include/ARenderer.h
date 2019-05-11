@@ -252,4 +252,18 @@ public:
      * \param anim - Animation to convert
      */
     ATexture* MakeTextureFromAnimation(SpriteAnimation* anim);
+
+    /**
+     * \brief Set a flag to save the next frame to an image file.
+     */
+    virtual void ScreenshotNextFrame() = 0;
+
+    /**
+     * \brief Save a renderable object and its children hierarchy to an
+     * image file.
+     *
+     * \param object - Renderable to save.
+     * \param path - File path for the output.
+     */
+    virtual void SaveToFile(ARenderable* object, const char* path) = 0;
 };

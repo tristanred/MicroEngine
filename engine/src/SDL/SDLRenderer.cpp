@@ -9,12 +9,25 @@
 #include "Viewport.h"
 #include <libtech/filecache.h>
 
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+const Uint32 rmask = 0xff000000;
+const Uint32 gmask = 0x00ff0000;
+const Uint32 bmask = 0x0000ff00;
+const Uint32 amask = 0x000000ff;
+#else
+const Uint32 rmask = 0x000000ff;
+const Uint32 gmask = 0x0000ff00;
+const Uint32 bmask = 0x00ff0000;
+const Uint32 amask = 0xff000000;
+#endif
+
 SDLRenderer::SDLRenderer() : ARenderer()
 {
     LogTrace("SDLRenderer::SDLRenderer");
 
     this->gameRenderer = NULL;
     this->mainWindow = NULL;
+    this->screenshotRequested = false;
 }
 
 SDLRenderer::~SDLRenderer()
@@ -305,5 +318,65 @@ void SDLRenderer::BeginDraw()
 void SDLRenderer::EndDraw()
 {
     SDL_RenderPresent(gameRenderer);
+
+    if(this->screenshotRequested)
+    {
+        FSize screenSize = this->GetWindowSize();
+
+        SDL_Surface* surf = SDL_CreateRGBSurface(0, screenSize.Width, screenSize.Height, 32, rmask, gmask, bmask, amask);
+
+        int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
+
+        if(res == 0)
+        {
+            IMG_SavePNG(surf, "out.png");
+        }
+
+        SDL_FreeSurface(surf);
+
+        this->screenshotRequested = false;
+    }
 }
 
+void SDLRenderer::ScreenshotNextFrame()
+{
+    this->screenshotRequested = true;
+}
+
+void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
+{
+     //SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
+    //SDL_Renderer* rendy = SDL_CreateSoftwareRenderer(surf);
+
+    SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, object->GetSize().Width, object->GetSize().Height);
+    SDL_SetRenderTarget(gameRenderer, tex);
+    
+    this->DrawHiearchy(object);
+    SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
+
+    int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
+
+    if(res == 0)
+    {
+        IMG_SavePNG(surf, path);
+    }
+
+    SDL_FreeSurface(surf);
+    SDL_SetRenderTarget(gameRenderer, NULL);
+    SDL_DestroyTexture(tex);
+}
+
+void SDLRenderer::DrawHiearchy(ARenderable *object)
+{
+    if(object == NULL)
+    {
+        return;
+    }
+    
+    this->Draw(object);
+    auto children = object->GetChildren();
+    for(int i = 0; i < children->Count(); i++)
+    {
+        this->DrawHiearchy(children->Get(i));
+    }
+}

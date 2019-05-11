@@ -78,7 +78,7 @@ public:
      *
      * \param rect - Rectangle to stroke.
      * \param size - Size of the rectangle strokes;
-     * \param color - Color to use when drawing.
+     * \param color - Color to use when drawing. Format is RGBA.
      */
     virtual void StrokeRect(FRectangle rect, uint32_t size, uint32_t color) = 0;
 
@@ -86,7 +86,7 @@ public:
      * \brief Fill a rectangle on the texture with the specified color.
      *
      * \param rect - Rectangle to fill.
-     * \param color - Color to use when drawing.
+     * \param color - Color to use when drawing. Format is RGBA
      */
     virtual void FillRect(FRectangle rect, uint32_t color) = 0;
 

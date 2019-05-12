@@ -186,6 +186,21 @@ void SDLTexture::FillRect(FRectangle rect, uint32_t color)
     this->isDirty = true;
 }
 
+void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size)
+{
+    SDL_Renderer* rendy = SDL_CreateSoftwareRenderer(this->surf);
+    uint8_t r = (color & 0xFF000000) >> 24;
+    uint8_t g = (color & 0x00FF0000) >> 16;
+    uint8_t b = (color & 0x0000FF00) >> 8;
+    uint8_t a = (color & 0x000000FF);
+    SDL_SetRenderDrawColor(rendy, r, g, b, a);
+
+    SDL_RenderDrawLine(rendy, pos1.X, pos1.Y, pos2.X, pos2.Y);
+    SDL_DestroyRenderer(rendy);
+
+    this->isDirty = true;
+}
+
 void SDLTexture::FreeTextureMemory()
 {
     if (surf != NULL)

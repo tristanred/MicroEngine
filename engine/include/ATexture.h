@@ -91,6 +91,16 @@ public:
     virtual void FillRect(FRectangle rect, uint32_t color) = 0;
 
     /**
+     * \brief Draw a line on the texture.
+     *
+     * \param pos1 - Position 1
+     * \param pos2 - Position 2
+     * \param color - Color for the line
+     * \param size - Size of the line (unused for now)
+     */
+    virtual void DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size) = 0;
+
+    /**
      * \brief Free all memory allocated by this texture.
      *
      * This can help when the system is under memory pressure. The texture can

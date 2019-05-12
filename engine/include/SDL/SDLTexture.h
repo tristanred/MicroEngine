@@ -25,9 +25,9 @@ public:
 
     void FillColor(uint32_t color) override;
 
-    void StrokeRect(FRectangle rect, uint32_t size, uint32_t color);
-
-    void FillRect(FRectangle rect, uint32_t color);
+    void StrokeRect(FRectangle rect, uint32_t size, uint32_t color) override;
+    void FillRect(FRectangle rect, uint32_t color) override;
+    void DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size) override;
 
     void FreeTextureMemory() override;
     void ReloadTexture() override;

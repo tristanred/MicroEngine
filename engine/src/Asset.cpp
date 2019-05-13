@@ -16,12 +16,17 @@ Asset::Asset()
     path = NULL;
     size = 0;
     data = NULL;
+
+#ifdef _WIN32
+    this->hAssetFile = INVALID_HANDLE_VALUE;
+    this->hFileMap = INVALID_HANDLE_VALUE;
+#endif
 }
 
 Asset::~Asset()
 {
 #ifdef _WIN32
-    if(this->hFileMap != NULL)
+    if(this->hFileMap != INVALID_HANDLE_VALUE)
     {
         CloseHandle(this->hFileMap);
     }

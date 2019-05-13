@@ -116,6 +116,11 @@ void SDLTexture::LoadFromFile(const char* filepath)
         return;
     }
 
+    if (this->surf->format->BitsPerPixel != 32)
+    {
+        LogWarning("Surface format is %c bpp instead of 32. Recommends to convert the image.", this->surf->format->BitsPerPixel);
+    }
+
     loadedTexturePath = filepath;
 
     this->textureSize = FSize((float)this->surf->w, (float)this->surf->h);

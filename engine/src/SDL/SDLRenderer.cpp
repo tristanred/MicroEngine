@@ -306,6 +306,11 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
         return NULL;
     }
 
+    if (surface->format->BitsPerPixel != 32)
+    {
+        LogWarning("Surface format is %c bpp instead of 32. Recommends to convert the image.", surface->format->BitsPerPixel);
+    }
+
     result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
 
     return result;

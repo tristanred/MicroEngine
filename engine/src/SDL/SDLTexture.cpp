@@ -154,6 +154,7 @@ void SDLTexture::StrokeRect(FRectangle rect, uint32_t size, uint32_t color)
     uint8_t b = (color & 0x0000FF00) >> 8;
     uint8_t a = (color & 0x000000FF);
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
+    SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
     for(int i = 0; i < size; i++)
     {
@@ -178,6 +179,7 @@ void SDLTexture::FillRect(FRectangle rect, uint32_t color)
     uint8_t b = (color & 0x0000FF00) >> 8;
     uint8_t a = (color & 0x000000FF);
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
+    SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
     SDL_Rect dest;
     dest.w = rect.Width;
@@ -199,6 +201,7 @@ void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32
     uint8_t b = (color & 0x0000FF00) >> 8;
     uint8_t a = (color & 0x000000FF);
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
+    SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
     SDL_RenderDrawLine(rendy, pos1.X, pos1.Y, pos2.X, pos2.Y);
     SDL_DestroyRenderer(rendy);

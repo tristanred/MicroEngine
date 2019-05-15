@@ -2,10 +2,12 @@
 
 #include "core.h"
 
+template <class TInner = void>
 class ENGINE_CLASS ITraversable
 {
 public:
-
+    TInner* inner;
+    
     virtual bool IsPassable() = 0;
 
     virtual ITraversable* Left() = 0;

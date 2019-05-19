@@ -72,6 +72,8 @@ public:
      * \param y - Y position
      */
     virtual void SetPosition(float x, float y);
+    
+    virtual void SetPositionAnchored(FPosition position, vec2 anchor);
 
     /**
      * \brief Get the size of this object.

@@ -115,6 +115,17 @@ void ARenderable::SetPosition(float x, float y)
     this->position.Y = y;
 }
 
+void ARenderable::SetPositionAnchored(FPosition position, vec2 anchor)
+{
+    auto currentSize = this->GetSize();
+    
+    auto sizeOffset = vec2(currentSize.Width * anchor.x, currentSize.Height * anchor.y);
+    
+    FPosition newPos = FPosition(this->position.X - sizeOffset.x, this->position.Y - sizeOffset.y);
+    
+    this->SetPosition(newPos);
+}
+
 FSize ARenderable::GetSize()
 {
     FSize biggestSize = FSize(0, 0);

@@ -30,50 +30,53 @@ ARenderable::~ARenderable()
 
 FRectangle ARenderable::GetRectangle()
 {
-    FRectangle myChildBounds = FRectangle(0, 0, 0, 0);
-
-    // Get max size of the children bounds
-    for(int i = 0; i < this->Children->Count(); i++)
+    if(this->Children->Count() > 0)
     {
-        FRectangle target = this->Children->Get(i)->GetRectangle();
-
-        if(target.Left() > myChildBounds.Left())
+        FRectangle myChildBounds = FRectangle(0, 0, 0, 0);
+        
+        // Get max size of the children bounds
+        for(int i = 0; i < this->Children->Count(); i++)
         {
-            myChildBounds.X = target.Left();
+            FRectangle target = this->Children->Get(i)->GetRectangle();
+            
+            if(target.Left() > myChildBounds.Left())
+            {
+                myChildBounds.X = target.Left();
+            }
+            if(target.Top() > myChildBounds.Top())
+            {
+                myChildBounds.Y = target.Top();
+            }
+            if(target.Right() < target.Right())
+            {
+                myChildBounds.Width = myChildBounds.Width;
+            }
+            if(myChildBounds.Bottom() < target.Bottom())
+            {
+                myChildBounds.Height = target.Height;
+            }
         }
-        if(target.Top() > myChildBounds.Top())
+        
+        FRectangle myRect = FRectangle(this->position, this->size);
+        if(myChildBounds.Left() < myRect.Left())
         {
-            myChildBounds.Y = target.Top();
+            myRect.X = myChildBounds.Left();
         }
-        if(target.Right() < target.Right())
+        if(myChildBounds.Top() < myRect.Top())
         {
-            myChildBounds.Width = myChildBounds.Width;
+            myRect.Y = myChildBounds.Top();
         }
-        if(myChildBounds.Bottom() < target.Bottom())
+        if(myChildBounds.Right() > myRect.Right())
         {
-            myChildBounds.Height = target.Height;
+            myRect.Width = myChildBounds.X + myChildBounds.Width;
+        }
+        if(myChildBounds.Bottom() > myRect.Bottom())
+        {
+            myRect.Height = myChildBounds.Y + myChildBounds.Height;
         }
     }
 
-    FRectangle myRect = FRectangle(this->position, this->size);
-    if(myRect.Left() > myChildBounds.Left())
-    {
-        myRect.X = myChildBounds.Left();
-    }
-    if(myRect.Top() > myChildBounds.Top())
-    {
-        myRect.Y = myChildBounds.Top();
-    }
-    if(myRect.Right() < myChildBounds.Right())
-    {
-        myRect.Width = myChildBounds.Width;
-    }
-    if(myRect.Bottom() < myChildBounds.Bottom())
-    {
-        myRect.Height = myChildBounds.Height;
-    }
-
-    return myRect;
+    return FRectangle(this->position, this->size);
 }
 
 FPosition ARenderable::GetPosition()

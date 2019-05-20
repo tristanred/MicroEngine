@@ -150,8 +150,9 @@ FSize ARenderable::GetSize()
         biggestSize.Height = this->size.Height;
     }
 
-    biggestSize.Width *= this->scale.x;
-    biggestSize.Height *= this->scale.y;
+    vec2 totalScale = this->GetScale();
+    biggestSize.Width *= totalScale.x;
+    biggestSize.Height *= totalScale.y;
 
     return biggestSize;
 }
@@ -175,7 +176,21 @@ void ARenderable::SetSize(float w, float h)
 
 vec2 ARenderable::GetScale()
 {
-    return this->scale;
+    vec2 finalScale = this->scale;
+    
+    // TODO : Work in progress. Won't work because the children are not added
+    // to a scalable surface.
+//    ARenderable* next = this->Parent;
+//    while(next != NULL)
+//    {
+//        vec2 parentScale = next->GetScale();
+//        finalScale.x *= parentScale.x;
+//        finalScale.y *= parentScale.y;
+//
+//        next = next->Parent;
+//    }
+    
+    return finalScale;
 }
 
 void ARenderable::SetScale(float scale)

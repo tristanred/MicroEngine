@@ -47,9 +47,9 @@ FRectangle ARenderable::GetRectangle()
             {
                 myChildBounds.Y = target.Top();
             }
-            if(target.Right() < target.Right())
+            if(myChildBounds.Right() < target.Right())
             {
-                myChildBounds.Width = myChildBounds.Width;
+                myChildBounds.Width = target.Width;
             }
             if(myChildBounds.Bottom() < target.Bottom())
             {
@@ -74,6 +74,8 @@ FRectangle ARenderable::GetRectangle()
         {
             myRect.Height = myChildBounds.Y + myChildBounds.Height;
         }
+        
+        return myRect;
     }
 
     return FRectangle(this->position, this->size);

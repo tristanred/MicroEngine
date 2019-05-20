@@ -368,7 +368,7 @@ void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
     SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, object->GetSize().Width, object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
     
-    this->DrawHiearchy(object);
+    this->DrawHierarchy(object);
     SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
 
     int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
@@ -383,7 +383,7 @@ void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
     SDL_DestroyTexture(tex);
 }
 
-void SDLRenderer::DrawHiearchy(ARenderable *object)
+void SDLRenderer::DrawHierarchy(ARenderable *object)
 {
     if(object == NULL)
     {
@@ -394,6 +394,6 @@ void SDLRenderer::DrawHiearchy(ARenderable *object)
     auto children = object->GetChildren();
     for(int i = 0; i < children->Count(); i++)
     {
-        this->DrawHiearchy(children->Get(i));
+        this->DrawHierarchy(children->Get(i));
     }
 }

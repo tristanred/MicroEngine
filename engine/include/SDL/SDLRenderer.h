@@ -41,5 +41,5 @@ public:
     bool screenshotRequested;
     void ScreenshotNextFrame() override;
     void SaveToFile(ARenderable* object, const char* path) override;
-    void DrawHiearchy(ARenderable* object);
+    void DrawHierarchy(ARenderable* object);
 };

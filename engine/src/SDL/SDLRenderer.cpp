@@ -325,6 +325,7 @@ void SDLRenderer::DeleteTexture(ATexture* texture)
 
 void SDLRenderer::BeginDraw()
 {
+    // Clear screen using the color Cornflower Blue, the best color.
     SDL_SetRenderDrawColor(gameRenderer, 100, 149, 237, 255);
 
     SDL_RenderClear(gameRenderer);

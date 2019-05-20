@@ -134,8 +134,6 @@ void SDLTexture::FillColor(uint32_t color)
 
     if(this->surf != NULL)
     {
-        //SDL_FreeSurface(surf);
-
         loadedTexturePath = NULL;
 
         SDL_FillRect(this->surf, NULL, color);
@@ -148,7 +146,7 @@ void SDLTexture::StrokeRect(FRectangle rect, uint32_t size, uint32_t color)
 {
     SDL_Renderer* rendy = SDL_CreateSoftwareRenderer(this->surf);
 
-    // Format is RGBA
+    // Parameter format is RGBA
     uint8_t r = (color & 0xFF000000) >> 24;
     uint8_t g = (color & 0x00FF0000) >> 16;
     uint8_t b = (color & 0x0000FF00) >> 8;

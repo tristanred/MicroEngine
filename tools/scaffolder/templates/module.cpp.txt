@@ -1,0 +1,21 @@
+#include "<--MODULE_NAME-->.h"
+
+<--MODULE_NAME-->::<--MODULE_NAME-->(GameEngine* engine)
+    : GameModule(engine)
+{
+    engine->ResManager->AddAssetRoot("assets");
+}
+
+<--MODULE_NAME-->::~<--MODULE_NAME-->()
+{
+}
+
+void <--MODULE_NAME-->::Update(unsigned int deltaTime)
+{
+    GameModule::Update(deltaTime);
+}
+
+void <--MODULE_NAME-->::Draw(ARenderer* renderer)
+{
+    GameModule::Draw(renderer);
+}

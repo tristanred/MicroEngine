@@ -1,0 +1,13 @@
+#pragma once
+
+#include <Game/Game.h>
+
+class <--MODULE_NAME--> : public GameModule
+{
+public:
+    <--MODULE_NAME-->(GameEngine* engine);
+    ~<--MODULE_NAME-->();
+
+    void Update(unsigned int deltaTime) override;
+    void Draw(ARenderer* renderer) override;
+};

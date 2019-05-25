@@ -115,6 +115,10 @@ IF(WIN32)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 ENDIF(WIN32)
 
+IF(APPLE)
+    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -x objective-c++")
+ENDIF(APPLE)
+
 #
 # Create projects
 #

@@ -11,14 +11,27 @@
 
 #endif
 
-#if SUPPORT_DIRECTX == 0
+#if SUPPORT_DIRECTX == 1
 #endif
 
-enum ImplementedRenderers AbstractFactory::ActivatedRenderer = RENDERER_SDL;
+#if SUPPORT_COCOA == 1
+
+#include "Cocoa/CocoaFont.h"
+#include "Cocoa/CocoaKeyboard.h"
+#include "Cocoa/CocoaMouse.h"
+#include "Cocoa/CocoaPlatform.h"
+#include "Cocoa/CocoaRenderer.h"
+#include "Cocoa/CocoaText.h"
+#include "Cocoa/CocoaTexture.h"
+
+#endif
+
+enum ImplementedRenderers AbstractFactory::ActivatedRenderer = RENDERER_COCOA;
 
 AbstractFactory::AbstractFactory()
 {
-    AbstractFactory::ActivatedRenderer = RENDERER_SDL;
+    //AbstractFactory::ActivatedRenderer = RENDERER_SDL;
+    AbstractFactory::ActivatedRenderer = RENDERER_COCOA;
 }
 
 AbstractFactory::~AbstractFactory()
@@ -34,6 +47,12 @@ ARenderer *AbstractFactory::CreateRenderer()
         {
             LogTrace("AbstractFactory creating SDL Renderer");
             return new SDLRenderer();
+        }
+#endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaRenderer();
         }
 #endif
         default:
@@ -59,6 +78,12 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
             return new SDLText(renderer);
         }
 #endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaText(renderer);
+        }
+#endif
         default:
         {
             LogError("Factory unable to create a Text instance. Activated renderer is %d", ActivatedRenderer);
@@ -79,6 +104,12 @@ AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
         {
             LogTrace("AbstractFactory creating SDL Font.");
             return new SDLFont();
+        }
+#endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaFont();
         }
 #endif
         default:
@@ -103,6 +134,12 @@ APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
             return new SDLPlatform(renderer);
         }
 #endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaPlatform(renderer);
+        }
+#endif
         default:
         {
             LogError("Factory unable to create a Platform Handler instance. Activated renderer is %d", ActivatedRenderer);
@@ -123,6 +160,12 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
         {
             LogTrace("AbstractFactory creating texture");
             return new SDLTexture(renderer);
+        }
+#endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaTexture(renderer);
         }
 #endif
         default:
@@ -147,6 +190,12 @@ AMouse* AbstractFactory::CreateMouse()
             return new SDLMouse();
         }
 #endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaMouse();
+        }
+#endif
         default:
         {
             LogError("Factory unable to create a Mouse instance. Activated renderer is %d", ActivatedRenderer);
@@ -168,6 +217,12 @@ AKeyboard* AbstractFactory::CreateKeyboard()
         {
             LogTrace("AbstractFactory creating keyboard");
             return new SDLKeyboard();
+        }
+#endif
+#if SUPPORT_COCOA
+        case RENDERER_COCOA:
+        {
+            return new CocoaKeyboard();
         }
 #endif
         default:

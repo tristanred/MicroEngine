@@ -24,6 +24,7 @@ enum ImplementedRenderers
 {
     RENDERER_SDL,
     RENDERER_DIRECTX,
+    RENDERER_COCOA
 };
 
 /**

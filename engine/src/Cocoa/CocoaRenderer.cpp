@@ -29,6 +29,7 @@ bool CocoaRenderer::Initialize()
     [NSApp activateIgnoringOtherApps:YES];
 
     app.delegate = appDel;
+    
     [app run];
 
     return true;

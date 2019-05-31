@@ -1,8 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
-@interface CocoaAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate> {
+@interface CocoaAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
-NSWindow * win;
+@property NSWindow* win;
 
-}
 @end

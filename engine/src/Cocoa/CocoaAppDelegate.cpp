@@ -20,7 +20,16 @@
     butan.title = [NSString stringWithUTF8String:"Things"];
     [win.contentView addSubview:butan];
     [win makeKeyAndOrderFront:nil];
-
+    
+    NSGraphicsContext* ctx = [NSGraphicsContext graphicsContextWithWindow:win];
+    NSImage* imgg = [[NSImage alloc] initWithContentsOfFile:@"assets/Player.png"];
+    
+    [NSGraphicsContext setCurrentContext:ctx];
+    
+    [imgg drawAtPoint:NSMakePoint(50, 50)
+             fromRect: NSMakeRect(0.0, 0.0, 64, 64)
+            operation: NSCompositingOperationCopy
+             fraction: 1.0];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

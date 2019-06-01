@@ -36,12 +36,6 @@ ARenderer *AbstractFactory::CreateRenderer()
             return new SDLRenderer();
         }
 #endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXRenderer();
-        }
-#endif
         default:
         {
             LogError("Factory unable to create an Renderer instance. Activated renderer is %d", ActivatedRenderer);
@@ -63,12 +57,6 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
         {
             LogTrace("AbstractFactory creating SDL Text.");
             return new SDLText(renderer);
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXText();
         }
 #endif
         default:
@@ -93,12 +81,6 @@ AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
             return new SDLFont();
         }
 #endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXFont();
-        }
-#endif
         default:
         {
             LogError("Factory unable to create a Font instance. Activated renderer is %d", ActivatedRenderer);
@@ -119,12 +101,6 @@ APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
         {
             LogTrace("AbstractFactory creating texture");
             return new SDLPlatform(renderer);
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXTexture(renderer);
         }
 #endif
         default:
@@ -149,12 +125,6 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
             return new SDLTexture(renderer);
         }
 #endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXTexture(renderer);
-        }
-#endif
         default:
         {
             LogError("Factory unable to create a Texture instance. Activated renderer is %d", ActivatedRenderer);
@@ -175,12 +145,6 @@ AMouse* AbstractFactory::CreateMouse()
         {
             LogTrace("AbstractFactory creating Mouse");
             return new SDLMouse();
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXMouse();
         }
 #endif
         default:
@@ -204,12 +168,6 @@ AKeyboard* AbstractFactory::CreateKeyboard()
         {
             LogTrace("AbstractFactory creating keyboard");
             return new SDLKeyboard();
-        }
-#endif
-#if SUPPORT_DIRECTX
-        case RENDERER_DIRECTX:
-        {
-            return new DXKeyboard(renderer);
         }
 #endif
         default:

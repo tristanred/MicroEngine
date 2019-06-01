@@ -1,6 +1,6 @@
 #pragma once
 
-#if SUPPORT_COCOA == 1
+#ifdef SUPPORT_COCOA
 
 #include "libtech/vec.h"
 #include "Input/AMouse.h"

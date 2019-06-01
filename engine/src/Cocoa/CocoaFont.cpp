@@ -1,4 +1,4 @@
-#if SUPPORT_COCOA == 1
+#ifdef SUPPORT_COCOA
 
 #include "Cocoa/CocoaFont.h"
 

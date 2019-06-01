@@ -1,4 +1,4 @@
-#if SUPPORT_COCOA == 1
+#ifdef SUPPORT_COCOA
 
 #import <Cocoa/Cocoa.h>
 

@@ -15,10 +15,6 @@ class AKeyboard;
 
 /**
  * \brief List of graphic renderers that are implemented.
- *
- * \remark At the moment, only SDL is implemented. Despite what the
- * inclusion of the RENDERER_DIRECTX value, DirectX is NOT implemented yet,
- * it is only to test multiple values in the enum.
  */
 enum ImplementedRenderers
 {

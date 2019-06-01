@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaMouse.h"
 
 CocoaMouse::CocoaMouse()
@@ -29,4 +31,4 @@ vec2 CocoaMouse::GetMousePosition()
 {
     return vec2(0, 0);
 }
-
+#endif

@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaFont.h"
 
 CocoaFont::CocoaFont()
@@ -19,3 +21,4 @@ void CocoaFont::LoadFontFile(Asset* asset)
 {
 
 }
+#endif

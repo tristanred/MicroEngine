@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaText.h"
 
 CocoaText::CocoaText(ARenderer* renderer)
@@ -65,3 +67,4 @@ void CocoaText::RefreshTexture()
 {
 
 }
+#endif

@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaTexture.h"
 
 CocoaTexture::CocoaTexture(ARenderer* renderer)
@@ -70,3 +72,4 @@ void RefreshSDLTexture()
 {
 
 }
+#endif

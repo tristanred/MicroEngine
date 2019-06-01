@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 #include <vector>
 #include "libtech/pair.h"
 #include "Input/AKeyboard.h"
@@ -23,4 +25,4 @@ private:
     uint8_t* previousScancodes;
     uint8_t* currentScancodes;
 };
-
+#endif

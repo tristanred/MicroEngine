@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 class ARenderer;
 
 #include "core.h"
@@ -15,3 +17,5 @@ public:
 
     void Shutdown() override;
 };
+
+#endif

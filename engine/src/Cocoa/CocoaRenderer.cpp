@@ -1,12 +1,11 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaRenderer.h"
-
 #include "Cocoa/CocoaTexture.h"
-
 #include <Foundation/Foundation.h>
 #include <AppKit/AppKit.h>
 #import <Cocoa/Cocoa.h>
 #include "Cocoa/CocoaAppDelegate.h"
-
 
 CocoaRenderer::CocoaRenderer()
 {
@@ -29,7 +28,7 @@ bool CocoaRenderer::Initialize()
     [NSApp activateIgnoringOtherApps:YES];
 
     app.delegate = appDel;
-    
+
     [app run];
 
     return true;
@@ -109,3 +108,4 @@ void CocoaRenderer::DrawHierarchy(ARenderable* object)
 {
 
 }
+#endif

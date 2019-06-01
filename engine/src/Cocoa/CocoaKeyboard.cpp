@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaKeyboard.h"
 
 CocoaKeyboard::CocoaKeyboard()
@@ -39,4 +41,4 @@ void CocoaKeyboard::UpdateKeyboardPastState()
 {
 
 }
-
+#endif

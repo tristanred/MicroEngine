@@ -1,3 +1,5 @@
+#if SUPPORT_COCOA == 1
+
 #include "Cocoa/CocoaPlatform.h"
 
 CocoaPlatform::CocoaPlatform(ARenderer* renderer)
@@ -20,4 +22,4 @@ void CocoaPlatform::Shutdown()
 {
 
 }
-
+#endif

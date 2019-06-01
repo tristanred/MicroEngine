@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 class CocoaRenderer;
 
 #include "core.h"
@@ -49,3 +51,4 @@ private:
     uint32_t foregroundColor;
     TextStyle style;
 };
+#endif

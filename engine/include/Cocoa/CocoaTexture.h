@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 class ARenderer;
 class CocoaRenderer;
 
@@ -39,3 +41,5 @@ public:
 
     ARenderer* Renderer;
 };
+
+#endif

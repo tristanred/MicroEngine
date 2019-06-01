@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 class Asset;
 
 #include "core.h"
@@ -15,3 +17,5 @@ public:
 
     void LoadFontFile(Asset* asset) override;
 };
+
+#endif

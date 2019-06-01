@@ -1,5 +1,7 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 #include "libtech/vec.h"
 #include "Input/AMouse.h"
 
@@ -21,3 +23,4 @@ private:
     float MouseCoordY = 0;
 };
 
+#endif

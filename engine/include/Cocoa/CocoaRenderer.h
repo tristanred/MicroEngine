@@ -1,10 +1,11 @@
 #pragma once
 
+#if SUPPORT_COCOA == 1
+
 #include "core.h"
 #include "ARenderer.h"
 #include "ASprite.h"
 #include "ATexture.h"
-
 
 class ENGINE_CLASS CocoaRenderer : public ARenderer
 {
@@ -42,3 +43,5 @@ public:
     void SaveToFile(ARenderable* object, const char* path) override;
     void DrawHierarchy(ARenderable* object);
 };
+
+#endif

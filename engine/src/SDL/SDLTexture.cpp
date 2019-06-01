@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLTexture.h"
 
 #include "SDL/SDLRenderer.h"
@@ -318,3 +320,4 @@ void SDLTexture::RefreshSDLTexture()
     }
 }
 
+#endif

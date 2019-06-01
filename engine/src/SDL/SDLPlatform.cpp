@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLPlatform.h"
 
 #include "SDL.h"
@@ -37,3 +39,4 @@ void SDLPlatform::HandleEvents()
 void SDLPlatform::Shutdown()
 {
 }
+#endif

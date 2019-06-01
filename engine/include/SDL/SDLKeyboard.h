@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 #include <SDL_events.h>
 #include <SDL_scancode.h>
 
@@ -28,4 +30,4 @@ private:
     Uint8* previousScancodes;
     Uint8* currentScancodes;
 };
-
+#endif

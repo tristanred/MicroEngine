@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 #include <SDL.h>
 
 #include "core.h"
@@ -43,3 +45,4 @@ public:
     void SaveToFile(ARenderable* object, const char* path) override;
     void DrawHierarchy(ARenderable* object);
 };
+#endif

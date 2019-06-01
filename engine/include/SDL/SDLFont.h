@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 class Asset;
 
 #include "core.h"
@@ -14,10 +16,11 @@ class ENGINE_CLASS SDLFont : public AFont
 public:
     SDLFont();
     ~SDLFont() override;
-    
+
     TTF_Font* fontObject;
-    
+
     void LoadFontFile(std::string path) override;
-    
+
     void LoadFontFile(Asset* asset) override;
 };
+#endif

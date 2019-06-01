@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 class ARenderer;
 class SDLRenderer;
 
@@ -63,3 +65,4 @@ private:
     const Uint32 amask = 0xff000000;
 #endif
 };
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 class SDLRenderer;
 
 #include "core.h"
@@ -20,10 +22,10 @@ public:
 
     std::string* GetText() override;
     void SetText(std::string text) override;
-    
+
     AFont* GetFont() override;
     void SetFont(AFont* font) override;
-    
+
     int GetCharacterSize() override;
     void SetCharacterSize(int size) override;
 
@@ -49,3 +51,4 @@ private:
     uint32_t foregroundColor;
     TextStyle style;
 };
+#endif

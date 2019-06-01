@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLText.h"
 
 #include "SDL/SDLRenderer.h"
@@ -121,6 +123,7 @@ void SDLText::RefreshTexture()
     this->SetSize(FSize((float)renderedSurface->w, (float)renderedSurface->h));
 
     SDLTexture* newTex = new SDLTexture(this->sdlRenderer, renderedSurface);
-    
+
     this->SetTexture(newTex);
 }
+#endif

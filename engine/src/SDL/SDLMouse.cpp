@@ -1,5 +1,6 @@
-#include "SDL/SDLMouse.h"
+#ifdef SUPPORT_SDL
 
+#include "SDL/SDLMouse.h"
 
 SDLMouse::SDLMouse()
 {
@@ -69,3 +70,4 @@ void SDLMouse::UpdateMouseState()
     bool middleButtonClicked = state & SDL_BUTTON(SDL_BUTTON_MIDDLE);
     this->Middle_Current_State = middleButtonClicked ? BTN_CLICKED : BTN_RELEASED;
 }
+#endif

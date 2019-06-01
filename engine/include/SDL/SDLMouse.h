@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef SUPPORT_SDL
+
 #include <SDL_events.h>
 
 #include "libtech/vec.h"
@@ -24,3 +26,4 @@ private:
     float MouseCoordY = 0;
 };
 
+#endif

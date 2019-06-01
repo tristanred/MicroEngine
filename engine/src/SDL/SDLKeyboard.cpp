@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLKeyboard.h"
 
 #include <string.h>
@@ -48,3 +50,4 @@ void SDLKeyboard::UpdateKeyboardPastState()
 {
     // Nothing to do
 }
+#endif

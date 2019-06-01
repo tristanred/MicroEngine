@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLRenderer.h"
 
 #include <cstdio>
@@ -368,7 +370,7 @@ void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
 {
     SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, object->GetSize().Width, object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
-    
+
     this->DrawHierarchy(object);
     SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
 
@@ -390,7 +392,7 @@ void SDLRenderer::DrawHierarchy(ARenderable *object)
     {
         return;
     }
-    
+
     this->Draw(object);
     auto children = object->GetChildren();
     for(int i = 0; i < children->Count(); i++)
@@ -398,3 +400,4 @@ void SDLRenderer::DrawHierarchy(ARenderable *object)
         this->DrawHierarchy(children->Get(i));
     }
 }
+#endif

@@ -111,12 +111,19 @@ IF(WIN32)
     add_definitions("-D_WINDOWS")
     add_definitions("-D_UNICODE")
     add_definitions("/Zc:strictStrings-")
+    add_definitions("-DSUPPORT_SDL")
+    add_definitions("-DSUPPORT_DIRECTX")
 
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 ENDIF(WIN32)
 
 IF(APPLE)
+    add_definitions("-DSUPPORT_SDL")
+    add_definitions("-DSUPPORT_COCOA")
+
     SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -x objective-c++")
+ELSEIF(UNIX)
+    add_definitions("-DSUPPORT_SDL")
 ENDIF(APPLE)
 
 #

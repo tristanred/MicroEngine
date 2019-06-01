@@ -1,3 +1,5 @@
+#ifdef SUPPORT_SDL
+
 #include "SDL/SDLFont.h"
 
 #include "Asset.h"
@@ -38,3 +40,4 @@ void SDLFont::LoadFontFile(Asset* asset)
         LogError(errorString);
     }
 }
+#endif

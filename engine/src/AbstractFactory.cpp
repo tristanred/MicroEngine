@@ -1,6 +1,6 @@
 #include "AbstractFactory.h"
 
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
 
 #include "SDL/SDLText.h"
 #include "SDL/SDLTexture.h"
@@ -11,10 +11,10 @@
 
 #endif
 
-#if SUPPORT_DIRECTX == 1
+#ifdef SUPPORT_DIRECTX
 #endif
 
-#if SUPPORT_COCOA == 1
+#ifdef SUPPORT_COCOA
 
 #include "Cocoa/CocoaFont.h"
 #include "Cocoa/CocoaKeyboard.h"
@@ -42,7 +42,7 @@ ARenderer *AbstractFactory::CreateRenderer()
 {
     switch(ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating SDL Renderer");
@@ -71,7 +71,7 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
 {
     switch (ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating SDL Text.");
@@ -99,7 +99,7 @@ AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
 {
     switch (ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating SDL Font.");
@@ -127,7 +127,7 @@ APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
 {
     switch (ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating texture");
@@ -155,7 +155,7 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
 {
     switch(ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating texture");
@@ -183,7 +183,7 @@ AMouse* AbstractFactory::CreateMouse()
 {
     switch (ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating Mouse");
@@ -212,7 +212,7 @@ AKeyboard* AbstractFactory::CreateKeyboard()
 {
     switch (ActivatedRenderer)
     {
-#if SUPPORT_SDL == 1
+#ifdef SUPPORT_SDL
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating keyboard");

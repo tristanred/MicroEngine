@@ -107,6 +107,8 @@ public:
      * \param h - Height
      */
     virtual void SetSize(float w, float h);
+    
+    virtual FPolygon GetPolygon();
 
     /**
      * \brief Get the scale of this object.

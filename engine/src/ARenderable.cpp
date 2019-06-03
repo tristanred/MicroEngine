@@ -176,6 +176,11 @@ void ARenderable::SetSize(float w, float h)
     }
 }
 
+FPolygon ARenderable::GetPolygon()
+{
+    return this->GetRectangle().AsPolygon();
+}
+
 vec2 ARenderable::GetScale()
 {
     vec2 finalScale = this->scale;
@@ -322,3 +327,5 @@ void ARenderable::OnPostDraw()
 {
 
 }
+
+

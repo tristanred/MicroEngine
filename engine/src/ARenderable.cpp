@@ -28,6 +28,11 @@ ARenderable::~ARenderable()
     delete(this->Children);
 }
 
+void ARenderable::Show(bool value)
+{
+    this->isVisible = value;
+}
+
 FRectangle ARenderable::GetRectangle()
 {
     if(this->Children->Count() > 0)

@@ -47,6 +47,8 @@ class ENGINE_CLASS ARenderable
 public:
     ARenderable(ARenderer* renderer);
     virtual ~ARenderable();
+    
+    virtual void Show(bool value);
 
     /**
      * \brief Get the position of this object.

@@ -1,6 +1,7 @@
 #pragma once
 
 class ATexture;
+class GameEngine;
 
 #include "core.h"
 #include "ARenderable.h"
@@ -71,7 +72,7 @@ public:
 class ENGINE_CLASS ASprite : public ARenderable
 {
 public:
-    ASprite(ARenderer* renderer);
+    ASprite(GameEngine* engine);
     virtual ~ASprite() override;
 
     /**

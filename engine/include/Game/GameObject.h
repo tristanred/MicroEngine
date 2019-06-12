@@ -1,7 +1,9 @@
 #pragma once
 
 #include "core.h"
-#include <GameModule.h>
+
+class GameModule;
+class GameEngine;
 
 class ENGINE_CLASS GameObject
 {
@@ -12,7 +14,6 @@ public:
     virtual void Setup(GameModule* currentModule);
 
     virtual void Update(unsigned int deltaTime);
-    virtual void Draw();
 
 protected:
     GameModule* Owner;
@@ -24,5 +25,4 @@ protected:
 private:
     // Some debug properties
     unsigned int lastUpdateTime;
-    unsigned int lastDrawTime;
 };

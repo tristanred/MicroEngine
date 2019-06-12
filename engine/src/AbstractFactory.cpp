@@ -1,5 +1,7 @@
 #include "AbstractFactory.h"
 
+#include "GameEngine.h"
+
 #if SUPPORT_SDL == 1
 
 #include "SDL/SDLText.h"
@@ -48,7 +50,7 @@ ARenderer *AbstractFactory::CreateRenderer()
 
 }
 
-AText* AbstractFactory::CreateText(ARenderer* renderer)
+AText* AbstractFactory::CreateText(GameEngine* engine)
 {
     switch (ActivatedRenderer)
     {
@@ -56,7 +58,7 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating SDL Text.");
-            return new SDLText(renderer);
+            return new SDLText(engine);
         }
 #endif
         default:
@@ -70,7 +72,7 @@ AText* AbstractFactory::CreateText(ARenderer* renderer)
     return nullptr;
 }
 
-AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
+AFont* AbstractFactory::CreateTextFont(GameEngine* engine)
 {
     switch (ActivatedRenderer)
     {
@@ -92,7 +94,7 @@ AFont* AbstractFactory::CreateTextFont(ARenderer* renderer)
     return nullptr;
 }
 
-APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
+APlatform* AbstractFactory::CreatePlatformHandler(GameEngine* engine)
 {
     switch (ActivatedRenderer)
     {
@@ -100,7 +102,7 @@ APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating texture");
-            return new SDLPlatform(renderer);
+            return new SDLPlatform(engine);
         }
 #endif
         default:
@@ -114,7 +116,7 @@ APlatform* AbstractFactory::CreatePlatformHandler(ARenderer* renderer)
     return nullptr;
 }
 
-ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
+ATexture *AbstractFactory::CreateTexture(GameEngine* engine)
 {
     switch(ActivatedRenderer)
     {
@@ -122,7 +124,7 @@ ATexture *AbstractFactory::CreateTexture(ARenderer* renderer)
         case RENDERER_SDL:
         {
             LogTrace("AbstractFactory creating texture");
-            return new SDLTexture(renderer);
+            return new SDLTexture(engine->Renderer);
         }
 #endif
         default:

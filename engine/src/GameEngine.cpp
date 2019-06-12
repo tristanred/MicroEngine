@@ -103,7 +103,7 @@ void GameEngine::Initialize()
     ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
     bool renderInitSuccess = Renderer->Initialize(&defaults);
 
-    Platform = AbstractFactory::CreatePlatformHandler(Renderer);
+    Platform = AbstractFactory::CreatePlatformHandler(this);
     Mouse = AbstractFactory::CreateMouse();
     Keyboard = AbstractFactory::CreateKeyboard();
 
@@ -317,7 +317,7 @@ AText* GameEngine::CreateText()
 {
     LogTrace("GameEngine::CreateText");
 
-    AText* text = AbstractFactory::CreateText(this->Renderer);
+    AText* text = AbstractFactory::CreateText(this);
 
     return text;
 }
@@ -326,7 +326,7 @@ AFont* GameEngine::CreateTextFont()
 {
     LogTrace("GameEngine::CreateTextFont");
 
-    AFont* font = AbstractFactory::CreateTextFont(this->Renderer);
+    AFont* font = AbstractFactory::CreateTextFont(this);
 
     return font;
 }
@@ -335,7 +335,7 @@ ATexture* GameEngine::CreateTexture()
 {
     LogTrace("GameEngine::CreateTexture");
 
-    ATexture* newTexture = AbstractFactory::CreateTexture(Renderer);
+    ATexture* newTexture = AbstractFactory::CreateTexture(this);
 
     return newTexture;
 }
@@ -407,7 +407,7 @@ void GameEngine::DrawModules()
 
 ATexture* GameEngine::GetDefaultTexture()
 {
-    ATexture* test = AbstractFactory::CreateTexture(this->Renderer);
+    ATexture* test = AbstractFactory::CreateTexture(this);
 
     test->SetSize(FSize(100, 100));
     test->FillColor(0xFFFF0000);

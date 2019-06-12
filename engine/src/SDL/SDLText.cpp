@@ -4,10 +4,11 @@
 
 #include "SDL/SDLRenderer.h"
 #include "SDL/SDLTexture.h"
+#include "GameEngine.h"
 
-SDLText::SDLText(ARenderer* renderer) : AText(renderer)
+SDLText::SDLText(GameEngine* engine) : AText(engine)
 {
-    sdlRenderer = (SDLRenderer*)renderer;
+    sdlRenderer = (SDLRenderer*)engine->Renderer;
     TextFont = NULL;
     sdlFont = NULL;
     currentText = new std::string();

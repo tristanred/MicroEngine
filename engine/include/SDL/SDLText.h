@@ -3,6 +3,7 @@
 #ifdef SUPPORT_SDL
 
 class SDLRenderer;
+class GameEngine;
 
 #include "core.h"
 #include "ARenderable.h"
@@ -17,7 +18,7 @@ class SDLRenderer;
 class ENGINE_CLASS SDLText : public AText
 {
 public:
-    SDLText(ARenderer* renderer);
+    SDLText(GameEngine* engine);
     ~SDLText();
 
     std::string* GetText() override;

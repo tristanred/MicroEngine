@@ -319,5 +319,5 @@ TSubType* GameEngine::CreateSprite()
 {
     LogTrace("GameEngine::CreateSprite");
 
-    return new TSubType(Renderer);
+    return new TSubType(this);
 }

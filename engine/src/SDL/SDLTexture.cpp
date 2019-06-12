@@ -3,6 +3,7 @@
 #include "SDL/SDLTexture.h"
 
 #include "SDL/SDLRenderer.h"
+#include "GameEngine.h"
 
 #include <SDL_image.h>
 #include <cmath>

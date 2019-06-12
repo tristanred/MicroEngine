@@ -50,7 +50,3 @@ void DinoCharacter::Update(unsigned int deltaTime)
 {
     this->DinoSprite->Update(deltaTime);
 }
-
-void DinoCharacter::Draw()
-{
-}

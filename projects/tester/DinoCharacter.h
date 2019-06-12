@@ -12,5 +12,4 @@ public:
 
     void Setup(GameModule* currentModule) override;
     void Update(unsigned int deltaTime) override;
-    void Draw() override;
 };

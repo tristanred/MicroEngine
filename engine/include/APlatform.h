@@ -2,6 +2,7 @@
 
 #include "core.h"
 
+class GameEngine;
 class ARenderer;
 
 /**
@@ -13,14 +14,14 @@ class ARenderer;
 class ENGINE_CLASS APlatform
 {
 public:
-    APlatform(ARenderer* renderer);
+    APlatform(GameEngine* engine);
     virtual ~APlatform();
 
     // Platform State
     bool RequestExit;
 
     /**
-     * \brief Handle events raised by the current platorm.
+     * \brief Handle events raised by the current platform.
      *
      * Usually used for pumping events out of the WIN32 message queue for
      * example or Linux signals.

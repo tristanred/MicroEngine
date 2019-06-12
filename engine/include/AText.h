@@ -2,6 +2,7 @@
 
 class AFont;
 class ATexture;
+class GameEngine;
 
 #include <string>
 #include <string.h>
@@ -31,7 +32,7 @@ enum TextStyle {
 class ENGINE_CLASS AText : public ARenderable
 {
 public:
-    AText(ARenderer* renderer);
+    AText(GameEngine* engine);
     virtual ~AText();
 
     AFont* TextFont;

@@ -1,12 +1,12 @@
 #include "APlatform.h"
 
-#include "ARenderer.h"
+#include "GameEngine.h"
 
-APlatform::APlatform(ARenderer* renderer)
+APlatform::APlatform(GameEngine* engine)
 {
     LogTrace("APlatform::APlatform");
 
-    this->Renderer = renderer;
+    this->Renderer = engine->Renderer;
     this->RequestExit = false;
 }
 

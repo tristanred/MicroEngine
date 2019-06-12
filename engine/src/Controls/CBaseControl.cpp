@@ -4,7 +4,7 @@
 #include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
 
-CBaseControl::CBaseControl(GameEngine* engine) : ARenderable(engine->Renderer)
+CBaseControl::CBaseControl(GameEngine* engine) : ARenderable(engine)
 {
     this->Engine = engine;
     this->Mouse = this->Engine->Mouse;

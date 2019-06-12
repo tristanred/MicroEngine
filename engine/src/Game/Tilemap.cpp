@@ -2,7 +2,7 @@
 
 #include <ARenderable.h>
 
-Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : ARenderable(engine->Renderer)
+Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : ARenderable(engine)
 {
     this->Engine = engine;
     

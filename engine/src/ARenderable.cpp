@@ -1,12 +1,13 @@
 #include "ARenderable.h"
 
 #include "ATexture.h"
+#include "GameEngine.h"
 
-ARenderable::ARenderable(ARenderer* renderer)
+ARenderable::ARenderable(GameEngine* engine) : GameObject()
 {
     LogTrace("ARenderable::ARenderable");
 
-    this->Renderer = renderer;
+    this->Renderer = engine->Renderer;
 
     this->Parent = NULL;
     this->Children = new ArrayList<ARenderable*>();

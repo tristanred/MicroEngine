@@ -3,9 +3,9 @@
 #include "SDL/SDLPlatform.h"
 
 #include "SDL.h"
-#include "ARenderer.h"
+#include "GameEngine.h"
 
-SDLPlatform::SDLPlatform(ARenderer* renderer) : APlatform(renderer)
+SDLPlatform::SDLPlatform(GameEngine* engine) : APlatform(engine)
 {
 
 }

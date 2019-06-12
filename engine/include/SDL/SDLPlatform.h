@@ -2,7 +2,7 @@
 
 #ifdef SUPPORT_SDL
 
-class ARenderer;
+class GameEngine;
 
 #include "core.h"
 #include "APlatform.h"
@@ -10,7 +10,7 @@ class ARenderer;
 class ENGINE_CLASS SDLPlatform : public APlatform
 {
 public:
-    SDLPlatform(ARenderer* renderer);
+    SDLPlatform(GameEngine* engine);
     ~SDLPlatform();
 
     void HandleEvents() override;

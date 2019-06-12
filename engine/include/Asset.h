@@ -9,7 +9,7 @@
 #endif
 
 #define LARGE_FILE_MMAP_TRESH (1024*1024*10)// 10MB
-#define LARGE_FILE_MMAP_LIMIT (1024*1024*1024*4) // 4GB
+#define LARGE_FILE_MMAP_LIMIT ((uint64_t)1024*(uint64_t)1024*(uint64_t)1024*(uint64_t)4) // 4GB
 
 /**
  * \brief Type of an Asset.

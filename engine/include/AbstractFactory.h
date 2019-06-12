@@ -2,6 +2,7 @@
 
 #include "core.h"
 
+class GameEngine;
 class ARenderable;
 class ARenderer;
 class ASprite;
@@ -65,7 +66,7 @@ public:
      * \see SDLText
      * \return AText
      */
-    static AText* CreateText(ARenderer* renderer);
+    static AText* CreateText(GameEngine* engine);
 
     /**
      * \brief Create a platform specific ATexture instance.
@@ -74,7 +75,7 @@ public:
      * \see SDLTexture
      * \return ATexture
      */
-    static ATexture* CreateTexture(ARenderer* renderer);
+    static ATexture* CreateTexture(GameEngine* engine);
 
     /**
      * \brief Create a platform specific AMouse instance.
@@ -98,7 +99,7 @@ public:
      * \see SDLFont
      * \return AFont
      */
-    static AFont* CreateTextFont(ARenderer* Renderer);
+    static AFont* CreateTextFont(GameEngine* engine);
 
     /**
      * \brief Create a platform specific event handler.
@@ -106,5 +107,5 @@ public:
      * \see SDLPlatform
      * \return APlatform
      */
-    static APlatform* CreatePlatformHandler(ARenderer* Renderer);
+    static APlatform* CreatePlatformHandler(GameEngine* engine);
 };

@@ -6,7 +6,7 @@ template <class TInner = void>
 class ENGINE_CLASS ITraversable
 {
 public:
-    TInner* inner;
+    TInner* inner = NULL;
     
     virtual bool IsPassable() = 0;
 

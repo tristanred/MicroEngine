@@ -2,10 +2,12 @@
 
 class ARenderer;
 class ATexture;
+class GameEngine;
 
 #include "core.h"
 #include "libtech/geometry.h"
 #include "libtech/arraylist.h"
+#include "Game/GameObject.h"
 
 /**
  * \brief Values indicating the relative position of an object.
@@ -42,12 +44,12 @@ enum POSITION_SYSTEM
  * to be created by the GameEngine with a platform specific instance and so
  * we can create our own drawable objects by inheriting from ARenderable.
  */
-class ENGINE_CLASS ARenderable
+class ENGINE_CLASS ARenderable : public GameObject
 {
 public:
-    ARenderable(ARenderer* renderer);
+    ARenderable(GameEngine* engine);
     virtual ~ARenderable();
-    
+
     virtual void Show(bool value);
 
     /**
@@ -74,7 +76,7 @@ public:
      * \param y - Y position
      */
     virtual void SetPosition(float x, float y);
-    
+
     virtual void SetPositionAnchored(FPosition position, vec2 anchor);
 
     /**
@@ -109,7 +111,7 @@ public:
      * \param h - Height
      */
     virtual void SetSize(float w, float h);
-    
+
     virtual FPolygon GetPolygon();
 
     /**

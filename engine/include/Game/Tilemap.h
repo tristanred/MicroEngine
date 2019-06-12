@@ -39,7 +39,6 @@ public:
     Tile*** tiles;
 
     void Setup(ARenderer* renderer);
-    void Update(unsigned int deltaTime);
 
 private:
     GameEngine* Engine;

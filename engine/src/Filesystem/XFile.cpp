@@ -11,6 +11,8 @@ XFile::XFile()
 
     loadedPath = NULL;
 
+    Size = 0;
+
 #ifdef _WIN32
     winFileHandle = INVALID_HANDLE_VALUE;
 #endif

@@ -341,7 +341,7 @@ void SDLRenderer::EndDraw()
     {
         FSize screenSize = this->GetWindowSize();
 
-        SDL_Surface* surf = SDL_CreateRGBSurface(0, screenSize.Width, screenSize.Height, 32, rmask, gmask, bmask, amask);
+        SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)screenSize.Width, (int)screenSize.Height, 32, rmask, gmask, bmask, amask);
 
         int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
 
@@ -368,11 +368,11 @@ void SDLRenderer::ScreenshotNextFrame()
 
 void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
 {
-    SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, object->GetSize().Width, object->GetSize().Height);
+    SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, (int)object->GetSize().Width, (int)object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
 
     this->DrawHierarchy(object);
-    SDL_Surface* surf = SDL_CreateRGBSurface(0, object->GetSize().Width, object->GetSize().Height, 32, rmask, gmask, bmask, amask);
+    SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)object->GetSize().Width, (int)object->GetSize().Height, 32, rmask, gmask, bmask, amask);
 
     int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
 

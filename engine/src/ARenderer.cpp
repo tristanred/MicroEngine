@@ -9,6 +9,10 @@
 ARenderer::ARenderer()
 {
     LogTrace("ARenderer::ARenderer");
+
+    this->Cache = NULL;
+    this->Resman = NULL;
+    this->RenderViewport = NULL;
 }
 
 ARenderer::~ARenderer()
@@ -72,8 +76,8 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
      */
 
 
-    int minWidth = 0;
-    int minHeight = 0;
+    float minWidth = 0;
+    float minHeight = 0;
 
     for(int i = 0; i < anim->Textures->Count(); i++)
     {

@@ -14,6 +14,7 @@ SDLText::SDLText(ARenderer* renderer) : AText(renderer)
     textSize = 12;
     style = TEXT_STYLE_REGULAR;
     foregroundColor = 0xFFFFFFFF;
+    dirtyFlag = false;
 }
 
 SDLText::~SDLText()

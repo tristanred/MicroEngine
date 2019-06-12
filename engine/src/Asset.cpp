@@ -16,6 +16,7 @@ Asset::Asset()
     path = NULL;
     size = 0;
     data = NULL;
+    name = NULL;
 
 #ifdef _WIN32
     this->hAssetFile = INVALID_HANDLE_VALUE;

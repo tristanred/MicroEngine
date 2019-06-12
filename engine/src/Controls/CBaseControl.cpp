@@ -12,6 +12,8 @@ CBaseControl::CBaseControl(GameEngine* engine) : ARenderable(engine->Renderer)
 
     this->SetSize(0, 0);
     this->SetPosition(0, 0);
+
+    this->initializeCalled = false;
 }
 
 CBaseControl::~CBaseControl()

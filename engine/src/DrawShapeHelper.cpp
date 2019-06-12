@@ -9,8 +9,8 @@ ATexture* DrawObjectStroke(ARenderer* renderer, FPolygon* target)
     int vertCount = 0;
     vec2** verts = target->GetVertices(&vertCount);
 
-    int minX = verts[0]->x;
-    int minY = verts[0]->y;
+    float minX = verts[0]->x;
+    float minY = verts[0]->y;
 
     // Find the largest X/Y we can subtract to each vertex by finding
     // the smallest x/y coordinate of the vertices.

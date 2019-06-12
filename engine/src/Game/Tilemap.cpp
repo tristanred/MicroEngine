@@ -70,8 +70,8 @@ void Tilemap::Setup(ARenderer* renderer)
 
             //int w = tiles[i][k]->tex->GetSize().Width;
             //int h = tiles[i][k]->tex->GetSize().Height;
-            int w = 32;
-            int h = 32;
+            float w = 32;
+            float h = 32;
             tiles[i][k]->tex->SetSize(w, h);
             tiles[i][k]->tex->SetPosition((i * w), (k * h));
             

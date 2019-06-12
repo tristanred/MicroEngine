@@ -53,19 +53,19 @@ void SDLTexture::SetSize(FSize size)
      * do a scaled blit from the current to the new one and destroy the old
      * surface data.
      */
-    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, size.Width, size.Height, 32, rmask, gmask, bmask, amask);
+    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
 
     SDL_Rect srcRect;
     srcRect.x = 0;
     srcRect.y = 0;
-    srcRect.w = this->textureSize.Width;
-    srcRect.h = this->textureSize.Height;
+    srcRect.w = (int)this->textureSize.Width;
+    srcRect.h = (int)this->textureSize.Height;
 
     SDL_Rect destRect;
     destRect.x = 0;
     destRect.y = 0;
-    destRect.w = size.Width;
-    destRect.h = size.Height;
+    destRect.w = (int)size.Width;
+    destRect.h = (int)size.Height;
     int res = SDL_BlitScaled(this->surf, &srcRect, newSurface, &destRect);
 
     if(res != 0)
@@ -156,13 +156,13 @@ void SDLTexture::StrokeRect(FRectangle rect, uint32_t size, uint32_t color)
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
     SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
-    for(int i = 0; i < size; i++)
+    for(uint32_t i = 0; i < size; i++)
     {
         SDL_Rect r;
-        r.x = rect.X + i;
-        r.y = rect.Y + i;
-        r.w = rect.Width - (i * 2);
-        r.h = rect.Height - (i * 2);
+        r.x = (int)rect.X + i;
+        r.y = (int)rect.Y + i;
+        r.w = (int)rect.Width - (i * 2);
+        r.h = (int)rect.Height - (i * 2);
         SDL_RenderDrawRect(rendy, &r);
     }
 
@@ -182,10 +182,10 @@ void SDLTexture::FillRect(FRectangle rect, uint32_t color)
     SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
     SDL_Rect dest;
-    dest.w = rect.Width;
-    dest.h = rect.Height;
-    dest.x = rect.X;
-    dest.y = rect.Y;
+    dest.w = (int)rect.Width;
+    dest.h = (int)rect.Height;
+    dest.x = (int)rect.X;
+    dest.y = (int)rect.Y;
 
     SDL_RenderFillRect(rendy, &dest);
     SDL_DestroyRenderer(rendy);
@@ -203,7 +203,7 @@ void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
     SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
-    SDL_RenderDrawLine(rendy, pos1.X, pos1.Y, pos2.X, pos2.Y);
+    SDL_RenderDrawLine(rendy, (int)pos1.X, (int)pos1.Y, (int)pos2.X, (int)pos2.Y);
     SDL_DestroyRenderer(rendy);
 
     this->isDirty = true;
@@ -271,16 +271,16 @@ void SDLTexture::CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize
     this->SetSize(currentTextureNewSize);
 
     SDL_Rect sourceRect;
-    sourceRect.x = sourcePos.X;
-    sourceRect.y = sourcePos.Y;
-    sourceRect.h = sourceSize.Height;
-    sourceRect.w = sourceSize.Width;
+    sourceRect.x = (int)sourcePos.X;
+    sourceRect.y = (int)sourcePos.Y;
+    sourceRect.h = (int)sourceSize.Height;
+    sourceRect.w = (int)sourceSize.Width;
 
     SDL_Rect destRect;
     destRect.x = 0;
     destRect.y = 0;
-    destRect.w = currentTextureNewSize.Width;
-    destRect.h = currentTextureNewSize.Height;
+    destRect.w = (int)currentTextureNewSize.Width;
+    destRect.h = (int)currentTextureNewSize.Height;
     int res = SDL_BlitSurface(otherTexture->surf, &sourceRect, this->surf, &destRect);
 
     if(res != 0)

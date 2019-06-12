@@ -103,7 +103,7 @@ void SDLText::SetColor(uint32_t color)
 
 void SDLText::RefreshTexture()
 {
-    if (this->sdlFont == NULL || this->textSize <= 0)
+    if (this->sdlFont == NULL || this->textSize <= 0 || this->currentText->length() == 0)
         return;
 
     SDL_Color color = { 0,0,0,0 };

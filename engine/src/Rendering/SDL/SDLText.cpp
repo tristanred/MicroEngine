@@ -1,9 +1,9 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLText.h"
+#include "Rendering/SDL/SDLText.h"
 
-#include "SDL/SDLRenderer.h"
-#include "SDL/SDLTexture.h"
+#include "Rendering/SDL/SDLRenderer.h"
+#include "Rendering/SDL/SDLTexture.h"
 #include "GameEngine.h"
 
 SDLText::SDLText(GameEngine* engine) : AText(engine)

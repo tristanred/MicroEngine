@@ -1,8 +1,8 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLTexture.h"
+#include "Rendering/SDL/SDLTexture.h"
 
-#include "SDL/SDLRenderer.h"
+#include "Rendering/SDL/SDLRenderer.h"
 #include "GameEngine.h"
 
 #include <SDL_image.h>

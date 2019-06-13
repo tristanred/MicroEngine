@@ -1,6 +1,6 @@
 #include "Viewport.h"
 
-#include "ASprite.h"
+#include "Rendering/ASprite.h"
 
 Viewport::Viewport()
 {

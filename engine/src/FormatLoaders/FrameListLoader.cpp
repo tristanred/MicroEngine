@@ -5,9 +5,9 @@
 #include <string>
 #include <string.h>
 
-#include "ARenderer.h"
-#include "ATexture.h"
-#include "ASprite.h"
+#include "Rendering/ARenderer.h"
+#include "Rendering/ATexture.h"
+#include "Rendering/ASprite.h"
 #include "FormatLoaders/TPXmlReader.h"
 
 #include "pugixml.hpp"
@@ -50,7 +50,7 @@ char** FrameListLoader::ExtractAsArray(int* framesAmount)
     }
     else
     {
-        
+
     }
 
     return NULL;
@@ -68,7 +68,7 @@ ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
 {
     if(currentPath == NULL)
         return NULL;
-    
+
     // Check if the path is a directory. If it is, we need to load many files.
     // If not, we probably point to a spritesheet that we need to decompose
     if(path_is_directory(currentPath))
@@ -78,12 +78,12 @@ ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
         if(this->DirectoryContainsManifest())
         {
             // Parse the XML and load the files that are needed
-            
+
         }
         else
         {
             // Load all files
-            
+
         }
     }
     else
@@ -112,16 +112,16 @@ bool FrameListLoader::DirectoryContainsManifest()
 {
     if(this->currentPath == NULL)
         return NULL;
-    
+
     bool result = false;
-    
+
     // Look for a [directoryName].xml file in the current directory.
     char* targetXmlFileName = get_file_name(currentPath);
     std::string xmlFileName = std::string(targetXmlFileName);
     xmlFileName.append(".xml");
-    
+
     char* foundFile = find_subdir_file(xmlFileName.c_str(), currentPath);
-    
+
     if(foundFile != NULL)
     {
         result = true;
@@ -130,10 +130,10 @@ bool FrameListLoader::DirectoryContainsManifest()
     {
         result = false;
     }
-    
+
     delete(targetXmlFileName);
     delete(foundFile);
-    
+
     return result;
 }
 
@@ -175,8 +175,8 @@ ArrayList<ATexture*>* FrameListLoader::CreateFromSpritesheet()
 
         begin++;
     }
-    
+
     this->renderer->DeleteTexture(sheetTexture);
-    
+
     return listResult;
 }

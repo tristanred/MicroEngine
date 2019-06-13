@@ -7,7 +7,7 @@ class RenderableObject;
 
 #include "core.h"
 #include <libtech/geometry.h>
-#include "RenderableObject.h"
+#include "Rendering/RenderableObject.h"
 
 /**
  * Base control class for all engine controls such as buttons, textboxes, etc.
@@ -17,7 +17,7 @@ class RenderableObject;
  *
  * Control classes MUST call CBaseControl::Initialize() or the control will not
  * be active. This is to ensure that the base class has a hook and receives at
- * least a call to Initialize itself after the constructor. Also, calling 
+ * least a call to Initialize itself after the constructor. Also, calling
  * Initialize allows callers to give parameters to the new object because they
  * can't call the constructor directly.
  *
@@ -33,8 +33,8 @@ public:
 
     /**
      * Checks that the Initialization method was called. Should be checked
-     * before doing operations on the control. 
-     * 
+     * before doing operations on the control.
+     *
      * Control classes deriving from CBaseControl should call the protected
      * method Initialize() when they are done with their setup stuff.
      */
@@ -53,7 +53,7 @@ protected:
     AKeyboard* Keyboard;
 
     /**
-     * Init call for the control, must be called from control classes. This is 
+     * Init call for the control, must be called from control classes. This is
      * needed because the CBaseControl may have to do special logic on the
      * GameEngine before the control is ready for gameplay.
      */

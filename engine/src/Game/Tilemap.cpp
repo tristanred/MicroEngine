@@ -1,11 +1,11 @@
 #include <Game/Tilemap.h>
 
-#include <RenderableObject.h>
+#include <Rendering/RenderableObject.h>
 
 Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : RenderableObject(engine)
 {
     this->Engine = engine;
-    
+
     this->width = 10;
     this->height = 10;
 
@@ -74,7 +74,7 @@ void Tilemap::Setup(ARenderer* renderer)
             float h = 32;
             tiles[i][k]->tex->SetSize(w, h);
             tiles[i][k]->tex->SetPosition((i * w), (k * h));
-            
+
             this->AddChild(tiles[i][k]->tex);
         }
     }

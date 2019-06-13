@@ -1,6 +1,6 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLKeyboard.h"
+#include "Rendering/SDL/SDLKeyboard.h"
 
 #include <string.h>
 

@@ -1,15 +1,15 @@
-#include "AbstractFactory.h"
+#include "Rendering/AbstractFactory.h"
 
 #include "GameEngine.h"
 
 #if SUPPORT_SDL == 1
 
-#include "SDL/SDLText.h"
-#include "SDL/SDLTexture.h"
-#include "SDL/SDLRenderer.h"
-#include "SDL/SDLPlatform.h"
-#include "SDL/SDLKeyboard.h"
-#include "SDL/SDLMouse.h"
+#include "Rendering/SDL/SDLText.h"
+#include "Rendering/SDL/SDLTexture.h"
+#include "Rendering/SDL/SDLRenderer.h"
+#include "Rendering/SDL/SDLPlatform.h"
+#include "Rendering/SDL/SDLKeyboard.h"
+#include "Rendering/SDL/SDLMouse.h"
 
 #endif
 

@@ -1,6 +1,6 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLMouse.h"
+#include "Rendering/SDL/SDLMouse.h"
 
 SDLMouse::SDLMouse()
 {

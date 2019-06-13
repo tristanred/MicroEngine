@@ -5,9 +5,9 @@
 #include <SDL.h>
 
 #include "core.h"
-#include "ARenderer.h"
-#include "ASprite.h"
-#include "ATexture.h"
+#include "Rendering/ARenderer.h"
+#include "Rendering/ASprite.h"
+#include "Rendering/ATexture.h"
 
 class ENGINE_CLASS SDLRenderer : public ARenderer
 {

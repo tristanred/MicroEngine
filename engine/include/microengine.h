@@ -6,11 +6,11 @@
 
 #include <GameEngine.h>
 #include <GameModule.h>
-#include <ARenderer.h>
-#include <ASprite.h>
-#include <AText.h>
-#include <AFont.h>
-#include <ATexture.h>
+#include <Rendering/ARenderer.h>
+#include <Rendering/ASprite.h>
+#include <Rendering/AText.h>
+#include <Rendering/AFont.h>
+#include <Rendering/ATexture.h>
 #include <Input/AKeyboard.h>
 #include <Input/AMouse.h>
 #include <Input/Keys.h>

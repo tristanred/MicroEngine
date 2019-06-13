@@ -5,10 +5,10 @@
 #include <iterator>
 #include <libtech/stdutils.h>
 
-#include "ARenderer.h"
-#include "ASprite.h"
-#include "AText.h"
-#include "AFont.h"
+#include "Rendering/ARenderer.h"
+#include "Rendering/ASprite.h"
+#include "Rendering/AText.h"
+#include "Rendering/AFont.h"
 #include "GameEngine.h"
 #include "Viewport.h"
 #include "TickTimer.h"

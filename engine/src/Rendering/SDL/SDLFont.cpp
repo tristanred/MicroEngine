@@ -1,6 +1,6 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLFont.h"
+#include "Rendering/SDL/SDLFont.h"
 
 #include "Asset.h"
 

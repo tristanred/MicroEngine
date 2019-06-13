@@ -8,9 +8,9 @@
 
 #include <GameEngine.h>
 #include <GameModule.h>
-#include <ASprite.h>
-#include <AText.h>
-#include <AFont.h>
+#include <Rendering/ASprite.h>
+#include <Rendering/AText.h>
+#include <Rendering/AFont.h>
 #include <ConfigFile.h>
 
 #include "GameTestModule.h"

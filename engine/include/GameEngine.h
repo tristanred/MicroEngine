@@ -19,7 +19,7 @@ class GameModule;
 using namespace std;
 
 #include "core.h"
-#include "ARenderer.h"
+#include "Rendering/ARenderer.h"
 #include <libtech/geometry.h>
 
 /**

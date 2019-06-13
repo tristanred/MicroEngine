@@ -2,11 +2,11 @@
 
 #include <GameModule.h>
 #include <GameEngine.h>
-#include <ARenderer.h>
-#include <ASprite.h>
-#include <AText.h>
-#include <ATexture.h>
-#include <AFont.h>
+#include <Rendering/ARenderer.h>
+#include <Rendering/ASprite.h>
+#include <Rendering/AText.h>
+#include <Rendering/ATexture.h>
+#include <Rendering/AFont.h>
 #include <TickTimer.h>
 #include <Controls/CButton.h>
 #include <libtech/vec.h>

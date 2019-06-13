@@ -1,12 +1,12 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLRenderer.h"
+#include "Rendering/SDL/SDLRenderer.h"
 
 #include <cstdio>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "SDL/SDLTexture.h"
+#include "Rendering/SDL/SDLTexture.h"
 #include "ConfigFile.h"
 #include "Viewport.h"
 #include <libtech/filecache.h>

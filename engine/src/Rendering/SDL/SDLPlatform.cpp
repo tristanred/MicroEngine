@@ -1,6 +1,6 @@
 #ifdef SUPPORT_SDL
 
-#include "SDL/SDLPlatform.h"
+#include "Rendering/SDL/SDLPlatform.h"
 
 #include "SDL.h"
 #include "GameEngine.h"

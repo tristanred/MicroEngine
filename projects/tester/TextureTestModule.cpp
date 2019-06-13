@@ -6,7 +6,7 @@
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
 #include <libtech/arraylist.h>
-#include "ATexture.h"
+#include "Rendering/ATexture.h"
 #include <Input/AKeyboard.h>
 
 TextureTestModule::TextureTestModule(GameEngine* engine) : GameModule(engine)

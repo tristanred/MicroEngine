@@ -5,7 +5,7 @@
 class Asset;
 
 #include "core.h"
-#include "AFont.h"
+#include "Rendering/AFont.h"
 
 #include <SDL_ttf.h>
 

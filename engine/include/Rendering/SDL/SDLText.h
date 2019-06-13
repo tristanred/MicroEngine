@@ -6,10 +6,10 @@ class SDLRenderer;
 class GameEngine;
 
 #include "core.h"
-#include "RenderableObject.h"
-#include "AText.h"
-#include "AFont.h"
-#include "SDLFont.h"
+#include "Rendering/RenderableObject.h"
+#include "Rendering/AText.h"
+#include "Rendering/AFont.h"
+#include "Rendering/SDL/SDLFont.h"
 
 #include <string>
 #include <string.h>

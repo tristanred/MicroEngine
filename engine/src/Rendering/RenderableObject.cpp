@@ -1,6 +1,6 @@
-#include "RenderableObject.h"
+#include "Rendering/RenderableObject.h"
 
-#include "ATexture.h"
+#include "Rendering/ATexture.h"
 #include "GameEngine.h"
 
 RenderableObject::RenderableObject(GameEngine* engine) : GameObject()
@@ -39,12 +39,12 @@ FRectangle RenderableObject::GetRectangle()
     if(this->Children->Count() > 0)
     {
         FRectangle myChildBounds = FRectangle(0, 0, 0, 0);
-        
+
         // Get max size of the children bounds
         for(int i = 0; i < this->Children->Count(); i++)
         {
             FRectangle target = this->Children->Get(i)->GetRectangle();
-            
+
             if(target.Left() > myChildBounds.Left())
             {
                 myChildBounds.X = target.Left();
@@ -62,7 +62,7 @@ FRectangle RenderableObject::GetRectangle()
                 myChildBounds.Height = target.Height;
             }
         }
-        
+
         FRectangle myRect = FRectangle(this->position, this->size);
         if(myChildBounds.Left() < myRect.Left())
         {
@@ -80,7 +80,7 @@ FRectangle RenderableObject::GetRectangle()
         {
             myRect.Height = myChildBounds.Y + myChildBounds.Height;
         }
-        
+
         return myRect;
     }
 
@@ -126,11 +126,11 @@ void RenderableObject::SetPosition(float x, float y)
 void RenderableObject::SetPositionAnchored(FPosition position, vec2 anchor)
 {
     auto currentSize = this->GetSize();
-    
+
     auto sizeOffset = vec2(currentSize.Width * anchor.x, currentSize.Height * anchor.y);
-    
+
     FPosition newPos = FPosition(this->position.X - sizeOffset.x, this->position.Y - sizeOffset.y);
-    
+
     this->SetPosition(newPos);
 }
 
@@ -190,7 +190,7 @@ FPolygon RenderableObject::GetPolygon()
 vec2 RenderableObject::GetScale()
 {
     vec2 finalScale = this->scale;
-    
+
     // TODO : Work in progress. Won't work because the children are not added
     // to a scalable surface.
 //    RenderableObject* next = this->Parent;
@@ -202,7 +202,7 @@ vec2 RenderableObject::GetScale()
 //
 //        next = next->Parent;
 //    }
-    
+
     return finalScale;
 }
 

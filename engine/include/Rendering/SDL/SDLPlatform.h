@@ -5,7 +5,7 @@
 class GameEngine;
 
 #include "core.h"
-#include "APlatform.h"
+#include "Rendering/APlatform.h"
 
 class ENGINE_CLASS SDLPlatform : public APlatform
 {

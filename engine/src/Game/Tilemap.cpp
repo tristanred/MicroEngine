@@ -25,7 +25,7 @@ Tilemap::~Tilemap()
 }
 
 void Tilemap::Setup(ARenderer* renderer)
-{
+{    
     for(int i = 0; i < this->width; i++)
     {
         for(int k = 0; k < this->height; k++)

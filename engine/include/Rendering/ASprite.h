@@ -141,7 +141,7 @@ public:
      *
      * \param deltaTime - Difference of time between this frame and the last.
      */
-    void Update(unsigned int deltaTime);
+    void Update(unsigned int deltaTime) override;
 
     /**
      * \brief Play an animation on the sprite.

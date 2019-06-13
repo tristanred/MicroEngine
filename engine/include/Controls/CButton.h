@@ -44,7 +44,7 @@ public:
      * Update the button state. Mostly checks for the mouse pointer to see if 
      * the button is clicked or hovered.
      */
-    void Update() override;
+    virtual void Update(unsigned int deltaTime) override;
 
     /**
      * Gets if the button is in an enabled state. 

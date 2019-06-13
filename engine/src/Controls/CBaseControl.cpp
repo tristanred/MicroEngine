@@ -26,8 +26,10 @@ bool CBaseControl::IsInitialized()
     return this->initializeCalled;
 }
 
-void CBaseControl::Update()
+void CBaseControl::Update(unsigned int deltaTime)
 {
+    RenderableObject::Update(deltaTime);
+    
     if(this->IsInitialized())
     {
 

@@ -4,19 +4,14 @@
 #include <GameEngine.h>
 #include <GameModule.h>
 
-GameObject::GameObject()
+GameObject::GameObject(GameEngine* engine)
 {
-    this->Owner = NULL;
+    this->engine = engine;
 }
 
 GameObject::~GameObject()
 {
 
-}
-
-void GameObject::Setup(GameModule* currentModule)
-{
-    this->Owner = currentModule;
 }
 
 void GameObject::Update(unsigned int deltaTime)
@@ -26,10 +21,10 @@ void GameObject::Update(unsigned int deltaTime)
 
 GameEngine* GameObject::GetEngine()
 {
-    return this->Owner->GetEngine();
+    return this->engine;
 }
 
 long GameObject::DeltaTime()
 {
-    return this->GetEngine()->GetDeltaTime();
+    return this->engine->GetDeltaTime();
 }

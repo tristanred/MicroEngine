@@ -43,7 +43,7 @@ public:
     /**
      * Update the control's logic.
      */
-    virtual void Update();
+    virtual void Update(unsigned int deltaTime) override;
 
 protected:
     GameEngine* GetEngine();

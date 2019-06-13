@@ -34,9 +34,9 @@ void CButton::Initialize(FSize size, ATexture* enabledTexture, ATexture* disable
     this->mouseOverTexture = overTexture;
 }
 
-void CButton::Update()
+void CButton::Update(unsigned int deltaTime)
 {
-    CBaseControl::Update();
+    CBaseControl::Update(deltaTime);
 
     if(this->IsEnabled())
     {

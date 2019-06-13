@@ -199,7 +199,7 @@ ATexture *ASprite::GetTexture()
 
 void ASprite::Update(unsigned int deltaTime)
 {
-    (void)deltaTime; // Unused for now
+    RenderableObject::Update(deltaTime);
 
     if (this->isPlaying == true && isTimeForNextFrame())
     {

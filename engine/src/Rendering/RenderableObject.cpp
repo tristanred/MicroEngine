@@ -3,7 +3,7 @@
 #include "Rendering/ATexture.h"
 #include "GameEngine.h"
 
-RenderableObject::RenderableObject(GameEngine* engine) : GameObject()
+RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 {
     LogTrace("RenderableObject::RenderableObject");
 

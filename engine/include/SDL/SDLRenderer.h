@@ -27,7 +27,7 @@ public:
     void BeginDraw() override;
     void EndDraw() override;
 
-    void Draw(ARenderable* sprite) override;
+    void Draw(RenderableObject* sprite) override;
     void DrawTexture(ATexture* texture, float posX, float posY) override;
     void DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts) override;
 
@@ -42,7 +42,7 @@ public:
 
     bool screenshotRequested;
     void ScreenshotNextFrame() override;
-    void SaveToFile(ARenderable* object, const char* path) override;
-    void DrawHierarchy(ARenderable* object);
+    void SaveToFile(RenderableObject* object, const char* path) override;
+    void DrawHierarchy(RenderableObject* object);
 };
 #endif

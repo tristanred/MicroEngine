@@ -6,7 +6,7 @@ class SDLRenderer;
 class GameEngine;
 
 #include "core.h"
-#include "ARenderable.h"
+#include "RenderableObject.h"
 #include "AText.h"
 #include "AFont.h"
 #include "SDLFont.h"

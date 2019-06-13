@@ -3,10 +3,10 @@
 #include "core.h"
 
 #include <libtech/geometry.h>
-#include "ARenderable.h"
+#include "RenderableObject.h"
 #include <libtech/arraylist.h>
 
-class ARenderable;
+class RenderableObject;
 class ATexture;
 class ConfigFile;
 class FileCache;
@@ -99,14 +99,14 @@ public:
     virtual bool Initialize(RendererParameters* params) = 0;
 
     /**
-     * \brief Draw an ARenderable to the renderer.
+     * \brief Draw an RenderableObject to the renderer.
      *
-     * If the ARenderable has children, it will draw itself first and then
+     * If the RenderableObject has children, it will draw itself first and then
      * draw its children on top.
      *
      * \param sprite - The renderable object to draw.
      */
-    virtual void Draw(ARenderable* sprite) = 0;
+    virtual void Draw(RenderableObject* sprite) = 0;
 
     /**
      * \brief Draw a texture directly to the screen.
@@ -265,5 +265,5 @@ public:
      * \param object - Renderable to save.
      * \param path - File path for the output.
      */
-    virtual void SaveToFile(ARenderable* object, const char* path) = 0;
+    virtual void SaveToFile(RenderableObject* object, const char* path) = 0;
 };

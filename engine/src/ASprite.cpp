@@ -87,7 +87,7 @@ void SpriteAnimation::SetName(const char *name)
 }
 
 
-ASprite::ASprite(GameEngine* engine) : ARenderable(engine)
+ASprite::ASprite(GameEngine* engine) : RenderableObject(engine)
 {
     LogTrace("ASprite::ASprite");
 

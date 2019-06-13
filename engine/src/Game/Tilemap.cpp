@@ -1,8 +1,8 @@
 #include <Game/Tilemap.h>
 
-#include <ARenderable.h>
+#include <RenderableObject.h>
 
-Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : ARenderable(engine)
+Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : RenderableObject(engine)
 {
     this->Engine = engine;
     

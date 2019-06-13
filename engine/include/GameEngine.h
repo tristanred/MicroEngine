@@ -210,14 +210,14 @@ public:
     void ReleaseObject(ATexture* textureObject);
 
     /**
-     * \brief Relase an ARenderable object created by the Create- methods.
+     * \brief Relase an RenderableObject object created by the Create- methods.
      * This should be called instead of the destructor of the object.
      *
      * Only the engine should be in charge of destroying engine objects.
      *
      * \param renderableObject - The object to destroy.
      */
-    void ReleaseObject(ARenderable* renderableObject);
+    void ReleaseObject(RenderableObject* renderableObject);
 
     /**
      * \brief Get the engine's default texture.

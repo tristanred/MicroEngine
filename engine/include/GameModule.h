@@ -1,7 +1,7 @@
 #pragma once
 
 class GameEngine;
-class ARenderable;
+class RenderableObject;
 class ASprite;
 class AText;
 class AFont;
@@ -48,7 +48,7 @@ public:
     explicit GameModule(GameEngine* engine);
     virtual ~GameModule();
 
-    std::list<ARenderable*>* Objects;
+    std::list<RenderableObject*>* Objects;
 
     /**
      * \brief Get a pointer to the game's renderer.
@@ -131,7 +131,7 @@ public:
      *
      * \param object - Object to free.
      */
-    void DestroyObject(ARenderable* object);
+    void DestroyObject(RenderableObject* object);
 
 
     /**
@@ -152,7 +152,7 @@ public:
      * \remark Will probably be reworked because the Create* methods should
      * maybe not add automatically into the container.
      */
-    virtual void AttachRenderable(ARenderable* object);
+    virtual void AttachRenderable(RenderableObject* object);
 
     /**
      * \bried Enable the module.

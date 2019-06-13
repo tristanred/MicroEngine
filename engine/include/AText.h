@@ -8,7 +8,7 @@ class GameEngine;
 #include <string.h>
 
 #include "core.h"
-#include "ARenderable.h"
+#include "RenderableObject.h"
 
 /**
  * \brief Supported text styles.
@@ -29,7 +29,7 @@ enum TextStyle {
  *
  * \see AFont
  */
-class ENGINE_CLASS AText : public ARenderable
+class ENGINE_CLASS AText : public RenderableObject
 {
 public:
     AText(GameEngine* engine);

@@ -29,26 +29,26 @@ enum POSITION_SYSTEM
 /**
  * \brief Abstract base class of any renderable object.
  *
- * The ARenderable class is the root type for any object that needs to be drawn
+ * The RenderableObject class is the root type for any object that needs to be drawn
  * on the screen. A renderable has a position on screen and a size. It can
  * return a texture and that texture will be drawn.
  *
- * All functions of an ARenderable are virtual but they have implementations
+ * All functions of an RenderableObject are virtual but they have implementations
  * that will work without subtyping this class.
  *
- * \remark A note on ARenderable subtyping : Usually, all instances of
- * ARenderable and its subtypes will come from the GameEngine through the
+ * \remark A note on RenderableObject subtyping : Usually, all instances of
+ * RenderableObject and its subtypes will come from the GameEngine through the
  * AbstractFactory. Usually this means those objects are completely managed
  * by the GameEngine classes and not directly implemented by the programmer. In
- * contrast to other types such as ASprite and AText, ARenderable is not needed
+ * contrast to other types such as ASprite and AText, RenderableObject is not needed
  * to be created by the GameEngine with a platform specific instance and so
- * we can create our own drawable objects by inheriting from ARenderable.
+ * we can create our own drawable objects by inheriting from RenderableObject.
  */
-class ENGINE_CLASS ARenderable : public GameObject
+class ENGINE_CLASS RenderableObject : public GameObject
 {
 public:
-    ARenderable(GameEngine* engine);
-    virtual ~ARenderable();
+    RenderableObject(GameEngine* engine);
+    virtual ~RenderableObject();
 
     virtual void Show(bool value);
 
@@ -192,9 +192,9 @@ public:
     /**
      * \brief Get the current parent or NULL if no parent.
      *
-     * \return ARenderable
+     * \return RenderableObject
      */
-    virtual ARenderable* GetParent();
+    virtual RenderableObject* GetParent();
 
     /**
      * Set this object's parent. Passing NULL will break the current parent
@@ -202,7 +202,7 @@ public:
      *
      * \param object - New parent object
      */
-    virtual void SetParent(ARenderable* object);
+    virtual void SetParent(RenderableObject* object);
 
     /**
      * \brief Add a child to this renderable object.
@@ -212,19 +212,19 @@ public:
      *
      * \param object - New child.
      */
-    virtual void AddChild(ARenderable* object);
+    virtual void AddChild(RenderableObject* object);
 
     /**
      * \brief Remove a child from this renderable object.
      *
      * \param object - Child to remove.
      */
-    virtual void RemoveChild(ARenderable* object);
+    virtual void RemoveChild(RenderableObject* object);
 
     /**
      * \brief Get the list of children of this object.
      */
-    virtual ArrayList<ARenderable*>* GetChildren();
+    virtual ArrayList<RenderableObject*>* GetChildren();
 
     /**
      * \brief Hook method called before this object is drawn.
@@ -244,8 +244,8 @@ public:
 protected:
     ARenderer* Renderer;
 
-    ARenderable* Parent;
-    ArrayList<ARenderable*>* Children;
+    RenderableObject* Parent;
+    ArrayList<RenderableObject*>* Children;
 
     ATexture* texture;
 

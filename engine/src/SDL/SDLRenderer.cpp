@@ -184,7 +184,7 @@ void SDLRenderer::Shutdown()
     SDL_Quit();
 }
 
-void SDLRenderer::Draw(ARenderable* renderObject)
+void SDLRenderer::Draw(RenderableObject* renderObject)
 {
     if (renderObject->IsVisible() == false)
         return;
@@ -366,7 +366,7 @@ void SDLRenderer::ScreenshotNextFrame()
     this->screenshotRequested = true;
 }
 
-void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
+void SDLRenderer::SaveToFile(RenderableObject* object, const char* path)
 {
     SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, (int)object->GetSize().Width, (int)object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
@@ -386,7 +386,7 @@ void SDLRenderer::SaveToFile(ARenderable* object, const char* path)
     SDL_DestroyTexture(tex);
 }
 
-void SDLRenderer::DrawHierarchy(ARenderable *object)
+void SDLRenderer::DrawHierarchy(RenderableObject *object)
 {
     if(object == NULL)
     {

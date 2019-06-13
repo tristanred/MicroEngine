@@ -3,7 +3,7 @@
 #include "GameModule.h"
 
 #include "ARenderer.h"
-#include "ARenderable.h"
+#include "RenderableObject.h"
 #include "ASprite.h"
 #include "ATexture.h"
 #include "AText.h"

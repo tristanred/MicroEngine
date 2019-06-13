@@ -18,7 +18,7 @@ GameModule::GameModule(GameEngine* engine)
     LogTrace("GameModule::GameModule");
 
     this->Engine = engine;
-    Objects = new std::list<ARenderable*>();
+    Objects = new std::list<RenderableObject*>();
 
     Timers = new std::list<TickTimer*>();
 }
@@ -28,7 +28,7 @@ GameModule::~GameModule()
     LogTrace("GameModule::~GameModule");
 
     // We do not clear the elements inside the list because they are
-    // ARenderables and they are owned by the Engine.
+    // RenderableObjects and they are owned by the Engine.
     this->Objects->clear();
     delete(this->Objects);
 
@@ -105,7 +105,7 @@ ATexture* GameModule::CreateTexture(const char* textureName)
     return texture;
 }
 
-void GameModule::DestroyObject(ARenderable* object)
+void GameModule::DestroyObject(RenderableObject* object)
 {
     this->Engine->ReleaseObject(object);
 }
@@ -117,7 +117,7 @@ Viewport* GameModule::CreateViewport()
     return vp;
 }
 
-void GameModule::AttachRenderable(ARenderable* object)
+void GameModule::AttachRenderable(RenderableObject* object)
 {
     LogTrace("GameModule::AttachRenderable");
 
@@ -145,7 +145,7 @@ void GameModule::Draw(ARenderer* renderer)
     auto end = this->Objects->end();
     while (begin != end)
     {
-        ARenderable* obj = *begin;
+        RenderableObject* obj = *begin;
 
         if(obj->GetParent() == NULL)
         {

@@ -438,7 +438,7 @@ FPosition GameEngine::GetMouseRelativePosition()
     return pos;
 }
 
-void GameEngine::ReleaseObject(ARenderable* textureObject)
+void GameEngine::ReleaseObject(RenderableObject* textureObject)
 {
 }
 

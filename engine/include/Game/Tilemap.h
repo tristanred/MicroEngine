@@ -28,7 +28,7 @@ struct ENGINE_CLASS TilemapConfig
     int** tileData;
 };
 
-class ENGINE_CLASS Tilemap : public ARenderable
+class ENGINE_CLASS Tilemap : public RenderableObject
 {
 public:
     Tilemap(GameEngine* engine, TilemapConfig* config);

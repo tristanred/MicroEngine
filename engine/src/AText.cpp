@@ -1,6 +1,6 @@
 #include "AText.h"
 
-AText::AText(GameEngine* engine) : ARenderable(engine)
+AText::AText(GameEngine* engine) : RenderableObject(engine)
 {
     LogTrace("AText::AText");
 }

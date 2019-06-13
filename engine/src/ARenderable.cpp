@@ -1,16 +1,16 @@
-#include "ARenderable.h"
+#include "RenderableObject.h"
 
 #include "ATexture.h"
 #include "GameEngine.h"
 
-ARenderable::ARenderable(GameEngine* engine) : GameObject()
+RenderableObject::RenderableObject(GameEngine* engine) : GameObject()
 {
-    LogTrace("ARenderable::ARenderable");
+    LogTrace("RenderableObject::RenderableObject");
 
     this->Renderer = engine->Renderer;
 
     this->Parent = NULL;
-    this->Children = new ArrayList<ARenderable*>();
+    this->Children = new ArrayList<RenderableObject*>();
 
     this->texture = NULL;
 
@@ -21,20 +21,20 @@ ARenderable::ARenderable(GameEngine* engine) : GameObject()
     this->isVisible = true;
 }
 
-ARenderable::~ARenderable()
+RenderableObject::~RenderableObject()
 {
-    LogTrace("ARenderable::~ARenderable");
+    LogTrace("RenderableObject::~RenderableObject");
 
     this->Parent = NULL;
     delete(this->Children);
 }
 
-void ARenderable::Show(bool value)
+void RenderableObject::Show(bool value)
 {
     this->isVisible = value;
 }
 
-FRectangle ARenderable::GetRectangle()
+FRectangle RenderableObject::GetRectangle()
 {
     if(this->Children->Count() > 0)
     {
@@ -87,7 +87,7 @@ FRectangle ARenderable::GetRectangle()
     return FRectangle(this->position, this->size);
 }
 
-FPosition ARenderable::GetPosition()
+FPosition RenderableObject::GetPosition()
 {
     if(this->Parent == NULL)
     {
@@ -98,7 +98,7 @@ FPosition ARenderable::GetPosition()
         FPosition calculatedResult = this->position;
 
         // TODO : Why not just call this->Parent->GetPosition() ?
-        ARenderable* next = this->Parent;
+        RenderableObject* next = this->Parent;
         while(next != NULL)
         {
             FPosition nextPos = next->position;
@@ -112,18 +112,18 @@ FPosition ARenderable::GetPosition()
     }
 }
 
-void ARenderable::SetPosition(FPosition position)
+void RenderableObject::SetPosition(FPosition position)
 {
     this->position = position;
 }
 
-void ARenderable::SetPosition(float x, float y)
+void RenderableObject::SetPosition(float x, float y)
 {
     this->position.X = x;
     this->position.Y = y;
 }
 
-void ARenderable::SetPositionAnchored(FPosition position, vec2 anchor)
+void RenderableObject::SetPositionAnchored(FPosition position, vec2 anchor)
 {
     auto currentSize = this->GetSize();
     
@@ -134,7 +134,7 @@ void ARenderable::SetPositionAnchored(FPosition position, vec2 anchor)
     this->SetPosition(newPos);
 }
 
-FSize ARenderable::GetSize()
+FSize RenderableObject::GetSize()
 {
     FSize biggestSize = FSize(0, 0);
     for(int i = 0; i < this->Children->Count(); i++)
@@ -165,12 +165,12 @@ FSize ARenderable::GetSize()
     return biggestSize;
 }
 
-void ARenderable::SetSize(FSize size)
+void RenderableObject::SetSize(FSize size)
 {
     this->size = size;
 }
 
-void ARenderable::SetSize(float w, float h)
+void RenderableObject::SetSize(float w, float h)
 {
     this->size.Width = w;
     this->size.Height = h;
@@ -182,18 +182,18 @@ void ARenderable::SetSize(float w, float h)
     }
 }
 
-FPolygon ARenderable::GetPolygon()
+FPolygon RenderableObject::GetPolygon()
 {
     return this->GetRectangle().AsPolygon();
 }
 
-vec2 ARenderable::GetScale()
+vec2 RenderableObject::GetScale()
 {
     vec2 finalScale = this->scale;
     
     // TODO : Work in progress. Won't work because the children are not added
     // to a scalable surface.
-//    ARenderable* next = this->Parent;
+//    RenderableObject* next = this->Parent;
 //    while(next != NULL)
 //    {
 //        vec2 parentScale = next->GetScale();
@@ -206,27 +206,27 @@ vec2 ARenderable::GetScale()
     return finalScale;
 }
 
-void ARenderable::SetScale(float scale)
+void RenderableObject::SetScale(float scale)
 {
     this->SetScale(scale, scale);
 }
 
-void ARenderable::SetScale(float x, float y)
+void RenderableObject::SetScale(float x, float y)
 {
     this->SetScale(vec2(x, y));
 }
 
-void ARenderable::SetScale(vec2 scale)
+void RenderableObject::SetScale(vec2 scale)
 {
     this->scale = scale;
 }
 
-ATexture* ARenderable::GetTexture()
+ATexture* RenderableObject::GetTexture()
 {
     return this->texture;
 }
 
-void ARenderable::SetTexture(ATexture* newTexture)
+void RenderableObject::SetTexture(ATexture* newTexture)
 {
     if (this->texture != NULL)
         delete(this->texture);
@@ -234,17 +234,17 @@ void ARenderable::SetTexture(ATexture* newTexture)
     this->texture = newTexture;
 }
 
-enum POSITION_SYSTEM ARenderable::GetPositionSystem()
+enum POSITION_SYSTEM RenderableObject::GetPositionSystem()
 {
     return this->PositionSystem;
 }
 
-void ARenderable::SetPositionSystem(enum POSITION_SYSTEM value)
+void RenderableObject::SetPositionSystem(enum POSITION_SYSTEM value)
 {
     this->PositionSystem = value;
 }
 
-bool ARenderable::IsVisible()
+bool RenderableObject::IsVisible()
 {
     if(this->isVisible == false)
     {
@@ -257,7 +257,7 @@ bool ARenderable::IsVisible()
     }
     else
     {
-        ARenderable* next = this->Parent;
+        RenderableObject* next = this->Parent;
         while(next != NULL)
         {
             if(next->isVisible == false)
@@ -272,12 +272,12 @@ bool ARenderable::IsVisible()
     }
 }
 
-ARenderable* ARenderable::GetParent()
+RenderableObject* RenderableObject::GetParent()
 {
     return this->Parent;
 }
 
-void ARenderable::SetParent(ARenderable* object)
+void RenderableObject::SetParent(RenderableObject* object)
 {
     if(this->Parent != NULL)
     {
@@ -299,7 +299,7 @@ void ARenderable::SetParent(ARenderable* object)
     }
 }
 
-void ARenderable::AddChild(ARenderable* object)
+void RenderableObject::AddChild(RenderableObject* object)
 {
     if(object != NULL)
     {
@@ -309,7 +309,7 @@ void ARenderable::AddChild(ARenderable* object)
     }
 }
 
-void ARenderable::RemoveChild(ARenderable* object)
+void RenderableObject::RemoveChild(RenderableObject* object)
 {
     if(object != NULL)
     {
@@ -319,17 +319,17 @@ void ARenderable::RemoveChild(ARenderable* object)
     }
 }
 
-ArrayList<ARenderable*>* ARenderable::GetChildren()
+ArrayList<RenderableObject*>* RenderableObject::GetChildren()
 {
     return this->Children;
 }
 
-void ARenderable::OnPreDraw()
+void RenderableObject::OnPreDraw()
 {
 
 }
 
-void ARenderable::OnPostDraw()
+void RenderableObject::OnPostDraw()
 {
 
 }

@@ -4,7 +4,7 @@ class ATexture;
 class GameEngine;
 
 #include "core.h"
-#include "ARenderable.h"
+#include "RenderableObject.h"
 #include <libtech/arraylist.h>
 
 /**
@@ -69,7 +69,7 @@ public:
  * Sprites that have any kind of playback need to have their update methods
  * called.
 */
-class ENGINE_CLASS ASprite : public ARenderable
+class ENGINE_CLASS ASprite : public RenderableObject
 {
 public:
     ASprite(GameEngine* engine);

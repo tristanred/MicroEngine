@@ -3,7 +3,7 @@
 #include "core.h"
 
 class GameEngine;
-class ARenderable;
+class RenderableObject;
 class ARenderer;
 class ASprite;
 class AText;

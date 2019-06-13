@@ -11,7 +11,7 @@ class PhysicsObject;
 class ENGINE_CLASS IPhysicsContainer
 {
 public:
-    virtual PhysicsObject* GetPhysicsObject();
+    virtual PhysicsObject* GetPhysicsObject() = 0;
 };
 
 enum CollisionCheckStrategy

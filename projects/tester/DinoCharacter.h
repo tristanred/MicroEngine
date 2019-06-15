@@ -7,9 +7,9 @@ class DinoCharacter : GameObject
 public:
     ASprite* DinoSprite;
 
-    DinoCharacter();
+    DinoCharacter(GameEngine* engine);
     ~DinoCharacter();
 
-    void Setup(GameModule* currentModule) override;
+    void Setup(GameModule* currentModule);
     void Update(unsigned int deltaTime) override;
 };

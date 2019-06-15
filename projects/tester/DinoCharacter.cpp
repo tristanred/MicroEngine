@@ -1,13 +1,13 @@
 #include "DinoCharacter.h"
 
-DinoCharacter::DinoCharacter() : GameObject()
+DinoCharacter::DinoCharacter(GameEngine* engine) : GameObject(engine)
 {
     this->DinoSprite = NULL;
 }
 
 DinoCharacter::~DinoCharacter()
 {
-    this->Owner->DestroyObject(this->DinoSprite);
+    //this->GetEngine()->DestroyObject(this->DinoSprite);
 }
 
 void DinoCharacter::Setup(GameModule* currentModule)

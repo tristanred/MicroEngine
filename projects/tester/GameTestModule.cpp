@@ -82,7 +82,7 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     this->AttachRenderable(buttan);
 
     // Creating a game object API example
-    this->Dinono = new DinoCharacter();
+    this->Dinono = new DinoCharacter(this->GetEngine());
     this->Dinono->Setup(this);
 
 }
@@ -114,7 +114,7 @@ void GameTestModule::Update(unsigned int deltaTime)
         vp->CurrentView.Y--;
     }
 
-    buttan->Update();
+    buttan->Update(deltaTime);
 
     if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == true)
     {

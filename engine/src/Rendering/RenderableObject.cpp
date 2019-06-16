@@ -226,6 +226,16 @@ ATexture* RenderableObject::GetTexture()
     return this->texture;
 }
 
+void RenderableObject::SetTexture(const char *filepath)
+{
+    if (filepath != NULL)
+    {
+        ATexture* tex = this->Renderer->CreateTexture(filepath);
+
+        this->SetTexture(tex);
+    }
+}
+
 void RenderableObject::SetTexture(ATexture* newTexture)
 {
     if (this->texture != NULL)

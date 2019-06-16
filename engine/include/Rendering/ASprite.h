@@ -85,6 +85,7 @@ public:
      */
     virtual void AddAnimation(SpriteAnimation* anim);
 
+
     /**
      * \brief Setup from a file, automatically creates a texture and
      * applies it to itself.
@@ -93,7 +94,7 @@ public:
      *
      * \param filepath - Path to load as a texture.
      */
-    virtual void SetTexture(const char* filepath);
+    virtual void SetTexture(const char* filepath) override;
 
     /**
      * \brief Setup the sprite with a sequence of file to be played as the

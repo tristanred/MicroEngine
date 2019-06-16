@@ -158,6 +158,16 @@ public:
     virtual ATexture* GetTexture();
 
     /**
+     * \brief Setup from a file, automatically creates a texture and
+     * applies it to itself.
+     *
+     * This sets the sprite to a single texture.
+     *
+     * \param filepath - Path to load as a texture.
+     */
+    virtual void SetTexture(const char* filepath);
+
+    /**
      * \brief Set the texture of the object.
      *
      * \param texture - New texture to set.

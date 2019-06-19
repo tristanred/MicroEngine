@@ -194,15 +194,10 @@ void GameModule::Draw(ARenderer* renderer)
     {
         RenderableObject* obj = *begin;
 
-        if(obj->GetParent() == NULL)
-        {
-            renderer->Draw(obj);
-        }
-
+        renderer->Draw(obj);
+        
         if(obj->GetChildren()->Count() > 0)
         {
-            renderer->Draw(obj);
-
             for(int i = 0; i < obj->GetChildren()->Count(); i++)
             {
                 renderer->Draw(obj->GetChildren()->Get(i));

@@ -96,16 +96,15 @@ FPosition RenderableObject::GetPosition()
     else
     {
         FPosition calculatedResult = this->position;
-
-        // TODO : Why not just call this->Parent->GetPosition() ?
-        RenderableObject* next = this->Parent;
-        while(next != NULL)
+        
+        if(this->Parent != NULL)
         {
-            FPosition nextPos = next->position;
-            calculatedResult.X += nextPos.X;
-            calculatedResult.Y += nextPos.Y;
-
-            next = next->Parent;
+            FPosition parentPos = this->Parent->GetPosition();
+            calculatedResult.X *= this->Parent->GetScale().x;
+            calculatedResult.Y *= this->Parent->GetScale().y;
+            
+            calculatedResult.X += parentPos.X;
+            calculatedResult.Y += parentPos.Y;
         }
 
         return calculatedResult;
@@ -190,18 +189,13 @@ FPolygon RenderableObject::GetPolygon()
 vec2 RenderableObject::GetScale()
 {
     vec2 finalScale = this->scale;
-
-    // TODO : Work in progress. Won't work because the children are not added
-    // to a scalable surface.
-//    RenderableObject* next = this->Parent;
-//    while(next != NULL)
-//    {
-//        vec2 parentScale = next->GetScale();
-//        finalScale.x *= parentScale.x;
-//        finalScale.y *= parentScale.y;
-//
-//        next = next->Parent;
-//    }
+    
+    if(this->Parent != NULL)
+    {
+        vec2 parentScale = this->Parent->GetScale();
+        finalScale.x *= parentScale.x;
+        finalScale.y *= parentScale.y;
+    }
 
     return finalScale;
 }

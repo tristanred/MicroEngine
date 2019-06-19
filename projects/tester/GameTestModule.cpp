@@ -29,7 +29,9 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 
     Map = new Tilemap(engine, NULL);
     Map->Setup(this->GetRenderer());
-
+    Map->SetPosition(200, 300);
+    Map->SetScale(0.5);
+    
     // Sprite animations
     ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
     clockSprite = this->CreateSprite();

@@ -23,6 +23,7 @@
 #include <libtech/fsutils.h>
 #include <libtech/arraylist.h>
 #include "FormatLoaders/TPXmlReader.h"
+#include "TextureTestModule.h"
 
 #include "Events/Event.h"
 
@@ -33,7 +34,7 @@ int main(int argc, char** argv)
     GameEngine* eng = new GameEngine();
     eng->Initialize();
 
-    GameModule* mod = eng->CreateModule<GameTestModule>();
+    GameModule* mod = eng->ActivateModule<GameTestModule>();
     (void)mod;
 
     eng->Play();

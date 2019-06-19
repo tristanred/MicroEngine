@@ -1,5 +1,7 @@
 #include "GameEngine.h"
 
+#include <algorithm>
+
 #include "GameModule.h"
 #include "libtech/geometry.h"
 #include "libtech/filelogger.h"
@@ -304,6 +306,80 @@ long GameEngine::GetDeltaTime()
     return currentFrameTime - previousFrameTime;
 }
 
+GameModule* GameEngine::LoadModule(GameModule* targetModule)
+{
+    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+
+    if(value == this->Modules->end())
+    {
+        // This module was not added in the stack. It was not created
+        // correctly by calling CreateModule first.
+        LogError("TODO ERROR");
+
+        return NULL;
+    }
+
+    if(targetModule->ModuleState != GameModuleState::UNINITIALIZED)
+    {
+        LogError("Called Load on an Module on state %i", targetModule->ModuleState);
+
+        return NULL;
+    }
+
+    targetModule->Load();
+
+    return targetModule;
+}
+
+GameModule* GameEngine::ActivateModule(GameModule* targetModule)
+{
+    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+
+    if(value == this->Modules->end())
+    {
+        // This module was not added in the stack. It was not created
+        // correctly by calling CreateModule first.
+        LogError("TODO ERROR");
+
+        return NULL;
+    }
+
+    if(targetModule->ModuleState != GameModuleState::LOADED)
+    {
+        LogError("Called Activate on an Module on state %i", targetModule->ModuleState);
+
+        return NULL;
+    }
+
+    targetModule->Activate();
+
+    return targetModule;
+}
+
+void GameEngine::CloseModule(GameModule* targetModule)
+{
+    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+
+    if(value == this->Modules->end())
+    {
+        // This module was not added in the stack. It was not created
+        // correctly by calling CreateModule first.
+        LogError("TODO ERROR");
+    }
+
+    if(targetModule->ModuleState == GameModuleState::ACTIVATED)
+    {
+        targetModule->Stop();
+    }
+    if(targetModule->ModuleState == GameModuleState::LOADED)
+    {
+        targetModule->Unload();
+    }
+
+    this->Modules->remove(targetModule);
+    delete(targetModule);
+}
+
 // ASprite* GameEngine::CreateSprite()
 // {
 //     LogTrace("GameEngine::CreateSprite");
@@ -382,7 +458,11 @@ void GameEngine::Update(unsigned int deltaTime)
     {
         GameModule* mod = *begin;
 
-        mod->Update(deltaTime);
+        // Modules must be at least loaded to receive an update
+        if(mod->ModuleState >= GameModuleState::LOADED)
+        {
+            mod->Update(deltaTime);
+        }
 
         begin++;
     }
@@ -399,7 +479,11 @@ void GameEngine::DrawModules()
     {
         GameModule* mod = *begin;
 
-        mod->Draw(Renderer);
+        // Modules receive a draw if they are activated
+        if(mod->ModuleState == GameModuleState::ACTIVATED)
+        {
+            mod->Draw(Renderer);
+        }
 
         begin++;
     }

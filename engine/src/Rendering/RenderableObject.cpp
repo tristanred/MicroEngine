@@ -242,6 +242,8 @@ void RenderableObject::SetTexture(ATexture* newTexture)
         delete(this->texture);
 
     this->texture = newTexture;
+    
+    this->size = this->texture->GetSize();
 }
 
 enum POSITION_SYSTEM RenderableObject::GetPositionSystem()

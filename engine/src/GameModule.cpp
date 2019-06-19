@@ -36,6 +36,63 @@ GameModule::~GameModule()
     delete(this->Timers);
 }
 
+void GameModule::Load()
+{
+    LogTrace("GameModule::Load");
+
+    if(this->ModuleState == UNINITIALIZED)
+    {
+        this->ModuleState = LOADED;
+    }
+    else
+    {
+        LogWarning("GameModule::Load Invalid State %i", this->ModuleState);
+    }
+}
+
+void GameModule::Activate()
+{
+    LogTrace("GameModule::Activate");
+
+    if(this->ModuleState == LOADED)
+    {
+        this->ModuleState = ACTIVATED;
+    }
+    else
+    {
+        LogWarning("GameModule::Activate Invalid State %i", this->ModuleState);
+    }
+    
+}
+
+void GameModule::Stop()
+{
+    LogTrace("GameModule::Stop");
+
+    if(this->ModuleState == ACTIVATED)
+    {
+        this->ModuleState = LOADED;
+    }
+    else
+    {
+        LogWarning("GameModule::Stop Invalid State %i", this->ModuleState);
+    }
+}
+
+void GameModule::Unload()
+{
+    LogTrace("GameModule::Unload");
+
+    if(this->ModuleState == LOADED)
+    {
+        this->ModuleState = UNINITIALIZED;
+    }
+    else
+    {
+        LogWarning("GameModule::Unload Invalid State %i", this->ModuleState);
+    }
+}
+
 // ASprite* GameModule::CreateSprite()
 // {
 //     LogTrace("GameModule::CreateSprite");
@@ -122,16 +179,6 @@ void GameModule::AttachRenderable(RenderableObject* object)
     LogTrace("GameModule::AttachRenderable");
 
     this->Objects->push_back(object);
-}
-
-void GameModule::Enabled()
-{
-    moduleEnabled = true;
-}
-
-void GameModule::Disabled()
-{
-    moduleEnabled = false;
 }
 
 void GameModule::Update(unsigned int deltaTime)

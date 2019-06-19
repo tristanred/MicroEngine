@@ -20,6 +20,13 @@ class TickTimer;
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
 
+enum GameModuleState
+{
+    UNINITIALIZED,  // Object is not created in memory
+    LOADED,         // Object in memory, module is dormant.
+    ACTIVATED       // Module is running, receives Update/Draw calls
+};
+
 /**
  * \brief Modular separation of a piece of game content.
  *
@@ -49,6 +56,20 @@ public:
     virtual ~GameModule();
 
     std::list<RenderableObject*>* Objects;
+
+
+
+    GameModuleState ModuleState = UNINITIALIZED;
+
+    virtual void Load();
+
+    virtual void Activate();
+
+    virtual void Unload();
+
+    virtual void Stop();
+
+
 
     /**
      * \brief Get a pointer to the game's renderer.
@@ -154,17 +175,6 @@ public:
      */
     virtual void AttachRenderable(RenderableObject* object);
 
-    /**
-     * \bried Enable the module.
-     *
-     * This enables stuff like input and drawing.
-     */
-    virtual void Enabled();
-
-    /**
-     * \brief Disable the module.
-     */
-    virtual void Disabled();
 
     /**
      * \brief Process the Update loop of the GameModule.

@@ -133,8 +133,6 @@ void SDLTexture::LoadFromFile(const char* filepath)
 
 void SDLTexture::FillColor(uint32_t color)
 {
-    LogTrace("SDLTexture::SetColor");
-
     if(this->surf != NULL)
     {
         loadedTexturePath = NULL;

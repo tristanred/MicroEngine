@@ -133,10 +133,41 @@ public:
      * instances of the module. This attaches the game module to the game
      * engine's context.
      *
+     * \param autoActivate - Whether the module should be loaded and then
+     * activated right now. Defaults to false and the module will have
+     * to be activated by calling GameEngine::ActivateModule.
+     *
      * \return A linked instance of the GameModule subclass.
      */
     template <typename TModule = GameModule>
     TModule* CreateModule();
+
+    /**
+     * \brief Create a new module and load it immediately.
+     */
+    template <typename TModule = GameModule>
+    TModule* LoadModule();
+
+    GameModule* LoadModule(GameModule* targetModule);
+
+    template <typename TModule = GameModule>
+    TModule* ActivateModule();
+
+    GameModule* ActivateModule(GameModule* targetModule);
+
+    /**
+     * \brief Get a reference to the first module that is of type  TModule.
+     *
+     * This only checks the currently loaded or active modules.
+     *
+     * TODO : Document search order.
+     *
+     * \return Pointer to the module that is loaded or active.
+     */
+    template <typename TModule = GameModule>
+    TModule* GetModule();
+
+    void CloseModule(GameModule* targetModule);
 
     /**
      * \brief Create an ASprite instance.
@@ -312,6 +343,53 @@ TModule* GameEngine::CreateModule()
     this->Modules->push_back(newModule);
 
     return newModule;
+}
+
+template<typename TModule>
+TModule* GameEngine::LoadModule()
+{
+    TModule* newModule = new TModule(this);
+    this->Modules->push_back(newModule);
+
+    this->LoadModule(newModule);
+
+    return newModule;
+}
+
+template<typename TModule>
+TModule* GameEngine::ActivateModule()
+{
+    TModule* newModule = new TModule(this);
+    this->Modules->push_back(newModule);
+
+    this->LoadModule(newModule);
+
+    this->ActivateModule(newModule);
+
+    return newModule;
+}
+
+template<typename TModule>
+TModule* GameEngine::GetModule()
+{
+    auto begin = this->Modules->begin();
+    auto end = this->Modules->end();
+
+    while(begin != end)
+    {
+        GameModule* current = *begin;
+
+        TModule* typeCheck = dynamic_cast<TModule*>(current);
+
+        if(typeCheck != NULL)
+        {
+            return typeCheck;
+        }
+
+        begin++;
+    }
+
+    return NULL;
 }
 
 template<typename TSubType>

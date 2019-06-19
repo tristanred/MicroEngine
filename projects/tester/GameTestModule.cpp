@@ -6,6 +6,7 @@
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
 #include <libtech/arraylist.h>
+#include "TextureTestModule.h"
 
 #include <Input/AKeyboard.h>
 
@@ -116,6 +117,7 @@ void GameTestModule::Update(unsigned int deltaTime)
 
     buttan->Update(deltaTime);
 
+    // Disable the button when spacebar is pressed
     if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == true)
     {
         buttan->Enable(false);
@@ -178,4 +180,31 @@ void GameTestModule::Update(unsigned int deltaTime)
     clockSprite->Update(deltaTime);
 
     this->Dinono->Update(deltaTime);
+
+    // Manage modules when the number keys are pressed
+    if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Num1))
+    {
+        // Start the module, create the module if it did not exist previously
+        // and then it calls the activate method.
+        auto myMod = this->GetEngine()->ActivateModule<TextureTestModule>();
+
+        // To load a module without showing it and making it interactible
+        // we can preload it.
+        //this->GetEngine()->PreloadModule<TextureTestModule>();
+
+        // Dispose the module
+        //this->GetEngine()->CloseModule(this);
+
+        // Deactivate a module, keeps it in memory
+        //this->GetEngine()->StopModule(myMod);
+    }
+    if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Num2))
+    {
+        auto myMod = this->GetEngine()->GetModule<TextureTestModule>();
+
+        if(myMod != NULL)
+        {
+            this->GetEngine()->CloseModule(myMod);
+        }
+    }
 }

@@ -55,10 +55,14 @@ IF(UNIX)
     include_directories("engine/lib/SDL_image/linux/include")
     include_directories("engine/lib/SDL_ttf/linux/include")
 
+    # On MacOS, avoid using .framwork and instead use the .dylibs found in
+    # /usr/local/lib
+    set(CMAKE_FIND_FRAMEWORK LAST)
+
     find_path(
         SDL2_INCLUDE
         SDL.h
-        HINTS $ENV{SDL2DIR}
+        PATHS "/usr/local/include"
         PATH_SUFFIXES
             include/SDL2
             include
@@ -67,7 +71,7 @@ IF(UNIX)
     find_path(
         SDL2_IMAGE_INCLUDE
         SDL_image.h
-        HINTS $ENV{SDL2IMAGEDIR}
+        PATHS "/usr/local/include"
         PATH_SUFFIXES
             SDL2
             include/SDL2 include
@@ -76,7 +80,7 @@ IF(UNIX)
     find_path(
         SDL2_TTF_INCLUDE
         SDL_ttf.h
-        HINTS $ENV{SDL2TTFDIR}
+        PATHS "/usr/local/include"
         PATH_SUFFIXES
             SDL2
             include/SDL2 include
@@ -93,14 +97,17 @@ IF(UNIX)
     find_library(
         SDL2_LIB
         NAMES SDL2
+        PATHS "/usr/local/lib"
     )
     find_library(
         SDL2_IMAGE_LIB
         NAMES SDL2_image
+        PATHS "/usr/local/lib"
     )
     find_library(
         SDL2_TTF_LIB
         NAMES SDL2_ttf
+        PATHS "/usr/local/lib"
     )
 ENDIF(UNIX)
 

@@ -3,9 +3,10 @@
 class ATexture;
 class GameEngine;
 
-#include "core.h"
-#include "RenderableObject.h"
 #include <libtech/arraylist.h>
+
+#include "RenderableObject.h"
+#include "core.h"
 
 /**
  * \brief Container class for a sprite's animation.
@@ -52,7 +53,8 @@ public:
      * \param pattern - String pattern to choose frames with.
      * \return SpriteAnimation
      */
-    static SpriteAnimation* FromTextures(ArrayList<ATexture*>* list, const char* pattern);
+    static SpriteAnimation* FromTextures(ArrayList<ATexture*>* list,
+                                         const char* pattern);
 
     /**
      * \brief Create a SpriteAnimation from a variadic list of textures.
@@ -60,7 +62,8 @@ public:
      * The variadic argument is each texture that is going to make up the
      * animation.
      */
-    static SpriteAnimation* FromTextures(ATexture*, ...); // Variadic of ATextures*
+    static SpriteAnimation* FromTextures(ATexture*,
+                                         ...);  // Variadic of ATextures*
 };
 
 /*
@@ -68,7 +71,7 @@ public:
  *
  * Sprites that have any kind of playback need to have their update methods
  * called.
-*/
+ */
 class ENGINE_CLASS ASprite : public RenderableObject
 {
 public:
@@ -84,7 +87,6 @@ public:
      * \param anim - The animation to add.
      */
     virtual void AddAnimation(SpriteAnimation* anim);
-
 
     /**
      * \brief Setup from a file, automatically creates a texture and

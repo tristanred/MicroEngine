@@ -2,11 +2,12 @@
 
 class ARenderer;
 
+#include <libtech/arraylist.h>
+
 #include <cstdint>
 
 #include "core.h"
 #include "libtech/geometry.h"
-#include <libtech/arraylist.h>
 
 /**
  * \brief Abstract texture class.
@@ -20,7 +21,8 @@ public:
     explicit ATexture(ARenderer* renderer);
     virtual ~ATexture();
 
-    // Texture modification methods, calling any of them will probably reset the texture
+    // Texture modification methods, calling any of them will probably reset the
+    // texture
 
     /**
      * \brief Set the texture to be filled with a specific color.
@@ -98,7 +100,10 @@ public:
      * \param color - Color for the line
      * \param size - Size of the line (unused for now)
      */
-    virtual void DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size) = 0;
+    virtual void DrawLine(FPosition pos1,
+                          FPosition pos2,
+                          uint32_t color,
+                          uint32_t size) = 0;
 
     /**
      * \brief Free all memory allocated by this texture.
@@ -188,7 +193,11 @@ public:
      * \param sourceSize - Size to read from.
      * \param destPos - Destination to copy the pixels on this texture.
      */
-    virtual void CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos) = 0;
+    virtual void CopyFrom(ATexture* other,
+                          FPosition sourcePos,
+                          FSize sourceSize,
+                          FPosition destPos) = 0;
+
 protected:
     ARenderer* BaseRenderer;
     const char* loadedTexturePath;

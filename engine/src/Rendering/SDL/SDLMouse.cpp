@@ -13,21 +13,17 @@ SDLMouse::SDLMouse()
     this->Middle_Previous_State = BTN_RELEASED;
 }
 
-
-SDLMouse::~SDLMouse()
-{
-}
+SDLMouse::~SDLMouse() {}
 
 bool SDLMouse::IsClicked()
 {
-    return this->LeftButtonClicked() ||
-           this->RightButtonClicked() ||
+    return this->LeftButtonClicked() || this->RightButtonClicked() ||
            this->MiddleButtonClicked();
 }
 
 bool SDLMouse::IsClicked(MouseButtons button)
 {
-    switch (button)
+    switch(button)
     {
         case LEFT:
             return this->Left_Current_State == BTN_CLICKED;
@@ -68,6 +64,7 @@ void SDLMouse::UpdateMouseState()
     this->Right_Current_State = rightButtonClicked ? BTN_CLICKED : BTN_RELEASED;
 
     bool middleButtonClicked = state & SDL_BUTTON(SDL_BUTTON_MIDDLE);
-    this->Middle_Current_State = middleButtonClicked ? BTN_CLICKED : BTN_RELEASED;
+    this->Middle_Current_State =
+        middleButtonClicked ? BTN_CLICKED : BTN_RELEASED;
 }
 #endif

@@ -2,10 +2,12 @@
 
 class Asset;
 
-#include "core.h"
+#include <stdint.h>
+
 #include <list>
 #include <tuple>
-#include <stdint.h>
+
+#include "core.h"
 
 /**
  * \brief Resource loader and handler for the engine.
@@ -73,8 +75,8 @@ public:
      *
      * Returns NULL if nothing is found.
      *
-     * Find a resource from the manager's stored resources. Data needs to be added
-     * individually by AddFile or search roots need to be added.
+     * Find a resource from the manager's stored resources. Data needs to be
+     * added individually by AddFile or search roots need to be added.
      *
      * \param name - Name identifier of the resource to find.
      *
@@ -84,9 +86,9 @@ public:
 
 private:
     // Places where the manager will look for data to create resources
-    std::list<const char*>* files; // Individual files added to the manager
-    std::list<const char*>* resourceRoots; // Resource root folders
-    std::list<const char*>* packageFiles; // PAK files
+    std::list<const char*>* files;  // Individual files added to the manager
+    std::list<const char*>* resourceRoots;  // Resource root folders
+    std::list<const char*>* packageFiles;   // PAK files
 
     // Once resources are found and created, a copy of the data will be here.
     // A single copy of a piece of data per resource in that list.

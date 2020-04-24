@@ -1,10 +1,10 @@
 #pragma once
 
-#include "core.h"
-
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
+
+#include "core.h"
 using namespace std;
 
 /**

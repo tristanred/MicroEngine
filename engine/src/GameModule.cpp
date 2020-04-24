@@ -1,17 +1,18 @@
 #include "GameModule.h"
 
-#include <algorithm>
-#include <vector>
-#include <iterator>
 #include <libtech/stdutils.h>
 
+#include <algorithm>
+#include <iterator>
+#include <vector>
+
+#include "GameEngine.h"
+#include "Rendering/AFont.h"
 #include "Rendering/ARenderer.h"
 #include "Rendering/ASprite.h"
 #include "Rendering/AText.h"
-#include "Rendering/AFont.h"
-#include "GameEngine.h"
-#include "Viewport.h"
 #include "TickTimer.h"
+#include "Viewport.h"
 
 GameModule::GameModule(GameEngine* engine)
 {
@@ -62,7 +63,6 @@ void GameModule::Activate()
     {
         LogWarning("GameModule::Activate Invalid State %i", this->ModuleState);
     }
-    
 }
 
 void GameModule::Stop()
@@ -190,12 +190,12 @@ void GameModule::Draw(ARenderer* renderer)
 {
     auto begin = this->Objects->begin();
     auto end = this->Objects->end();
-    while (begin != end)
+    while(begin != end)
     {
         RenderableObject* obj = *begin;
 
         renderer->Draw(obj);
-        
+
         if(obj->GetChildren()->Count() > 0)
         {
             for(int i = 0; i < obj->GetChildren()->Count(); i++)
@@ -245,7 +245,7 @@ void GameModule::UpdateTimers(uint32_t deltaTime)
 {
     auto begin = this->Timers->begin();
     auto end = this->Timers->end();
-    while (begin != end)
+    while(begin != end)
     {
         TickTimer* timer = *begin;
 

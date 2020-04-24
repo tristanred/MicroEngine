@@ -11,14 +11,15 @@ class Viewport;
 
 class TickTimer;
 
-#include <list>
 #include <stdint.h>
 
-#include "GameEngine.h"
-#include "core.h"
+#include <list>
+
 #include "Controls/CBaseControl.h"
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
+#include "GameEngine.h"
+#include "core.h"
 
 enum GameModuleState
 {
@@ -57,8 +58,6 @@ public:
 
     std::list<RenderableObject*>* Objects;
 
-
-
     GameModuleState ModuleState = UNINITIALIZED;
 
     virtual void Load();
@@ -68,8 +67,6 @@ public:
     virtual void Unload();
 
     virtual void Stop();
-
-
 
     /**
      * \brief Get a pointer to the game's renderer.
@@ -146,14 +143,12 @@ public:
      */
     ATexture* CreateTexture(const char* textureName);
 
-
     /**
      * \brief Frees an object.
      *
      * \param object - Object to free.
      */
     void DestroyObject(RenderableObject* object);
-
 
     /**
      * \brief Create a viewport to use. If no viewports exist, the first one
@@ -174,7 +169,6 @@ public:
      * maybe not add automatically into the container.
      */
     virtual void AttachRenderable(RenderableObject* object);
-
 
     /**
      * \brief Process the Update loop of the GameModule.
@@ -222,7 +216,7 @@ protected:
      *
      * \return T - Created control.
      */
-    template<class T>
+    template <class T>
     T* CreateControl();
 
 private:
@@ -237,21 +231,21 @@ private:
     void UpdateTimers(uint32_t deltaTime);
 };
 
-template<>
+template <>
 inline CButton* GameModule::CreateControl<CButton>()
 {
     CButton* newbutan = new CButton(this->Engine);
     return newbutan;
 }
 
-template<>
+template <>
 inline CLabel* GameModule::CreateControl<CLabel>()
 {
     CLabel* newlab = new CLabel(this->Engine);
     return newlab;
 }
 
-template<typename TSubType>
+template <typename TSubType>
 TSubType* GameModule::CreateSprite()
 {
     LogTrace("GameModule::CreateSprite");
@@ -263,7 +257,7 @@ TSubType* GameModule::CreateSprite()
     return x;
 }
 
-template<typename TSubType>
+template <typename TSubType>
 TSubType* GameModule::CreateSprite(ATexture* texture)
 {
     LogTrace("GameModule::CreateSprite");

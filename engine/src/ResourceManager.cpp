@@ -1,11 +1,12 @@
 #include "ResourceManager.h"
 
+#include <libtech/fsutils.h>
 #include <stdio.h>
 #include <string.h>
+
 #include <string>
 
 #include "Asset.h"
-#include <libtech/fsutils.h>
 
 ResourceManager::ResourceManager()
 {
@@ -98,7 +99,7 @@ Asset* ResourceManager::AddFile(const char* filePath, const char* resourceName)
     if(newAsset->size > 0)
     {
         // Assign name
-        newAsset->name = new char[strlen(resourceName)+1];
+        newAsset->name = new char[strlen(resourceName) + 1];
         strcpy(newAsset->name, resourceName);
 
         // Put in cache
@@ -116,7 +117,7 @@ Asset* ResourceManager::AddFile(const char* filePath, const char* resourceName)
 
 void ResourceManager::AddAssetRoot(const char* rootFolderPath)
 {
-    char* rootPathCopy = new char[strlen(rootFolderPath)+1];
+    char* rootPathCopy = new char[strlen(rootFolderPath) + 1];
     strcpy(rootPathCopy, rootFolderPath);
 
     this->resourceRoots->push_back(rootPathCopy);
@@ -136,11 +137,11 @@ Asset* ResourceManager::GetResource(const char* name)
     // First we check in the list of assets we have added
     auto filesBegin = resourceCache->begin();
     auto filesEnd = resourceCache->end();
-    while (filesBegin != filesEnd)
+    while(filesBegin != filesEnd)
     {
         Asset* res = *filesBegin;
 
-        if (strcmp(res->name, name) == 0)
+        if(strcmp(res->name, name) == 0)
         {
             return res;
         }
@@ -152,14 +153,14 @@ Asset* ResourceManager::GetResource(const char* name)
     // The name we search for could be a full path
     auto rootsBegin = resourceRoots->begin();
     auto rootsEnd = resourceRoots->end();
-    while (rootsBegin != rootsEnd)
+    while(rootsBegin != rootsEnd)
     {
         char* rootObject = (char*)*rootsBegin;
 
         // Seach that any asset ends with the requested name
         const char* foundPathName = find_subdir_file(name, rootObject);
 
-        if (foundPathName != NULL)
+        if(foundPathName != NULL)
         {
             Asset* newRes = this->AddFile(foundPathName, name);
 
@@ -172,7 +173,7 @@ Asset* ResourceManager::GetResource(const char* name)
     // Then we look inside the PAK files we have loaded
     auto pakBegin = packageFiles->begin();
     auto pakEnd = packageFiles->end();
-    while (pakBegin != pakEnd)
+    while(pakBegin != pakEnd)
     {
         // PAK files not implemented yet.
 

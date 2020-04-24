@@ -1,15 +1,14 @@
 #include "Debugging/DebugLayer.h"
 
-#include "Rendering/ATexture.h"
-#include "Rendering/ASprite.h"
-#include "Rendering/AFont.h"
-#include "Rendering/AText.h"
-#include "Rendering/ARenderer.h"
-#include "Viewport.h"
-#include "Input/AMouse.h"
-#include "Input/AKeyboard.h"
-
 #include "GameEngine.h"
+#include "Input/AKeyboard.h"
+#include "Input/AMouse.h"
+#include "Rendering/AFont.h"
+#include "Rendering/ARenderer.h"
+#include "Rendering/ASprite.h"
+#include "Rendering/AText.h"
+#include "Rendering/ATexture.h"
+#include "Viewport.h"
 #include "libtech/geometry.h"
 
 DebugLayer::DebugLayer(GameEngine* engine)
@@ -17,7 +16,8 @@ DebugLayer::DebugLayer(GameEngine* engine)
     engineRef = engine;
 
     DebugDarkplate = engine->CreateTexture();
-    DebugDarkplate->SetSolidColor(FSize(engine->Renderer->GetWindowSize().Width, 200), LAYERCOLOR);
+    DebugDarkplate->SetSolidColor(
+        FSize(engine->Renderer->GetWindowSize().Width, 200), LAYERCOLOR);
 
     DebugFont = engine->CreateTextFont();
     DebugFont->LoadFontFile("assets/engine/arial.ttf");
@@ -31,7 +31,8 @@ DebugLayer::DebugLayer(GameEngine* engine)
     MouseWindowPositionValue = engine->CreateText();
     MouseWindowPositionValue->SetFont(DebugFont);
     MouseWindowPositionValue->SetText("?");
-    MouseWindowPositionValue->SetPosition(MouseWindowPositionLabel->GetSize().Width + 5, 0);
+    MouseWindowPositionValue->SetPosition(
+        MouseWindowPositionLabel->GetSize().Width + 5, 0);
     MouseWindowPositionValue->SetPositionSystem(VIEWPORT_STATIC);
 
     MouseViewportPositionLabel = engine->CreateText();
@@ -43,7 +44,8 @@ DebugLayer::DebugLayer(GameEngine* engine)
     MouseViewportPositionValue = engine->CreateText();
     MouseViewportPositionValue->SetFont(DebugFont);
     MouseViewportPositionValue->SetText("?");
-    MouseViewportPositionValue->SetPosition(MouseViewportPositionLabel->GetSize().Width + 5, 20);
+    MouseViewportPositionValue->SetPosition(
+        MouseViewportPositionLabel->GetSize().Width + 5, 20);
     MouseViewportPositionValue->SetPositionSystem(VIEWPORT_STATIC);
 
     this->isVisible = false;
@@ -67,15 +69,16 @@ void DebugLayer::Hide()
 
 void DebugLayer::Draw(ARenderer* renderer)
 {
-    if (this->isVisible == false)
+    if(this->isVisible == false)
         return;
 
     // If the game was resized, resize our debug panel to fit the screen.
-    if (previousWindowSize != renderer->GetWindowSize())
+    if(previousWindowSize != renderer->GetWindowSize())
     {
         previousWindowSize = renderer->GetWindowSize();
 
-        DebugDarkplate->SetSolidColor(FSize(renderer->GetWindowSize().Width, 200), LAYERCOLOR);
+        DebugDarkplate->SetSolidColor(
+            FSize(renderer->GetWindowSize().Width, 200), LAYERCOLOR);
     }
 
     renderer->DrawTexture(DebugDarkplate, 0, 0);
@@ -97,10 +100,12 @@ void DebugLayer::Update(unsigned int deltaTime)
     relativeMousePos.y = absoluteMousePos.y + viewport->CurrentView.Y;
 
     char posText[64];
-    sprintf(posText, "%d, %d", (int)absoluteMousePos.x, (int)absoluteMousePos.y);
+    sprintf(posText, "%d, %d", (int)absoluteMousePos.x,
+            (int)absoluteMousePos.y);
     MouseWindowPositionValue->SetText(posText);
 
-    sprintf(posText, "%d, %d", (int)relativeMousePos.x, (int)relativeMousePos.y);
+    sprintf(posText, "%d, %d", (int)relativeMousePos.x,
+            (int)relativeMousePos.y);
     MouseViewportPositionValue->SetText(posText);
 }
 

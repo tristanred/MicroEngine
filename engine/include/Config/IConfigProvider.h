@@ -1,8 +1,8 @@
 #pragma once
 
-#include "core.h"
-
 #include <string>
+
+#include "core.h"
 
 struct ENGINE_CLASS ConfigValue
 {
@@ -18,7 +18,8 @@ public:
 
     virtual std::string GetConfigValue(std::string name) = 0;
 
-    virtual std::string GetConfigValueSafe(std::string name, std::string valueIfNull) = 0;
+    virtual std::string GetConfigValueSafe(std::string name,
+                                           std::string valueIfNull) = 0;
 
     virtual void SetParent(IConfigProvider* parent);
 
@@ -28,5 +29,6 @@ protected:
     IConfigProvider* parent;
 
     virtual std::string QueryParent(std::string name);
-    virtual std::string QueryParentSafe(std::string name, std::string valueIfNull);
+    virtual std::string QueryParentSafe(std::string name,
+                                        std::string valueIfNull);
 };

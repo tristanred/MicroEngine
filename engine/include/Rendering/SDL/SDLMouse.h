@@ -4,9 +4,8 @@
 
 #include <SDL_events.h>
 
-#include "libtech/vec.h"
-
 #include "Input/AMouse.h"
+#include "libtech/vec.h"
 
 class SDLMouse : public AMouse
 {

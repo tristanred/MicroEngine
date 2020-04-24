@@ -1,27 +1,29 @@
 #include "Controls/CButton.h"
 
-#include "Input/AMouse.h"
-#include "Input/AKeyboard.h"
 #include <libtech/geometry.h>
+
+#include "Input/AKeyboard.h"
+#include "Input/AMouse.h"
 
 CButton::CButton(GameEngine* engine) : CBaseControl(engine)
 {
     this->CurrentState = Button_State::ENABLED;
     this->isEnabled = true;
     this->clickLock = false;
-    
+
     this->enabledTexture = NULL;
     this->disabledTexture = NULL;
     this->downTexture = NULL;
     this->mouseOverTexture = NULL;
 }
 
-CButton::~CButton()
-{
+CButton::~CButton() {}
 
-}
-
-void CButton::Initialize(FSize size, ATexture* enabledTexture, ATexture* disabledTexture, ATexture* downTexture, ATexture* overTexture)
+void CButton::Initialize(FSize size,
+                         ATexture* enabledTexture,
+                         ATexture* disabledTexture,
+                         ATexture* downTexture,
+                         ATexture* overTexture)
 {
     CBaseControl::Initialize();
 
@@ -42,7 +44,7 @@ void CButton::Update(unsigned int deltaTime)
     {
         // TODO : Viewport offset will screw up the mouse position, update to
         //        make sure that the viewport is taken into account.
-        
+
         // Check if mouse is over the rectangle
         FRectangle rec = this->GetRectangle();
         if(rec.PointIsInside(this->Mouse->GetMousePosition()))
@@ -55,15 +57,16 @@ void CButton::Update(unsigned int deltaTime)
             else
             {
                 this->CurrentState = Button_State::HOVERED;
-                
-                // When going back into Hovered mode, reset the clicked lock flag
+
+                // When going back into Hovered mode, reset the clicked lock
+                // flag
                 this->clickLock = false;
             }
         }
         else
         {
             this->CurrentState = Button_State::ENABLED;
-            
+
             // When going back into Enabled mode, reset the clicked lock flag
             this->clickLock = false;
         }
@@ -159,10 +162,10 @@ bool CButton::IsClicked(bool clickedLockButton)
             {
                 this->clickLock = true;
             }
-            
+
             return true;
         }
     }
-    
+
     return false;
 }

@@ -1,15 +1,16 @@
 #pragma once
 
-#include "core.h"
-
 #include <stdint.h>
+
+#include "core.h"
 
 #ifdef _WIN32
 #include <Windows.h>
 #endif
 
-#define LARGE_FILE_MMAP_TRESH (1024*1024*10)// 10MB
-#define LARGE_FILE_MMAP_LIMIT ((uint64_t)1024*(uint64_t)1024*(uint64_t)1024*(uint64_t)4) // 4GB
+#define LARGE_FILE_MMAP_TRESH (1024 * 1024 * 10)  // 10MB
+#define LARGE_FILE_MMAP_LIMIT \
+    ((uint64_t)1024 * (uint64_t)1024 * (uint64_t)1024 * (uint64_t)4)  // 4GB
 
 /**
  * \brief Type of an Asset.
@@ -20,10 +21,10 @@
 enum Asset_Type
 {
     AT_UNKNOWN,
-    AT_IMAGE,       /* .png .jpg .tga   */
-    AT_FONT,        /* .ttf .otf        */
-    AT_PACKAGE,     /* .pak             */
-    AT_CONFIG       /* .xml .json .ini  */
+    AT_IMAGE,   /* .png .jpg .tga   */
+    AT_FONT,    /* .ttf .otf        */
+    AT_PACKAGE, /* .pak             */
+    AT_CONFIG   /* .xml .json .ini  */
 };
 
 /**
@@ -41,8 +42,8 @@ public:
     Asset_Type type;
 
     bool IsLoaded;
-    char* name; // Friendly name
-    const char* path; // Full path, may be relative
+    char* name;        // Friendly name
+    const char* path;  // Full path, may be relative
     uint64_t size;
     void* data;
 
@@ -73,8 +74,8 @@ public:
      * \remark Not implemented yet.
      */
     void* GetBlock(uint64_t start, uint64_t end, uint64_t* readBytes);
-private:
 
+private:
     Asset_Type DetermineAssetType(const char* assetPath);
 
     bool IsMemoryMapped;
@@ -84,5 +85,4 @@ private:
     HANDLE hAssetFile;
     HANDLE hFileMap;
 #endif
-
 };

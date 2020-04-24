@@ -1,7 +1,7 @@
 #include "Rendering/RenderableObject.h"
 
-#include "Rendering/ATexture.h"
 #include "GameEngine.h"
+#include "Rendering/ATexture.h"
 
 RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 {
@@ -96,13 +96,13 @@ FPosition RenderableObject::GetPosition()
     else
     {
         FPosition calculatedResult = this->position;
-        
+
         if(this->Parent != NULL)
         {
             FPosition parentPos = this->Parent->GetPosition();
             calculatedResult.X *= this->Parent->GetScale().x;
             calculatedResult.Y *= this->Parent->GetScale().y;
-            
+
             calculatedResult.X += parentPos.X;
             calculatedResult.Y += parentPos.Y;
         }
@@ -126,9 +126,11 @@ void RenderableObject::SetPositionAnchored(FPosition position, vec2 anchor)
 {
     auto currentSize = this->GetSize();
 
-    auto sizeOffset = vec2(currentSize.Width * anchor.x, currentSize.Height * anchor.y);
+    auto sizeOffset =
+        vec2(currentSize.Width * anchor.x, currentSize.Height * anchor.y);
 
-    FPosition newPos = FPosition(this->position.X - sizeOffset.x, this->position.Y - sizeOffset.y);
+    FPosition newPos = FPosition(this->position.X - sizeOffset.x,
+                                 this->position.Y - sizeOffset.y);
 
     this->SetPosition(newPos);
 }
@@ -189,7 +191,7 @@ FPolygon RenderableObject::GetPolygon()
 vec2 RenderableObject::GetScale()
 {
     vec2 finalScale = this->scale;
-    
+
     if(this->Parent != NULL)
     {
         vec2 parentScale = this->Parent->GetScale();
@@ -220,9 +222,9 @@ ATexture* RenderableObject::GetTexture()
     return this->texture;
 }
 
-void RenderableObject::SetTexture(const char *filepath)
+void RenderableObject::SetTexture(const char* filepath)
 {
-    if (filepath != NULL)
+    if(filepath != NULL)
     {
         ATexture* tex = this->Renderer->CreateTexture(filepath);
 
@@ -232,11 +234,11 @@ void RenderableObject::SetTexture(const char *filepath)
 
 void RenderableObject::SetTexture(ATexture* newTexture)
 {
-    if (this->texture != NULL)
+    if(this->texture != NULL)
         delete(this->texture);
 
     this->texture = newTexture;
-    
+
     this->size = this->texture->GetSize();
 }
 
@@ -330,14 +332,6 @@ ArrayList<RenderableObject*>* RenderableObject::GetChildren()
     return this->Children;
 }
 
-void RenderableObject::OnPreDraw()
-{
+void RenderableObject::OnPreDraw() {}
 
-}
-
-void RenderableObject::OnPostDraw()
-{
-
-}
-
-
+void RenderableObject::OnPostDraw() {}

@@ -2,11 +2,12 @@
 
 #ifdef _WIN32
 /**
- * Disable the warning about "std::function<void(T)> targetFunction;" not being exported
- * with a dll-interface. This is ok in this case because it is a private member as referenced here
+ * Disable the warning about "std::function<void(T)> targetFunction;" not being
+ * exported with a dll-interface. This is ok in this case because it is a
+ * private member as referenced here
  * https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-1-c4251
  */
-#pragma warning(disable:4251)
+#pragma warning(disable : 4251)
 #endif
 
 /* < Event System >
@@ -31,30 +32,31 @@
  * https://en.cppreference.com/w/cpp/language/template_specialization
  */
 
+#include <libtech/arraylist.h>
+
+#include <functional>
 
 #include "core.h"
-#include <libtech/arraylist.h>
-#include <functional>
 
 /*
  * Since both classes depend on each other, I am forward-declaring them both
  * as early as possible.
  */
-template <class ...T>
+template <class... T>
 class EventHandle;
 template <>
 class EventHandle<void>;
 
-template <class ...T>
+template <class... T>
 class Event;
 template <>
 class Event<void>;
 
-
-template <class ...T>
+template <class... T>
 class ENGINE_CLASS EventHandle
 {
     friend class Event<T...>;
+
 public:
     EventHandle(Event<T...>* target, std::function<void(T...)> func)
     {
@@ -62,22 +64,20 @@ public:
         this->targetEvent = target;
         this->targetFunction = func;
     };
-    
-    ~EventHandle()
-    {
-    };
-    
+
+    ~EventHandle(){};
+
     void Dispose()
     {
         assert(targetEvent != NULL);
-        
+
         if(this->isDisposed == false)
         {
             targetEvent->Listeners->RemoveObject(this);
             this->isDisposed = true;
         }
     };
-    
+
 private:
     bool isDisposed;
     Event<T...>* targetEvent;
@@ -88,6 +88,7 @@ template <>
 class ENGINE_CLASS EventHandle<void>
 {
     friend class Event<void>;
+
 public:
     EventHandle(Event<void>* target, std::function<void()> func)
     {
@@ -95,37 +96,31 @@ public:
         this->targetEvent = target;
         this->targetFunction = func;
     };
-    
-    ~EventHandle()
-    {
-    };
-    
+
+    ~EventHandle(){};
+
     void Dispose();
-    
+
 private:
     bool isDisposed;
     Event<void>* targetEvent;
     std::function<void()> targetFunction;
 };
 
-
-
-template <class ...T>
+template <class... T>
 class ENGINE_CLASS Event
 {
     friend class EventHandle<T...>;
+
 public:
-    Event()
-    {
-        this->Listeners = new ArrayList<EventHandle<T...>*>();
-    };
+    Event() { this->Listeners = new ArrayList<EventHandle<T...>*>(); };
 
     ~Event()
     {
         this->Listeners->Clear();
         delete(this->Listeners);
     };
-    
+
     EventHandle<T...>* Listen(std::function<void(T...)> listenFunction)
     {
         EventHandle<T...>* handle = new EventHandle<T...>(this, listenFunction);
@@ -134,7 +129,7 @@ public:
 
         return handle;
     };
-    
+
     void Dispatch(T... argument)
     {
         for(int i = 0; i < this->Listeners->Count(); i++)
@@ -152,27 +147,25 @@ template <>
 class ENGINE_CLASS Event<void>
 {
     friend class EventHandle<void>;
+
 public:
-    Event()
-    {
-        this->Listeners = new ArrayList<EventHandle<void>*>();
-    };
-    
+    Event() { this->Listeners = new ArrayList<EventHandle<void>*>(); };
+
     ~Event()
     {
         this->Listeners->Clear();
         delete(this->Listeners);
     };
-    
+
     EventHandle<void>* Listen(std::function<void()> listenFunction)
     {
         EventHandle<void>* handle = new EventHandle<void>(this, listenFunction);
-        
+
         this->Listeners->Add(handle);
-        
+
         return handle;
     };
-    
+
     void Dispatch()
     {
         for(int i = 0; i < this->Listeners->Count(); i++)
@@ -181,7 +174,7 @@ public:
             handel->targetFunction();
         }
     };
-    
+
 private:
     ArrayList<EventHandle<void>*>* Listeners;
 };
@@ -189,7 +182,7 @@ private:
 inline void EventHandle<void>::Dispose()
 {
     assert(targetEvent != NULL);
-    
+
     if(this->isDisposed == false)
     {
         targetEvent->Listeners->RemoveObject(this);

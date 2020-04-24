@@ -7,8 +7,8 @@
 SDLKeyboard::SDLKeyboard()
 {
     keysCount = 512;
-    currentScancodes = new Uint8[keysCount]{ 0 };
-    previousScancodes = new Uint8[keysCount]{ 0 };
+    currentScancodes = new Uint8[keysCount]{0};
+    previousScancodes = new Uint8[keysCount]{0};
 }
 
 SDLKeyboard::~SDLKeyboard()

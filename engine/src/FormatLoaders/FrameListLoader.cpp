@@ -1,15 +1,15 @@
 #include "FormatLoaders/FrameListLoader.h"
 
-#include <libtech/pathutils.h>
 #include <libtech/fsutils.h>
-#include <string>
+#include <libtech/pathutils.h>
 #include <string.h>
 
-#include "Rendering/ARenderer.h"
-#include "Rendering/ATexture.h"
-#include "Rendering/ASprite.h"
-#include "FormatLoaders/TPXmlReader.h"
+#include <string>
 
+#include "FormatLoaders/TPXmlReader.h"
+#include "Rendering/ARenderer.h"
+#include "Rendering/ASprite.h"
+#include "Rendering/ATexture.h"
 #include "pugixml.hpp"
 
 FrameListLoader::FrameListLoader(ARenderer* renderer)
@@ -18,15 +18,14 @@ FrameListLoader::FrameListLoader(ARenderer* renderer)
     currentPath = NULL;
 }
 
-FrameListLoader::FrameListLoader(const char* framesDirectory, ARenderer* renderer)
+FrameListLoader::FrameListLoader(const char* framesDirectory,
+                                 ARenderer* renderer)
 {
     currentPath = framesDirectory;
     this->renderer = renderer;
 }
 
-FrameListLoader::~FrameListLoader()
-{
-}
+FrameListLoader::~FrameListLoader() {}
 
 void FrameListLoader::Open(const char* framesDirectory)
 {
@@ -50,7 +49,6 @@ char** FrameListLoader::ExtractAsArray(int* framesAmount)
     }
     else
     {
-
     }
 
     return NULL;
@@ -78,12 +76,10 @@ ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
         if(this->DirectoryContainsManifest())
         {
             // Parse the XML and load the files that are needed
-
         }
         else
         {
             // Load all files
-
         }
     }
     else
@@ -95,11 +91,10 @@ ArrayList<ATexture*>* FrameListLoader::ExtractAsTextures()
     return NULL;
 }
 
-
 SpriteAnimation* FrameListLoader::ExtractAsAnimation(const char* name)
 {
     SpriteAnimation* anim = new SpriteAnimation();
-    anim->AnimationName = new char[strlen(name)+1];
+    anim->AnimationName = new char[strlen(name) + 1];
     strcpy(anim->AnimationName, name);
 
     anim->currentFrameIndex = 0;
@@ -144,7 +139,7 @@ ArrayList<ATexture*>* FrameListLoader::CreateFromSpritesheet()
 
     ArrayList<TPXmlEntry*>* entries = rdr.ReadEntries(&tpHeader);
 
-    if (entries == NULL)
+    if(entries == NULL)
     {
         // No entries found.
         TPXmlReader rdr = TPXmlReader(currentPath);
@@ -160,16 +155,18 @@ ArrayList<ATexture*>* FrameListLoader::CreateFromSpritesheet()
     stringBuilder.append("/");
     stringBuilder.append(tpHeader.imagePath);
 
-    ATexture* sheetTexture = this->renderer->CreateTexture(stringBuilder.c_str());
+    ATexture* sheetTexture =
+        this->renderer->CreateTexture(stringBuilder.c_str());
 
     auto begin = entries->GetContainer()->begin();
     auto end = entries->GetContainer()->end();
 
-    while (begin != end)
+    while(begin != end)
     {
         TPXmlEntry* entry = *begin;
 
-        ATexture* sprite = sheetTexture->GetSubTexture(entry->x, entry->y, entry->w, entry->h);
+        ATexture* sprite =
+            sheetTexture->GetSubTexture(entry->x, entry->y, entry->w, entry->h);
 
         listResult->Add(sprite);
 

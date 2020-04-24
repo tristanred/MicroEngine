@@ -4,10 +4,10 @@
 
 #include <SDL.h>
 
-#include "core.h"
 #include "Rendering/ARenderer.h"
 #include "Rendering/ASprite.h"
 #include "Rendering/ATexture.h"
+#include "core.h"
 
 class ENGINE_CLASS SDLRenderer : public ARenderer
 {
@@ -29,7 +29,10 @@ public:
 
     void Draw(RenderableObject* sprite) override;
     void DrawTexture(ATexture* texture, float posX, float posY) override;
-    void DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts) override;
+    void DrawTexture(ATexture* texture,
+                     float posX,
+                     float posY,
+                     struct TextureDrawOptions* opts) override;
 
     ATexture* CreateTexture() override;
     ATexture* CreateTexture(void* data, int length) override;

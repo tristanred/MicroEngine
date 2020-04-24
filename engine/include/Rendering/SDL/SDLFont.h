@@ -4,10 +4,10 @@
 
 class Asset;
 
-#include "core.h"
-#include "Rendering/AFont.h"
-
 #include <SDL_ttf.h>
+
+#include "Rendering/AFont.h"
+#include "core.h"
 
 #define DefaultLoadedFontSize 22
 

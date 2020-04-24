@@ -1,12 +1,12 @@
 #pragma once
 
-#include "IConfigProvider.h"
-
-#include "core.h"
-
-#include <vector>
 #include <string.h>
+
 #include <string>
+#include <vector>
+
+#include "IConfigProvider.h"
+#include "core.h"
 #include "pugixml.hpp"
 
 class ENGINE_CLASS FileConfigProvider : public IConfigProvider

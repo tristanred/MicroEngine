@@ -2,11 +2,12 @@
 
 #include "Rendering/SDL/SDLTexture.h"
 
-#include "Rendering/SDL/SDLRenderer.h"
-#include "GameEngine.h"
-
 #include <SDL_image.h>
+
 #include <cmath>
+
+#include "GameEngine.h"
+#include "Rendering/SDL/SDLRenderer.h"
 
 SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
 {
@@ -19,7 +20,8 @@ SDLTexture::SDLTexture(ARenderer* renderer) : ATexture(renderer)
     textureSize = FSize(0, 0);
 }
 
-SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface) : SDLTexture(renderer)
+SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface)
+    : SDLTexture(renderer)
 {
     this->surf = fromSurface;
     this->tex = this->SdlRenderer->BuildTexture(fromSurface);
@@ -54,7 +56,8 @@ void SDLTexture::SetSize(FSize size)
      * do a scaled blit from the current to the new one and destroy the old
      * surface data.
      */
-    SDL_Surface* newSurface = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
+    SDL_Surface* newSurface = SDL_CreateRGBSurface(
+        0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
 
     SDL_Rect srcRect;
     srcRect.x = 0;
@@ -91,13 +94,14 @@ void SDLTexture::SetSize(FSize size)
 
 void SDLTexture::SetSolidColor(FSize size, uint32_t color)
 {
-    if (this->surf != NULL)
+    if(this->surf != NULL)
     {
         SDL_FreeSurface(this->surf);
     }
 
     this->textureSize = size;
-    this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32, rmask, gmask, bmask, amask);
+    this->surf = SDL_CreateRGBSurface(0, (int)size.Width, (int)size.Height, 32,
+                                      rmask, gmask, bmask, amask);
     SDL_FillRect(surf, NULL, color);
 
     isDirty = true;
@@ -105,23 +109,26 @@ void SDLTexture::SetSolidColor(FSize size, uint32_t color)
 
 void SDLTexture::LoadFromFile(const char* filepath)
 {
-    if (this->surf != NULL)
+    if(this->surf != NULL)
     {
         SDL_FreeSurface(this->surf);
     }
 
     this->surf = IMG_Load(filepath);
 
-    if (this->surf == NULL)
+    if(this->surf == NULL)
     {
         LogError("Unable to open the file texture");
 
         return;
     }
 
-    if (this->surf->format->BitsPerPixel != 32)
+    if(this->surf->format->BitsPerPixel != 32)
     {
-        LogWarning("Surface format is %c bpp instead of 32. Recommends to convert the image.", this->surf->format->BitsPerPixel);
+        LogWarning(
+            "Surface format is %c bpp instead of 32. Recommends to convert the "
+            "image.",
+            this->surf->format->BitsPerPixel);
     }
 
     loadedTexturePath = filepath;
@@ -192,7 +199,10 @@ void SDLTexture::FillRect(FRectangle rect, uint32_t color)
     this->isDirty = true;
 }
 
-void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size)
+void SDLTexture::DrawLine(FPosition pos1,
+                          FPosition pos2,
+                          uint32_t color,
+                          uint32_t size)
 {
     SDL_Renderer* rendy = SDL_CreateSoftwareRenderer(this->surf);
     uint8_t r = (color & 0xFF000000) >> 24;
@@ -202,7 +212,8 @@ void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32
     SDL_SetRenderDrawColor(rendy, r, g, b, a);
     SDL_SetRenderDrawBlendMode(rendy, SDL_BLENDMODE_BLEND);
 
-    SDL_RenderDrawLine(rendy, (int)pos1.X, (int)pos1.Y, (int)pos2.X, (int)pos2.Y);
+    SDL_RenderDrawLine(rendy, (int)pos1.X, (int)pos1.Y, (int)pos2.X,
+                       (int)pos2.Y);
     SDL_DestroyRenderer(rendy);
 
     this->isDirty = true;
@@ -210,7 +221,7 @@ void SDLTexture::DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32
 
 void SDLTexture::FreeTextureMemory()
 {
-    if (surf != NULL)
+    if(surf != NULL)
     {
         SDL_FreeSurface(surf);
     }
@@ -218,7 +229,7 @@ void SDLTexture::FreeTextureMemory()
 
 void SDLTexture::ReloadTexture()
 {
-    if (this->loadedTexturePath != NULL)
+    if(this->loadedTexturePath != NULL)
     {
         this->LoadFromFile(loadedTexturePath);
     }
@@ -226,7 +237,8 @@ void SDLTexture::ReloadTexture()
 
 ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
 {
-    SDL_Surface* subSurface = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
+    SDL_Surface* subSurface =
+        SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
 
     Uint32 color = SDL_MapRGBA(subSurface->format, 255, 255, 255, 0);
 
@@ -245,7 +257,7 @@ ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
         const char* errstring = SDL_GetError();
         LogError(errstring);
 
-        return NULL; // TODO Free stuff
+        return NULL;  // TODO Free stuff
     }
 
     SDLTexture* newTexture = new SDLTexture(this->Renderer, subSurface);
@@ -253,7 +265,10 @@ ATexture* SDLTexture::GetSubTexture(int x, int y, int width, int height)
     return newTexture;
 }
 
-void SDLTexture::CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos)
+void SDLTexture::CopyFrom(ATexture* other,
+                          FPosition sourcePos,
+                          FSize sourceSize,
+                          FPosition destPos)
 {
     SDLTexture* otherTexture = (SDLTexture*)other;
 
@@ -280,7 +295,8 @@ void SDLTexture::CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize
     destRect.y = 0;
     destRect.w = (int)currentTextureNewSize.Width;
     destRect.h = (int)currentTextureNewSize.Height;
-    int res = SDL_BlitSurface(otherTexture->surf, &sourceRect, this->surf, &destRect);
+    int res =
+        SDL_BlitSurface(otherTexture->surf, &sourceRect, this->surf, &destRect);
 
     if(res != 0)
     {

@@ -5,9 +5,7 @@ IConfigProvider::IConfigProvider()
     this->parent = NULL;
 }
 
-IConfigProvider::~IConfigProvider()
-{
-}
+IConfigProvider::~IConfigProvider() {}
 
 void IConfigProvider::SetParent(IConfigProvider* parent)
 {
@@ -36,7 +34,8 @@ std::string IConfigProvider::QueryParent(std::string name)
     return "";
 }
 
-std::string IConfigProvider::QueryParentSafe(std::string name, std::string valueIfNull)
+std::string IConfigProvider::QueryParentSafe(std::string name,
+                                             std::string valueIfNull)
 {
     if(this->parent != NULL)
     {

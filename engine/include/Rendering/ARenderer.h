@@ -1,10 +1,10 @@
 #pragma once
 
-#include "core.h"
-
-#include <libtech/geometry.h>
-#include "RenderableObject.h"
 #include <libtech/arraylist.h>
+#include <libtech/geometry.h>
+
+#include "RenderableObject.h"
+#include "core.h"
 
 class RenderableObject;
 class ATexture;
@@ -66,7 +66,7 @@ public:
     ARenderer();
     virtual ~ARenderer();
 
-    FileCache* Cache; // Set externally, may be NULL if no cache is enabled
+    FileCache* Cache;  // Set externally, may be NULL if no cache is enabled
     ResourceManager* Resman;
     Viewport* RenderViewport;
 
@@ -131,7 +131,10 @@ public:
      * \param posY - Position Y to draw the texture to.
      * \param opt - Options for the draw.
      */
-    virtual void DrawTexture(ATexture* tex, float posX, float posY, struct TextureDrawOptions* opt) = 0;
+    virtual void DrawTexture(ATexture* tex,
+                             float posX,
+                             float posY,
+                             struct TextureDrawOptions* opt) = 0;
 
     /**
      * \brief Create an empty texture.
@@ -233,7 +236,8 @@ public:
      *
      * \return ArrayList<ATexture> - Returns list of textures createds
      */
-    ArrayList<ATexture*>* CreateTextureList(const char* fileNames[], int length);
+    ArrayList<ATexture*>* CreateTextureList(const char* fileNames[],
+                                            int length);
 
     /**
      * \brief Load frames from a file path. Executes multiple strategies to

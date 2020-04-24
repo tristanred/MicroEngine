@@ -1,4 +1,5 @@
 #include "Filesystem/XFile.h"
+
 #include "libtech/pathutils.h"
 #include "libtech/sysutils.h"
 
@@ -32,11 +33,11 @@ XFile::~XFile()
     delete(ParentDirectoryPath);
 
 #ifdef _WIN32
-    if (winFileHandle != INVALID_HANDLE_VALUE)
+    if(winFileHandle != INVALID_HANDLE_VALUE)
     {
         BOOL res = CloseHandle(winFileHandle);
-        
-        if (res == 0)
+
+        if(res == 0)
         {
             DWORD err = GetLastError();
 
@@ -49,9 +50,10 @@ XFile::~XFile()
 void XFile::Open(const char* path)
 {
 #ifdef _WIN32
-    winFileHandle = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    winFileHandle = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+                                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-    if (winFileHandle == INVALID_HANDLE_VALUE)
+    if(winFileHandle == INVALID_HANDLE_VALUE)
     {
         FilePath = NULL;
         FileName = NULL;
@@ -73,7 +75,7 @@ void XFile::Open(const char* path)
 
 uint8_t* XFile::Read(size_t* length)
 {
-    if (this->IsValid() == false)
+    if(this->IsValid() == false)
     {
         *length = 0;
         return NULL;
@@ -81,18 +83,12 @@ uint8_t* XFile::Read(size_t* length)
 
 #ifdef _WIN32
 
-	uint8_t* data = new uint8_t[this->Size];
+    uint8_t* data = new uint8_t[this->Size];
     DWORD readBytes = 0;
-    DWORD bytesToRead = (DWORD)this->Size; // Cutting the upper 32 bits, TODO
-    BOOL res = ReadFile(
-        winFileHandle,
-        data,
-        bytesToRead,
-        &readBytes,
-        NULL
-    );
+    DWORD bytesToRead = (DWORD)this->Size;  // Cutting the upper 32 bits, TODO
+    BOOL res = ReadFile(winFileHandle, data, bytesToRead, &readBytes, NULL);
 
-    if (res && bytesToRead == readBytes)
+    if(res && bytesToRead == readBytes)
     {
         *length = this->Size;
         return data;
@@ -112,18 +108,13 @@ uint8_t* XFile::Read(size_t* length)
 size_t XFile::Write(uint8_t* data, size_t length)
 {
 #ifdef _WIN32
-    
+
     DWORD bytesWritten = 0;
 
-    BOOL res = WriteFile(
-        winFileHandle,
-        data,
-        (DWORD)length,
-        &bytesWritten,
-        NULL
-    );
+    BOOL res =
+        WriteFile(winFileHandle, data, (DWORD)length, &bytesWritten, NULL);
 
-    if (res == 0)
+    if(res == 0)
     {
         DWORD err = GetLastError();
 
@@ -156,14 +147,14 @@ void XFile::SetSize()
 #ifdef _WIN32
     LARGE_INTEGER sizeResult;
     BOOL res = GetFileSizeEx(winFileHandle, &sizeResult);
-    
-    if (res)
+
+    if(res)
     {
         /* The LARGE_INTEGER type changes based on the 32 or 64 bit architecture
-        * being compiled. If on 64 bit we must use the .QuadPart to get the 64 bit
-        * type. On 32bit the value is split in .LowPart and .HighPart. For now to
-        * support all archs let's chop the upper 32 bits of the size and max out
-        * at 4GB files. */
+         * being compiled. If on 64 bit we must use the .QuadPart to get the 64
+         * bit type. On 32bit the value is split in .LowPart and .HighPart. For
+         * now to support all archs let's chop the upper 32 bits of the size and
+         * max out at 4GB files. */
         this->Size = sizeResult.LowPart;
     }
     else

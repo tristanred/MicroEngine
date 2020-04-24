@@ -6,10 +6,9 @@
 #include <SDL_scancode.h>
 
 #include <vector>
-#include "libtech/pair.h"
 
 #include "Input/AKeyboard.h"
-
+#include "libtech/pair.h"
 
 class SDLKeyboard : public AKeyboard
 {

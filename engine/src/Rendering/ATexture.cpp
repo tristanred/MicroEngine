@@ -11,9 +11,7 @@ ATexture::ATexture(ARenderer* renderer)
     isDirty = true;
 }
 
-ATexture::~ATexture()
-{
-}
+ATexture::~ATexture() {}
 
 void ATexture::SetSize(FSize size)
 {
@@ -22,7 +20,7 @@ void ATexture::SetSize(FSize size)
 
 const char* ATexture::GetTexturePath()
 {
-    if (this->loadedTexturePath == NULL)
+    if(this->loadedTexturePath == NULL)
     {
         return "";
     }
@@ -47,7 +45,9 @@ ArrayList<ATexture*>* ATexture::SplitTexture(int splits)
     int splitStartY = 0;
     for(int i = 0; i < splits; i++)
     {
-        ATexture* split = this->GetSubTexture(splitStartX, splitStartY, splitWidth, (int)this->textureSize.Height);
+        ATexture* split =
+            this->GetSubTexture(splitStartX, splitStartY, splitWidth,
+                                (int)this->textureSize.Height);
 
         splitStartX += splitWidth;
 

@@ -2,41 +2,35 @@
 
 #include "Rendering/SDL/SDLPlatform.h"
 
-#include "SDL.h"
 #include "GameEngine.h"
+#include "SDL.h"
 
-SDLPlatform::SDLPlatform(GameEngine* engine) : APlatform(engine)
-{
+SDLPlatform::SDLPlatform(GameEngine* engine) : APlatform(engine) {}
 
-}
-
-SDLPlatform::~SDLPlatform()
-{
-}
+SDLPlatform::~SDLPlatform() {}
 
 void SDLPlatform::HandleEvents()
 {
     SDL_Event myEvent;
-    while (SDL_PollEvent(&myEvent)) {
-        switch (myEvent.type)
+    while(SDL_PollEvent(&myEvent))
+    {
+        switch(myEvent.type)
         {
-        case SDL_QUIT:
-        {
-            this->RequestExit = true;
+            case SDL_QUIT:
+            {
+                this->RequestExit = true;
 
-            break;
-        }
-        case SDL_WINDOWEVENT:
-        {
-            break;
-        }
-        default:
-            break;
+                break;
+            }
+            case SDL_WINDOWEVENT:
+            {
+                break;
+            }
+            default:
+                break;
         }
     }
 }
 
-void SDLPlatform::Shutdown()
-{
-}
+void SDLPlatform::Shutdown() {}
 #endif

@@ -1,8 +1,8 @@
 #include "Controls/CBaseControl.h"
 
 #include "GameEngine.h"
-#include "Input/AMouse.h"
 #include "Input/AKeyboard.h"
+#include "Input/AMouse.h"
 
 CBaseControl::CBaseControl(GameEngine* engine) : RenderableObject(engine)
 {
@@ -16,10 +16,7 @@ CBaseControl::CBaseControl(GameEngine* engine) : RenderableObject(engine)
     this->initializeCalled = false;
 }
 
-CBaseControl::~CBaseControl()
-{
-
-}
+CBaseControl::~CBaseControl() {}
 
 bool CBaseControl::IsInitialized()
 {
@@ -29,10 +26,9 @@ bool CBaseControl::IsInitialized()
 void CBaseControl::Update(unsigned int deltaTime)
 {
     RenderableObject::Update(deltaTime);
-    
+
     if(this->IsInitialized())
     {
-
     }
 }
 

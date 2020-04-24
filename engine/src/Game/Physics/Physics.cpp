@@ -8,12 +8,10 @@ PhysicsObject::PhysicsObject()
     this->CollisionPolygons = NULL;
 }
 
-PhysicsObject::~PhysicsObject()
-{
+PhysicsObject::~PhysicsObject() {}
 
-}
-
-bool PhysicsObject::IsCollision(PhysicsObject* other, CollisionCheckStrategy strategy)
+bool PhysicsObject::IsCollision(PhysicsObject* other,
+                                CollisionCheckStrategy strategy)
 {
     (void)strategy;
 

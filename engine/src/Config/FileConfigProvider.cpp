@@ -27,8 +27,8 @@ FileConfigProvider::FileConfigProvider(const char* filepath)
             const char* valueString = val.node().text().as_string();
 
             ConfigValue* valueStruct = new ConfigValue();
-            valueStruct->Name = new char[strlen(name)+1];
-            valueStruct->Value = new char[strlen(valueString)+1];
+            valueStruct->Name = new char[strlen(name) + 1];
+            valueStruct->Value = new char[strlen(valueString) + 1];
 
             strcpy(valueStruct->Name, name);
             strcpy(valueStruct->Value, valueString);
@@ -95,7 +95,8 @@ std::string FileConfigProvider::GetConfigValue(std::string name)
     return this->QueryParent(name);
 }
 
-std::string FileConfigProvider::GetConfigValueSafe(std::string name, std::string valueIfNull)
+std::string FileConfigProvider::GetConfigValueSafe(std::string name,
+                                                   std::string valueIfNull)
 {
     if(isValid == false)
     {

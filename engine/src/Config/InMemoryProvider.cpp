@@ -48,7 +48,8 @@ std::string InMemoryProvider::GetConfigValue(std::string name)
     return this->QueryParent(name);
 }
 
-std::string InMemoryProvider::GetConfigValueSafe(std::string name, std::string valueIfNull)
+std::string InMemoryProvider::GetConfigValueSafe(std::string name,
+                                                 std::string valueIfNull)
 {
     auto begin = values->begin();
     auto end = values->end();

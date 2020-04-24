@@ -1,7 +1,8 @@
 #pragma once
 
-#include "core.h"
 #include <libtech/arraylist.h>
+
+#include "core.h"
 
 /**
  * Image entry inside a Texture Packer XML
@@ -18,13 +19,13 @@ public:
     int y;
     int w;
     int h;
-    
+
     // Offset, if trimmed
     int oX;
     int oY;
     int oW;
     int oH;
-    
+
     // Is 'y' if rotated. Rotation not supported so only need to check it's 0
     char r;
 };
@@ -37,7 +38,7 @@ class ENGINE_CLASS TPXmlHeader
 public:
     TPXmlHeader();
     ~TPXmlHeader();
-    
+
     char* imagePath;
     int width;
     int height;
@@ -52,19 +53,19 @@ class ENGINE_CLASS TPXmlReader
 public:
     TPXmlReader(const char* path);
     ~TPXmlReader();
-    
+
     /**
      * Parse the TexturePacker .XML file and returns an entry for each sprite.
      * If the 'outHeaderInfo' parameter is provided, the header structure will
      * be filled with the TextureAtlas information from the xml.
      */
     ArrayList<TPXmlEntry*>* ReadEntries(TPXmlHeader* outHeaderInfo = NULL);
-    
+
     /**
      * Extracts the file name of each sprite in the XML.
      */
     ArrayList<char*>* GetFileNames();
-    
+
 private:
     const char* loadedPath;
 };

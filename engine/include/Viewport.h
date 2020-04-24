@@ -25,7 +25,8 @@ public:
     Viewport();
     ~Viewport();
 
-    // ViewRange is the max positions where the viewport can move to (when following a sprite)
+    // ViewRange is the max positions where the viewport can move to (when
+    // following a sprite)
     FRectangle ViewRange;
 
     // This is where the viewport is right now

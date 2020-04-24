@@ -5,9 +5,10 @@ class AMouse;
 class AKeyboard;
 class RenderableObject;
 
-#include "core.h"
 #include <libtech/geometry.h>
+
 #include "Rendering/RenderableObject.h"
+#include "core.h"
 
 /**
  * Base control class for all engine controls such as buttons, textboxes, etc.
@@ -22,9 +23,9 @@ class RenderableObject;
  * can't call the constructor directly.
  *
  * Remark: A control is not directly drawable so it does not inherit from
- * "RenderableObject". This is because types inheriting from RenderableObject are meant
- * to participate in the Abstract Rendering Layer.
-*/
+ * "RenderableObject". This is because types inheriting from RenderableObject
+ * are meant to participate in the Abstract Rendering Layer.
+ */
 class ENGINE_CLASS CBaseControl : public RenderableObject
 {
 public:

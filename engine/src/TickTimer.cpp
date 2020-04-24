@@ -4,13 +4,11 @@ TickTimer::TickTimer(uint32_t totalTime)
 {
     this->currentTime = 0;
     this->totalTime = totalTime;
-    
+
     isRunning = false;
 }
 
-TickTimer::~TickTimer()
-{
-}
+TickTimer::~TickTimer() {}
 
 void TickTimer::Start()
 {

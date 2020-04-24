@@ -4,16 +4,18 @@ class AFont;
 class ATexture;
 class GameEngine;
 
-#include <string>
 #include <string.h>
 
-#include "core.h"
+#include <string>
+
 #include "RenderableObject.h"
+#include "core.h"
 
 /**
  * \brief Supported text styles.
  */
-enum TextStyle {
+enum TextStyle
+{
     TEXT_STYLE_REGULAR,
     TEXT_STYLE_BOLD,
     TEXT_STYLE_ITALIC

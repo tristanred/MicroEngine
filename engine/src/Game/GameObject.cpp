@@ -1,18 +1,16 @@
 #include "Game/GameObject.h"
-#include "libtech/mytime.h"
 
 #include <GameEngine.h>
 #include <GameModule.h>
+
+#include "libtech/mytime.h"
 
 GameObject::GameObject(GameEngine* engine)
 {
     this->engine = engine;
 }
 
-GameObject::~GameObject()
-{
-
-}
+GameObject::~GameObject() {}
 
 void GameObject::Update(unsigned int deltaTime)
 {

@@ -24,7 +24,7 @@ public:
 
     AText* MouseWindowPositionLabel;
     AText* MouseWindowPositionValue;
-    
+
     AText* MouseViewportPositionLabel;
     AText* MouseViewportPositionValue;
 

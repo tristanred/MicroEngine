@@ -2,9 +2,9 @@
 
 #include "Rendering/SDL/SDLText.h"
 
+#include "GameEngine.h"
 #include "Rendering/SDL/SDLRenderer.h"
 #include "Rendering/SDL/SDLTexture.h"
-#include "GameEngine.h"
 
 SDLText::SDLText(GameEngine* engine) : AText(engine)
 {
@@ -20,7 +20,7 @@ SDLText::SDLText(GameEngine* engine) : AText(engine)
 
 SDLText::~SDLText()
 {
-    if (sdlFont != NULL)
+    if(sdlFont != NULL)
         delete(sdlFont);
 
     delete(currentText);
@@ -33,7 +33,7 @@ std::string* SDLText::GetText()
 
 void SDLText::SetText(std::string text)
 {
-    if (this->currentText->compare(text) != 0)
+    if(this->currentText->compare(text) != 0)
     {
         currentText->assign(text);
 
@@ -51,7 +51,7 @@ void SDLText::SetFont(AFont* font)
     this->TextFont = font;
     this->sdlFont = dynamic_cast<SDLFont*>(font);
 
-    if (this->sdlFont == NULL)
+    if(this->sdlFont == NULL)
     {
         LogError("Invalid cast to an SDLFont");
     }
@@ -64,7 +64,7 @@ int SDLText::GetCharacterSize()
 
 void SDLText::SetCharacterSize(int size)
 {
-    if (textSize != size)
+    if(textSize != size)
     {
         textSize = size;
 
@@ -79,7 +79,7 @@ TextStyle SDLText::GetStyle()
 
 void SDLText::SetStyle(TextStyle style /*= TEXT_STYLE_REGULAR*/)
 {
-    if (this->style != style)
+    if(this->style != style)
     {
         this->style = style;
 
@@ -94,7 +94,7 @@ uint32_t SDLText::GetColor()
 
 void SDLText::SetColor(uint32_t color)
 {
-    if (this->foregroundColor != color)
+    if(this->foregroundColor != color)
     {
         foregroundColor = color;
 
@@ -104,17 +104,19 @@ void SDLText::SetColor(uint32_t color)
 
 void SDLText::RefreshTexture()
 {
-    if (this->sdlFont == NULL || this->textSize <= 0 || this->currentText->length() == 0)
+    if(this->sdlFont == NULL || this->textSize <= 0 ||
+       this->currentText->length() == 0)
         return;
 
-    SDL_Color color = { 0,0,0,0 };
+    SDL_Color color = {0, 0, 0, 0};
     color.a = (this->foregroundColor & 0xFF000000) >> 24;
     color.r = (this->foregroundColor & 0x00FF0000) >> 16;
     color.g = (this->foregroundColor) & 0x0000FF00 >> 8;
     color.b = (this->foregroundColor) & 0x000000FF;
-    SDL_Surface* renderedSurface = TTF_RenderText_Solid(this->sdlFont->fontObject, currentText->c_str(), color);
+    SDL_Surface* renderedSurface = TTF_RenderText_Solid(
+        this->sdlFont->fontObject, currentText->c_str(), color);
 
-    if (renderedSurface == NULL)
+    if(renderedSurface == NULL)
     {
         const char* errorString = TTF_GetError();
         LogError(errorString);

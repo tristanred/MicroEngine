@@ -1,7 +1,8 @@
 #pragma once
 
-#include "core.h"
 #include <Game/Game.h>
+
+#include "core.h"
 
 struct ENGINE_CLASS Tile
 {

@@ -18,7 +18,8 @@ enum ButtonState
     BTN_RELEASED
 };
 
-class ENGINE_CLASS AMouse {
+class ENGINE_CLASS AMouse
+{
 public:
     AMouse();
     virtual ~AMouse();
@@ -45,13 +46,14 @@ public:
     bool RightButtonDown();
     bool MiddleButtonDown();
 
-
-    // Clicked is when a button was down and just got unclicked. Triggered once by up/down cycle
+    // Clicked is when a button was down and just got unclicked. Triggered once
+    // by up/down cycle
     bool LeftButtonClicked();
     bool RightButtonClicked();
     bool MiddleButtonClicked();
 
-    // Pressed is when a button was up and just got clicked. Triggered once by up/down cycle
+    // Pressed is when a button was up and just got clicked. Triggered once by
+    // up/down cycle
     bool LeftButtonPressed();
     bool RightButtonPressed();
     bool MiddleButtonPressed();

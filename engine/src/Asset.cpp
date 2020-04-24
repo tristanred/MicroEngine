@@ -46,14 +46,8 @@ void Asset::LoadData(const char* path)
 
 #ifdef _WIN32
 
-    hAssetFile = CreateFileA(
-        path,
-        GENERIC_READ,
-        FILE_SHARE_READ,
-        NULL,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL);
+    hAssetFile = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+                             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if(hAssetFile == INVALID_HANDLE_VALUE)
     {
@@ -81,15 +75,10 @@ void Asset::LoadData(const char* path)
 
     if(strcmp(path, ".pak") != -1 && this->CanMemoryMapAsset(this->size))
     {
-        delete(assetExt); // Ugh....
+        delete(assetExt);  // Ugh....
 
-        hFileMap = CreateFileMappingA(
-            hAssetFile,
-            NULL,
-            FILE_SHARE_READ,
-            0,
-            0,
-            NULL);
+        hFileMap =
+            CreateFileMappingA(hAssetFile, NULL, FILE_SHARE_READ, 0, 0, NULL);
 
         if(hFileMap == NULL)
         {
@@ -98,12 +87,7 @@ void Asset::LoadData(const char* path)
             return;
         }
 
-        data = MapViewOfFile(
-            hFileMap,
-            FILE_MAP_READ,
-            0,
-            0,
-            0);
+        data = MapViewOfFile(hFileMap, FILE_MAP_READ, 0, 0, 0);
 
         if(data == NULL)
         {
@@ -122,15 +106,9 @@ void Asset::LoadData(const char* path)
     {
         data = new uint8_t[size.QuadPart];
         DWORD readBytes = 0;
-        BOOL res = ReadFile(
-            hAssetFile,
-            data,
-            size.LowPart,
-            &readBytes,
-            NULL
-        );
+        BOOL res = ReadFile(hAssetFile, data, size.LowPart, &readBytes, NULL);
 
-        if (res == FALSE)
+        if(res == FALSE)
         {
             print_last_win32_error();
 
@@ -217,7 +195,6 @@ Asset_Type Asset::DetermineAssetType(const char* assetPath)
 
     return AT_UNKNOWN;
 }
-
 
 bool Asset::CanMemoryMapAsset(uint64_t candidateSize)
 {

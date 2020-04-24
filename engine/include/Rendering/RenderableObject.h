@@ -4,10 +4,10 @@ class ARenderer;
 class ATexture;
 class GameEngine;
 
-#include "core.h"
-#include "libtech/geometry.h"
-#include "libtech/arraylist.h"
 #include "Game/GameObject.h"
+#include "core.h"
+#include "libtech/arraylist.h"
+#include "libtech/geometry.h"
 
 /**
  * \brief Values indicating the relative position of an object.
@@ -29,20 +29,21 @@ enum POSITION_SYSTEM
 /**
  * \brief Abstract base class of any renderable object.
  *
- * The RenderableObject class is the root type for any object that needs to be drawn
- * on the screen. A renderable has a position on screen and a size. It can
+ * The RenderableObject class is the root type for any object that needs to be
+ * drawn on the screen. A renderable has a position on screen and a size. It can
  * return a texture and that texture will be drawn.
  *
- * All functions of an RenderableObject are virtual but they have implementations
- * that will work without subtyping this class.
+ * All functions of an RenderableObject are virtual but they have
+ * implementations that will work without subtyping this class.
  *
  * \remark A note on RenderableObject subtyping : Usually, all instances of
  * RenderableObject and its subtypes will come from the GameEngine through the
  * AbstractFactory. Usually this means those objects are completely managed
  * by the GameEngine classes and not directly implemented by the programmer. In
- * contrast to other types such as ASprite and AText, RenderableObject is not needed
- * to be created by the GameEngine with a platform specific instance and so
- * we can create our own drawable objects by inheriting from RenderableObject.
+ * contrast to other types such as ASprite and AText, RenderableObject is not
+ * needed to be created by the GameEngine with a platform specific instance and
+ * so we can create our own drawable objects by inheriting from
+ * RenderableObject.
  */
 class ENGINE_CLASS RenderableObject : public GameObject
 {

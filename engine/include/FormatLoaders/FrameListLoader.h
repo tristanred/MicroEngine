@@ -4,8 +4,9 @@ class SpriteAnimation;
 class ARenderer;
 class ATexture;
 
-#include "core.h"
 #include <libtech/arraylist.h>
+
+#include "core.h"
 
 /**
  * This loader is used to generate frame information from a file or folder.
@@ -46,8 +47,8 @@ public:
 
     /**
      * Extract the path of each images of the path. If the path is a file,
-     * it extracts the image names from the spritesheet. If the path is a directory
-     * it will extract the file names of the directory/
+     * it extracts the image names from the spritesheet. If the path is a
+     * directory it will extract the file names of the directory/
      */
     char** ExtractAsArray(int* framesAmount);
 
@@ -69,8 +70,8 @@ public:
     SpriteAnimation* ExtractAsAnimation(const char* name = NULL);
 
 private:
-    const char* currentPath; // Null if directory not loaded
-    ARenderer* renderer; // Can be null if no need to manage textures
+    const char* currentPath;  // Null if directory not loaded
+    ARenderer* renderer;      // Can be null if no need to manage textures
 
     bool DirectoryContainsManifest();
 

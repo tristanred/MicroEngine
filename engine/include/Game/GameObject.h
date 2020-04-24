@@ -20,7 +20,7 @@ protected:
 
 private:
     GameEngine* engine;
-    
+
     // Some debug properties
     unsigned int lastUpdateTime;
 };

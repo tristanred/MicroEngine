@@ -9,4 +9,3 @@ AFont::~AFont()
 {
     LogTrace("AFont::~AFont");
 }
-

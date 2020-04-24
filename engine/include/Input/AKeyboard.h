@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core.h"
 #include "Keys.h"
+#include "core.h"
 
 class ENGINE_CLASS AKeyboard
 {

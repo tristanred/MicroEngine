@@ -2,9 +2,11 @@
 
 class Asset;
 
-#include "core.h"
 #include <string.h>
+
 #include <string>
+
+#include "core.h"
 
 /**
  *\brief Abstract font class.

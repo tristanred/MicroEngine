@@ -1,28 +1,28 @@
 #include "GameEngine.h"
 
+#include <libtech/filecache.h>
+#include <libtech/mytime.h>
+#include <libtech/sysutils.h>
+
 #include <algorithm>
 
+#include "Config/FileConfigProvider.h"
+#include "Config/IConfigProvider.h"
+#include "Debugging/DebugLayer.h"
 #include "GameModule.h"
-#include "libtech/geometry.h"
-#include "libtech/filelogger.h"
-#include "Rendering/AbstractFactory.h"
-#include "Rendering/ARenderer.h"
+#include "Input/AKeyboard.h"
+#include "Input/AMouse.h"
+#include "Rendering/AFont.h"
 #include "Rendering/APlatform.h"
+#include "Rendering/ARenderer.h"
 #include "Rendering/ASprite.h"
 #include "Rendering/AText.h"
-#include "Rendering/AFont.h"
 #include "Rendering/ATexture.h"
-#include "Input/AMouse.h"
-#include "Input/AKeyboard.h"
-#include "Viewport.h"
-#include "Debugging/DebugLayer.h"
+#include "Rendering/AbstractFactory.h"
 #include "ResourceManager.h"
-#include "Config/IConfigProvider.h"
-#include "Config/FileConfigProvider.h"
-
-#include <libtech/filecache.h>
-#include <libtech/sysutils.h>
-#include <libtech/mytime.h>
+#include "Viewport.h"
+#include "libtech/filelogger.h"
+#include "libtech/geometry.h"
 
 #ifdef __APPLE__
 #include <time.h>
@@ -32,7 +32,7 @@ GameEngine::GameEngine()
 {
     this->Modules = new std::list<GameModule*>();
 
-    this->GameViewports = new std::list<Viewport *>();
+    this->GameViewports = new std::list<Viewport*>();
 
     GameLog = new FileLogger();
     GameLog->Open("gamelog.txt");
@@ -62,7 +62,7 @@ GameEngine::~GameEngine()
 
     auto modbegin = Modules->begin();
     auto modend = Modules->end();
-    while (modbegin != modend)
+    while(modbegin != modend)
     {
         GameModule* mod = *modbegin;
         delete(mod);
@@ -99,10 +99,12 @@ void GameEngine::Initialize(EngineInitParams* params)
     ResManager->AddAssetRoot("assets/engine");
 
     Renderer = AbstractFactory::CreateRenderer();
-    Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache
+    Renderer->Cache =
+        FilesCache;  // Give the renderer a handle to the global cache
     Renderer->Resman = ResManager;
 
-    FileConfigProvider* engineConfig = new FileConfigProvider("assets/engine/engine_config.xml");
+    FileConfigProvider* engineConfig =
+        new FileConfigProvider("assets/engine/engine_config.xml");
 
     if(params != NULL)
     {
@@ -121,15 +123,14 @@ void GameEngine::Initialize(EngineInitParams* params)
     Keyboard = AbstractFactory::CreateKeyboard();
 
     this->Renderer->RenderViewport = this->CreateViewport();
-    this->Renderer->RenderViewport->ViewRange = FRectangle(0, 0, Renderer->GetWindowSize().Width, Renderer->GetWindowSize().Height);
+    this->Renderer->RenderViewport->ViewRange =
+        FRectangle(0, 0, Renderer->GetWindowSize().Width,
+                   Renderer->GetWindowSize().Height);
 
     this->debugLayer = new DebugLayer(this);
 
-    if (Renderer == NULL ||
-        Platform == NULL ||
-        Mouse == NULL ||
-        Keyboard == NULL ||
-        renderInitSuccess == false)
+    if(Renderer == NULL || Platform == NULL || Mouse == NULL ||
+       Keyboard == NULL || renderInitSuccess == false)
     {
         LogError("Problem initializing one or many systems. Exiting...");
 
@@ -150,7 +151,7 @@ void GameEngine::Play()
 {
     LogTrace("GameEngine::Play");
 
-    while (true)
+    while(true)
     {
         currentFrameTime = get_a_ticks();
         if(TimeForNextFrame())
@@ -160,22 +161,22 @@ void GameEngine::Play()
             Keyboard->UpdateKeyboardState();
             Mouse->UpdateMouseState();
 
-            if (Platform->RequestExit)
+            if(Platform->RequestExit)
             {
                 return;
             }
 
-            if (Mouse->LeftButtonClicked())
+            if(Mouse->LeftButtonClicked())
             {
                 printf("LEFT CLICKED\n");
             }
 
-            if (Mouse->RightButtonPressed())
+            if(Mouse->RightButtonPressed())
             {
                 printf("Right Pressed\n");
             }
 
-            if (Keyboard->IsKeyClicked(Key::_Escape))
+            if(Keyboard->IsKeyClicked(Key::_Escape))
             {
                 return;
             }
@@ -200,18 +201,18 @@ void GameEngine::Play()
         else
         {
 #if __APPLE__
-             /* macOS performance optimization.
+            /* macOS performance optimization.
              * This is mostly to save battery life and CPU cycles. Calling
              * get_a_ticks each frame ends up calling gettimeofday quite often
              * and this functions costs a lot. Instead of polling each loop
-             * we just sleep for 16ms to be able to hit 60fps max and be sleeping
-             * for most of the time. The timer should be lowered to a much smaller
-             * value when the weight of the engine becomes higher. Even sleeping
-             * for 1ms is a major improvement.
+             * we just sleep for 16ms to be able to hit 60fps max and be
+             * sleeping for most of the time. The timer should be lowered to a
+             * much smaller value when the weight of the engine becomes higher.
+             * Even sleeping for 1ms is a major improvement.
              */
 
             struct timespec x;
-            x.tv_nsec = 1000 * 1000 * 1; // 16ms
+            x.tv_nsec = 1000 * 1000 * 1;  // 16ms
             x.tv_sec = 0;
             nanosleep(&x, NULL);
 #endif
@@ -222,29 +223,29 @@ void GameEngine::Play()
 void GameEngine::PlayOne()
 {
     currentFrameTime = get_a_ticks();
-    if (TimeForNextFrame())
+    if(TimeForNextFrame())
     {
         Platform->HandleEvents();
 
         Keyboard->UpdateKeyboardState();
         Mouse->UpdateMouseState();
 
-        if (Platform->RequestExit)
+        if(Platform->RequestExit)
         {
             return;
         }
 
-        if (Mouse->LeftButtonClicked())
+        if(Mouse->LeftButtonClicked())
         {
             printf("LEFT CLICKED\n");
         }
 
-        if (Mouse->RightButtonPressed())
+        if(Mouse->RightButtonPressed())
         {
             printf("Right Pressed\n");
         }
 
-        if (Keyboard->IsKeyClicked(Key::_Escape))
+        if(Keyboard->IsKeyClicked(Key::_Escape))
         {
             return;
         }
@@ -277,22 +278,22 @@ void GameEngine::PlayOneUnlocked()
     Keyboard->UpdateKeyboardState();
     Mouse->UpdateMouseState();
 
-    if (Platform->RequestExit)
+    if(Platform->RequestExit)
     {
         return;
     }
 
-    if (Mouse->LeftButtonClicked())
+    if(Mouse->LeftButtonClicked())
     {
         printf("LEFT CLICKED\n");
     }
 
-    if (Mouse->RightButtonPressed())
+    if(Mouse->RightButtonPressed())
     {
         printf("Right Pressed\n");
     }
 
-    if (Keyboard->IsKeyClicked(Key::_Escape))
+    if(Keyboard->IsKeyClicked(Key::_Escape))
     {
         return;
     }
@@ -322,7 +323,8 @@ long GameEngine::GetDeltaTime()
 
 GameModule* GameEngine::LoadModule(GameModule* targetModule)
 {
-    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+    auto value =
+        std::find(this->Modules->begin(), this->Modules->end(), targetModule);
 
     if(value == this->Modules->end())
     {
@@ -335,7 +337,8 @@ GameModule* GameEngine::LoadModule(GameModule* targetModule)
 
     if(targetModule->ModuleState != GameModuleState::UNINITIALIZED)
     {
-        LogError("Called Load on an Module on state %i", targetModule->ModuleState);
+        LogError("Called Load on an Module on state %i",
+                 targetModule->ModuleState);
 
         return NULL;
     }
@@ -347,7 +350,8 @@ GameModule* GameEngine::LoadModule(GameModule* targetModule)
 
 GameModule* GameEngine::ActivateModule(GameModule* targetModule)
 {
-    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+    auto value =
+        std::find(this->Modules->begin(), this->Modules->end(), targetModule);
 
     if(value == this->Modules->end())
     {
@@ -360,7 +364,8 @@ GameModule* GameEngine::ActivateModule(GameModule* targetModule)
 
     if(targetModule->ModuleState != GameModuleState::LOADED)
     {
-        LogError("Called Activate on an Module on state %i", targetModule->ModuleState);
+        LogError("Called Activate on an Module on state %i",
+                 targetModule->ModuleState);
 
         return NULL;
     }
@@ -372,7 +377,8 @@ GameModule* GameEngine::ActivateModule(GameModule* targetModule)
 
 void GameEngine::CloseModule(GameModule* targetModule)
 {
-    auto value = std::find(this->Modules->begin(), this->Modules->end(), targetModule);
+    auto value =
+        std::find(this->Modules->begin(), this->Modules->end(), targetModule);
 
     if(value == this->Modules->end())
     {
@@ -441,9 +447,9 @@ ATexture* GameEngine::CreateTexture(const char* textureName)
 
 void GameEngine::Update(unsigned int deltaTime)
 {
-    if (Keyboard->IsKeyPressed(F1))
+    if(Keyboard->IsKeyPressed(F1))
     {
-        if (this->debugLayer->IsOpen())
+        if(this->debugLayer->IsOpen())
         {
             this->debugLayer->Hide();
         }
@@ -456,7 +462,7 @@ void GameEngine::Update(unsigned int deltaTime)
     // Update the viewports first
     auto vpBegin = this->GameViewports->begin();
     auto vpEnd = this->GameViewports->end();
-    while (vpBegin != vpEnd)
+    while(vpBegin != vpEnd)
     {
         Viewport* mod = *vpBegin;
 
@@ -468,7 +474,7 @@ void GameEngine::Update(unsigned int deltaTime)
     // Then update the sprites(renderables)
     auto begin = this->Modules->begin();
     auto end = this->Modules->end();
-    while (begin != end)
+    while(begin != end)
     {
         GameModule* mod = *begin;
 
@@ -489,7 +495,7 @@ void GameEngine::DrawModules()
     auto begin = this->Modules->begin();
     auto end = this->Modules->end();
 
-    while (begin != end)
+    while(begin != end)
     {
         GameModule* mod = *begin;
 
@@ -536,13 +542,9 @@ FPosition GameEngine::GetMouseRelativePosition()
     return pos;
 }
 
-void GameEngine::ReleaseObject(RenderableObject* textureObject)
-{
-}
+void GameEngine::ReleaseObject(RenderableObject* textureObject) {}
 
-void GameEngine::ReleaseObject(ATexture* renderableObject)
-{
-}
+void GameEngine::ReleaseObject(ATexture* renderableObject) {}
 
 void GameEngine::SelectViewport(Viewport* view)
 {
@@ -552,9 +554,10 @@ void GameEngine::SelectViewport(Viewport* view)
 Viewport* GameEngine::CreateViewport()
 {
     Viewport* newVp = new Viewport();
-    newVp->CurrentView = FRectangle(0, 0, this->Renderer->GetWindowSize().Width, this->Renderer->GetWindowSize().Height);
+    newVp->CurrentView = FRectangle(0, 0, this->Renderer->GetWindowSize().Width,
+                                    this->Renderer->GetWindowSize().Height);
 
-    if (this->Renderer->RenderViewport == NULL)
+    if(this->Renderer->RenderViewport == NULL)
     {
         this->Renderer->RenderViewport = newVp;
     }

@@ -4,12 +4,12 @@
 
 #if SUPPORT_SDL == 1
 
-#include "Rendering/SDL/SDLText.h"
-#include "Rendering/SDL/SDLTexture.h"
-#include "Rendering/SDL/SDLRenderer.h"
-#include "Rendering/SDL/SDLPlatform.h"
 #include "Rendering/SDL/SDLKeyboard.h"
 #include "Rendering/SDL/SDLMouse.h"
+#include "Rendering/SDL/SDLPlatform.h"
+#include "Rendering/SDL/SDLRenderer.h"
+#include "Rendering/SDL/SDLText.h"
+#include "Rendering/SDL/SDLTexture.h"
 
 #endif
 
@@ -23,11 +23,9 @@ AbstractFactory::AbstractFactory()
     AbstractFactory::ActivatedRenderer = RENDERER_SDL;
 }
 
-AbstractFactory::~AbstractFactory()
-{
-}
+AbstractFactory::~AbstractFactory() {}
 
-ARenderer *AbstractFactory::CreateRenderer()
+ARenderer* AbstractFactory::CreateRenderer()
 {
     switch(ActivatedRenderer)
     {
@@ -40,19 +38,21 @@ ARenderer *AbstractFactory::CreateRenderer()
 #endif
         default:
         {
-            LogError("Factory unable to create an Renderer instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create an Renderer instance. Activated "
+                "renderer is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
     }
 
     return nullptr;
-
 }
 
 AText* AbstractFactory::CreateText(GameEngine* engine)
 {
-    switch (ActivatedRenderer)
+    switch(ActivatedRenderer)
     {
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
@@ -63,7 +63,10 @@ AText* AbstractFactory::CreateText(GameEngine* engine)
 #endif
         default:
         {
-            LogError("Factory unable to create a Text instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Text instance. Activated renderer "
+                "is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
@@ -74,7 +77,7 @@ AText* AbstractFactory::CreateText(GameEngine* engine)
 
 AFont* AbstractFactory::CreateTextFont(GameEngine* engine)
 {
-    switch (ActivatedRenderer)
+    switch(ActivatedRenderer)
     {
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
@@ -85,7 +88,10 @@ AFont* AbstractFactory::CreateTextFont(GameEngine* engine)
 #endif
         default:
         {
-            LogError("Factory unable to create a Font instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Font instance. Activated renderer "
+                "is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
@@ -96,7 +102,7 @@ AFont* AbstractFactory::CreateTextFont(GameEngine* engine)
 
 APlatform* AbstractFactory::CreatePlatformHandler(GameEngine* engine)
 {
-    switch (ActivatedRenderer)
+    switch(ActivatedRenderer)
     {
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
@@ -107,7 +113,10 @@ APlatform* AbstractFactory::CreatePlatformHandler(GameEngine* engine)
 #endif
         default:
         {
-            LogError("Factory unable to create a Platform Handler instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Platform Handler instance. "
+                "Activated renderer is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
@@ -116,7 +125,7 @@ APlatform* AbstractFactory::CreatePlatformHandler(GameEngine* engine)
     return nullptr;
 }
 
-ATexture *AbstractFactory::CreateTexture(GameEngine* engine)
+ATexture* AbstractFactory::CreateTexture(GameEngine* engine)
 {
     switch(ActivatedRenderer)
     {
@@ -129,7 +138,10 @@ ATexture *AbstractFactory::CreateTexture(GameEngine* engine)
 #endif
         default:
         {
-            LogError("Factory unable to create a Texture instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Texture instance. Activated "
+                "renderer is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
@@ -140,7 +152,7 @@ ATexture *AbstractFactory::CreateTexture(GameEngine* engine)
 
 AMouse* AbstractFactory::CreateMouse()
 {
-    switch (ActivatedRenderer)
+    switch(ActivatedRenderer)
     {
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
@@ -151,19 +163,21 @@ AMouse* AbstractFactory::CreateMouse()
 #endif
         default:
         {
-            LogError("Factory unable to create a Mouse instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Mouse instance. Activated renderer "
+                "is %d",
+                ActivatedRenderer);
 
             return NULL;
         }
     }
 
     return nullptr;
-
 }
 
 AKeyboard* AbstractFactory::CreateKeyboard()
 {
-    switch (ActivatedRenderer)
+    switch(ActivatedRenderer)
     {
 #if SUPPORT_SDL == 1
         case RENDERER_SDL:
@@ -174,7 +188,10 @@ AKeyboard* AbstractFactory::CreateKeyboard()
 #endif
         default:
         {
-            LogError("Factory unable to create a Keyboard instance. Activated renderer is %d", ActivatedRenderer);
+            LogError(
+                "Factory unable to create a Keyboard instance. Activated "
+                "renderer is %d",
+                ActivatedRenderer);
 
             return NULL;
         }

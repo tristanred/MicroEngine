@@ -1,10 +1,10 @@
 #include "Rendering/ARenderer.h"
 
-#include "ResourceManager.h"
 #include "Asset.h"
 #include "FormatLoaders/FrameListLoader.h"
 #include "Rendering/ASprite.h"
 #include "Rendering/ATexture.h"
+#include "ResourceManager.h"
 
 ARenderer::ARenderer()
 {
@@ -20,17 +20,18 @@ ARenderer::~ARenderer()
     LogTrace("ARenderer::~ARenderer");
 }
 
-ArrayList<ATexture*>* ARenderer::CreateTextureList(const char* fileNames[], int length)
+ArrayList<ATexture*>* ARenderer::CreateTextureList(const char* fileNames[],
+                                                   int length)
 {
     ArrayList<ATexture*>* framesList = new ArrayList<ATexture*>();
 
-    for (int i = 0; i < length; i++)
+    for(int i = 0; i < length; i++)
     {
         const char* fileName = fileNames[i];
 
         ATexture* tex = this->CreateTexture(fileName);
 
-        if (tex != NULL)
+        if(tex != NULL)
         {
             framesList->Add(tex);
         }
@@ -75,7 +76,6 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
      * the highest one and add each frame's width to get the total width.
      */
 
-
     float minWidth = 0;
     float minHeight = 0;
 
@@ -97,9 +97,8 @@ ATexture* ARenderer::MakeTextureFromAnimation(SpriteAnimation* anim)
     for(int i = 0; i < anim->Textures->Count(); i++)
     {
         ATexture* texture = anim->Textures->Get(i);
-        //tex->CopyFrom(texture, FPosition(currentWidth, 0));
+        // tex->CopyFrom(texture, FPosition(currentWidth, 0));
     }
-
 
     return tex;
 }

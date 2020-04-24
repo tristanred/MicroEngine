@@ -1,9 +1,9 @@
 #pragma once
 
-#include "IConfigProvider.h"
-
-#include "core.h"
 #include <vector>
+
+#include "IConfigProvider.h"
+#include "core.h"
 
 class ENGINE_CLASS InMemoryProvider : public IConfigProvider
 {

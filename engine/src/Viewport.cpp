@@ -9,18 +9,16 @@ Viewport::Viewport()
     this->ViewRange = VIEWPORT_NOT_LIMITED_RECT;
 }
 
-Viewport::~Viewport()
-{
-}
+Viewport::~Viewport() {}
 
 void Viewport::Update()
 {
-    if (this->Mode == VP_MODE_FOLLOW)
+    if(this->Mode == VP_MODE_FOLLOW)
     {
         FRectangle followRect = this->FollowingSprite->GetRectangle();
         this->CurrentView.AlignCenterOn(&followRect);
 
-        if (this->ViewRange != VIEWPORT_NOT_LIMITED_RECT)
+        if(this->ViewRange != VIEWPORT_NOT_LIMITED_RECT)
         {
             this->CurrentView.PushInside(&this->ViewRange);
         }
@@ -29,7 +27,7 @@ void Viewport::Update()
 
 void Viewport::FollowSprite(ASprite* sprite)
 {
-    if (sprite == NULL)
+    if(sprite == NULL)
     {
         this->Mode = VP_MODE_STATIC;
     }

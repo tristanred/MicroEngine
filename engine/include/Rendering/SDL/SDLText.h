@@ -5,15 +5,16 @@
 class SDLRenderer;
 class GameEngine;
 
-#include "core.h"
-#include "Rendering/RenderableObject.h"
-#include "Rendering/AText.h"
-#include "Rendering/AFont.h"
-#include "Rendering/SDL/SDLFont.h"
+#include <stdint.h>
+#include <string.h>
 
 #include <string>
-#include <string.h>
-#include <stdint.h>
+
+#include "Rendering/AFont.h"
+#include "Rendering/AText.h"
+#include "Rendering/RenderableObject.h"
+#include "Rendering/SDL/SDLFont.h"
+#include "core.h"
 
 class ENGINE_CLASS SDLText : public AText
 {

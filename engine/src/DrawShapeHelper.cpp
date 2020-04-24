@@ -40,10 +40,11 @@ ATexture* DrawObjectStroke(ARenderer* renderer, FPolygon* target)
         vec2* previous = verts[i - 1];
         vec2* current = verts[i];
 
-        result->DrawLine(FPosition(*previous), FPosition(*current), 0xFF0000FF, 2);
+        result->DrawLine(FPosition(*previous), FPosition(*current), 0xFF0000FF,
+                         2);
     }
 
-    vec2* last = verts[vertCount-1];
+    vec2* last = verts[vertCount - 1];
     vec2* first = verts[0];
 
     result->DrawLine(FPosition(*last), FPosition(*first), 0xFF0000FF, 2);

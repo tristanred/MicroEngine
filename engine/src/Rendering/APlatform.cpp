@@ -13,5 +13,4 @@ APlatform::APlatform(GameEngine* engine)
 APlatform::~APlatform()
 {
     LogTrace("APlatform::~APlatform");
-
 }

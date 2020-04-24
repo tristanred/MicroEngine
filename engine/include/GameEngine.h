@@ -15,14 +15,15 @@ class ResourceManager;
 class GameModule;
 class IConfigProvider;
 
-#include <list>
 #include <cstdint>
+#include <list>
 using namespace std;
 
-#include "core.h"
-#include "Rendering/ARenderer.h"
 #include <libtech/geometry.h>
+
 #include "GameEngineInitParams.h"
+#include "Rendering/ARenderer.h"
+#include "core.h"
 
 /**
  * \brief Core engine class
@@ -85,8 +86,8 @@ public:
      * This function should be called before the class destructor is
      * called.
      *
-     * \remark This function is mostly unimplemented at the moment. Since we only
-     * have a single instance of GameEngine and it dies at the end of the
+     * \remark This function is mostly unimplemented at the moment. Since we
+     * only have a single instance of GameEngine and it dies at the end of the
      * execution, I just avoid calling the method.
      */
     void Shutdown();
@@ -316,7 +317,6 @@ public:
     void HideDebugLayer();
 
 private:
-
     /**
      * \brief Update loop for the engine.
      *
@@ -341,7 +341,7 @@ private:
 /**
  * \brief Implementation of the CreateModule function
  */
-template<typename TModule>
+template <typename TModule>
 TModule* GameEngine::CreateModule()
 {
     TModule* newModule = new TModule(this);
@@ -350,7 +350,7 @@ TModule* GameEngine::CreateModule()
     return newModule;
 }
 
-template<typename TModule>
+template <typename TModule>
 TModule* GameEngine::LoadModule()
 {
     TModule* newModule = new TModule(this);
@@ -361,7 +361,7 @@ TModule* GameEngine::LoadModule()
     return newModule;
 }
 
-template<typename TModule>
+template <typename TModule>
 TModule* GameEngine::ActivateModule()
 {
     TModule* newModule = new TModule(this);
@@ -374,7 +374,7 @@ TModule* GameEngine::ActivateModule()
     return newModule;
 }
 
-template<typename TModule>
+template <typename TModule>
 TModule* GameEngine::GetModule()
 {
     auto begin = this->Modules->begin();
@@ -397,7 +397,7 @@ TModule* GameEngine::GetModule()
     return NULL;
 }
 
-template<typename TSubType>
+template <typename TSubType>
 TSubType* GameEngine::CreateSprite()
 {
     LogTrace("GameEngine::CreateSprite");

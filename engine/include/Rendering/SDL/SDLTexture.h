@@ -7,10 +7,11 @@ class SDLRenderer;
 
 #include <SDL.h>
 #include <SDL_surface.h>
+
 #include <cstdint>
 
-#include "core.h"
 #include "Rendering/ATexture.h"
+#include "core.h"
 #include "libtech/geometry.h"
 
 class ENGINE_CLASS SDLTexture : public ATexture
@@ -29,15 +30,20 @@ public:
 
     void StrokeRect(FRectangle rect, uint32_t size, uint32_t color) override;
     void FillRect(FRectangle rect, uint32_t color) override;
-    void DrawLine(FPosition pos1, FPosition pos2, uint32_t color, uint32_t size) override;
+    void DrawLine(FPosition pos1,
+                  FPosition pos2,
+                  uint32_t color,
+                  uint32_t size) override;
 
     void FreeTextureMemory() override;
     void ReloadTexture() override;
 
     ATexture* GetSubTexture(int x, int y, int width, int height) override;
 
-    void CopyFrom(ATexture* other, FPosition sourcePos, FSize sourceSize, FPosition destPos) override;
-
+    void CopyFrom(ATexture* other,
+                  FPosition sourcePos,
+                  FSize sourceSize,
+                  FPosition destPos) override;
 
     void RefreshSDLTexture();
 
@@ -49,8 +55,6 @@ public:
     // Texture is a handle to the GPU texture data
     SDL_Texture* tex;
     SDLRenderer* SdlRenderer;
-
-
 
 private:
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN

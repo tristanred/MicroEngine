@@ -2,14 +2,15 @@
 
 #include "Rendering/SDL/SDLRenderer.h"
 
-#include <cstdio>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
-#include "Rendering/SDL/SDLTexture.h"
-#include "Config/IConfigProvider.h"
-#include "Viewport.h"
 #include <libtech/filecache.h>
+
+#include <cstdio>
+
+#include "Config/IConfigProvider.h"
+#include "Rendering/SDL/SDLTexture.h"
+#include "Viewport.h"
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 const Uint32 rmask = 0xff000000;
@@ -65,19 +66,24 @@ bool SDLRenderer::Initialize(IConfigProvider* config)
 
     RendererParameters defaults;
 
-    std::string configValueSafe = config->GetConfigValueSafe("default_window_name", "Window Titlez !");
+    std::string configValueSafe =
+        config->GetConfigValueSafe("default_window_name", "Window Titlez !");
     strcpy(defaults.window_title, configValueSafe.c_str());
 
-    std::string wWidth = config->GetConfigValueSafe("default_engine_width", "800");
+    std::string wWidth =
+        config->GetConfigValueSafe("default_engine_width", "800");
     defaults.window_width = atoi(wWidth.c_str());
 
-    std::string wHeight = config->GetConfigValueSafe("default_engine_height", "600");
+    std::string wHeight =
+        config->GetConfigValueSafe("default_engine_height", "600");
     defaults.window_height = atoi(wHeight.c_str());
 
-    std::string scaleX = config->GetConfigValueSafe("default_engine_scaleX", "1");
+    std::string scaleX =
+        config->GetConfigValueSafe("default_engine_scaleX", "1");
     defaults.renderScaleX = stof(scaleX.c_str());
 
-    std::string scaleY = config->GetConfigValueSafe("default_engine_scaleY", "1");
+    std::string scaleY =
+        config->GetConfigValueSafe("default_engine_scaleY", "1");
     defaults.renderScaleY = stof(scaleY.c_str());
 
     return this->Initialize(&defaults);
@@ -110,24 +116,30 @@ bool SDLRenderer::Initialize(RendererParameters* params)
         return false;
     }
 
-    this->mainWindow = SDL_CreateWindow(params->window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, params->window_width, params->window_height, 0);
+    this->mainWindow = SDL_CreateWindow(
+        params->window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        params->window_width, params->window_height, 0);
 
     if(mainWindow == NULL)
     {
         errorString = SDL_GetError();
-        fprintf(stderr, "Unable to create the window SDL with error %s\n", errorString);
+        fprintf(stderr, "Unable to create the window SDL with error %s\n",
+                errorString);
 
         LogError("Error in SDL_CreateWindow : %s", errorString);
 
         return false;
     }
 
-    this->gameRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
+    this->gameRenderer =
+        SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED);
 
     if(gameRenderer == NULL)
     {
         errorString = SDL_GetError();
-        fprintf(stderr, "Unable to create the Accelerated Renderer with error %s\n", errorString);
+        fprintf(stderr,
+                "Unable to create the Accelerated Renderer with error %s\n",
+                errorString);
 
         LogError("Error in SDL_CreateRenderer : %s", errorString);
 
@@ -140,19 +152,22 @@ bool SDLRenderer::Initialize(RendererParameters* params)
     if(res == 0)
     {
         errorString = IMG_GetError();
-        fprintf(stderr, "Unable to create the load SDL_Image with error %s\n", errorString);
+        fprintf(stderr, "Unable to create the load SDL_Image with error %s\n",
+                errorString);
 
         LogError("Error in IMG_Init : %s", errorString);
 
         return false;
     }
 
-    res = SDL_RenderSetScale(gameRenderer, params->renderScaleX, params->renderScaleY);
+    res = SDL_RenderSetScale(gameRenderer, params->renderScaleX,
+                             params->renderScaleY);
 
     if(res != 0)
     {
         errorString = SDL_GetError();
-        fprintf(stderr, "Unable to scale by %f,%f with error %s\n", 1.0, 1.0, errorString);
+        fprintf(stderr, "Unable to scale by %f,%f with error %s\n", 1.0, 1.0,
+                errorString);
 
         LogError("Error in SDL_RenderSetScale : %s", errorString);
 
@@ -186,7 +201,7 @@ void SDLRenderer::Shutdown()
 
 void SDLRenderer::Draw(RenderableObject* renderObject)
 {
-    if (renderObject->IsVisible() == false)
+    if(renderObject->IsVisible() == false)
         return;
 
     renderObject->OnPreDraw();
@@ -202,13 +217,13 @@ void SDLRenderer::Draw(RenderableObject* renderObject)
     dest.x = (int)renderObject->GetPosition().X;
     dest.y = (int)renderObject->GetPosition().Y;
 
-    if (renderObject->GetPositionSystem() == VIEWPORT_RELATIVE)
+    if(renderObject->GetPositionSystem() == VIEWPORT_RELATIVE)
     {
         dest.x -= (int)this->RenderViewport->CurrentView.X;
         dest.y -= (int)this->RenderViewport->CurrentView.Y;
     }
 
-    tex->RefreshSDLTexture(); // Refresh the texture if needed.
+    tex->RefreshSDLTexture();  // Refresh the texture if needed.
 
     int res = SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
     if(res == -1)
@@ -242,14 +257,17 @@ void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY)
     }
 }
 
-void SDLRenderer::DrawTexture(ATexture* texture, float posX, float posY, struct TextureDrawOptions* opts)
+void SDLRenderer::DrawTexture(ATexture* texture,
+                              float posX,
+                              float posY,
+                              struct TextureDrawOptions* opts)
 {
     assert(opts != NULL);
 
     float offsetPosX = posX;
     float offsetPosY = posY;
 
-    if (opts->PosSystem == VIEWPORT_RELATIVE)
+    if(opts->PosSystem == VIEWPORT_RELATIVE)
     {
         offsetPosX -= this->RenderViewport->CurrentView.X;
         offsetPosY -= this->RenderViewport->CurrentView.Y;
@@ -262,7 +280,8 @@ SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
 {
     assert(surface != NULL);
 
-    SDL_Texture* result = SDL_CreateTextureFromSurface(this->gameRenderer, surface);
+    SDL_Texture* result =
+        SDL_CreateTextureFromSurface(this->gameRenderer, surface);
 
     return result;
 }
@@ -299,7 +318,7 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
 
     result->surf = surface;
 
-    if (result->surf == NULL)
+    if(result->surf == NULL)
     {
         LogError("Unable to load texture file.");
 
@@ -308,9 +327,12 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
         return NULL;
     }
 
-    if (surface->format->BitsPerPixel != 32)
+    if(surface->format->BitsPerPixel != 32)
     {
-        LogWarning("Surface format is %c bpp instead of 32. Recommends to convert the image.", surface->format->BitsPerPixel);
+        LogWarning(
+            "Surface format is %c bpp instead of 32. Recommends to convert the "
+            "image.",
+            surface->format->BitsPerPixel);
     }
 
     result->SetSize(FSize((float)result->surf->w, (float)result->surf->h));
@@ -341,9 +363,13 @@ void SDLRenderer::EndDraw()
     {
         FSize screenSize = this->GetWindowSize();
 
-        SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)screenSize.Width, (int)screenSize.Height, 32, rmask, gmask, bmask, amask);
+        SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)screenSize.Width,
+                                                 (int)screenSize.Height, 32,
+                                                 rmask, gmask, bmask, amask);
 
-        int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
+        int res =
+            SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888,
+                                 surf->pixels, surf->pitch);
 
         if(res == 0)
         {
@@ -368,13 +394,19 @@ void SDLRenderer::ScreenshotNextFrame()
 
 void SDLRenderer::SaveToFile(RenderableObject* object, const char* path)
 {
-    SDL_Texture* tex = SDL_CreateTexture(gameRenderer, SDL_PIXELFORMAT_ABGR8888, SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET, (int)object->GetSize().Width, (int)object->GetSize().Height);
+    SDL_Texture* tex = SDL_CreateTexture(
+        gameRenderer, SDL_PIXELFORMAT_ABGR8888,
+        SDL_TextureAccess::SDL_TEXTUREACCESS_TARGET,
+        (int)object->GetSize().Width, (int)object->GetSize().Height);
     SDL_SetRenderTarget(gameRenderer, tex);
 
     this->DrawHierarchy(object);
-    SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)object->GetSize().Width, (int)object->GetSize().Height, 32, rmask, gmask, bmask, amask);
+    SDL_Surface* surf = SDL_CreateRGBSurface(0, (int)object->GetSize().Width,
+                                             (int)object->GetSize().Height, 32,
+                                             rmask, gmask, bmask, amask);
 
-    int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888, surf->pixels, surf->pitch);
+    int res = SDL_RenderReadPixels(gameRenderer, NULL, SDL_PIXELFORMAT_ABGR8888,
+                                   surf->pixels, surf->pitch);
 
     if(res == 0)
     {
@@ -386,7 +418,7 @@ void SDLRenderer::SaveToFile(RenderableObject* object, const char* path)
     SDL_DestroyTexture(tex);
 }
 
-void SDLRenderer::DrawHierarchy(RenderableObject *object)
+void SDLRenderer::DrawHierarchy(RenderableObject* object)
 {
     if(object == NULL)
     {

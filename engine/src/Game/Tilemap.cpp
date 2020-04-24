@@ -1,8 +1,8 @@
 #include <Game/Tilemap.h>
-
 #include <Rendering/RenderableObject.h>
 
-Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : RenderableObject(engine)
+Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config)
+    : RenderableObject(engine)
 {
     this->Engine = engine;
 
@@ -20,12 +20,10 @@ Tilemap::Tilemap(GameEngine* engine, TilemapConfig* config) : RenderableObject(e
     }
 }
 
-Tilemap::~Tilemap()
-{
-}
+Tilemap::~Tilemap() {}
 
 void Tilemap::Setup(ARenderer* renderer)
-{    
+{
     for(int i = 0; i < this->width; i++)
     {
         for(int k = 0; k < this->height; k++)
@@ -35,7 +33,7 @@ void Tilemap::Setup(ARenderer* renderer)
             tiles[i][k]->tilemapPositionX = i;
             tiles[i][k]->tilemapPositionY = k;
 
-            if (i == 0)
+            if(i == 0)
             {
                 tiles[i][k]->West = NULL;
             }
@@ -43,7 +41,7 @@ void Tilemap::Setup(ARenderer* renderer)
             {
                 tiles[i][k]->West = tiles[i - 1][k];
             }
-            if (i == this->width - 1)
+            if(i == this->width - 1)
             {
                 tiles[i][k]->East = NULL;
             }
@@ -51,7 +49,7 @@ void Tilemap::Setup(ARenderer* renderer)
             {
                 tiles[i][k]->East = tiles[i + 1][k];
             }
-            if (k == 0)
+            if(k == 0)
             {
                 tiles[i][k]->North = NULL;
             }
@@ -59,7 +57,7 @@ void Tilemap::Setup(ARenderer* renderer)
             {
                 tiles[i][k]->North = tiles[i][k - 1];
             }
-            if (k == this->height - 1)
+            if(k == this->height - 1)
             {
                 tiles[i][k]->South = NULL;
             }
@@ -68,8 +66,8 @@ void Tilemap::Setup(ARenderer* renderer)
                 tiles[i][k]->South = tiles[i][k + 1];
             }
 
-            //int w = tiles[i][k]->tex->GetSize().Width;
-            //int h = tiles[i][k]->tex->GetSize().Height;
+            // int w = tiles[i][k]->tex->GetSize().Width;
+            // int h = tiles[i][k]->tex->GetSize().Height;
             float w = 32;
             float h = 32;
             tiles[i][k]->tex->SetSize(w, h);

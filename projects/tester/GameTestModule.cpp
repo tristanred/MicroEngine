@@ -1,26 +1,21 @@
 #include "GameTestModule.h"
 
+#include <Input/AKeyboard.h>
+#include <libtech/arraylist.h>
+
 #include "Asset.h"
-#include "ResourceManager.h"
-#include "Viewport.h"
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
-#include <libtech/arraylist.h>
+#include "ResourceManager.h"
 #include "TextureTestModule.h"
+#include "Viewport.h"
 
-#include <Input/AKeyboard.h>
 
 #define MAX_BOX_COLOR 7
 int currentColorIndex = 0;
-uint32_t colorCycle[MAX_BOX_COLOR] = {
-    0xFFFF0000,
-    0xFF00FF00,
-    0xFF0000FF,
-    0xFFFFFF00,
-    0xFFFF00FF,
-    0xFF00FFFF,
-    0xFFFF00FF
-};
+uint32_t colorCycle[MAX_BOX_COLOR] = {0xFFFF0000, 0xFF00FF00, 0xFF0000FF,
+                                      0xFFFFFF00, 0xFFFF00FF, 0xFF00FFFF,
+                                      0xFFFF00FF};
 
 GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
 {
@@ -31,13 +26,14 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     Map->Setup(this->GetRenderer());
     Map->SetPosition(200, 300);
     Map->SetScale(0.5);
-    
+
     // Sprite animations
-    ArrayList<ATexture*>* frames = this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
+    ArrayList<ATexture*>* frames =
+        this->GetRenderer()->LoadFrames("assets/engine/clock/tp.xml");
     clockSprite = this->CreateSprite();
     clockSprite->SetTexture(frames);
     clockSprite->Play(NULL, true, 12);
-	clockSprite->SetPosition(50, 50);
+    clockSprite->SetPosition(50, 50);
 
     this->AttachRenderable(this->Map);
 
@@ -87,12 +83,9 @@ GameTestModule::GameTestModule(GameEngine* engine) : GameModule(engine)
     // Creating a game object API example
     this->Dinono = new DinoCharacter(this->GetEngine());
     this->Dinono->Setup(this);
-
 }
 
-GameTestModule::~GameTestModule()
-{
-}
+GameTestModule::~GameTestModule() {}
 
 void GameTestModule::Update(unsigned int deltaTime)
 {
@@ -120,11 +113,13 @@ void GameTestModule::Update(unsigned int deltaTime)
     buttan->Update(deltaTime);
 
     // Disable the button when spacebar is pressed
-    if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == true)
+    if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) &&
+       buttan->IsEnabled() == true)
     {
         buttan->Enable(false);
     }
-    else if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) && buttan->IsEnabled() == false)
+    else if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Space) &&
+            buttan->IsEnabled() == false)
     {
         buttan->Enable(true);
     }
@@ -143,32 +138,36 @@ void GameTestModule::Update(unsigned int deltaTime)
     nextPos.Y += boxVelocity.y;
 
     FSize windowSize = GetEngine()->Renderer->GetWindowSize();
-    if (nextPos.X + Box->GetSize().Width > windowSize.Width)
+    if(nextPos.X + Box->GetSize().Width > windowSize.Width)
     {
         boxVelocity.x *= -1;
         nextPos.X = windowSize.Width - Box->GetSize().Width;
-        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(
+            colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
-    if (nextPos.X < 0)
+    if(nextPos.X < 0)
     {
         boxVelocity.x *= -1;
         nextPos.X = 0;
-        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(
+            colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
-    if (nextPos.Y + Box->GetSize().Height > windowSize.Height)
+    if(nextPos.Y + Box->GetSize().Height > windowSize.Height)
     {
         boxVelocity.y *= -1;
         nextPos.Y = windowSize.Height - Box->GetSize().Height;
-        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(
+            colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
-    if (nextPos.Y < 0)
+    if(nextPos.Y < 0)
     {
         boxVelocity.y *= -1;
         nextPos.Y = 0;
-        Box->GetTexture()->FillColor(colorCycle[currentColorIndex % MAX_BOX_COLOR]);
+        Box->GetTexture()->FillColor(
+            colorCycle[currentColorIndex % MAX_BOX_COLOR]);
         currentColorIndex++;
     }
 
@@ -192,13 +191,13 @@ void GameTestModule::Update(unsigned int deltaTime)
 
         // To load a module without showing it and making it interactible
         // we can preload it.
-        //this->GetEngine()->PreloadModule<TextureTestModule>();
+        // this->GetEngine()->PreloadModule<TextureTestModule>();
 
         // Dispose the module
-        //this->GetEngine()->CloseModule(this);
+        // this->GetEngine()->CloseModule(this);
 
         // Deactivate a module, keeps it in memory
-        //this->GetEngine()->StopModule(myMod);
+        // this->GetEngine()->StopModule(myMod);
     }
     if(this->GetEngine()->Keyboard->IsKeyClicked(Key::Num2))
     {

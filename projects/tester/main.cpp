@@ -1,31 +1,24 @@
-#include "core.h"
-
+#include <ConfigFile.h>
+#include <GameEngine.h>
+#include <GameModule.h>
+#include <Rendering/AFont.h>
+#include <Rendering/ASprite.h>
+#include <Rendering/AText.h>
+#include <libtech/arraylist.h>
+#include <libtech/filecache.h>
+#include <libtech/fsutils.h>
 #include <stdio.h>
 #include <string.h>
 
-#include <libtech/filecache.h>
-#include <libtech/fsutils.h>
-
-#include <GameEngine.h>
-#include <GameModule.h>
-#include <Rendering/ASprite.h>
-#include <Rendering/AText.h>
-#include <Rendering/AFont.h>
-#include <ConfigFile.h>
-
-#include "GameTestModule.h"
-
-#include "libtech/pathutils.h"
-#include "libtech/sysutils.h"
-
 #include <list>
 
-#include <libtech/fsutils.h>
-#include <libtech/arraylist.h>
-#include "FormatLoaders/TPXmlReader.h"
-#include "TextureTestModule.h"
-
 #include "Events/Event.h"
+#include "FormatLoaders/TPXmlReader.h"
+#include "GameTestModule.h"
+#include "TextureTestModule.h"
+#include "core.h"
+#include "libtech/pathutils.h"
+#include "libtech/sysutils.h"
 
 int main(int argc, char** argv)
 {

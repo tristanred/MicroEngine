@@ -1,13 +1,15 @@
 #include "TextureTestModule.h"
 
+#include <Input/AKeyboard.h>
+#include <libtech/arraylist.h>
+
 #include "Asset.h"
-#include "ResourceManager.h"
-#include "Viewport.h"
 #include "Controls/CButton.h"
 #include "Controls/CLabel.h"
-#include <libtech/arraylist.h>
 #include "Rendering/ATexture.h"
-#include <Input/AKeyboard.h>
+#include "ResourceManager.h"
+#include "Viewport.h"
+
 
 TextureTestModule::TextureTestModule(GameEngine* engine) : GameModule(engine)
 {

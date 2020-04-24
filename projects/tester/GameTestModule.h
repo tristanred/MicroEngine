@@ -1,19 +1,19 @@
 #pragma once
 
-#include <GameModule.h>
+#include <Controls/CButton.h>
+#include <Game/Tilemap.h>
 #include <GameEngine.h>
+#include <GameModule.h>
+#include <Rendering/AFont.h>
 #include <Rendering/ARenderer.h>
 #include <Rendering/ASprite.h>
 #include <Rendering/AText.h>
 #include <Rendering/ATexture.h>
-#include <Rendering/AFont.h>
 #include <TickTimer.h>
-#include <Controls/CButton.h>
 #include <libtech/vec.h>
 #include <stdint.h>
 
 #include "DinoCharacter.h"
-#include <Game/Tilemap.h>
 
 class GameTestModule : public GameModule
 {

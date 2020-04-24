@@ -13,6 +13,7 @@ class Viewport;
 class DebugLayer;
 class ResourceManager;
 class GameModule;
+class IConfigProvider;
 
 #include <list>
 #include <cstdint>
@@ -21,6 +22,7 @@ using namespace std;
 #include "core.h"
 #include "Rendering/ARenderer.h"
 #include <libtech/geometry.h>
+#include "GameEngineInitParams.h"
 
 /**
  * \brief Core engine class
@@ -56,6 +58,9 @@ public:
     // Debugging
     DebugLayer* debugLayer;
 
+    // Config
+    IConfigProvider* Config;
+
     GameEngine();
     ~GameEngine();
 
@@ -69,7 +74,7 @@ public:
      * The engine can be configured with the config file located at
      * assets/engine/engine_config.xml.
      */
-    void Initialize();
+    void Initialize(EngineInitParams* params = NULL);
 
     /**
      * \brief Shutdown procedure of the engine.

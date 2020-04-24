@@ -19,7 +19,7 @@ public:
     ~SDLRenderer() override;
 
     bool Initialize() override;
-    bool Initialize(ConfigFile* config) override;
+    bool Initialize(IConfigProvider* config) override;
     bool Initialize(RendererParameters* params) override;
 
     void Shutdown() override;

@@ -8,7 +8,7 @@
 
 class RenderableObject;
 class ATexture;
-class ConfigFile;
+class IConfigProvider;
 class FileCache;
 class Viewport;
 class Asset;
@@ -87,7 +87,7 @@ public:
      *
      * \return - True if the init suceeded.
      */
-    virtual bool Initialize(ConfigFile* config) = 0;
+    virtual bool Initialize(IConfigProvider* config) = 0;
 
     /**
      * \brief Initialize the engine with the property object.

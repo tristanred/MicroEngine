@@ -7,7 +7,7 @@
 #include <SDL_ttf.h>
 
 #include "Rendering/SDL/SDLTexture.h"
-#include "ConfigFile.h"
+#include "Config/IConfigProvider.h"
 #include "Viewport.h"
 #include <libtech/filecache.h>
 
@@ -52,7 +52,7 @@ bool SDLRenderer::Initialize()
     return this->Initialize(&defaults);
 }
 
-bool SDLRenderer::Initialize(ConfigFile* config)
+bool SDLRenderer::Initialize(IConfigProvider* config)
 {
     LogTrace("SDLRenderer::Initialize with ConfigFile");
 

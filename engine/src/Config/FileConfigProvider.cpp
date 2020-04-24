@@ -1,6 +1,6 @@
-#include "ConfigFile.h"
+#include "Config/FileConfigProvider.h"
 
-ConfigFile::ConfigFile(const char *filepath)
+FileConfigProvider::FileConfigProvider(const char* filepath)
 {
     LogTrace("ConfigFile reading %s", filepath);
 
@@ -22,7 +22,7 @@ ConfigFile::ConfigFile(const char *filepath)
         while(begin != end)
         {
             pugi::xpath_node val = *begin;
-            
+
             const char* name = val.node().attribute("name").as_string();
             const char* valueString = val.node().text().as_string();
 
@@ -49,12 +49,12 @@ ConfigFile::ConfigFile(const char *filepath)
     }
 }
 
-ConfigFile::~ConfigFile()
+FileConfigProvider::~FileConfigProvider()
 {
     LogTrace("Deleting config file object %s", this->LoadedFile);
 
     delete(doc);
-    
+
     auto begin = values->begin();
     auto end = values->end();
     while(begin != end)
@@ -71,8 +71,13 @@ ConfigFile::~ConfigFile()
     delete(values);
 }
 
-std::string ConfigFile::GetConfigValue(std::string name)
+std::string FileConfigProvider::GetConfigValue(std::string name)
 {
+    if(isValid == false)
+    {
+        return this->QueryParent(name);
+    }
+
     auto begin = values->begin();
     auto end = values->end();
     while(begin != end)
@@ -87,11 +92,16 @@ std::string ConfigFile::GetConfigValue(std::string name)
         begin++;
     }
 
-    return "";
+    return this->QueryParent(name);
 }
 
-std::string ConfigFile::GetConfigValueSafe(std::string name, std::string valueIfNull)
+std::string FileConfigProvider::GetConfigValueSafe(std::string name, std::string valueIfNull)
 {
+    if(isValid == false)
+    {
+        return this->QueryParentSafe(name, valueIfNull);
+    }
+
     auto begin = values->begin();
     auto end = values->end();
     while(begin != end)
@@ -106,5 +116,5 @@ std::string ConfigFile::GetConfigValueSafe(std::string name, std::string valueIf
         begin++;
     }
 
-    return valueIfNull;
+    return this->QueryParentSafe(name, valueIfNull);
 }

@@ -5,7 +5,6 @@
 #include "GameModule.h"
 #include "libtech/geometry.h"
 #include "libtech/filelogger.h"
-#include "ConfigFile.h"
 #include "Rendering/AbstractFactory.h"
 #include "Rendering/ARenderer.h"
 #include "Rendering/APlatform.h"
@@ -18,6 +17,8 @@
 #include "Viewport.h"
 #include "Debugging/DebugLayer.h"
 #include "ResourceManager.h"
+#include "Config/IConfigProvider.h"
+#include "Config/FileConfigProvider.h"
 
 #include <libtech/filecache.h>
 #include <libtech/sysutils.h>
@@ -45,6 +46,7 @@ GameEngine::GameEngine()
     Mouse = NULL;
     Keyboard = NULL;
     Platform = NULL;
+    Config = NULL;
 
     InitializationComplete = false;
     currentFrameTime = 0;
@@ -79,11 +81,12 @@ GameEngine::~GameEngine()
     delete(Mouse);
     delete(Keyboard);
     delete(Renderer);
+    delete(Config);
 
     GameLog->Close();
 }
 
-void GameEngine::Initialize()
+void GameEngine::Initialize(EngineInitParams* params)
 {
     LogTrace("GameEngine::Initialize");
     char* cwd = get_working_directory();
@@ -99,15 +102,26 @@ void GameEngine::Initialize()
     Renderer->Cache = FilesCache; // Give the renderer a handle to the global cache
     Renderer->Resman = ResManager;
 
-    this->Renderer->RenderViewport = this->CreateViewport();
-    this->Renderer->RenderViewport->ViewRange = FRectangle(0, 0, Renderer->GetWindowSize().Width, Renderer->GetWindowSize().Height);
+    FileConfigProvider* engineConfig = new FileConfigProvider("assets/engine/engine_config.xml");
 
-    ConfigFile defaults = ConfigFile("assets/engine/engine_config.xml");
-    bool renderInitSuccess = Renderer->Initialize(&defaults);
+    if(params != NULL)
+    {
+        this->Config = params->gameLocalConfig;
+        this->Config->AttachProvider(engineConfig);
+    }
+    else
+    {
+        this->Config = engineConfig;
+    }
+
+    bool renderInitSuccess = Renderer->Initialize(this->Config);
 
     Platform = AbstractFactory::CreatePlatformHandler(this);
     Mouse = AbstractFactory::CreateMouse();
     Keyboard = AbstractFactory::CreateKeyboard();
+
+    this->Renderer->RenderViewport = this->CreateViewport();
+    this->Renderer->RenderViewport->ViewRange = FRectangle(0, 0, Renderer->GetWindowSize().Width, Renderer->GetWindowSize().Height);
 
     this->debugLayer = new DebugLayer(this);
 

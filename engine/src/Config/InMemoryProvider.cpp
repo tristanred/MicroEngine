@@ -1,5 +1,10 @@
 #include "Config/InMemoryProvider.h"
 
+#include <string.h>
+
+#include <string>
+
+
 InMemoryProvider::InMemoryProvider()
 {
     this->values = new std::vector<ConfigValue*>();

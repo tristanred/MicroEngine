@@ -121,7 +121,9 @@ IF(APPLE)
     add_definitions("-DSUPPORT_SDL")
     add_definitions("-DSUPPORT_COCOA")
 
-    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -x objective-c++")
+    set(CMAKE_EXE_LINKER_FLAGS "-framework AppKit")
+    add_compile_options(-xobjective-c++)
+
 ELSEIF(UNIX)
     add_definitions("-DSUPPORT_SDL")
 ENDIF(APPLE)

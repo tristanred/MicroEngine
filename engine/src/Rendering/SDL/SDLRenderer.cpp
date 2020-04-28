@@ -7,6 +7,8 @@
 #include <libtech/filecache.h>
 
 #include <cstdio>
+#include <string.h>
+#include <string>
 
 #include "Config/IConfigProvider.h"
 #include "Rendering/SDL/SDLTexture.h"

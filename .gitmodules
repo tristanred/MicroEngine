@@ -1,6 +1,6 @@
 [submodule "engine/lib/libtech"]
 	path = engine/lib/libtech
-	url = https://github.com/tristanred/libtech.git
+	url = git@github.com:tristanred/libtech.git
 [submodule "engine/lib/pugixml"]
 	path = engine/lib/pugixml
-	url = https://github.com/zeux/pugixml.git
+	url = git@github.com:zeux/pugixml.git

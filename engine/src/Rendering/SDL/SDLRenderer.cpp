@@ -5,14 +5,15 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <libtech/filecache.h>
+#include <string.h>
 
 #include <cstdio>
-#include <string.h>
 #include <string>
 
 #include "Config/IConfigProvider.h"
 #include "Rendering/SDL/SDLTexture.h"
 #include "Viewport.h"
+
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 const Uint32 rmask = 0xff000000;
@@ -227,7 +228,9 @@ void SDLRenderer::Draw(RenderableObject* renderObject)
 
     tex->RefreshSDLTexture();  // Refresh the texture if needed.
 
-    int res = SDL_RenderCopy(gameRenderer, tex->tex, NULL, &dest);
+    int res = SDL_RenderCopyEx(gameRenderer, tex->tex, NULL, &dest,
+                               renderObject->GetRotation(), NULL,
+                               SDL_RendererFlip::SDL_FLIP_NONE);
     if(res == -1)
     {
         const char* msg = SDL_GetError();

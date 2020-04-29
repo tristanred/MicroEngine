@@ -3,6 +3,7 @@
 #include "GameEngine.h"
 #include "Rendering/ATexture.h"
 
+
 RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 {
     LogTrace("RenderableObject::RenderableObject");
@@ -129,8 +130,8 @@ void RenderableObject::SetPositionAnchored(FPosition position, vec2 anchor)
     auto sizeOffset =
         vec2(currentSize.Width * anchor.x, currentSize.Height * anchor.y);
 
-    FPosition newPos = FPosition(this->position.X - sizeOffset.x,
-                                 this->position.Y - sizeOffset.y);
+    FPosition newPos =
+        FPosition(position.X - sizeOffset.x, position.Y - sizeOffset.y);
 
     this->SetPosition(newPos);
 }
@@ -215,6 +216,16 @@ void RenderableObject::SetScale(float x, float y)
 void RenderableObject::SetScale(vec2 scale)
 {
     this->scale = scale;
+}
+
+float RenderableObject::GetRotation()
+{
+    return this->rotation;
+}
+
+void RenderableObject::SetRotation(float angle)
+{
+    this->rotation = angle;
 }
 
 ATexture* RenderableObject::GetTexture()

@@ -144,6 +144,9 @@ public:
      */
     virtual void SetScale(vec2 scale);
 
+    virtual float GetRotation();
+    virtual void SetRotation(float angle);
+
     /**
      * \brief Get the bounds of this object.
      *
@@ -264,6 +267,7 @@ protected:
     FPosition position;
     FSize size;
     vec2 scale;
+    float rotation;
 
     bool isVisible;
 };

@@ -63,6 +63,9 @@ FRectangle RenderableObject::GetRectangle()
                 myChildBounds.Height = target.Height;
             }
         }
+        
+        myChildBounds.X += this->GetPosition().X;
+        myChildBounds.Y += this->GetPosition().Y;
 
         FRectangle myRect = FRectangle(this->position, this->size);
         if(myChildBounds.Left() < myRect.Left())
@@ -75,11 +78,11 @@ FRectangle RenderableObject::GetRectangle()
         }
         if(myChildBounds.Right() > myRect.Right())
         {
-            myRect.Width = myChildBounds.X + myChildBounds.Width;
+            myRect.Width = myChildBounds.Width;
         }
         if(myChildBounds.Bottom() > myRect.Bottom())
         {
-            myRect.Height = myChildBounds.Y + myChildBounds.Height;
+            myRect.Height = myChildBounds.Height;
         }
 
         return myRect;

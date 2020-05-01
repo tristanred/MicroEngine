@@ -543,9 +543,28 @@ FPosition GameEngine::GetMouseRelativePosition()
     return pos;
 }
 
-void GameEngine::ReleaseObject(RenderableObject* textureObject) {}
+void GameEngine::ReleaseObject(RenderableObject* renderableObject)
+{
+    // Temporary implementation. Instead of deleting the object, just de-parent
+    // it and set it invisible.
+    // This is because there is a lot of work still to be done for dynamic
+    // object deallocation.
 
-void GameEngine::ReleaseObject(ATexture* renderableObject) {}
+    renderableObject->Show(false);
+
+    auto parent = renderableObject->GetParent();
+    if(parent != NULL)
+    {
+        parent->RemoveChild(renderableObject);
+    }
+
+    delete(renderableObject);
+}
+
+void GameEngine::ReleaseObject(ATexture* textureObject)
+{
+    textureObject->FillColor(0x00000000);
+}
 
 void GameEngine::SelectViewport(Viewport* view)
 {

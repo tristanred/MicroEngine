@@ -3,7 +3,6 @@
 #include "GameEngine.h"
 #include "Rendering/ATexture.h"
 
-
 RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 {
     LogTrace("RenderableObject::RenderableObject");
@@ -28,6 +27,7 @@ RenderableObject::~RenderableObject()
 
     this->Parent = NULL;
     delete(this->Children);
+    // TODO : Delete each children
 }
 
 void RenderableObject::Show(bool value)

@@ -164,6 +164,8 @@ ATexture* GameModule::CreateTexture(const char* textureName)
 
 void GameModule::DestroyObject(RenderableObject* object)
 {
+    this->Objects->remove(object);
+
     this->Engine->ReleaseObject(object);
 }
 

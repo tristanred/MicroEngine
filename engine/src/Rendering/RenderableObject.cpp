@@ -223,7 +223,15 @@ void RenderableObject::SetScale(vec2 scale)
 
 float RenderableObject::GetRotation()
 {
-    return this->rotation;
+    float finalRotation = this->rotation;
+
+    if(this->Parent != NULL)
+    {
+        float parentRotation = this->Parent->GetRotation();
+        finalRotation += parentRotation;
+    }
+
+    return finalRotation;
 }
 
 void RenderableObject::SetRotation(float angle)

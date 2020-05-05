@@ -3,6 +3,7 @@
 #include "GameEngine.h"
 #include "Rendering/ATexture.h"
 
+
 RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 {
     LogTrace("RenderableObject::RenderableObject");
@@ -17,6 +18,7 @@ RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
     this->size = FSize(0, 0);
     this->position = FPosition(0, 0);
     this->scale = vec2(1, 1);
+    this->rotation = 0;
     this->PositionSystem = VIEWPORT_RELATIVE;
     this->isVisible = true;
 }
@@ -63,7 +65,7 @@ FRectangle RenderableObject::GetRectangle()
                 myChildBounds.Height = target.Height;
             }
         }
-        
+
         myChildBounds.X += this->GetPosition().X;
         myChildBounds.Y += this->GetPosition().Y;
 

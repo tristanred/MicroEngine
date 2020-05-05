@@ -14,3 +14,4 @@
 #include <Rendering/ASprite.h>
 #include <Rendering/AText.h>
 #include <Rendering/ATexture.h>
+#include <Rendering/RenderableObject.h>

@@ -32,8 +32,14 @@ SDLTexture::SDLTexture(ARenderer* renderer, SDL_Surface* fromSurface)
 
 SDLTexture::~SDLTexture()
 {
-    SDL_DestroyTexture(tex);
-    SDL_FreeSurface(surf);
+    if(tex)
+    {
+        SDL_DestroyTexture(tex);
+    }
+    if(surf)
+    {
+        SDL_FreeSurface(surf);
+    }
 }
 
 void SDLTexture::SetSize(FSize size)

@@ -26,6 +26,11 @@ RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 RenderableObject::~RenderableObject()
 {
     LogTrace("RenderableObject::~RenderableObject");
+    
+    if(this->texture != NULL)
+    {
+        this->Renderer->DeleteTexture(this->texture);
+    }
 
     this->Parent = NULL;
     delete(this->Children);

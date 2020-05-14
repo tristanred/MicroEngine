@@ -169,6 +169,11 @@ void GameModule::DestroyObject(RenderableObject* object)
     this->Engine->ReleaseObject(object);
 }
 
+void GameModule::DestroyObject(ATexture* textureObject)
+{
+    this->Engine->ReleaseObject(textureObject);
+}
+
 Viewport* GameModule::CreateViewport()
 {
     Viewport* vp = this->Engine->CreateViewport();

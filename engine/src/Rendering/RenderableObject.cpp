@@ -26,16 +26,16 @@ RenderableObject::RenderableObject(GameEngine* engine) : GameObject(engine)
 RenderableObject::~RenderableObject()
 {
     LogTrace("RenderableObject::~RenderableObject");
-    
+
     if(this->texture != NULL)
     {
         this->Renderer->DeleteTexture(this->texture);
     }
 
     this->Parent = NULL;
-    
+
     this->Children->DeleteElements();
-    
+
     delete(this->Children);
     // TODO : Delete each children
 }
@@ -267,7 +267,9 @@ void RenderableObject::SetTexture(const char* filepath)
 void RenderableObject::SetTexture(ATexture* newTexture)
 {
     if(this->texture != NULL)
-        delete(this->texture);
+    {
+        this->Renderer->DeleteTexture(this->texture);
+    }
 
     this->texture = newTexture;
 

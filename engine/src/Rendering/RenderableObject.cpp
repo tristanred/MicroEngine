@@ -33,6 +33,9 @@ RenderableObject::~RenderableObject()
     }
 
     this->Parent = NULL;
+    
+    this->Children->DeleteElements();
+    
     delete(this->Children);
     // TODO : Delete each children
 }

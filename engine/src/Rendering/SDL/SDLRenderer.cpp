@@ -14,7 +14,6 @@
 #include "Rendering/SDL/SDLTexture.h"
 #include "Viewport.h"
 
-
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 const Uint32 rmask = 0xff000000;
 const Uint32 gmask = 0x00ff0000;
@@ -319,7 +318,7 @@ ATexture* SDLRenderer::CreateTexture(void* data, int length)
 
     SDL_Surface* surface = IMG_Load_RW(stream, false);
 
-    // Delete the stream ?
+    SDL_RWclose(stream);
 
     result->surf = surface;
 

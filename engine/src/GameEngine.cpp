@@ -563,7 +563,7 @@ void GameEngine::ReleaseObject(RenderableObject* renderableObject)
 
 void GameEngine::ReleaseObject(ATexture* textureObject)
 {
-    textureObject->FillColor(0x00000000);
+    this->Renderer->DeleteTexture(textureObject);
 }
 
 void GameEngine::SelectViewport(Viewport* view)

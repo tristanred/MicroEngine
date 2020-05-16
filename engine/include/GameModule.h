@@ -150,6 +150,8 @@ public:
      */
     void DestroyObject(RenderableObject* object);
 
+    void DestroyObject(ATexture* textureObject);
+
     /**
      * \brief Create a viewport to use. If no viewports exist, the first one
      * will be used automatically.

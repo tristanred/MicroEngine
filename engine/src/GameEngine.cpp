@@ -24,7 +24,6 @@
 #include "libtech/filelogger.h"
 #include "libtech/geometry.h"
 
-
 #ifdef __APPLE__
 #include <time.h>
 #endif
@@ -100,8 +99,7 @@ void GameEngine::Initialize(EngineInitParams* params)
     ResManager->AddAssetRoot("assets/engine");
 
     Renderer = AbstractFactory::CreateRenderer();
-    Renderer->Cache =
-        FilesCache;  // Give the renderer a handle to the global cache
+    Renderer->Cache = FilesCache;
     Renderer->Resman = ResManager;
 
     FileConfigProvider* engineConfig =

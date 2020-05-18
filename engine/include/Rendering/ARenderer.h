@@ -198,6 +198,15 @@ public:
     virtual void DeleteTexture(ATexture* texture) = 0;
 
     /**
+     * \brief Set the size of the game window.
+     *
+     * An optional flag can be used to set the window to fullscreen.
+     * 
+     * \param fullScreen - Set if required to go fullscreen.
+     */
+    virtual void SetWindowSize(FSize* newSize, bool fullScreen = false) = 0;
+
+    /**
      * \brief Get the size of the window of the game.
      *
      * \return FSize - Size of the window in pixels.

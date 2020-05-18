@@ -41,6 +41,8 @@ public:
 
     SDL_Texture* BuildTexture(SDL_Surface* surface);
 
+    void SetWindowSize(FSize* newSize,
+                               bool fullScreen = false) override;
     FSize GetWindowSize() override;
 
     bool screenshotRequested;

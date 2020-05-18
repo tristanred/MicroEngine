@@ -7,6 +7,8 @@ NullRenderer::~NullRenderer() {}
 
 bool NullRenderer::Initialize()
 {
+    this->size = FSize(100, 100);
+
     return true;
 }
 
@@ -33,9 +35,14 @@ void NullRenderer::DrawTexture(ATexture* texture,
 {
 }
 
+void NullRenderer::SetWindowSize(FSize* newSize, bool fullScreen)
+{
+    this->size = *newSize;
+}
+
 FSize NullRenderer::GetWindowSize()
 {
-    return FSize(100, 100);
+    return this->size;
 }
 
 ATexture* NullRenderer::CreateTexture()

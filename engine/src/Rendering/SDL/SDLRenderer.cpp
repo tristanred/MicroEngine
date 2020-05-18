@@ -290,6 +290,27 @@ SDL_Texture* SDLRenderer::BuildTexture(SDL_Surface* surface)
     return result;
 }
 
+void SDLRenderer::SetWindowSize(FSize* newSize, bool fullScreen)
+{
+    if(fullScreen)
+    {
+        /**
+         * If we're going fullscreen, don't use the provided size.
+         * Only native-resolution fullscreen supported for now.
+         */
+        SDL_Rect bounds;
+        int boundsRes = SDL_GetDisplayBounds(0, &bounds);
+
+        SDL_SetWindowSize(mainWindow, bounds.w, bounds.h);
+
+        SDL_SetWindowFullscreen(mainWindow, SDL_WINDOW_FULLSCREEN);
+    }
+    else
+    {
+        SDL_SetWindowSize(mainWindow, newSize->Width, newSize->Height);
+    }
+}
+
 FSize SDLRenderer::GetWindowSize()
 {
     int x = 0;

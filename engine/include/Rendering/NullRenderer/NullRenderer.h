@@ -32,8 +32,12 @@ public:
 
     void DeleteTexture(ATexture* texture) override;
 
+    void SetWindowSize(FSize* newSize, bool fullScreen = false) override;
     FSize GetWindowSize() override;
 
     void ScreenshotNextFrame() override;
     void SaveToFile(RenderableObject* object, const char* path) override;
+
+private:
+    FSize size;
 };

@@ -210,30 +210,36 @@ void SDLRenderer::Draw(RenderableObject* renderObject)
 
     SDLTexture* tex = (SDLTexture*)renderObject->GetTexture();
 
-    if(tex == NULL)
-        return;
-
-    SDL_Rect dest;
-    dest.w = (int)renderObject->GetSize().Width;
-    dest.h = (int)renderObject->GetSize().Height;
-    dest.x = (int)renderObject->GetPosition().X;
-    dest.y = (int)renderObject->GetPosition().Y;
-
-    if(renderObject->GetPositionSystem() == VIEWPORT_RELATIVE)
+    if(tex != NULL)
     {
-        dest.x -= (int)this->RenderViewport->CurrentView.X;
-        dest.y -= (int)this->RenderViewport->CurrentView.Y;
+        SDL_Rect dest;
+        dest.w = (int)renderObject->GetSize().Width;
+        dest.h = (int)renderObject->GetSize().Height;
+        dest.x = (int)renderObject->GetPosition().X;
+        dest.y = (int)renderObject->GetPosition().Y;
+
+        if(renderObject->GetPositionSystem() == VIEWPORT_RELATIVE)
+        {
+            dest.x -= (int)this->RenderViewport->CurrentView.X;
+            dest.y -= (int)this->RenderViewport->CurrentView.Y;
+        }
+
+        tex->RefreshSDLTexture();  // Refresh the texture if needed.
+
+        int res = SDL_RenderCopyEx(gameRenderer, tex->tex, NULL, &dest,
+                                   renderObject->GetRotation(), NULL,
+                                   SDL_RendererFlip::SDL_FLIP_NONE);
+        if(res == -1)
+        {
+            const char* msg = SDL_GetError();
+            LogError(msg);
+        }
     }
 
-    tex->RefreshSDLTexture();  // Refresh the texture if needed.
-
-    int res = SDL_RenderCopyEx(gameRenderer, tex->tex, NULL, &dest,
-                               renderObject->GetRotation(), NULL,
-                               SDL_RendererFlip::SDL_FLIP_NONE);
-    if(res == -1)
+    auto children = renderObject->GetChildren();
+    for(int i = 0; i < children->Count(); i++)
     {
-        const char* msg = SDL_GetError();
-        LogError(msg);
+        this->Draw(children->Get(i));
     }
 
     renderObject->OnPostDraw();

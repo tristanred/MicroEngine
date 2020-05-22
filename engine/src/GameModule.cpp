@@ -203,14 +203,6 @@ void GameModule::Draw(ARenderer* renderer)
 
         renderer->Draw(obj);
 
-        if(obj->GetChildren()->Count() > 0)
-        {
-            for(int i = 0; i < obj->GetChildren()->Count(); i++)
-            {
-                renderer->Draw(obj->GetChildren()->Get(i));
-            }
-        }
-
         begin++;
     }
 }
